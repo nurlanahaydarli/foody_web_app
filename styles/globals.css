@@ -1,3 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --Admin-bg: #1E1E30; 
+  --admin-bg-soft: #27283C;
+  --admin-button:#C035A2;
+  --admin-text:#F2F2F2DE;
+}
+
 html,
 body {
   padding: 0;
@@ -13,4 +24,17 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.adminBg{
+  background-color: var(--Admin-bg);
+}
+.adminAsidebg{
+  background: var(--admin-button);
+}
+.adminHeaderbg{
+  background-color: var(--admin-bg-soft);
+}
+.adminTextColor{
+  color: var(--admin-text);
 }
