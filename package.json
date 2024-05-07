@@ -1,0 +1,37 @@
+{
+  "name": "foody-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "13.5.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "date-fns": "^2.30.0",
+    "firebase": "^10.1.0",
+    "firebase-admin": "^11.10.1",
+    "formidable": "^3.5.0",
+    "jsonwebtoken": "^9.0.1",
+    "multiparty": "^4.2.3",
+    "next-swagger-doc": "^0.4.0",
+    "nextjs-cors": "^2.1.2",
+    "react-text-typing": "^0.2.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-react": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.7.0",
+    "@types/react": "18.2.23",
+    "@types/react-dom": "18.2.8",
+    "eslint": "8.50.0",
+    "eslint-config-next": "13.5.3",
+    "typescript": "5.2.2"
+  }
+}

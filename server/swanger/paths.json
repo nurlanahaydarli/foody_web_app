@@ -1,0 +1,1410 @@
+{
+  "/api/auth/signup": {
+    "post": {
+      "summary": "Register user",
+      "tags": ["Auth"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "User signed in successfully",
+                "user": {
+                  "id": "fRDdJ8JkcjMi2gYcGbmCssTrEnv1",
+                  "email": "r10@gmail.com",
+                  "password": "$2b$10$mTB..."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/auth/signin": {
+    "post": {
+      "summary": "Login user",
+      "tags": ["Auth"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "User signed in successfully",
+                "user": {
+                  "id": "fRDdJ8JkcjMi2gYcGbmCssTrEnv1",
+                  "email": "r10@gmail.com",
+                  "access_token": "eyJhbGciO...",
+                  "refresh_token": "eyJhbGciO..."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/auth/refresh": {
+    "post": {
+      "summary": "Refresh token",
+      "tags": ["Auth"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refresh_token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success",
+          "content": {
+            "application/json": {
+              "example": {
+                "access_token": "eyJhbGciOiJI...",
+                "refresh_token": "eyJhbGciOiJI..."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "/api/user": {
+    "get": {
+      "summary": "Get user info",
+      "tags": ["Auth"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "Authenticated!",
+                "user": {
+                  "id": "fRDdJ8JkcjMi2gYcGbmCssTrEnv1",
+                  "email": "r10@gmail.com",
+                  "creationTime": "Thu, 10 Aug 2023 21:53:15 GMT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update to User",
+      "tags": ["Auth"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "fullname": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "Updated user!",
+                "user": {
+                  "email": "r18@gmail.com",
+                  "id": "xBQZWHZNFLYKL6Qw9uSnRwbTfO72",
+                  "username": "jonny",
+                  "fullname": "Johnt Doe test",
+                  "img_url": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+                  "phone": "944515556677"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "/api/uploads": {
+    "post": {
+      "summary": "Uploads file",
+      "tags": ["Uploads"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Success",
+          "content": {
+            "application/json": {
+              "example": {
+                "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/uploads%2Fgeneral?alt=media&token=df2960fb-2301-4f5f-a419-b893d69ad482"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "/api/products": {
+    "get": {
+      "summary": "Get all Products",
+      "tags": ["Products"],
+      "parameters": [
+        {
+          "name": "rest_id",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Filter products by restaurant ID"
+        },
+        {
+          "name": "search",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Search products by name or description"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": [
+                {
+                  "id": "1WWPGY2jFFy4Ol0LmpUN",
+                  "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                  "price": "17.99",
+                  "rest_id": "TCr28ES3sjpVv4R72wLl",
+                  "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                  "name": "Donder 1 & 2 manat Tandoori"
+                },
+                {
+                  "id": "5WWPGY2jFFy4Ol0LmpUN",
+                  "description": "Avtosh 1 manat chicken marinated in a blend of Indian spices.",
+                  "price": "17.99",
+                  "rest_id": "TCr28ES3sjpVv4R72wLl",
+                  "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                  "name": "Nanamin Tandoori"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "summary": "Create a new Product",
+      "tags": ["Products"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "rest_id": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "5WWPGY2jFFy4Ol0LmpUN",
+                "description": "Avtosh 1 manat chicken marinated in a blend of Indian spices.",
+                "price": "17.99",
+                "rest_id": "TCr28ES3sjpVv4R72wLl",
+                "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                "name": "Nanamin Tandoori"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/products/{id}": {
+    "put": {
+      "summary": "Update an Product",
+      "tags": ["Products"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "rest_id": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "5WWPGY2jFFy4Ol0LmpUN",
+                "description": "Avtosh 1 manat chicken marinated in a blend of Indian spices.",
+                "price": "17.99",
+                "rest_id": "TCr28ES3sjpVv4R72wLl",
+                "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                "name": "Nanamin Tandoori & Cigari"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete an Product",
+      "tags": ["Products"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  },
+
+  "/api/restuarants": {
+    "get": {
+      "summary": "Get all Restuarants",
+      "tags": ["Restuarants"],
+      "parameters": [
+        {
+          "name": "category_id",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Filter products by restaurant ID"
+        },
+        {
+          "name": "search",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Search products by name or description"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": [
+                {
+                  "id": "YfVKu56QQwSaS9lyicIO",
+                  "address": "Nizami street 45 Baku Azerbaijan",
+                  "delivery_price": 3.4,
+                  "cuisine": "Fast Food , Drink, Ice Cream, Sea Food",
+                  "name": "Mc Donald's",
+                  "delivery_min": 34,
+                  "category_id": "YiVJvca0Ir0ovyRlLsQb",
+                  "img_url": "https://gujarat.mallsmarket.com/sites/default/files/styles/medium/public/images/brands/McDonalds-Logo.jpg"
+                },
+                {
+                  "id": "TCr28ES3sjpVv4R72wLl",
+                  "cuisine": "American ,Chicken, Drink, Ice Cream, ",
+                  "delivery_price": 3.4,
+                  "category_id": "gLmMgfLsHl6CWlBZDYiY",
+                  "delivery_min": 104,
+                  "address": "Sahil street 25 Baku Azerbaijan",
+                  "name": "TGI Fridays",
+                  "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXeXljhtzF3zfmTw_HlrYj_arNHtCgvnXkLqneePbw7u3n-2DcV2t7gdHZCIKvMrGVsyg&usqp=CAU"
+                },
+                {
+                  "id": "ma9j4ocaGb4cvN5C63WA",
+                  "cuisine": "Fast Food ,Chicken, Drink, Ice Cream, ",
+                  "delivery_price": 3.4,
+                  "name": "KFC",
+                  "delivery_min": 26,
+                  "img_url": "https://play-lh.googleusercontent.com/s7slUGiae9bq7XuYur0GWd_qDp_UXgo_5BIpzOT_BvKGg17TYG5QDr3ckqPcpq20jVU",
+                  "address": "Sahil street 25 Baku Azerbaijan",
+                  "category_id": "YiVJvca0Ir0ovyRlLsQb"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "summary": "Create a new Product",
+      "tags": ["Restuarants"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "category_id": {
+                  "type": "integer"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "cuisine": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "delivery_min": {
+                  "type": "integer"
+                },
+                "delivery_price": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "TCr28ES3sjpVv4R72wLl",
+                "cuisine": "American ,Chicken, Drink, Ice Cream, ",
+                "delivery_price": 3.4,
+                "category_id": "gLmMgfLsHl6CWlBZDYiY",
+                "delivery_min": 104,
+                "address": "Sahil street 25 Baku Azerbaijan",
+                "name": "TGI Fridays",
+                "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXeXljhtzF3zfmTw_HlrYj_arNHtCgvnXkLqneePbw7u3n-2DcV2t7gdHZCIKvMrGVsyg&usqp=CAU"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/restuarants/{id}": {
+    "get": {
+      "summary": "Get restuarant",
+      "tags": ["Restuarants"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "YfVKu56QQwSaS9lyicIO",
+                "address": "Nizami street 45 Baku Azerbaijan",
+                "delivery_price": 3.4,
+                "cuisine": "Fast Food , Drink, Ice Cream, Sea Food",
+                "name": "Mc Donald's",
+                "delivery_min": 34,
+                "category_id": "YiVJvca0Ir0ovyRlLsQb",
+                "img_url": "https://gujarat.mallsmarket.com/sites/default/files/styles/medium/public/images/brands/McDonalds-Logo.jpg",
+                "products": [
+                  {
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "price": "17.99",
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl",
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef"
+                  },
+                  {
+                    "id": "3OZrQowRZs69hGrhTXHI",
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "description": "Grilled chicken marinated in a blend of Indian spices.",
+                    "price": "14.99",
+                    "rest_id": "3",
+                    "name": "Chicken Tandoori"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update an Product",
+      "tags": ["Restuarants"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "category_id": {
+                  "type": "integer"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "cuisine": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "delivery_min": {
+                  "type": "integer"
+                },
+                "delivery_price": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "TCr28ES3sjpVv4R72wLl",
+                "cuisine": "American ,Chicken, Drink, Ice Cream, ",
+                "delivery_price": 3.4,
+                "category_id": "gLmMgfLsHl6CWlBZDYiY",
+                "delivery_min": 104,
+                "address": "Sahil street 25 Baku Azerbaijan",
+                "name": "TGI Fridays",
+                "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXeXljhtzF3zfmTw_HlrYj_arNHtCgvnXkLqneePbw7u3n-2DcV2t7gdHZCIKvMrGVsyg&usqp=CAU"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete an Product",
+      "tags": ["Restuarants"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  },
+
+  "/api/basket": {
+    "get": {
+      "summary": "Get user basket",
+      "tags": ["Basket"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "ZMG6NSPz52Vg0caqCi8N",
+                "total_item": 1,
+                "created": 1691783790422,
+                "total_amount": 71.96,
+                "total_count": 4,
+                "items": [
+                  {
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "price": "17.99",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl"
+                  },
+                  {
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "price": "17.99",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl"
+                  },
+                  {
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "price": "17.99",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl"
+                  },
+                  {
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "price": "17.99",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/basket/add": {
+    "post": {
+      "summary": "Increment product",
+      "tags": ["Basket"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "9KbNWVvRAW0rpddBOBIM",
+                "items": [
+                  {
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "price": "17.99",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl",
+                    "count": 1,
+                    "amount": 17.99
+                  }
+                ],
+                "total_count": 1,
+                "total_item": 1,
+                "user_id": "xBQZWHZNFLYKL6Qw9uSnRwbTfO72",
+                "total_amount": 17.99
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/basket/delete": {
+    "delete": {
+      "summary": "Decrement an Product",
+      "tags": ["Basket"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  },
+  "/api/basket/clear": {
+    "delete": {
+      "summary": "Clear basket",
+      "tags": ["Basket"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "basket_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  },
+
+  "/api/order": {
+    "get": {
+      "summary": "Get All orders",
+      "tags": ["Order"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "OK",
+                "result": {
+                  "data": [
+                    {
+                      "id": "yNE0Z50EOHXHQzAIUHox",
+                      "amount": 17.99,
+                      "delivery_address": "30 Eve Street, 543 Evenue Road, Ny 87876",
+                      "created": 1692041752998,
+                      "contact": "9944445566",
+                      "customer_id": "xBQZWHZNFLYKL6Qw9uSnRwbTfO72",
+                      "payment_method": 0,
+                      "products": [
+                        {
+                          "amount": 17.99,
+                          "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                          "price": "17.99",
+                          "name": "Donder 1 & 2 manat Tandoori",
+                          "count": 1,
+                          "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                          "id": "1WWPGY2jFFy4Ol0LmpUN",
+                          "rest_id": "TCr28ES3sjpVv4R72wLl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete order",
+      "tags": ["Order"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  },
+  "/api/order/user": {
+    "get": {
+      "summary": "Get User orders",
+      "tags": ["Order"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "OK",
+                "result": {
+                  "data": [
+                    {
+                      "id": "yNE0Z50EOHXHQzAIUHox",
+                      "amount": 17.99,
+                      "delivery_address": "30 Eve Street, 543 Evenue Road, Ny 87876",
+                      "created": 1692041752998,
+                      "contact": "9944445566",
+                      "customer_id": "xBQZWHZNFLYKL6Qw9uSnRwbTfO72",
+                      "payment_method": 0,
+                      "products": [
+                        {
+                          "amount": 17.99,
+                          "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                          "price": "17.99",
+                          "name": "Donder 1 & 2 manat Tandoori",
+                          "count": 1,
+                          "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                          "id": "1WWPGY2jFFy4Ol0LmpUN",
+                          "rest_id": "TCr28ES3sjpVv4R72wLl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/order/history": {
+    "get": {
+      "summary": "Get All history order for deleted orders",
+      "tags": ["Order"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "OK",
+                "result": {
+                  "data": [
+                    {
+                      "id": "yNE0Z50EOHXHQzAIUHox",
+                      "amount": 17.99,
+                      "delivery_address": "30 Eve Street, 543 Evenue Road, Ny 87876",
+                      "created": 1692041752998,
+                      "contact": "9944445566",
+                      "customer_id": "xBQZWHZNFLYKL6Qw9uSnRwbTfO72",
+                      "payment_method": 0,
+                      "products": [
+                        {
+                          "amount": 17.99,
+                          "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                          "price": "17.99",
+                          "name": "Donder 1 & 2 manat Tandoori",
+                          "count": 1,
+                          "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                          "id": "1WWPGY2jFFy4Ol0LmpUN",
+                          "rest_id": "TCr28ES3sjpVv4R72wLl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/order/add": {
+    "post": {
+      "summary": "Complete order",
+      "tags": ["Order"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "basket_id": {
+                  "type": "string"
+                },
+                "delivery_address": {
+                  "type": "string"
+                },
+                "contact": {
+                  "type": "string"
+                },
+                "payment_method": {
+                  "type": "0 or 1"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "yNE0Z50EOHXHQzAIUHox",
+                "customer_id": "xBQZWHZNFLYKL6Qw9uSnRwbTfO72",
+                "amount": 17.99,
+                "contact": "9944445566",
+                "delivery_address": "30 Eve Street, 543 Evenue Road, Ny 87876",
+                "payment_method": 0,
+                "products": [
+                  {
+                    "amount": 17.99,
+                    "img_url": "https://firebasestorage.googleapis.com/v0/b/foodyapp-51b6e.appspot.com/o/product%2Fgeneral?alt=media&token=fc1915ed-481b-4f67-a018-7084e6df1aef",
+                    "price": "17.99",
+                    "name": "Donder 1 & 2 manat Tandoori",
+                    "count": 1,
+                    "description": "Doner 1 manat chicken marinated in a blend of Indian spices.",
+                    "id": "1WWPGY2jFFy4Ol0LmpUN",
+                    "rest_id": "TCr28ES3sjpVv4R72wLl"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "/api/category": {
+    "get": {
+      "summary": "Get all Categories",
+      "tags": ["Category"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "OK",
+                "result": {
+                  "data": [
+                    {
+                      "id": "YiVJvca0Ir0ovyRlLsQb",
+                      "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFJRxKZ4zYMS-NBSAO7MQAm5gEsWa72382tkKO_vXP_mEuL5TVqxWcm1KKGjtWQa7oAZI&usqp=CAU",
+                      "name": "Fast Food",
+                      "slug": "fast-food"
+                    },
+                    {
+                      "id": "gLmMgfLsHl6CWlBZDYiY",
+                      "img_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Plateau_van_zeevruchten.jpg",
+                      "name": "American Food",
+                      "slug": "american-food"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "summary": "Create a new category",
+      "tags": ["Category"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "t57NXudxtDknXnzKOMcO",
+                "name": "Fast Food tasty",
+                "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFJRxKZ4zYMS-NBSAO7MQAm5gEsWa72382tkKO_vXP_mEuL5TVqxWcm1KKGjtWQa7oAZI&usqp=CAU",
+                "slug": "fast-food-tasty"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/category/{id}": {
+    "get": {
+      "summary": "Get offer",
+      "tags": ["Category"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "Success",
+                "data": {
+                  "id": "YiVJvca0Ir0ovyRlLsQb",
+                  "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFJRxKZ4zYMS-NBSAO7MQAm5gEsWa72382tkKO_vXP_mEuL5TVqxWcm1KKGjtWQa7oAZI&usqp=CAU",
+                  "name": "Fast Food",
+                  "slug": "fast-food"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update an category",
+      "tags": ["Category"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "t57NXudxtDknXnzKOMcO",
+                "name": "Fast Food tasty",
+                "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFJRxKZ4zYMS-NBSAO7MQAm5gEsWa72382tkKO_vXP_mEuL5TVqxWcm1KKGjtWQa7oAZI&usqp=CAU",
+                "slug": "fast-food-tasty"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete an Category",
+      "tags": ["Category"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  },
+
+  "/api/offer": {
+    "get": {
+      "summary": "Get all Offers",
+      "tags": ["Offer"],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "OK",
+                "result": {
+                  "data": [
+                    {
+                      "id": "FlRh7bHqYPL4fLc6HHb9",
+                      "img_url": "https://hips.hearstapps.com/hmg-prod/images/classic-cheese-pizza-recipe-2-64429a0cb408b.jpg?crop=0.8888888888888888xw:1xh;center,top&resize=1200:*",
+                      "name": "Do you like Pizza at Papa John’s?",
+                      "description": "Yes you like pizza,Yummy"
+                    },
+                    {
+                      "id": "lygIFoVPylZisPp9c2ux",
+                      "img_url": "https://cdn.yemek.com/mnresize/940/940/uploads/2019/06/cheeseburger-tarifi.jpg",
+                      "created": 1692009751490,
+                      "name": "Do you eat Cizburger?",
+                      "description": "Yes you do! ciz,Yummy"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "summary": "Create a new offer",
+      "tags": ["Offer"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created",
+          "content": {
+            "application/json": {
+              "example": {
+                "img_url": "https://cdn.yemek.com/mnresize/940/940/uploads/2019/06/cheeseburger-tarifi.jpg",
+                "name": "Do you eat Cizburger?",
+                "description": "Yes you do! ciz,Yummy"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/offer/{id}": {
+    "get": {
+      "summary": "Get offer",
+      "tags": ["Offer"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "Success",
+                "data": {
+                  "id": "IEeRVVlMu4WENQSrLvMp",
+                  "name": "Do you eat Cizburger?",
+                  "img_url": "https://cdn.yemek.com/mnresize/940/940/uploads/2019/06/cheeseburger-tarifi.jpg",
+                  "description": "Yes you do! ciz,Yummy delicios!!!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update an offer",
+      "tags": ["Offer"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "example": {
+                "message": "Success",
+                "data": {
+                  "id": "IEeRVVlMu4WENQSrLvMp",
+                  "name": "Do you eat Cizburger?",
+                  "img_url": "https://cdn.yemek.com/mnresize/940/940/uploads/2019/06/cheeseburger-tarifi.jpg",
+                  "description": "Yes you do! ciz,Yummy delicios!!!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete an Offer",
+      "tags": ["Offer"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "No Content"
+        }
+      }
+    }
+  }
+}
