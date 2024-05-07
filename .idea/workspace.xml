@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86b29b0b-8818-4ef1-a170-f3c782f59edb" name="Changes" comment="" />
+    <list default="true" id="86b29b0b-8818-4ef1-a170-f3c782f59edb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/configs/firebase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/configs/firebaseAdmin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/configs/foodyapp-51b6e-firebase-adminsdk-1f971-aef5cf5866.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,7 +16,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2g5LmT0GYDV49CkEqnJhkxmZr0t" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -37,6 +42,7 @@
       <updated>1714982656020</updated>
       <workItem from="1714982661825" duration="885000" />
       <workItem from="1715009945112" duration="784000" />
+      <workItem from="1715060931938" duration="86000" />
     </task>
     <servers />
   </component>
