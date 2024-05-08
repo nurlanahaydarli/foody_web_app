@@ -27,6 +27,7 @@ a {
   box-sizing: border-box;
 }
 
+
 .adminBg{
   background-color: var(--Admin-bg);
 }
@@ -39,3 +40,5 @@ a {
 .adminTextColor {
   color: var(--admin-text);
 }
+=======
+>>>>>>> parent of 369953b9... Merge pull request #1 from nurlanahaydarli/ad-hederbuttom
