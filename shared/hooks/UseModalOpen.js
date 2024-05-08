@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export  function openCloseModal(){
+export  function useModalOpen(){
     const [isOpen,setIsOpen]=useState()
     function onOpen(){
         setIsOpen(true)

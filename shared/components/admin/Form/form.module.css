@@ -93,7 +93,7 @@
 
 .upload_box {
     background-color: rgba(67, 68, 90, 1);
-    height: 122px;
+    min-height: 122px;
     padding: 24px;
     border-radius: 14px;
     display: flex;
@@ -113,7 +113,27 @@
     text-align: left;
 
 }
-
+.image_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.upload_box .image_item__btn_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.upload_box button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: transparent;
+    cursor: pointer;
+    gap: 12px;
+}
 .form_box {
 
 }
