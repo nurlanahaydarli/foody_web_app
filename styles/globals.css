@@ -26,6 +26,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
 .adminBg{
   background-color: var(--Admin-bg);
 }
