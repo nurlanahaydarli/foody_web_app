@@ -6,11 +6,13 @@ import Select from "./Select";
 import Textarea from "./Textarea";
 import AddButton from "../Button";
 import CustomButton from "../Button";
+import style_form from "./form.module.css";
+import UploadImage from "../uploadImage/UploadImage";
 
 
 
 
-function Form({onClose,isOpen,children}) {
+function Form({onClose,isOpen,children,title,subtitle}) {
     return (
         <>
             {isOpen &&
@@ -21,7 +23,30 @@ function Form({onClose,isOpen,children}) {
                         <CloseSvg/>
                     </button>
                     <div className={styles.form_box}>
-                        {children}
+                        <div>
+                            <h2 className=''>{title}</h2>
+                            <div className={style_form.form_items}>
+                                <div className={style_form.left_item}>
+                                    <h4>Upload your image</h4>
+                                </div>
+                                <div className={style_form.right_item}>
+                                    <div className={style_form.upload_box}>
+                                        <UploadImage/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={style_form.form_items}>
+                                <div className={style_form.left_item}>
+                                    <h4>{subtitle}</h4>
+                                </div>
+                                <div className={style_form.right_item}>
+                                    <div className={style_form.form_list}>
+                                        {children}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className={styles.form_bottom}>
                             <CustomButton icon={false} title={'Cancel'} type='button' size={'lg'} color={'2'}
                                           onAction={''}/>
