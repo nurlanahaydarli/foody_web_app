@@ -1,21 +1,19 @@
 import styles from './navbar.module.css'
-import Image from "next/image";
-import PlusSvg from "../svg/PlusSvg";
 import {useRouter} from "next/router";
 import CustomButton from "../Button";
-import {useState} from "react";
 import Form from "../Form/Form";
-import {openCloseModal} from "../../../hooks/openCloseModal";
-import Form1 from "../Form/Form";
-import UploadSvg from "../svg/UploadSvg";
+import {useModalOpen} from "../../../hooks/UseModalOpen";
 import Input from "../Form/Input";
 import style_form from "../Form/form.module.css";
+import UploadImage from "../uploadImage/UploadImage";
 
 export default function Navbar() {
     let {push} = useRouter();
-    const {isOpen,onOpen,onClose} = openCloseModal()
+    const {isOpen,onOpen,onClose} = useModalOpen()
+
     return (
         <>
+
             <div className={styles.navbar_box}>
                 <div className={styles.logo_box}>
                     <button onClick={() => push('/admin/products')}>
@@ -39,8 +37,7 @@ export default function Navbar() {
                             </div>
                             <div className={style_form.right_item}>
                                 <div className={style_form.upload_box}>
-                                    <UploadSvg/>
-                                    <span>upload</span>
+                                    <UploadImage/>
                                 </div>
                             </div>
                         </div>

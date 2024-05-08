@@ -11,6 +11,17 @@
     width: 16px;
     height: 16px;
 }
+.xs {
+    /*font-family: Roboto;*/
+    font-size: 10px;
+    font-weight: 700;
+    /*line-height: 21px;*/
+    letter-spacing: 0.25px;
+    text-align: center;
+    text-transform: lowercase!important;
+    padding: 2px 15px;
+
+}
 .sm {
     /*font-family: Roboto;*/
     font-size: 10px;
@@ -47,12 +58,12 @@
 }
 
 .type_submit {
-    background-color: rgba(192, 53, 162, 1);
+    background-color: rgba(192, 53, 162, 1) !important;
     color: #fff;
 }
 
 .type_cancel {
-    background-color: rgba(67, 68, 90, 1);
+    background-color: rgba(67, 68, 90, 1) !important;
     color: #fff;
 }
 
