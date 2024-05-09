@@ -1,0 +1,17 @@
+.main_container {
+    background-color: rgb(30, 30, 47);
+    padding: 0 10px 10px;
+    min-height: 100vh;
+}
+
+.main_section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.content_box {
+    width: 100%;
+    padding: 16px 28px;
+}
