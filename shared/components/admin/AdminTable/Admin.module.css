@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+.theadTitle{
+    /* //styleName: Subtitle 2 / Semibold; */
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    
+}
+.theadTitleID{
+    /* //styleName: Subtitle 2 / Semibold; */
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 43px;
+}
+.theadTitleImg{
+    /* //styleName: Subtitle 2 / Semibold; */
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 36px;
+}
+.theadTitleName{
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 22px;
+}
+.theadTitleSlug{
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 12px;
+}
+.mr{
+    margin: 0 8px 0 8px;
+}
+.tableSlug{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.tablename{
+ margin-left: 11px;   
+}
+.table{
+    padding: 41px 28px 0 28px;
+    
+    width: 100%;
+}
+.tablebg{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+}
+.tableid{
+    height: 24px;
+    border: solid 1px #DFE2E9;
+    border-radius: 8px;
+    margin-left: 21px;
+    width: 57px;
+    text-align: center;
+}
+.tableImg{
+    width: 40px;
+height: 40px;
+margin-left: 40px;
+}
+.tabletr{
+    border: solid 1px #C9CFDA;
+}
+.theadimg{
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 36px;
+}
+.icons{
+    display: flex;
+    flex-direction: row;
+}

@@ -1,3 +1,4 @@
+@import "./reset.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,6 +36,6 @@ a {
 .adminHeaderbg{
   background-color: var(--admin-bg-soft);
 }
-.adminTextColor{
+.adminTextColor {
   color: var(--admin-text);
 }
