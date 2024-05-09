@@ -8,6 +8,24 @@
     text-align: left;
     
 }
+
+.thhead{
+    height: 64px;
+    display: flex;
+   
+    align-items: center;
+    
+   
+}
+.tdimg{
+ display: flex;
+ align-items: center;
+}
+.tdid{
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
 .theadTitleID{
     /* //styleName: Subtitle 2 / Semibold; */
     font-family: Open Sans;
