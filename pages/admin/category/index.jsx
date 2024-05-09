@@ -11,7 +11,7 @@ export default function Category() {
         <>
             <AdminLayout>
                 <div >
-                    <AdminHedetbuttom typeButton={false}  addButton={true} addButtonFun={()=>console.log("add")} addTitle='ADD CATEGORY '/>
+                    <AdminHedetbuttom typeButton={false}  addButton={true} addButtonFun={()=>console.log("add")} addTitle='ADD CATEGORY ' Title={'CATEGORY '}/>
                     <AdminTable/>
                 </div>
             </AdminLayout>

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import CustomButton from '../Button';
 
 interface PROPS {
+    Title:String;
     typeTitle?:string;
     addTitle?:string;
     typeButton: boolean;
@@ -15,10 +16,10 @@ interface PROPS {
 }
 
 function AdminHedetbuttom(props:PROPS) {
-    let {typeButton,addButton,typeButtonFun,addButtonFun,typeTitle,addTitle}=props
+    let {typeButton,addButton,typeButtonFun,addButtonFun,typeTitle,addTitle ,Title}=props
     return (
         <div className={'adminHeaderbg '+styles.heder}>
-            <h2 className={ styles.title}> Category</h2>
+            <h2 className={ styles.title}> {Title}</h2>
              <div className={styles.div}>
                 <button 
                 className={ styles.typeButton  }

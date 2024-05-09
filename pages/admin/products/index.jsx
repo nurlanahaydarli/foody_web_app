@@ -8,7 +8,9 @@ export default function Products() {
     return (
         <>
             <AdminLayout>
-                <h1 style={{color:"blue"}}>Products</h1>
+            <h1 className="text-3xl font-bold underline text-white">
+                Hello world!
+                </h1>
             </AdminLayout>
         </>
     );

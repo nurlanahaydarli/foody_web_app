@@ -27,14 +27,15 @@ color: #F2F2F2DE;
     background-color:  #5A5B70;
     font-family: Roboto;
 font-size: 14px;
-
+min-width: 168px;
 
 letter-spacing: 0.01em;
 text-align: left;
 color: #f2f2f2;
 align-items: center;
+justify-content: space-around;
 border-radius: 15px;
-gap: 20px;
+
 
 height: 37px;
 max-width: 200px;
