@@ -1,5 +1,6 @@
 import Sidebar from "../../../shared/components/admin/Sidebar/Sidebar";
 import dynamic from "next/dynamic";
+
 import AdminHedetbuttom from '../../../shared/components/admin/AdminHeaderButtom'
 import AdminTable from '../../../shared/components/admin/AdminTable'
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
