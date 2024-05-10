@@ -1,0 +1,30 @@
+.btn {
+    border-radius: 30px;
+    padding: 8px 20px;
+}
+.btn-sm{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+}
+.btn-md{
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+
+}
+.main{
+    background-color: #D63626;
+    color: #fff;
+    border: 1px solid #D63626;
+}
+.ghost{
+    color: #828282;
+    background-color: transparent;
+    border: 1px solid #828282;
+}
+.btn:hover{
+    opacity: 0.8;
+}
