@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../AdminHeaderButtom/AdminHederButtom.module.css'
-import vector from '../../../../public/vector.svg'
+import vector from '../../../../public/pizza.svg'
 import Image from 'next/image';
 import CustomButton from '../Button';
 
