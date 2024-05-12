@@ -1,8 +1,8 @@
-/* @import "./reset.css"; */
-
+@import "./reset.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./fonts.css";
 
 :root {
   --Admin-bg: #1E1E30; 
@@ -15,8 +15,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system,Roboto, sans-serif!important;
 }
 
 a {
