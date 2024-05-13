@@ -1,5 +1,6 @@
 import type {NextPage} from "next";
 import dynamic from "next/dynamic";
+import ChartCard from "../../shared/components/admin/ChartCard/ChartCard";
 
 
 const AdminLayout = dynamic(() => import("../../shared/components/admin/Layout/AdminLayout"), {
@@ -10,7 +11,7 @@ const AdminLayout = dynamic(() => import("../../shared/components/admin/Layout/A
 const AdminDashboard: NextPage = () => {
     return (
         <AdminLayout>
-            <h1 style={{color:"white"}}>Restaurants</h1>
+
         </AdminLayout>
 
     );
