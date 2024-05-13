@@ -12,7 +12,9 @@ import UploadImage from "../uploadImage/UploadImage";
 
 
 
+
 function Form({onClose,isOpen,children,title,subtitle}) {
+   
     return (
         <>
             {isOpen &&
@@ -52,6 +54,9 @@ function Form({onClose,isOpen,children,title,subtitle}) {
                                           onAction={''}/>
                             <CustomButton icon={false} title={'Create  Product'} type='button' size={'lg'} color={'1'}
                                           onAction={''}/>
+                    
+          {/* <CustomButton icon={false} title={'Update Product'} type='button' size={'lg'} color={'1'}
+                                          onAction={''}/> */}
                         </div>
                     </div>
                 </div>
