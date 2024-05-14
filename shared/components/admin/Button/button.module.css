@@ -1,7 +1,7 @@
 .btn {
     border-radius: 14px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     text-transform: uppercase;
     gap: 3px;
@@ -41,6 +41,7 @@
     letter-spacing: 0.25px;
     text-align: center;
     padding: 8px 12px;
+    min-width: 168px;
 }
 
 .lg {

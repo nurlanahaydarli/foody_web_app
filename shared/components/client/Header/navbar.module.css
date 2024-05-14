@@ -1,0 +1,11 @@
+.header_box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 35px;
+    background-color: #F3F4F6;
+    position: relative;
+}
+.logo_box{
+
+}
