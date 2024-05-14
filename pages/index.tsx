@@ -9,7 +9,7 @@ const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainL
 });
 
 const Home: NextPage = () => {
-    const { t } = useTranslation('footer')
+    const { t } = useTranslation('common')
   return (
     <>
      <MainLayout>
@@ -27,7 +27,6 @@ type Props={
 export const getStaticProps: GetStaticProps<Props> = async ({locale}) => ({
     props: {
         ...(await serverSideTranslations(locale ?? 'az', [
-            'footer',
             'common'
         ])),
     },

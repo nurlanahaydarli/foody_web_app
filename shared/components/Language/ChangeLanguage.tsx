@@ -33,7 +33,7 @@ export default function ChangeLanguage() {
                 <ul className={styles.lang_list}>
                     <li onClick={() => changeLang('en')}><img src="/imgs/en.png" alt=""/></li>
                     <li onClick={() => changeLang('az')}><img src="/imgs/az.png" alt=""/></li>
-                    <li onClick={() => changeLang('ru')}><img src="/imgs/ru.png" alt=""/></li>
+                    <li onClick={() => changeLang('fr')}><img src="/imgs/fr.png" alt=""/></li>
                 </ul>
                 }
             </div>

@@ -22,11 +22,11 @@ export default function Login() {
                 </div>
                 <div className={styles.form_box}>
                     <div className={styles.left_side}>
-                        <h1>{t("welcome_admin")}</h1>
+                        <h1>{t("Welcome Admin")}</h1>
                         <form action="">
                             <Input title={'username'} input_name={'username'} type={'text'}  hasLabel={false} />
                             <Input title={'password'} input_name={'password'} type={'password'}  hasLabel={false} />
-                            <button type='button' >{t("sign_in")}</button>
+                            <button type='button' >{t("Login")}</button>
                         </form>
                     </div>
                     <div className={styles.right_side}>
