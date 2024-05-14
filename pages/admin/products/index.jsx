@@ -12,8 +12,6 @@ export default function Products() {
   return (
     <>
       <AdminLayout>
-        <h1 style={{ color: "blue" }}>Products</h1>
-
         <main className="flex">
           <section className="w-full">
             <div className="m-0 sm:m-5">
