@@ -1,7 +1,7 @@
 import Input from "../../../shared/components/admin/Form/Input";
 import styles from '../../../shared/components/admin/Layout/adminLayout.module.css'
 
-import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import type { GetStaticProps } from 'next'
 
 import { useTranslation, Trans } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -12,9 +12,10 @@ type Props = {
 }
 
 export default function Login() {
-    const { t } = useTranslation()
+    const { t } = useTranslation('common')
     return (
         <>
+
             <section className={`${styles.login_section} ${styles.main_container}`}>
                 <div className={styles.logo_box}>
                     <img src="/imgs/logo.png" alt=""/>
