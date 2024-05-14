@@ -11,7 +11,7 @@ function Profile() {
             <Header/>
             <Navbar active={1}/>
             </div>
-            
+
             <footer className=' bg-black w-full  h-96'>
                 footer
             </footer>

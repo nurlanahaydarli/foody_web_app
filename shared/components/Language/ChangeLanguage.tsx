@@ -1,43 +1,34 @@
 import styles from './lang.module.css'
 import {useModalOpen} from "../../hooks/UseModalOpen";
 import {useRouter} from "next/router";
-import {useTranslation} from "next-i18next";
 import {useEffect, useState} from "react";
 import {useSearchParams} from "next/navigation";
+import {GetStaticProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 
 export default function ChangeLanguage() {
     const router = useRouter()
-    console.log(router,'router')
-    const searchParams = useSearchParams()
-    let search = searchParams.get('lang') || 'az'
 
+    const initialState = {
+        language: typeof window !== "undefined" ? window.localStorage.getItem('language') : router.locale,
+    };
     const {isOpen, onClose, onToggle} = useModalOpen();
-    const {t, i18n} = useTranslation('common')
-    const [lang, setLang] = useState("")
 
     function changeLang(lang) {
-        setLang(lang)
         router.locale = lang
-    }
-
-    useEffect(()=>{
-        if(search) setLang(search)
-    },[search])
-
-    const onToggleLanguageClick = (newLocale: string) => {
         const {pathname, asPath, query, push} = router
-        router.push({pathname, query}, asPath, {locale: newLocale})
+        router.push({pathname, query}, asPath, {locale: lang})
+        localStorage.setItem('language', lang)
+        if (router.locale === lang) {
+            onClose()
+        }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const clientSideLanguageChange = (newLocale: string) => {
-        // i18n.changeLanguage(newLocale);
-    }
     return (
         <>
             <div className={styles.lang_box}>
-                <button onClick={onToggle}><img src={`/imgs/${lang}.png`} alt=""/></button>
+                <button onClick={onToggle}><img src={`/imgs/${initialState.language}.png`} alt=""/></button>
                 {isOpen &&
                 <ul className={styles.lang_list}>
                     <li onClick={() => changeLang('en')}><img src="/imgs/en.png" alt=""/></li>
