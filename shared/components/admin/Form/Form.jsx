@@ -3,13 +3,15 @@ import CloseSvg from "../svg/CloseSvg";
 import CustomButton from "../Button";
 import style_form from "./form.module.css";
 import UploadImage from "../uploadImage/UploadImage";
+import {useState} from "react";
 
 
 
 
 
 function Form({onClose,isOpen,children,title,subtitle}) {
-   
+    const [imageList,setImageList] = useState()
+    console.log(imageList,'imageList')
     return (
         <>
             {isOpen &&
@@ -28,7 +30,7 @@ function Form({onClose,isOpen,children,title,subtitle}) {
                                 </div>
                                 <div className={style_form.right_item}>
                                     <div className={style_form.upload_box}>
-                                        <UploadImage/>
+                                        <UploadImage setImageList={setImageList} />
                                     </div>
                                 </div>
                             </div>
@@ -49,9 +51,7 @@ function Form({onClose,isOpen,children,title,subtitle}) {
                                           onAction={''}/>
                             <CustomButton icon={false} title={'Create  Product'} type='button' size={'lg'} color={'1'}
                                           onAction={''}/>
-                    
-          {/* <CustomButton icon={false} title={'Update Product'} type='button' size={'lg'} color={'1'}
-                                          onAction={''}/> */}
+
                         </div>
                     </div>
                 </div>

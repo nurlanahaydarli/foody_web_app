@@ -4,7 +4,7 @@ import CustomButton from "../Button";
 import ImageUploading from "react-images-uploading";
 import {useState} from "react";
 
-export default function UploadImage(){
+export default function UploadImage({setImageList}){
     const [images, setImages] = useState([]);
     const maxNumber = 1;
 
@@ -12,6 +12,7 @@ export default function UploadImage(){
         // data for submit
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
+        setImageList(imageList)
     };
     return(
         <ImageUploading

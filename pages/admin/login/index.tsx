@@ -1,16 +1,9 @@
 import Input from "../../../shared/components/admin/Form/Input";
 import styles from '../../../shared/components/admin/Layout/adminLayout.module.css'
-
 import type { GetStaticProps } from 'next'
-
 import { useTranslation, Trans } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import ChangeLanguage from "../../../shared/components/Language/ChangeLanguage";
-
-type Props = {
-    // Add custom props here
-}
-
 export default function Login() {
     const { t } = useTranslation('common')
     return (
