@@ -6,11 +6,12 @@ import PlusSvg from '../svg/PlusSvg'
 import MinusSvg from '../svg/MinusSvg'
 
 
-export default function BasketItem(product:any) {
+export default function BasketItem(product: any) {
     const [count, setCount] = useState(1);
 
-    function increaseFn(product:any) {
-        let num = count == product.quantity ? product.quantity : count + 1
+    function increaseFn(product: any) {
+        // let num = count == product.quantity ? product.quantity : count + 1
+        let num = count === product.quantity ? product.quantity : Math.min(count + 1, product.quantity)
         setCount(num)
     }
 
@@ -35,9 +36,10 @@ export default function BasketItem(product:any) {
                 </div>
                 <div className={styles.basket_item}>
                     <div className={styles.basket_quantity}>
-                        <button disabled={count === product.quantity ? 'disabled' : ''} onClick={() => increaseFn(product)}><PlusSvg /></button>
-                        <input type="number" value={count} />
-                        <button onClick={decreaseFn} disabled={count === 1 ? 'disabled' : ''}><MinusSvg /> </button>
+                        <button disabled={count === product.quantity} onClick={() => increaseFn(product)}><PlusSvg/>
+                        </button>
+                        <input type="number" value={count}/>
+                        <button onClick={decreaseFn} disabled={count === 1}><MinusSvg/></button>
                     </div>
                     <button><RemoveSvg/></button>
                 </div>
