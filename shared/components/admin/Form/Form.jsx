@@ -1,10 +1,5 @@
 import styles from './form.module.css'
 import CloseSvg from "../svg/CloseSvg";
-import UploadSvg from "../svg/UploadSvg";
-import Input from "./Input";
-import Select from "./Select";
-import Textarea from "./Textarea";
-import AddButton from "../Button";
 import CustomButton from "../Button";
 import style_form from "./form.module.css";
 import UploadImage from "../uploadImage/UploadImage";
@@ -12,7 +7,9 @@ import UploadImage from "../uploadImage/UploadImage";
 
 
 
+
 function Form({onClose,isOpen,children,title,subtitle}) {
+   
     return (
         <>
             {isOpen &&
@@ -52,6 +49,9 @@ function Form({onClose,isOpen,children,title,subtitle}) {
                                           onAction={''}/>
                             <CustomButton icon={false} title={'Create  Product'} type='button' size={'lg'} color={'1'}
                                           onAction={''}/>
+                    
+          {/* <CustomButton icon={false} title={'Update Product'} type='button' size={'lg'} color={'1'}
+                                          onAction={''}/> */}
                         </div>
                     </div>
                 </div>

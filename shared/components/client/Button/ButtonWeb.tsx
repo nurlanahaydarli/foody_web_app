@@ -10,7 +10,8 @@ interface PROPS {
 
 }
 function ButtonWeb(props:PROPS) {
-    let {title,btnSize,typeButton, typeButtonFun,addButtonFun,addTitle}= props;
+    // typeButtonFun,addButtonFun,addTitle
+    let {title,btnSize,typeButton,}= props;
     let btn_type = typeButton ? 'main':'ghost'
     return (
         <>

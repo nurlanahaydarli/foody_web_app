@@ -8,5 +8,8 @@ export  function useModalOpen(){
     function onClose(){
         setIsOpen(false)
     }
-    return {onOpen,onClose,isOpen}
+    function onToggle(){
+        setIsOpen(!isOpen)
+    }
+    return {onOpen,onClose,isOpen,onToggle}
 }

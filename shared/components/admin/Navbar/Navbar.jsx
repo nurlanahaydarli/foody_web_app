@@ -4,9 +4,7 @@ import CustomButton from "../Button";
 import Form from "../Form/Form";
 import {useModalOpen} from "../../../hooks/UseModalOpen";
 import Input from "../Form/Input";
-import style_form from "../Form/form.module.css";
-import UploadImage from "../uploadImage/UploadImage";
-import {Box, Button} from "@chakra-ui/react";
+import ChangeLanguage from "../../Language/ChangeLanguage";
 
 export default function Navbar() {
     let {push} = useRouter();
@@ -23,6 +21,7 @@ export default function Navbar() {
                 </div>
                 <div className={styles.navbar_right}>
                     <CustomButton icon={true} title={'Add product'} size={'sm'} color={'1'} type={'button'} onAction={onOpen} />
+                    <ChangeLanguage/>
                     <div className={styles.admin_box}>
                         <img src="/imgs/avatar.png" alt=""/>
                         <span>Admin</span>
