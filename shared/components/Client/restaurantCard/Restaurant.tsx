@@ -1,7 +1,7 @@
 import styles from './card.module.css'
 import Image from "next/image";
 import {shortText} from '../../../utils/shortText'
-export default function RestaurantCard(restaurant,onReadMore) {
+export default function RestaurantCard(restaurant:any,onReadMore?:any) {
     return (
         <>
             <div className={styles.restaurant_card} >
