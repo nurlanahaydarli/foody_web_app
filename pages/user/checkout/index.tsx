@@ -1,20 +1,20 @@
 import React from 'react';
-import Header from '../../../shared/components/client/Header/Header';
 import Navbar from '../../../shared/components/Client/user-NAV';
+import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 
-function Checkouth() {
+function Checkout() {
     return (
-        <div>
-        <div className=' p-8'>
-        <Header/>
-        <Navbar active={4}/>
-        </div>
-        
-        <footer className=' bg-black w-full  h-96'>
-            footer
-        </footer>
-    </div>
+        <>
+            <MainLayout>
+                <div className='px-8 pt-1 pb-[100px]'>
+                    <div className='flex flex-row'>
+                        <Navbar active={1}/>
+
+                    </div>
+                </div>
+            </MainLayout>
+        </>
     );
 }
 
-export default Checkouth;
+export default Checkout;

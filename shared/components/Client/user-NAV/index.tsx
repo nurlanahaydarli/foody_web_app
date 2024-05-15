@@ -10,13 +10,13 @@ interface PROPs{
     active:number
 }
 function Navbar(props:PROPs) {
-    const ruter =useRouter()
-    let {active} =props
+    const {push, pathname} =useRouter()
+    let {active} = props
     return (
         <div className={styles.navbar}>
             <div
              className={ active===1? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
-             onClick={()=>ruter.push('/user/profile')}
+             onClick={()=>push('/user/profile')}
              >
                 <Image
                 src={ active===1? Activeprofileicon:defPRofileIcon}
@@ -29,7 +29,7 @@ function Navbar(props:PROPs) {
             </div>
             <div 
             className={ active===2? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
-            onClick={()=>ruter.push('/user/basked')}
+            onClick={()=>push('/user/basket')}
             >
                 <Image
                 src={active===2?ActiBasketIcon:defBasketIcon}
@@ -42,7 +42,7 @@ function Navbar(props:PROPs) {
             </div>
             <div 
             className={active===3? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
-            onClick={()=>ruter.push('/user/orders')}
+            onClick={()=>push('/user/orders')}
             >
                 <Image
                 src={active===3?ActiBasketIcon:defBasketIcon}
@@ -55,7 +55,7 @@ function Navbar(props:PROPs) {
             </div>
             <div
              className={active===4? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
-             onClick={()=>ruter.push('/user/checkoyth')}
+             onClick={()=>push('/user/checkout')}
              >
                 <Image
                 src={active===4?ActiBasketIcon:defBasketIcon}
@@ -68,7 +68,7 @@ function Navbar(props:PROPs) {
             </div>
             <div 
             className={active===5? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
-            onClick={()=>ruter.push('/user/logouth')}
+            onClick={()=>push('/user/logout')}
             >
                 <Image
                 src={active===5?ActiBasketIcon:defBasketIcon}
