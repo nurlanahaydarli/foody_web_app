@@ -5,7 +5,7 @@ import Image from 'next/image';
 import CustomButton from '../Button';
 
 interface PROPS {
-    Title:String;
+    Title?:String;
     typeTitle?:string;
     addTitle?:string;
     typeButton?: boolean;
