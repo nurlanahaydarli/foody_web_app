@@ -102,6 +102,7 @@ function AdminCard() {
             />
             <div onClick={handleModalClose}>
               <CustomButton
+                  type={'button'}
                 className="bg-mainRed border-2 text-white py-1 px-8"
                 innerText="Delete"
                 color={"1"}
