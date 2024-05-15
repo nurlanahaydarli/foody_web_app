@@ -72,9 +72,9 @@ function AdminCard() {
 
          
 
-          <Input title={"Name"} type={"text"} name={"product_name"} />
-          <Input title={"Description"} type={"text"} name={"product_name"} />
-          <Input title={"Price"} type={"number"} name={"product_price"} />
+          <Input title={"Name"} type={"text"} input_name={"product_name"} />
+          <Input title={"Description"} type={"text"} input_name={"product_name"} />
+          <Input title={"Price"} type={"number"} input_name={"product_price"} />
 
           {/* <CustomButton icon={false} title={'Update Product'} type='button' size={'lg'} color={'1'}
                                           onAction={''}/> */}

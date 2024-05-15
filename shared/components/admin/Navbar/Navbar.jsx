@@ -29,9 +29,9 @@ export default function Navbar() {
                 </div>
             </div>
             <Form  isOpen={isOpen} title={'Add Product'} subtitle={"Add your Product description and necessary information"}  onClose={onClose}>
-                <Input title={'Name'} type={'text'} name={'product_name'}/>
-                <Input title={'Price'} type={'number'} name={'product_price'}/>
-                <Input title={'Price'} type={'number'} name={'product_price'}/>
+                <Input title={'Name'} type={'text'} input_name={'product_name'}/>
+                <Input title={'Price'} type={'number'} input_name={'product_price'}/>
+                <Input title={'Price'} type={'number'} input_name={'product_price'}/>
             </Form>
         </>
     );
