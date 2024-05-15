@@ -2,9 +2,9 @@ import {NextPage} from "next";
 import styles from './btn.module.css'
 interface PROPS {
     title?:string;
-    typeButton: boolean;
-    btnSize: string;
-    addButton: boolean;
+    typeButton?: boolean;
+    btnSize?: string;
+    addButton?: boolean;
     typeButtonFun?: any ;
     addButtonFun?: any ;
 
