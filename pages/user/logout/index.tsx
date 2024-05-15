@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../../shared/components/client/Header/Header';
 import Navbar from '../../../shared/components/Client/user-NAV';
 
-function Logouth() {
+function Logout() {
     return (
         <div>
         <div className=' p-8'>
@@ -17,4 +17,4 @@ function Logouth() {
     );
 }
 
-export default Logouth;
+export default Logout;

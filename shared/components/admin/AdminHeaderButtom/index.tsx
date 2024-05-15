@@ -8,8 +8,8 @@ interface PROPS {
     Title:String;
     typeTitle?:string;
     addTitle?:string;
-    typeButton: boolean;
-    addButton: boolean;
+    typeButton?: boolean;
+    addButton?: boolean;
     typeButtonFun?: any ;
     addButtonFun?: any ;
 

@@ -9,8 +9,8 @@ import BasketItem from "../../../shared/components/Client/BasketItem";
 import EmptyBasket from "../../../shared/components/Client/EmptyBasket";
 
 type BasketProps = {
-    productCount: number;
-    data_list: string[]
+    productCount?: number;
+    data_list?: string[]
 }
 let data_list = [
     {

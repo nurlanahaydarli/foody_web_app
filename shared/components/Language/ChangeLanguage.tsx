@@ -15,7 +15,7 @@ export default function ChangeLanguage() {
     };
     const {isOpen, onClose, onToggle} = useModalOpen();
 
-    function changeLang(lang) {
+    function changeLang(lang:any) {
         router.locale = lang
         const {pathname, asPath, query, push} = router
         router.push({pathname, query}, asPath, {locale: lang})
