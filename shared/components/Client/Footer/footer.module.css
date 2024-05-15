@@ -104,3 +104,15 @@
     width: 100%;
     margin: 0 auto;
 }
+@media (max-width: 767px) {
+    .footer_box{
+        padding: 20px;
+    }
+    .footer_left,
+    .footer_links{
+        margin-bottom: 20px;
+    }
+    .footer_links{
+        align-items: flex-start;
+    }
+}
