@@ -5,16 +5,14 @@ interface PROPS {
     typeButton?: boolean;
     btnSize?: string;
     addButton?: boolean;
-    typeButtonFun?: any ;
-    addButtonFun?: any ;
 
 }
 function ButtonWeb(props:PROPS) {
-    let {title,btnSize,typeButton, typeButtonFun,addButtonFun,addTitle}= props;
+    let {title,btnSize,typeButton}= props;
     let btn_type = typeButton ? 'main':'ghost'
     return (
         <>
-            <button className={`${styles.btn} ${styles[btn_type]} ${styles[btnSize]}`}>
+            <button className={`${styles.btn} ${styles[btn_type]} ${styles[btnSize]}`} >
                 {title}
             </button>
         </>
