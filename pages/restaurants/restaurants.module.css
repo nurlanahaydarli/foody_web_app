@@ -1,0 +1,64 @@
+.category_list {
+    padding: 40px 40px 40px 28px;
+    background-color: #F3F4F6;
+    position: sticky;
+    top: 40px;
+    max-height: 900px;
+    overflow: auto;
+
+}
+
+.active {
+
+}
+.category_list ul{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+}
+.category_list li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    gap: 14px;
+    cursor: pointer;
+    width: 100%;
+    transition: all .5s;
+    border-radius: 10px;
+}
+.category_list li span{
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    color: #333;
+}
+.category_list li:hover,
+.category_list li.active{
+    background-color: rgba(214, 54, 38, 0.1);
+}
+.category_list li:hover span,
+.category_list li.active span{
+    color: #D63626;
+}
+
+.category_list::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+.category_list::-webkit-scrollbar-track {
+    background: #F3F4F6;
+}
+
+/* Handle */
+.category_list::-webkit-scrollbar-thumb {
+    background: #D63626;
+}
+
+/* Handle on hover */
+.category_list::-webkit-scrollbar-thumb:hover {
+    background: #961108;
+}
