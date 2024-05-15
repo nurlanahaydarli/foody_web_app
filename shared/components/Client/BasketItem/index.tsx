@@ -6,7 +6,7 @@ import PlusSvg from '../svg/PlusSvg'
 import MinusSvg from '../svg/MinusSvg'
 
 
-export default function BasketItem(product) {
+export default function BasketItem(product:any) {
     const [count, setCount] = useState(1);
 
     function increaseFn(product) {
