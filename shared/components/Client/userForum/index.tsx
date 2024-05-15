@@ -55,11 +55,6 @@ const UserForm: React.FC = () => {
                     <button type="submit" className={button}>Submit</button>
                 </div>
             </div>
-
-
-          
-          
-          
         </Form>
       </Formik>
     </div>

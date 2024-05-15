@@ -1,19 +1,19 @@
 import React from 'react';
-import Header from '../../../shared/components/client/Header/Header';
 import Navbar from '../../../shared/components/Client/user-NAV';
+import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 
 function Orders() {
     return (
-        <div>
-        <div className=' p-8'>
-        <Header/>
-        <Navbar active={3}/>
-        </div>
-        
-        <footer className=' bg-black w-full  h-96'>
-            footer
-        </footer>
-    </div>
+        <>
+            <MainLayout>
+                <div className='px-8 pt-1 pb-[100px]'>
+                    <div className='flex flex-row'>
+                        <Navbar active={1}/>
+
+                    </div>
+                </div>
+            </MainLayout>
+        </>
     );
 }
 
