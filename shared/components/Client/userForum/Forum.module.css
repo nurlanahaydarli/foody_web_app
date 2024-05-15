@@ -10,6 +10,11 @@
     width: 50%;
     gap: 11px;
 }
+
+.inpdiv input{
+    height: 54px;
+    padding: 12px 24px;
+}
 .button{
     background: #6FCF97;
     text-align: center;
