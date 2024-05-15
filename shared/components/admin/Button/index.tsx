@@ -23,11 +23,11 @@ export default function CustomButton({
                                          className
                                      }: CustomButtonProps) {
     let type_color = color === '1' ? 'type_submit' : 'type_cancel';
-    let type_btn = type === 'submit' ? 'submit' : 'button';
+    // let type_btn = type === 'submit' ? 'submit' : 'button';
     return (
         <>
             <button
-                type={type_btn}
+                type={type}
                 onClick={onAction}
                 className={`${styles[size]} ${className} ${styles.btn} ${styles[type_color]}`}
             >
