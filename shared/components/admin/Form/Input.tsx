@@ -1,10 +1,10 @@
 
 type inputTypes = {
-    title: any;
-    input_name: any;
-    type:any;
-    value:any;
-    hasLabel:any
+    title?: any;
+    input_name?: any;
+    type?:any;
+    value?:any;
+    hasLabel?:any
 }
 export default function Input(props: inputTypes) {
     let {title, name, type, value, hasLabel = true} = props
