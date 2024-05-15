@@ -36,7 +36,7 @@ export default function BasketItem(product) {
                 <div className={styles.basket_item}>
                     <div className={styles.basket_quantity}>
                         <button disabled={count === product.quantity ? 'disabled' : ''} onClick={() => increaseFn(product)}><PlusSvg /></button>
-                        <input type="number" value={count}/>
+                        <input type="number" value={count} />
                         <button onClick={decreaseFn} disabled={count === 1 ? 'disabled' : ''}><MinusSvg /> </button>
                     </div>
                     <button><RemoveSvg/></button>
