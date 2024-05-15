@@ -9,7 +9,7 @@ import MinusSvg from '../svg/MinusSvg'
 export default function BasketItem(product:any) {
     const [count, setCount] = useState(1);
 
-    function increaseFn(product) {
+    function increaseFn(product:any) {
         let num = count == product.quantity ? product.quantity : count + 1
         setCount(num)
     }
