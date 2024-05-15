@@ -14,8 +14,10 @@ export default function Header() {
                 </div>
                 <Nav/>
                 <Search/>
-                <ChangeLanguage/>
-                <Auth/>
+                <div className='flex flex-row gap-4 items-center'>
+                    <ChangeLanguage/>
+                    <Auth/>
+                </div>
             </section>
         </>
     )
