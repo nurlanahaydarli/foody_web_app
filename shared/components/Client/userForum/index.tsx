@@ -45,13 +45,13 @@ const UserForm: React.FC = () => {
         <Form>
             <div className={div}>
                 <div className={inpdiv}>
-                    <Input input_name='phoneNumber' type='text' pleaceholder='+994' title='Contact'/>
-                    <Input input_name='username' type='text' pleaceholder='rahimlisarkhan' title='Username'/>
-                    <Input input_name='fullName' type='text' pleaceholder='Sarkhan Rahimli' title='Full Name'/>
+                    <Input input_name='phoneNumber' type='text' placeholder='+994' title='Contact'/>
+                    <Input input_name='username' type='text' placeholder='rahimlisarkhan' title='Username'/>
+                    <Input input_name='fullName' type='text' placeholder='Sarkhan Rahimli' title='Full Name'/>
                 </div>
                 <div className={inpdiv}>
-                    <Input input_name='email' type='email' pleaceholder='rahimlisarkhan@gmail.com' title='Email'/>
-                    <Input input_name='address' type='text' pleaceholder='address' title='Address'/>
+                    <Input input_name='email' type='email' placeholder='rahimlisarkhan@gmail.com' title='Email'/>
+                    <Input input_name='address' type='text' placeholder='address' title='Address'/>
                     <button type="submit" className={button}>Submit</button>
                 </div>
             </div>
