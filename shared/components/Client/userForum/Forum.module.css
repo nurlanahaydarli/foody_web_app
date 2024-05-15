@@ -1,0 +1,18 @@
+.div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.inpdiv{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 50%;
+    gap: 11px;
+}
+.button{
+    background: #6FCF97;
+    text-align: center;
+    height: 53px;
+  margin-top: 22px;
+}
