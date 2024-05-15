@@ -183,7 +183,7 @@ export default function Restaurants() {
     // let isActive = (pathname) => (router.query.category_id ? 'active' : '');
 
     // console.log(isActive)
-    
+
     return (
         <>
             <MainLayout>
