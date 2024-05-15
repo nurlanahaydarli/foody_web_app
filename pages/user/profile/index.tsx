@@ -32,7 +32,7 @@ let {Profile,headText,addPhoto} =styles
                 </div>
             </div>
             </div>
-            
+
             <footer className=' bg-black w-full  h-96'>
                 footer
             </footer>
