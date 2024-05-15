@@ -1,5 +1,6 @@
 .main_container {
-    max-width: 1320px;
+    /*max-width: 1320px;*/
     margin: 0 auto;
-    padding: 30px 30px 0;
+    max-width: 100%;
+    /*padding: 30px 30px 0;*/
 }
