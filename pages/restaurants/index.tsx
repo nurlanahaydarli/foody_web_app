@@ -180,8 +180,10 @@ export default function Restaurants() {
         })
         setFilteredCategory(filtered_data)
     }
-    let isActive = (pathname) => (router.query.category_id ? 'active' : '');
-    console.log(isActive)
+    // let isActive = (pathname) => (router.query.category_id ? 'active' : '');
+
+    // console.log(isActive)
+    
     return (
         <>
             <MainLayout>
