@@ -34,15 +34,17 @@ function AdminTable(props:PROPS) {
                     <td className={styles.tdid}>
                         <div className={styles.tableid}>1</div>
                         </td>
-                    <td className='flex items-center'>
+                    <td >
                     
-                    <Image 
-                    className={styles.tableImg}
-                    src={pizza}
-                    width={60}
-                    height={60}
-                    alt='pizza'
-                    />
+                    <div className='flex items-center'>
+                        <Image
+                            className={styles.tableImg}
+                            src={pizza}
+                            width={60}
+                            height={60}
+                            alt='pizza'
+                        />
+                    </div>
                     
                     
                     </td>
