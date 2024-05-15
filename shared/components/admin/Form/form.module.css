@@ -126,13 +126,13 @@
     margin-top: 10px;
 }
 .upload_box button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: transparent;
-    cursor: pointer;
-    gap: 12px;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*flex-direction: column;*/
+    /*background-color: transparent;*/
+    /*cursor: pointer;*/
+    /*gap: 12px;*/
 }
 .form_box {
 
