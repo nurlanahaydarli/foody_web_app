@@ -4,7 +4,7 @@ import {ChakraProvider} from "@chakra-ui/react";
 import { appWithTranslation } from 'next-i18next'
 import {GetStaticProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import Home from "../pages/home"
+import Home from "./index";
 
 type Props = {
     // Add custom props here
