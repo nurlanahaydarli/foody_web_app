@@ -3,8 +3,8 @@ import React from 'react';
 import style from '../userInp/input.module.css'
 
 interface Props {
-    name?: string,
-    type?: string,
+    name: string,
+    type: string,
     placeholder?: string,
     title?: string,
 }
