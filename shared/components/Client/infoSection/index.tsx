@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import InfoBox from '../adminInfoBox';
 import styles from '../infoSection/infoSection.module.css'
 
@@ -16,8 +16,15 @@ interface Props{
     DES:string
 }
 function InfoSection(props:Props) {
+  let [mobile,setmobile]=useState(false)
+
     useEffect(() => {
         AOS.refresh(); // Обновите AOS при монтировании компонента
+        if(window.innerWidth<800){
+          setmobile(true)
+      }else{
+          setmobile(false)
+      }
       }, []);
     let {
         img1,
@@ -35,7 +42,7 @@ function InfoSection(props:Props) {
         <div className={'flex flex-col  items-center mt-20 gap-2 '+div}>
         <h2 className={Title} data-aos='fade-up'>{TITLE}</h2>
         <p className={des} data-aos='fade-up'>{DES}</p>
-        <div className="w-full flex flex-row justify-around mt-7" data-aos='fade-up'>
+        <div className={mobile?'w-full flex flex-col items-center justify-around mt-7':"w-full flex flex-row justify-around mt-7"} data-aos='fade-up'>
             
             <InfoBox
             img={img1}
@@ -60,7 +67,7 @@ function InfoSection(props:Props) {
         </div>
         <div>
       
-      <div data-aos="zoom-in" data-aos-delay="300">
+      <div data-aos="zoom-in" data-aos-delay="300" style={{display:'none'}}>
         {/* Содержимое */}
       </div>
     </div>

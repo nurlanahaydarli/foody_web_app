@@ -35,25 +35,55 @@ color: #828282;
 .bgDiv1{
     width: 421.31px;
 height: 556.74px;
-top: 1816px;
-left: 911.08px;
-gap: 0px;
+/* top: 1816px; */
+/* left: 911.08px; */
+/* gap: 0px; */
 border-radius: 50px ;
-opacity: 0px;
+/* opacity: 0px; */
 rotate: 22.82deg;
 background: #D63626;
 }
 .bgDiv2{
     width: 421.31px;
 height: 556.74px;
-top: 1816px;
-left: 911.08px;
-gap: 0px;
+/* top: 1816px; */
+/* left: 911.08px; */
+/* gap: 0px; */
 border-radius: 50px ;
-opacity: 0px;
+/* opacity: 0px; */
 rotate: -22.82deg;
 background: #D63626;
 }
 .IMG{
     position: absolute;
+
 }
+
+@media only screen and (max-width: 800px) {
+
+    .Title{
+        width: 100%;
+        align-items: center;
+        font-family: Roboto;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 31px;
+        letter-spacing: 0.03em;
+        text-align: center;
+        height: auto;
+        margin-bottom: 55px;
+        margin: 16px;
+    }
+    .des{
+        width: 100%;
+        text-align: center;
+        padding: 0 12px;
+        height: auto;
+    }
+    .IMG{
+         position: relative;
+         width: 100%;
+         height: auto;
+         margin-top: 12px;
+    }
+    }
