@@ -17,8 +17,8 @@ export default function Login() {
                     <div className={styles.left_side}>
                         <h1>{t("Welcome Admin")}</h1>
                         <form action="">
-                            <Input title={'username'} input_name={'username'} type={'text'}  hasLabel={false} />
-                            <Input title={'password'} input_name={'password'} type={'password'}  hasLabel={false} />
+                            <Input title={'username'} input_name={'username'}  type={'text'}   hasLabel={false} />
+                            <Input title={'password'} input_name={'password'}   type={'password'}  hasLabel={false} />
                             <button type='button' >{t("Login")}</button>
                         </form>
                     </div>
