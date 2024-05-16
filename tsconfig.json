@@ -16,7 +16,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "shared/components/admin/Modal/index.jsx", "pages/admin/products/index.jsx"],
+  "include": ["src","next-env.d.ts", "**/*.ts", "**/*.tsx", "shared/components/admin/Modal/index.jsx", "pages/admin/products/index.jsx"],
   "exclude": ["node_modules"],
   "paths": {
     "@/*": ["./*"]
