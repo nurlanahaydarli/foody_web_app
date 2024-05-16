@@ -33,3 +33,11 @@ flex-wrap: wrap;
     width: 240px;
     height: 232px;
 }
+
+
+@media only screen and (max-width: 800px) {
+
+.box{
+    margin-top: 55px;
+}
+}

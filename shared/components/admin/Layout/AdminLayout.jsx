@@ -1,6 +1,7 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import styles from './adminLayout.module.css'
+import { useEffect, useState } from "react";
 
 const Sidebar = dynamic(() => import("../Sidebar/Sidebar"), {
     ssr: false,
@@ -11,6 +12,17 @@ const Navbar = dynamic(() => import("../Navbar/Navbar"), {
 
 
 const AdminLayout = ({children}) => {
+    let [mobile,setmobile]=useState(false)
+useEffect(()=>{
+    if(window.innerWidth<800){
+        setmobile(true)
+    }else{
+        setmobile(false)
+    }
+  
+    
+    
+},[])
     return (
         <div>
             <Head>
@@ -22,7 +34,10 @@ const AdminLayout = ({children}) => {
                 <Navbar/>
 
                 <section className={styles.main_section}>
-                    <Sidebar/>
+                    <div style={mobile?{display:'none'}:{}}>
+                    <Sidebar />
+                    </div>
+                    
                     <div className={styles.content_box}>
                         {children}
                     </div>

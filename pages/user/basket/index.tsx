@@ -69,7 +69,7 @@ function Basket(props: BasketProps) {
             <MainLayout>
                 <div className='px-8'>
                     <div className='flex flex-row'>
-                        <Navbar active={1}/>
+                        <Navbar active={2}/>
                         <div className={styles.user_cabinet_box}>
                             {data_list.length ?
                                 <>

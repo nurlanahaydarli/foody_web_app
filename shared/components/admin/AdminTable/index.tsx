@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import editicon from '../../../../public/editPen.svg'
 import deliteicon from '../../../../public/delete.svg'
 import pizza from '../../../../public/pizza.svg'
@@ -9,6 +9,17 @@ interface PROPS {
 }
 function AdminTable(props:PROPS) {
 // let {data} =props
+let [mobile,setmobile]=useState(false)
+useEffect(()=>{
+    if(window.innerWidth<800){
+        setmobile(true)
+    }else{
+        setmobile(false)
+    }
+  
+    
+    
+},[])
     return (
         <div className={styles.table}>
             <table className={styles.tablebg}  >
