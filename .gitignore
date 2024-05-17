@@ -1,4 +1,4 @@
-#/server/configs
+/server/configs
 /node_modules
 /.next
 /.idea
