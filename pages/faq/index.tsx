@@ -25,7 +25,7 @@ function Faq() {
               <Image
                 width={25}
                 height={0}
-                src={isContentVisible ? "plus.svg" : "minus.svg"}
+                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
                 alt={isContentVisible ? "plus" : "minus"}
               />
             </button>
@@ -49,7 +49,7 @@ function Faq() {
               <Image
                 width={25}
                 height={0}
-                src={isContentVisible ? "plus.svg" : "minus.svg"}
+                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
                 alt={isContentVisible ? "plus" : "minus"}
               />
             </button>
@@ -73,7 +73,7 @@ function Faq() {
               <Image
                 width={25}
                 height={0}
-                src={isContentVisible ? "plus.svg" : "minus.svg"}
+                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
                 alt={isContentVisible ? "plus" : "minus"}
               />
             </button>
@@ -95,7 +95,7 @@ function Faq() {
               <Image
                 width={25}
                 height={0}
-                src={isContentVisible ? "plus.svg" : "minus.svg"}
+                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
                 alt={isContentVisible ? "plus" : "minus"}
               />
             </button>
@@ -119,7 +119,7 @@ function Faq() {
               <Image
                 width={25}
                 height={0}
-                src={isContentVisible ? "plus.svg" : "minus.svg"}
+                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
                 alt={isContentVisible ? "plus" : "minus"}
               />
             </button>
