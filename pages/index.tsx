@@ -22,6 +22,7 @@ import FryIcon from '../public/Fry.svg'
 import MiniBurgerIcon from '../public/MiniBurger.svg'
 import MiniPizzaIcon from '../public/MiniPizza.svg'
 import FooterTop from "../shared/components/Client/FooterTop";
+import { useEffect, useState } from "react";
 
 
 const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainLayout"), {
@@ -29,8 +30,17 @@ const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainL
 });
 
 const Home: NextPage = () => {
-
-
+        let [mobile,setmobile]=useState(false)
+        useEffect(()=>{
+            if(window.innerWidth<800){
+                setmobile(true)
+            }else{
+                setmobile(false)
+            }
+          
+            
+            
+        },[])
     let {headerBuutom,ButtomTitle,buttomDesc,Registerbtn,Orderbtn,hamIcon,iconDiv,bgdiv,Textdiv,}=style
     const { t } = useTranslation('common')
     let ruter =useRouter()
@@ -39,10 +49,10 @@ const Home: NextPage = () => {
     <>
      <MainLayout>
         <div className={headerBuutom}>
-            <div className={"   pl-16 "+Textdiv}>
+            <div className={ Textdiv}>
                 <h1 className={ButtomTitle +' flex flex-wrap'}>Our Food site makes it easy to find local food</h1>
                 <p className={buttomDesc+ ' w-4/5 flex flex-wrap mt-2'}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <div className="flex flex-row  w-4/5 gap-10 mt-10 mb">
+                <div className={mobile?'flex flex-col mt-10 gap-4 justify-center items-center':"flex flex-row  w-4/5 gap-10 mt-10 mb"}>
                     <button onClick={()=>ruter.push('login-register')} className={Registerbtn}>Register </button>
                     <button className={Orderbtn}>Order now </button>
                 </div>
@@ -57,9 +67,10 @@ const Home: NextPage = () => {
                     width={657}
                     className={hamIcon}
                     />
-                    <AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-14 right-6"/>
-                    <AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-2/4   -left-28"/>
-                    <AnimetedBox img={PizzaIcon} title="Pizza Hut " class="  top-3/4 right-16"/>
+                    {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-2/4   -left-28"/>}
+                    {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-14 right-6"/>}
+                    
+                    {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class="  top-3/4 right-16"/>}
             </div>
            
             

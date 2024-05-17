@@ -9,8 +9,8 @@ import Image from 'next/image';
 function OrdersTable() {
     const [ show,setshow]=useState(false)
     return (
-        
-            <table className={style.table} >
+            <div className={style.DIV}>
+ <table className={style.table} >
                     <thead  >
                             <tr className={style.thead}>
                                 <th className={style.theadId}>ID</th>
@@ -273,6 +273,8 @@ function OrdersTable() {
                         </tr>
                     </tbody>
                     </table>
+            </div>
+           
         
         
     );
