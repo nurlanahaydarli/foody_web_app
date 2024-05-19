@@ -9,10 +9,10 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      grayText: "#828282",
-
-    },
+    // colors: {
+    //   grayText: "#828282",
+      
+    // },
 
 
     extend: {},

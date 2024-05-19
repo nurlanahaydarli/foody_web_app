@@ -17,6 +17,7 @@
     
    
 }
+
 .tdimg{
  display: flex;
  align-items: center;
@@ -93,9 +94,13 @@
     width: 40px;
 height: 40px;
 margin-left: 40px;
+
+/* margin: 18px 0 18px 40px ; */
 }
 .tabletr{
     border: solid 1px #C9CFDA;
+    /* display: flex;
+    flex-direction: row; */
 }
 .theadimg{
     font-family: Open Sans;
