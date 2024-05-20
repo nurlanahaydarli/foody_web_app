@@ -4,11 +4,36 @@ import editicon from '../../../../public/editPen.svg'
 import deliteicon from '../../../../public/delete.svg'
 import pizza from '../../../../public/pizza.svg'
 import styles from '../AdminTable/Admin.module.css'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 interface PROPS {
     data? : any,
+    reset :Function,
+    edit :any,
 }
 function AdminTable(props:PROPS) {
-// let {data} =props
+let {data,reset,edit} =props
+
+
+async function deleteOffer(id:string){
+    try{
+        axios.delete(`http://localhost:3000/api/offer/${id}`)
+        .then(response => {
+          console.log(`deleted `);
+          reset()
+          toast.success("Offer deleted sucsesfuly", {
+            position:"top-right",
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+    }catch(err){console.log(err);
+    }
+   
+}
+
 let [mobile,setmobile]=useState(false)
 useEffect(()=>{
     if(window.innerWidth<800){
@@ -41,28 +66,30 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                <tr className={styles.tabletr}>
+                    {data?.map((item:any,i:number)=>{
+                        
+                        
+                       return(
+                       <tr key={item.id} className={styles.tabletr}>
                     <td className={styles.tdid}>
-                        <div className={styles.tableid}>1</div>
+                        <div className={styles.tableid}>{i+1}</div>
                         </td>
-                    <td >
+                    <td  className=' align-middle'>
+                        <div className='h-full'>
+                        <img src={item.img_url} alt="" className={styles.tableImg}/>
+
+                        </div>
+
+                        
                     
-                    <div className='flex items-center'>
-                        <Image
-                            className={styles.tableImg}
-                            src={pizza}
-                            width={60}
-                            height={60}
-                            alt='pizza'
-                        />
-                    </div>
-                    
+
+
                     
                     </td>
-                    <td className={styles.tablename}>Pizza</td>
+                    <td className={styles.tablename}>{item.name}</td>
                     <td >
                         <div className={styles.tableSlug}>
-                        <p>yummy-pizza</p>
+                        <p>{item.description}</p>
                         <div className={styles.icons}>
                         <Image
                         src={editicon}
@@ -70,6 +97,9 @@ useEffect(()=>{
                         width={24}
                         height={24}
                         alt='editicon'
+                        onClick={()=>{
+                            edit(item.name,item.description,item.img_url,item.id)
+                        }}
                         />
                         <Image
                         src={deliteicon}
@@ -77,14 +107,20 @@ useEffect(()=>{
                         width={14}
                         height={18}
                         alt='editicon'
+                        onClick={()=>{
+                            
+                            deleteOffer(item.id)
+                        }}
                         />
                         </div>
                         
                         </div>
                         
                     </td>
-                    </tr>
-                    
+                    </tr>)
+                        
+                    })}
+              
                     
                     
                 </tbody>

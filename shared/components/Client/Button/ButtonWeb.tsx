@@ -1,5 +1,6 @@
 import {NextPage} from "next";
-import styles from './btn.module.css'
+// import styles from './btn.module.css'
+import styles from '../Button/btn.module.css'
 interface PROPS {
     title?:string;
     typeButton: boolean;

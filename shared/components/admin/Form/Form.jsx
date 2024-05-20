@@ -9,9 +9,14 @@ import {useState} from "react";
 
 
 
-function Form({onClose,isOpen,children,title,subtitle}) {
-    const [imageList,setImageList] = useState()
-    console.log(imageList,'imageList')
+function Form({onClose,isOpen,children,title,subtitle,
+                btnTitle='Create  Product',
+                onAction=()=>console.log('add action'),
+                setIMG=(img)=>console.log('add set img'),
+                IMG=undefined
+            }) {
+  
+    
     return (
         <>
             {isOpen &&
@@ -30,7 +35,7 @@ function Form({onClose,isOpen,children,title,subtitle}) {
                                 </div>
                                 <div className={style_form.right_item}>
                                     <div className={style_form.upload_box}>
-                                        <UploadImage setImageList={setImageList} />
+                                        <UploadImage setImageList={setIMG} IMG={IMG} />
                                     </div>
                                 </div>
                             </div>
@@ -48,9 +53,9 @@ function Form({onClose,isOpen,children,title,subtitle}) {
 
                         <div className={styles.form_bottom}>
                             <CustomButton icon={false} title={'Cancel'} type='button' size={'lg'} color={'2'}
-                                          onAction={''}/>
-                            <CustomButton icon={false} title={'Create  Product'} type='button' size={'lg'} color={'1'}
-                                          onAction={''}/>
+                                         />
+                            <CustomButton icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
+                                          onAction={onAction}/>
 
                         </div>
                     </div>
