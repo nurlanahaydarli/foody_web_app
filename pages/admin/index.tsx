@@ -1,6 +1,7 @@
 import type {NextPage} from "next";
 import dynamic from "next/dynamic";
 import ChartCard from "../../shared/components/admin/ChartCard/ChartCard";
+import withAuth from "../../shared/HOC/withAuth";
 
 
 const AdminLayout = dynamic(() => import("../../shared/components/admin/Layout/AdminLayout"), {
@@ -24,4 +25,4 @@ const AdminDashboard: NextPage = () => {
     );
 };
 
-export default AdminDashboard;
+export default withAuth(AdminDashboard);

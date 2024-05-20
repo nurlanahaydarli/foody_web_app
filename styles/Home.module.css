@@ -129,3 +129,15 @@ opacity: 0px;
     margin-bottom: 24px;
   }
 }
+.loading_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+.loading_box img{
+  width: 100%;
+  object-fit: contain;
+  height: 300px;
+}

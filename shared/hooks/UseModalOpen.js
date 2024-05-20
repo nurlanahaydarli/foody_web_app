@@ -2,7 +2,6 @@ import {useState} from "react";
 
 export  function useModalOpen(){
     const [isOpen,setIsOpen]=useState(false)
-    console.log(isOpen,'isOpen')
     function onOpen(){
         setIsOpen(true)
     }
