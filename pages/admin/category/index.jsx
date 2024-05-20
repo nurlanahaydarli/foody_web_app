@@ -8,6 +8,7 @@ const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layou
 });
 
 export default function Category() {
+    
     return (
         <>
             <AdminLayout>
