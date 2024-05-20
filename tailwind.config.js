@@ -11,6 +11,7 @@ module.exports = {
   theme: {
     colors: {
       grayText: "#828282",
+      white: "#FFFFFF",
 
     },
 
