@@ -11,7 +11,7 @@ export default function ChangeLanguage() {
     const router = useRouter()
 
     const initialState = {
-        language: typeof window !== "undefined" ? window.localStorage.getItem('language') : router.locale,
+        language: typeof window !== "undefined" ?  window.localStorage.getItem('language') : router.locale,
     };
     const {isOpen, onClose, onToggle} = useModalOpen();
 

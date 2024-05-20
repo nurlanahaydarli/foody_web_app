@@ -150,7 +150,7 @@ export default function Offer() {
             </AdminLayout>
             <Form  
             isOpen={isOpen}
-            title={'Add Offer'} 
+            title={editImg ? 'Edit Offer' : 'Add Offer'}  
             subtitle={"Add your Offer Title and Description "} 
             onClose={()=>{
                 onClose()
@@ -159,7 +159,7 @@ export default function Offer() {
                 setDescValue('')
             }}
             onAction={editImg?updateOffer:AddOffer} 
-            btnTitle="Create offer"
+            btnTitle={editImg ? "Edit offer" : "Create offer"}
             IMG={editImg}
             setIMG={setImg}
             >

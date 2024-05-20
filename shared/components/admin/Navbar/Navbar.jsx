@@ -5,19 +5,22 @@ import Form from "../Form/Form";
 import {useModalOpen} from "../../../hooks/UseModalOpen";
 import Input from "../Form/Input";
 import ChangeLanguage from "../../Language/ChangeLanguage";
-
+import MenuSvg from '../svg/MenuSvg';
 export default function Navbar() {
     let {push} = useRouter();
     const {isOpen,onOpen,onClose} = useModalOpen()
-
+    
     return (
         <>
 
             <div className={styles.navbar_box}>
-                <div className={styles.logo_box}>
-                    <button onClick={() => push('/admin/products')}>
-                        <img src={'/imgs/logo.png'} alt={'logo'}/>
-                    </button>
+                <div className='flex items-center gap-3'>
+                    <button className={styles.menu_btn}> <MenuSvg /></button>
+                    <div className={`${styles.logo_box} flex`}>
+                        <button onClick={() => push('/admin/')}>
+                            <img src={'/imgs/logo.png'} alt={'logo'}/>
+                        </button>
+                    </div>
                 </div>
                 <div className={styles.navbar_right}>
                     <CustomButton icon={true} title={'Add product'} size={'sm'} color={'1'} type={'button'} onAction={onOpen} />

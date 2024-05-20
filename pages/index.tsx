@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           
             
             
-        },[])
+        },[mobile])
     let {headerBuutom,ButtomTitle,buttomDesc,Registerbtn,Orderbtn,hamIcon,iconDiv,bgdiv,Textdiv,}=style
     const { t } = useTranslation('common')
     let ruter =useRouter()

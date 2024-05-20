@@ -12,7 +12,7 @@ const MainLayout = ({children}) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main className={styles.main_container}>
-                <div className="px-8">
+                <div className="md:px-8">
                     <Header />
                 </div>
                 {children}

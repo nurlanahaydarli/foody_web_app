@@ -35,3 +35,15 @@
     text-align: left;
 
 }
+@media(max-width:991px){
+    .admin_box span{
+        display: none;
+    }
+    .navbar_box button span{
+        display: none;
+    }
+    .admin_box{
+        width: 30px;
+        height: 30px;
+    }
+}

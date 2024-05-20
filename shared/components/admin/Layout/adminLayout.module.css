@@ -93,6 +93,9 @@
     object-fit: cover;
 }
 @media (max-width: 991px) {
+    .main_container{
+        padding: 0;
+    }
     .form_box{
         flex-direction: column-reverse;
     }
@@ -117,6 +120,9 @@
     }
     .img_box{
         max-width: 175px;
-
+    }
+    .content_box{
+        padding:40px 16px;
     }
 }
+    

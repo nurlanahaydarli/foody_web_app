@@ -32,8 +32,8 @@ export default function CustomButton({
                 className={`${styles[size]} ${className} ${styles.btn} ${styles[type_color]}`}
             >
                 {icon && <PlusSvg />}
-                <span>{innerText}</span>
-                {title}
+                <span>{innerText} {title}</span>
+                
             </button>
         </>
     )
