@@ -31,7 +31,7 @@ function AdminCard() {
             className="h-40 object-cover"
             width="170"
             height="158"
-            src=""
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA3dY6c52au3dKBjxCaAW9YxQizTd6Us9RdBsjVdeOQQ&s"
             alt=""
           />
         </div>
@@ -88,7 +88,7 @@ function AdminCard() {
             </p>
           </div>
 
-          <p className=" text-grayText1 w-2/3 mx-auto text-center my-5">
+          <p className=" text-grayText w-2/3 mx-auto text-center my-5">
             Attention! If you delete this order, it will not come back...
           </p>
 
@@ -97,7 +97,7 @@ function AdminCard() {
             className="mx-auto flex items-center justify-center gap-9"
           >
             <CustomButton
-              className=" border-grayText1 text-grayText1 py-1 px-8"
+              className=" border-grayText text-grayText py-1 px-8"
               innerText="Cancel"
             />
             <div onClick={handleModalClose}>
