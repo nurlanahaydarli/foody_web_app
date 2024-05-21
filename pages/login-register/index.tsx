@@ -6,9 +6,10 @@ import registerIcon from '../../public/register.svg'
 import Image from 'next/image';
 import SignInForm from '../../shared/components/Client/login-register/loginForum';
 import RegisterForm from '../../shared/components/Client/login-register/RegisterForum';
+import { ToastContainer } from 'react-toastify';
 function Login_register() {
     let [singin,setsingin]=useState(true)
-    return (
+    return (<div>
         <div className={style.Body +' w-full h-full p-7 '}>
             <header  className={style.blackbg + '  h-28 flex items-center justify-between  p-9 rounded-md '}>
                 <h2 className={style.headerText}>Foody.</h2>
@@ -50,6 +51,9 @@ function Login_register() {
                 </div>
             </div>
         </div>
+        
+    </div>
+        
     );
 }
 

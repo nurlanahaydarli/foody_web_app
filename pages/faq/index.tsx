@@ -60,8 +60,8 @@ function Faq() {
             </button>
           </div>
 
-        <Modal1 />
-
+        <Modal2 />
+        </div>
         <div className=" p-6 w-3/4 mx-auto  bg-white shadow-md">
           <div className="flex justify-between mb-3">
             <p className=" text-2xl font-medium">
@@ -78,6 +78,7 @@ function Faq() {
           </div>
 
         {/* modal 3 */}
+        </div>
 
         <div className=" p-6 w-3/4   bg-white shadow-md">
           <div className="flex justify-between mb-3">
