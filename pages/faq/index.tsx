@@ -35,7 +35,7 @@ function Faq() {
               />
             </button>
           </div>
-
+          
           {isContentVisible && (
             <div className="text-grayText text-lg leading-7 font-medium">
               Our Customer Experience Team is available 7 days a week and we
@@ -44,88 +44,10 @@ function Faq() {
             </div>
           )}
         </div>
-
-        <div className=" p-6 w-3/4 mx-auto  bg-white shadow-md">
-          <div className="flex justify-between mb-3">
-            <p className=" text-2xl font-medium">
-              App installation failed, how to update system information?
-            </p>
-            <button onClick={toggleContent}>
-              <Image
-                width={25}
-                height={0}
-                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
-                alt={isContentVisible ? "plus" : "minus"}
-              />
-            </button>
-          </div>
-
+        <Modal1 />
         <Modal2 />
-        </div>
-        <div className=" p-6 w-3/4 mx-auto  bg-white shadow-md">
-          <div className="flex justify-between mb-3">
-            <p className=" text-2xl font-medium">
-              Website reponse taking time, how to improve?
-            </p>
-            <button onClick={toggleContent}>
-              <Image
-                width={25}
-                height={0}
-                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
-                alt={isContentVisible ? "plus" : "minus"}
-              />
-            </button>
-          </div>
-
-        {/* modal 3 */}
-        </div>
-
-        <div className=" p-6 w-3/4   bg-white shadow-md">
-          <div className="flex justify-between mb-3">
-            <p className=" text-2xl font-medium"> How do I create a account?</p>
-            <button onClick={toggleContent}>  
-              <Image
-                width={25}
-                height={0}
-                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
-                alt={isContentVisible ? "plus" : "minus"}
-              />
-            </button>
-          </div>
-
-          {isContentVisible && (
-            <div className="text-grayText text-lg  font-medium">
-              Our Customer Experience Team is available 7 days a week and we
-              offer 2 ways to get in contact. Email and Chat. We try to reply
-              quickly, so you need not to wait too long for a response!.
-            </div>
-          )}
-        </div>
-
-        <div className=" p-6 w-3/4   bg-white shadow-md">
-          <div className="flex justify-between mb-3">
-            <p className=" text-2xl font-medium">
-              Website reponse taking time, how to improve?
-            </p>
-            <button onClick={toggleContent}>
-              <Image
-                width={25}
-                height={0}
-                src={isContentVisible ? "/plus.svg" : "/minus.svg"}
-                alt={isContentVisible ? "plus" : "minus"}
-              />
-            </button>
-          </div>
-
-          {isContentVisible && (
-            <div className="text-grayText text-lg  font-medium">
-              Our Customer Experience Team is available 7 days a week and we
-              offer 2 ways to get in contact. Email and Chat. We try to reply
-              quickly, so you need not to wait too long for a response!.
-            </div>
-          )}
-        </div>
-
+        <Modal3 />
+        <Modal4 />
       </main>
     </MainLayout>
   );
