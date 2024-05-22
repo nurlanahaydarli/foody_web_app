@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { auth } from '../../../server/configs/firebase';
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
-import { useEffect } from "react";
+import {useEffect, useLayoutEffect} from "react";
 import 'react-toastify/dist/ReactToastify.css';
 interface SignInFormValues {
   email: string;
@@ -19,14 +19,13 @@ interface SignInFormValues {
 export default function Login() {
     const { t } = useTranslation('common');
     const router= useRouter()
-    useEffect(() => {
+    useLayoutEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
           if (user) {
-            // Redirect to dashboard if user is already signed in
             router.replace('/admin');
           }
         });
-    
+
         return () => unsubscribe();
       }, [router]);
 
