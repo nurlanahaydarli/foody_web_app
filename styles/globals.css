@@ -50,3 +50,21 @@ a {
   max-height: 700px;
   height: 100%;
 }
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #F3F4F6;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #D63626;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #961108;
+}

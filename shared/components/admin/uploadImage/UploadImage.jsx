@@ -2,12 +2,18 @@ import UploadSvg from "../svg/UploadSvg";
 import style_form from "../Form/form.module.css";
 import CustomButton from "../Button";
 import ImageUploading from "react-images-uploading";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-export default function UploadImage({setImageList}){
+export default function UploadImage({setImageList,IMG=undefined}){
     const [images, setImages] = useState([]);
     const maxNumber = 1;
-
+    useEffect(()=>{
+        if(IMG){
+            setImages([IMG])
+           }
+    },[])
+    console.log(images);
+   
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
@@ -44,7 +50,7 @@ export default function UploadImage({setImageList}){
                     </button>
                     {imageList.map((image, index) => (
                         <div key={index} className={`${style_form.image_item} image-item`}>
-                            <img src={image['data_url']} alt="" width="100" />
+                            <img src={image?image:image['data_url']} alt="" width="100" />
                             <div className={`${style_form.image_item__btn_wrapper} image-item__btn-wrapper`}>
                                 <CustomButton icon={false} onAction={() => onImageRemove(index)} title='Remove' color={'2'} type={'button'} size={'xs'} />
                                 <CustomButton icon={false} onAction={() => onImageUpdate(index)} title='Update' color={'1'} type={'button'} size={'xs'} />

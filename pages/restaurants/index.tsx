@@ -63,7 +63,7 @@ let categoryList = [
         "images": "/imgs/basket1.png"
     }
 ]
-let restaurant_list=[
+let restaurantList = [
     {
         "id": 1,
         "image": "/imgs/basket2.png",
@@ -166,34 +166,43 @@ let restaurant_list=[
     }
 ]
 
-export default function Restaurants() {
-    const [filteredCategory,setFilteredCategory] =useState(restaurant_list)
+type restaurantState={
+    restaurant_list: string[];
+    category_list: string[]
+}
+export default function Restaurants(props:restaurantState) {
+    let {restaurant_list = restaurantList,category_list=categoryList} = props
+
+    const [filteredCategory, setFilteredCategory] = useState(restaurant_list)
     const router = useRouter()
 
-    const filterCategory=(id:any)=>{
+    const filterCategory = (id: any) => {
         router.push({
             pathname: router.pathname,
-            query: { category_id: id },
+            query: {category_id: id},
         });
-        let filtered_data = restaurant_list.filter((restaurant)=>{
+        let filtered_data = restaurant_list.filter((restaurant) => {
             return id === restaurant.id
         })
+
         setFilteredCategory(filtered_data)
+
     }
-    // let isActive = (pathname) => (router.query.category_id ? 'active' : '');
-
-    // console.log(isActive)
-
+    function onDetail(id){
+        router.push('restaurants/'+id)
+    }
     return (
         <>
             <MainLayout>
                 <div className='px-8 pt-8 pb-[100px]'>
                     <div className='flex flex-row'>
-                        <div className="basis-1/6">
+                        <div className="w-1/5">
                             <div className={styles.category_list}>
                                 <ul>
-                                    {categoryList?.map((category) => (
-                                        <li key={category.id} onClick={()=>{filterCategory(category.id)}}>
+                                    {category_list?.map((category) => (
+                                        <li key={category.id} onClick={() => {
+                                            filterCategory(category.id)
+                                        }}>
                                             <Image src={category.images} alt={category.name} width={25} height={28}/>
                                             <span>{category.name}</span>
                                         </li>
@@ -201,11 +210,11 @@ export default function Restaurants() {
                                 </ul>
                             </div>
                         </div>
-                        <div className="basis-3/4">
+                        <div className="w-4/5">
                             <div className="flex flex-row flex-wrap">
-                                {filteredCategory?.map((restaurant)=>(
-                                    <div className="basis-1/4" key={restaurant.id}>
-                                        <RestaurantCard {...restaurant} onReadMore={''} />
+                                {filteredCategory?.map((restaurant) => (
+                                    <div className="w-1/4" key={restaurant.id}>
+                                        <RestaurantCard {...restaurant} onReadMore={()=>onDetail(restaurant.id)}/>
                                     </div>
                                 ))}
 

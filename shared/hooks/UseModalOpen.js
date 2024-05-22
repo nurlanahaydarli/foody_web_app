@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 export  function useModalOpen(){
-    const [isOpen,setIsOpen]=useState()
+    const [isOpen,setIsOpen]=useState(false)
     function onOpen(){
         setIsOpen(true)
     }

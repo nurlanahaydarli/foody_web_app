@@ -1,18 +1,19 @@
-import {PieChart} from "react-minimal-pie-chart";
+import dynamic from "next/dynamic";
+import { useState } from 'react';
+import styles from './card.module.css'
 
 
 
 export default function ChartCard() {
-    let  data=[
-            { title: 'One', value: 10, color: '#E38627' },
-            { title: 'Two', value: 15, color: '#C13C37' },
-            { title: 'Three', value: 20, color: '#6A2135' },
-    ]
     return (
         <>
-            <PieChart
-                data={data}
-            />
+            <div className={styles.card_box}>
+                <h3 className={styles.card_title}>title</h3>
+                <div className={styles.card_body}>
+
+                </div>
+                
+            </div>
         </>
     )
 }

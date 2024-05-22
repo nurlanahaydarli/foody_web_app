@@ -79,7 +79,11 @@ height: 476px;
   margin: 0 64px;
 }
 
-
+@media(max-width:991px){
+  .headerBuutom{
+    margin: 0;
+  }
+}
 @media only screen and (max-width: 800px) {
   .headerBuutom{
     flex-direction: column-reverse;
@@ -124,4 +128,16 @@ opacity: 0px;
     width: 80%;
     margin-bottom: 24px;
   }
+}
+.loading_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+.loading_box img{
+  width: 100%;
+  object-fit: contain;
+  height: 300px;
 }

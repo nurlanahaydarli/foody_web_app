@@ -36,7 +36,7 @@ function AdminHedetbuttom(props:PROPS) {
                     />
                      </button>
                      <div style={addButton?{display:'flex'}:{display:'none'}} >
-                     <CustomButton innerText={'ADD RESTAURANT '} className={' '} type={'submit'} size={'md'} color={'1'} title={addTitle}  onAction={addButtonFun} icon={true}/>
+                     <CustomButton innerText={''} className={' '} type={'submit'} size={'md'} color={'1'} title={addTitle}  onAction={addButtonFun} icon={true}/>
                      </div>
                     
              </div>

@@ -90,3 +90,8 @@
     color: #2B3043;
 
 }
+@media(max-width:1200px){
+    .search_container{
+        display: none;
+    }
+}

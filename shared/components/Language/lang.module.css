@@ -36,3 +36,13 @@
     background-color: transparent;
     z-index: 9;
 }
+@media(max-width:991px){
+    .lang_box{
+        height: 30px;
+    }
+    .lang_box img{
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+    }
+}

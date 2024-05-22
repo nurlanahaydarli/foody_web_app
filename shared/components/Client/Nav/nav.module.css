@@ -19,3 +19,10 @@
 .nav_box ul li:hover{
     color: #D63626;
 }
+@media(max-width:991px){
+    .nav_box ul{
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+}

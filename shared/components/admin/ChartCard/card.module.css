@@ -1,0 +1,33 @@
+.card_box {
+    border-radius: 14px;
+    background-color: rgba(39, 40, 60, 1);
+    padding: 16px 24px;
+    min-height: 475px;
+    max-height: 475px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card_item{
+    padding: 12px;
+}
+.card_title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    color: #C7C7C7;
+}
+
+.card_body {
+    padding: 16px 0;
+    margin-bottom: 30px;
+}
+.card_box g text{
+    fill: #c7c7c7!important;
+}
+.card_box span{
+    color: #C7C7C7!important;
+}

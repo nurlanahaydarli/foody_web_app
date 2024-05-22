@@ -8,13 +8,29 @@ import styles from './sidebar.module.css'
 import {useRouter} from "next/router";
 import {useState} from "react";
 import CategorySvg from "../svg/CategorySvg";
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../../server/configs/firebase';
+import UploadSvg from "../svg/UploadSvg";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Sidebar() {
     let {push,pathname} = useRouter();
-    const isActive = (p) => (pathname === p ? "active" : "");
-
+    const isActive = (p:string) => (pathname === p ? "active" : "");
+    const logout = async () => {
+        try {
+          await signOut(auth);
+          toast.success("Logout successfully!", { autoClose: 100,position:'top-right' });
+        } catch (error) {
+          console.error('Error signing out: ', error);
+        }
+      };
+      const handleLogout = async () => {
+        await logout();
+        push('/admin/login'); // Redirect to the sign-in page after logging out
+      };
     return (
         <>
+        <ToastContainer/>
             <div className={styles.sidebar_box}>
                 <ul>
                     <li onClick={() => push('/admin')} className={styles[`${isActive("/admin")}`]}>
@@ -37,11 +53,15 @@ export default function Sidebar() {
                         <OrdersSvg/>
                         <span>Orders</span>
                     </li>
+                    <li onClick={() => push('/admin/orders/history')} className={styles[`${isActive("/admin/orders/history")}`]}>
+                        <UploadSvg />
+                        <span>Orders History</span>
+                    </li>
                     <li onClick={() => push('/admin/offer')} className={styles[`${isActive("/admin/offer")}`]}>
                         <OfferSvg/>
                         <span>Offer</span>
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                         <LogoutSvg/>
                         <span>Logout</span>
                     </li>
