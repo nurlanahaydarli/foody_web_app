@@ -7,18 +7,16 @@ import Image from 'next/image';
 import SignInForm from '../../shared/components/Client/login-register/loginForum';
 import RegisterForm from '../../shared/components/Client/login-register/RegisterForum';
 import { ToastContainer } from 'react-toastify';
+import ChangeLanguage from "../../shared/components/Language/ChangeLanguage";
+import {useRouter} from "next/router";
 function Login_register() {
     let [singin,setsingin]=useState(true)
+    let {push}=useRouter()
     return (<div>
         <div className={style.Body +' w-full h-full p-7 '}>
             <header  className={style.blackbg + '  h-28 flex items-center justify-between  p-9 rounded-md '}>
-                <h2 className={style.headerText}>Foody.</h2>
-                <Image
-                src={englishIcon}
-                alt='englishIcon'
-                width={41}
-                height={41}
-                />
+                <h2 className={style.headerText} >Foody.</h2>
+                <ChangeLanguage/>
             </header>
             <div className=' flex flex-row gap-3 '>
                 <div className={style.blackbg +' w-3/5 h-4/5 flex justify-center items-center mt-5 rounded-md' }>

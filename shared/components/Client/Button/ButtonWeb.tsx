@@ -12,11 +12,11 @@ interface PROPS {
 }
 function ButtonWeb(props:PROPS) {
     // typeButtonFun,addButtonFun,addTitle
-    let {title,btnSize,typeButton,}= props;
+    let {title,btnSize,typeButton,addButtonFun}= props;
     let btn_type = typeButton ? 'main':'ghost'
     return (
         <>
-            <button className={`${styles.btn} ${styles[btn_type]} ${styles[btnSize]}`} >
+            <button onClick={addButtonFun} className={`${styles.btn} ${styles[btn_type]} ${styles[btnSize]}`} >
                 {title}
             </button>
         </>

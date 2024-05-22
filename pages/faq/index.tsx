@@ -125,6 +125,7 @@ function Faq() {
             </div>
           )}
         </div>
+
       </main>
     </MainLayout>
   );
