@@ -176,13 +176,13 @@ export default function Restaurants(props:restaurantState) {
     const [filteredCategory, setFilteredCategory] = useState(restaurant_list)
     const router = useRouter()
 
-    const filterCategory = (id: any) => {
+    const filterCategory = (id: string) => {
         router.push({
             pathname: router.pathname,
             query: {category_id: id},
         });
         let filtered_data = restaurant_list.filter((restaurant) => {
-            return id === restaurant.id
+            return id == restaurant.id
         })
 
         setFilteredCategory(filtered_data)
