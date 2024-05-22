@@ -11,6 +11,7 @@ import { auth } from '../../../server/configs/firebase';
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 interface SignInFormValues {
   email: string;
   password: string;
