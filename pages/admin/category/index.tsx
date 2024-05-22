@@ -9,6 +9,7 @@ import Input from "../../../shared/components/admin/Form/Input";
 import Form from "../../../shared/components/admin/Form/Form";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });

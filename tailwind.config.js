@@ -20,6 +20,9 @@ module.exports = {
       lightRed: "#EB5757",
       green: "#066839",
       black: "#181617",
+      customgray: "#D2D2D4",
+      custompurple: "#C035A2",
+      categorycolor: "#5A5B70"
       white: "#FFFFFF",
     },
 
