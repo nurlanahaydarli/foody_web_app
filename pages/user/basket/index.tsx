@@ -7,6 +7,7 @@ import BasketSvg from '../../../shared/components/Client/svg/BasketSvg'
 import RemoveSvg from '../../../shared/components/Client/svg/RemoveSvg'
 import BasketItem from "../../../shared/components/Client/BasketItem";
 import EmptyBasket from "../../../shared/components/Client/EmptyBasket";
+import withClientAuth from '../../../shared/HOC/withClienAuth';
 
 type BasketProps = {
     productCount?: number;
@@ -103,4 +104,4 @@ function Basket(props: BasketProps) {
     );
 }
 
-export default Basket;
+export default withClientAuth(Basket);
