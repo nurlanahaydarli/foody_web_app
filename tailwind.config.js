@@ -22,8 +22,9 @@ module.exports = {
       black: "#181617",
       customgray: "#D2D2D4",
       custompurple: "#C035A2",
-      categorycolor: "#5A5B70"
+      categorycolor: "#5A5B70",
       white: "#FFFFFF",
+      fontcolorhow: "#828282"
     },
 
 
