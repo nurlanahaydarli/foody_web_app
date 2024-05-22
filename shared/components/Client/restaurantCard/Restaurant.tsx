@@ -1,10 +1,22 @@
 import styles from './card.module.css'
 import Image from "next/image";
 import {shortText} from '../../../utils/shortText'
-export default function RestaurantCard(restaurant:any,onReadMore?:any) {
+
+type RestaurantState={
+    description:string,
+    title:string,
+    delivery_price:number,
+    delivery_time:string,
+    isNew:boolean,
+    onReadMore: any
+}
+
+export default function RestaurantCard(props:RestaurantState) {
+    let  restaurant = props
+    let onReadMore = restaurant.onReadMore
     return (
         <>
-            <div className={styles.restaurant_card} >
+            <div className={styles.restaurant_card} onClick={onReadMore} >
                 <div className={styles.card_top}>
                     <Image src={restaurant.image} alt={restaurant.title} width={175} height={165}/>
                     {restaurant.isNew && <span className={styles.new_restaurant}>New</span>}

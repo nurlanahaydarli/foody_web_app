@@ -4,23 +4,29 @@ import * as Yup from 'yup';
 import LoginInp from '../loinInp';
 import styles from '../loginForum/forum.module.css'
 import RegisterInp from '../registerInp';
+import { Post } from '../../../../../server/helper/reguests';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface RegisterFormValues {
-  fullName: string;
+  fullname: string;
   username: string;
   email: string;
   password: string;
 };
 const initialValues: RegisterFormValues = {
-  fullName: '',
-  username: '',
-  email: '',
-  password: '',
+  "email": '',
+  
+  "password": '',
+  "fullname": '',
+  "username": '',
+  
+  
 };
 
 const RegisterForm: React.FC = () => {
   const validationSchema = Yup.object({
-    fullName: Yup.string().required('Required'),
+    fullname: Yup.string().required('Required'),
     username: Yup.string().required('Required'),
     email: Yup.string().email('Invalid email address').required('Required'),
     password: Yup.string().required('Required'),
@@ -28,13 +34,28 @@ const RegisterForm: React.FC = () => {
 
   const handleSubmit = (values: RegisterFormValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     // You can perform your registration logic here
-    console.log('Submitting:', values);
+    
+      (async()=>{
+        let res= await Post(values, `auth/signup`)
+        console.log(res.user); 
+        // add to local
+        toast.success("register sucsesfuly", {
+          position:"top-right",
+        });
+      })()
+        
+     
+    
+    
+    
+    // console.log('Submitting:', values);
     setSubmitting(false);
   };
 
 
   return (
-    <Formik
+    <div>
+      <Formik
 initialValues={initialValues}
 validationSchema={validationSchema}
 onSubmit={handleSubmit}
@@ -42,21 +63,11 @@ onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
         <Form className={styles.form}>
-          {/* <div>
-            <label htmlFor="username">Username</label>
-            <Field type="text" name="username" />
-            <ErrorMessage name="username" component="div" />
-          </div> */}
-          {/* <LoginInp
-          title='Full Name'
-          icon={true}
-          type='text'
-          name='fullName'
-          /> */}
+
           <RegisterInp
           title='Full Name'
           icon={true}
-          name='fullName'
+          name='fullname'
           />
           <RegisterInp
           title='Username'
@@ -88,6 +99,10 @@ onSubmit={handleSubmit}
         </Form>
       )}
     </Formik>
+      <ToastContainer />
+    </div>
+    
+    
   );
 };
 

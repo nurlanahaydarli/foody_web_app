@@ -11,7 +11,6 @@ module.exports = {
   theme: {
     colors: {
       grayText: "#828282",
-      grayText1: "#828282",
       grayText2: "#4F4F4F",
       whiteLight1: "#F3F4F6",
       mainRedLight: "rgba(214, 54, 38, 0.3)",
@@ -24,6 +23,7 @@ module.exports = {
       customgray: "#D2D2D4",
       custompurple: "#C035A2",
       categorycolor: "#5A5B70"
+      white: "#FFFFFF",
     },
 
 

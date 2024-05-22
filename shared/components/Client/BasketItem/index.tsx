@@ -24,7 +24,7 @@ export default function BasketItem(product: any) {
         <>
             <div className={styles.basket_box} key={product.id}>
                 <div className={styles.basket_item}>
-                    <Image src='/imgs/basket1.png' width={96} height={96} alt={'title'}/>
+                    <img src='/imgs/basket1.png'  alt={'title'}/>
                     <div className={styles.basket_text}>
                         <h4>
                             {product.title}
