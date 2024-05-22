@@ -21,6 +21,9 @@ module.exports = {
       green: "#066839",
       black: "#181617",
       white: "#FFFFFF",
+      customgray: "#D2D2D4",
+      custompurple: "#C035A2",
+      categorycolor: "#5A5B70"
     },
 
 
