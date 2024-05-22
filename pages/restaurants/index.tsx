@@ -188,7 +188,7 @@ export default function Restaurants(props:restaurantState) {
         setFilteredCategory(filtered_data)
 
     }
-    function onDetail(id){
+    function onDetail(id:number){
         router.push('restaurants/'+id)
     }
     return (
