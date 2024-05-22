@@ -89,7 +89,7 @@ function Adminresturant() {
                                     <button className="absolute top-2 right-2"><Image src={restaurant.iconpen} /></button>
                                     <button className="absolute bottom-2 right-2"><Image src={restaurant.icontrash}/></button>
                                 </div>
-                            </div>
+                            </div>  
                         ))}
                     </React.Fragment>
                 ))}
