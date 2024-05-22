@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from '../../../shared/components/client/Header/Header';
 import uploadIcon from '../../../public/upload.svg'
-import Footer from '../../../shared/components/client/Footer/Footer';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import styles from '../profile/profile.module.css'
 import Image from 'next/image';

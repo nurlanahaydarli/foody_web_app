@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
-import { UserOrderTable } from '../../../shared/components/client/UserOrderTable';
+import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable';
 import Image from 'next/image';
 
 function Orders() {
