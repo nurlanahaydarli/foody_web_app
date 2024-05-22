@@ -45,9 +45,9 @@ export default function Category() {
                   .then(function (response) {
                     console.log(response);
                     setResetData(prev=>!prev)
-                    toast.success("Offer added sucsesfuly", {
-                        position:"top-right",
-                      });
+                    // toast.success("Offer added sucsesfuly", {
+                    //     position:"top-right",
+                    //   });
                   })
                   .catch(function (error) {
                     console.log(error);
@@ -63,9 +63,9 @@ export default function Category() {
                   .then(function (response) {
                     console.log(response);
                     setResetData(prev=>!prev)
-                    toast.success("Offer update sucsesfuly", {
-                        position:"top-right",
-                      });
+                    // toast.success("Offer update sucsesfuly", {
+                    //     position:"top-right",
+                    //   });
                   })
                   .catch(function (error) {
                     console.log(error);
