@@ -30,7 +30,7 @@ export default function Category() {
     useEffect(()=>{
         (async()=>{
             try{
-                let res= await axios.get('http://localhost:3000/api/category')
+                let res= await axios.get('/api/category')
                 let newData= await res.data.result.data
                 setCategories(newData)
                 
@@ -41,7 +41,7 @@ export default function Category() {
 
         async function postCategory(category:object){
             try{
-                axios.post('http://localhost:3000/api/category',category )
+                axios.post('/api/category',category )
                   .then(function (response) {
                     console.log(response);
                     setResetData(prev=>!prev)
@@ -59,7 +59,7 @@ export default function Category() {
             console.log(id,category);
             
             try{
-                axios.put(`http://localhost:3000/api/category/${id}`,category )
+                axios.put(`/api/category/${id}`,category )
                   .then(function (response) {
                     console.log(response);
                     setResetData(prev=>!prev)
