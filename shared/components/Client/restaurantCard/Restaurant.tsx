@@ -9,11 +9,14 @@ type RestaurantState={
     delivery_price:number,
     delivery_time:string,
     isNew:boolean,
+    image: string,
     onReadMore: any
+    categoryId:number
 }
 
 export default function RestaurantCard(props:RestaurantState) {
     let  restaurant = props
+    console.log(restaurant,'restaurant')
     let onReadMore = restaurant.onReadMore
     return (
         <>
