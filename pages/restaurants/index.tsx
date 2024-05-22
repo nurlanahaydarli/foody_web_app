@@ -167,8 +167,8 @@ let restaurantList = [
 ]
 
 type restaurantState={
-    restaurant_list: string[];
-    category_list: string[]
+    restaurant_list: [];
+    category_list: []
 }
 export default function Restaurants(props:restaurantState) {
     let {restaurant_list = restaurantList,category_list=categoryList} = props
