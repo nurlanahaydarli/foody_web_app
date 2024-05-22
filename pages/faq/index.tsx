@@ -4,10 +4,10 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 import MainLayout from "../../shared/components/admin/Layout/MainLayout";
-import Modal1 from "../../shared/components/Client/FaqsModal1/index";
-import Modal2 from "../../shared/components/Client/FaqsModal2/index";
-import Modal3 from "../../shared/components/Client/FaqsModal3/index";
-import Modal4 from "../../shared/components/Client/FaqsModal4/index";
+import Modal1 from "../../shared/components/Client/tempFaqsModal1/index";
+import Modal2 from "../../shared/components/Client/tempFaqsModal2/index";
+import Modal3 from "../../shared/components/Client/tempFaqsModal3/index";
+import Modal4 from "../../shared/components/Client/tempFaqsModal4/indxex";
 
 function Faq() {
   const [isContentVisible, setContentVisibility] = useState(false);
