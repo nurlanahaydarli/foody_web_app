@@ -3,6 +3,7 @@ import Image from "next/image";
 import {shortText} from '../../../utils/shortText'
 
 type RestaurantState={
+    id:number,
     description:string,
     title:string,
     delivery_price:number,
