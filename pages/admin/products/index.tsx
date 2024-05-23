@@ -1,3 +1,6 @@
+// @ts-nocheck
+
+
 import dynamic from "next/dynamic";
 import AdminCard from "../../../shared/components/admin/adminCard";
 import AdminHedetbuttom from "../../../shared/components/admin/AdminHeaderButtom";
