@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { configureStore } from "@reduxjs/toolkit";
 // import globalSlice from "./global/globalSlice";
 //
@@ -19,3 +20,20 @@
 // // Use throughout your app instead of plain `useDispatch` and `useSelector`
 // export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 // export const useAppSelector = useSelector.withTypes<RootState>();
+=======
+import { configureStore } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
+import userReducer from '../redux/featuries/user/userSılice';
+
+const makeStore = () => 
+  configureStore({
+    reducer: {
+      user: userReducer,
+    },
+  });
+
+export type RootState = ReturnType<ReturnType<typeof makeStore>['getState']>;
+export type AppDispatch = ReturnType<typeof makeStore>['dispatch'];
+
+export const wrapper = createWrapper(makeStore);
+>>>>>>> c981ee38ef84f604e039d7c1a9525fc2cd1b81a9

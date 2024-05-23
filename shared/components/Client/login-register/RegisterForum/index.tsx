@@ -7,7 +7,8 @@ import RegisterInp from '../registerInp';
 import { Post } from '../../../../../server/helper/reguests';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 interface RegisterFormValues {
   fullname: string;
   username: string;
@@ -25,6 +26,9 @@ const initialValues: RegisterFormValues = {
 };
 
 const RegisterForm: React.FC = () => {
+  const user = useSelector((state: RootState) => state.user);
+  console.log(user);
+  
   const validationSchema = Yup.object({
     fullname: Yup.string().required('Required'),
     username: Yup.string().required('Required'),
@@ -38,10 +42,16 @@ const RegisterForm: React.FC = () => {
       (async()=>{
         let res= await Post(values, `auth/signup`)
         console.log(res.user); 
-        // add to local
+        // add to local 
         toast.success("register sucsesfuly", {
           position:"top-right",
         });
+        toast.info("now sing in", {
+          position:"top-right",
+        });
+        // const user = useSelector((state: RootState) => state.user);
+        // console.log(user);
+        
       })()
         
      
@@ -94,7 +104,7 @@ onSubmit={handleSubmit}
           type='password'
           />
           <button className={styles.button} type="submit" disabled={isSubmitting}>
-            Sign In
+            Register
           </button>
         </Form>
       )}
