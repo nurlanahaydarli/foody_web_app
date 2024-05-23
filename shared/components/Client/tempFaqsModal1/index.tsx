@@ -1,10 +1,12 @@
+
+
 import Image from 'next/image';
 import React, { useState } from 'react'
 
 
 
 
-function Modal1() {
+function Modal1(faq: { title: string, text: string, id: number }) {
     const [isContentVisible, setContentVisibility] = useState(false);
 
     const toggleContent = () => {
@@ -16,7 +18,7 @@ function Modal1() {
             <div className=" p-6 w-3/4 mx-auto  bg-white shadow-md">
                 <div className="flex justify-between mb-3">
                     <p className=" text-2xl font-medium">
-                        App installation failed, how to update system information?
+                        {faq.title}
                     </p>
                     <button onClick={toggleContent}>
                         <Image
@@ -30,9 +32,7 @@ function Modal1() {
 
                 {isContentVisible && (
                     <div className="text-grayText text-lg  font-medium">
-                        Our Customer Experience Team is available 7 days a week and we
-                        offer 2 ways to get in contact. Email and Chat. We try to reply
-                        quickly, so you need not to wait too long for a response!.
+                        {faq.text}
                     </div>
                 )}
             </div>
