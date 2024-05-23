@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../../shared/components/client/Header/Header';
+import Header from '../../../shared/components/Client/Header/Header';
 import Navbar from '../../../shared/components/Client/user-NAV';
 
 function Logout() {

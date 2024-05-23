@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "./mainLayout.module.css";
-import Header from "../../client/Header/Header";
-import Footer from "../../client/Footer/Footer";
+import Header from "../../../components/Client/Header/Header";
+import Footer from "../../../components/Client/Footer/Footer";
 
 const MainLayout = ({children}) => {
     return (

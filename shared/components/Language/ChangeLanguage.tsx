@@ -1,18 +1,16 @@
 import styles from './lang.module.css'
 import {useModalOpen} from "../../hooks/UseModalOpen";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import {useSearchParams} from "next/navigation";
-import {GetStaticProps} from "next";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 
 export default function ChangeLanguage() {
     const router = useRouter()
 
     const initialState = {
-        language: typeof window !== "undefined" ?  window.localStorage.getItem('language') : router.locale,
+        language: typeof window !== "undefined" ?  window.localStorage.getItem('language') : ''
     };
+    let lang = initialState.language ? initialState.language : router.locale;
+
     const {isOpen, onClose, onToggle} = useModalOpen();
 
     function changeLang(lang:any) {
@@ -28,7 +26,7 @@ export default function ChangeLanguage() {
     return (
         <>
             <div className={styles.lang_box}>
-                <button onClick={onToggle}><img src={`/imgs/${initialState.language}.png`} alt=""/></button>
+                <button onClick={onToggle}><img src={`/imgs/${lang}.png`} alt=""/></button>
                 {isOpen &&
                 <ul className={styles.lang_list}>
                     <li onClick={() => changeLang('en')}><img src="/imgs/en.png" alt=""/></li>

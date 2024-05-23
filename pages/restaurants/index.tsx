@@ -167,8 +167,8 @@ let restaurantList = [
 ]
 
 type restaurantState={
-    restaurant_list: string[];
-    category_list: string[]
+    restaurant_list: [];
+    category_list: []
 }
 export default function Restaurants(props:restaurantState) {
     let {restaurant_list = restaurantList,category_list=categoryList} = props
@@ -176,19 +176,19 @@ export default function Restaurants(props:restaurantState) {
     const [filteredCategory, setFilteredCategory] = useState(restaurant_list)
     const router = useRouter()
 
-    const filterCategory = (id: any) => {
+    const filterCategory = (id: number) => {
         router.push({
             pathname: router.pathname,
             query: {category_id: id},
         });
         let filtered_data = restaurant_list.filter((restaurant) => {
-            return id === restaurant.id
+            return id == restaurant.id
         })
 
         setFilteredCategory(filtered_data)
 
     }
-    function onDetail(id){
+    function onDetail(id:number){
         router.push('restaurants/'+id)
     }
     return (

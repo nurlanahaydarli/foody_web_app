@@ -11,8 +11,12 @@ function Basket() {
             <MainLayout>
                 <div className='px-8'>
                     <div className='flex flex-row'>
-                        <Navbar active={2}/>
-                        <BasketContainer size={'xl'}/>
+                        <div className="w-1/4">
+                            <Navbar active={2}/>
+                        </div>
+                        <div className="w-3/4 p-[16px] pe-[0px]">
+                            <BasketContainer size={'xl'}/>
+                        </div>
                     </div>
                 </div>
             </MainLayout>

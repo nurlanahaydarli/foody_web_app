@@ -3,16 +3,20 @@ import Image from "next/image";
 import {shortText} from '../../../utils/shortText'
 
 type RestaurantState={
+    id:number,
     description:string,
     title:string,
     delivery_price:number,
     delivery_time:string,
     isNew:boolean,
+    image: string,
     onReadMore: any
+    categoryId:number
 }
 
 export default function RestaurantCard(props:RestaurantState) {
     let  restaurant = props
+    console.log(restaurant,'restaurant')
     let onReadMore = restaurant.onReadMore
     return (
         <>

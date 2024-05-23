@@ -4,7 +4,7 @@ import ButtonWeb from "../../Client/Button/ButtonWeb";
 export default function Auth(){
     let {push}=useRouter()
     function goAuth(){
-        push('login-register')
+        push('/login-register')
         console.log('log')
     }
     return(
