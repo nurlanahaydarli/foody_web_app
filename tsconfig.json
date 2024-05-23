@@ -16,7 +16,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["src","next-env.d.ts", "**/*.ts", "**/*.tsx", "shared/components/admin/Modal/index.jsx", "pages/admin/products/index.jsx", "shared/components/admin/ChartCard/ChartCard.tsx", "shared/components/admin/Layout/MainLayout.jsx"],
+  "include": ["src","next-env.d.ts", "**/*.ts", "**/*.tsx", "shared/components/admin/Modal/index.jsx", "pages/admin/products/index.tsx", "shared/components/admin/ChartCard/ChartCard.tsx", "shared/components/admin/Layout/MainLayout.jsx"],
   "exclude": ["node_modules"],
   "paths": {
     "@/*": ["./*"]
