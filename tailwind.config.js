@@ -24,7 +24,8 @@ module.exports = {
       custompurple: "#C035A2",
       categorycolor: "#5A5B70",
       white: "#FFFFFF",
-      fontcolorhow: "#828282"
+      fontcolorhow: "#828282",
+      cardColor: "#F3F4F6"
     },
 
 
