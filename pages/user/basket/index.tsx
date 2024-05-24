@@ -1,18 +1,8 @@
 import React, {useState} from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
-<<<<<<< HEAD
 import BasketContainer from "../../../shared/components/Client/BasketItem/BasketContainer";
-
-=======
-import styles from './basket.module.css'
-import Image from "next/image";
-import BasketSvg from '../../../shared/components/Client/svg/BasketSvg'
-import RemoveSvg from '../../../shared/components/Client/svg/RemoveSvg'
-import BasketItem from "../../../shared/components/Client/BasketItem";
-import EmptyBasket from "../../../shared/components/Client/EmptyBasket";
 import withClientAuth from '../../../shared/HOC/withClienAuth';
->>>>>>> c981ee38ef84f604e039d7c1a9525fc2cd1b81a9
 
 
 function Basket() {

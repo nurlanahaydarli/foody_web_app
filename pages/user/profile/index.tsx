@@ -5,6 +5,7 @@ import styles from '../profile/profile.module.css'
 import Image from 'next/image';
 import UserForm from '../../../shared/components/Client/userForum';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
+import withClientAuth from "../../../shared/HOC/withClienAuth";
 
 function Profile() {
     let {Profile, headText, addPhoto} = styles
@@ -40,4 +41,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default withClientAuth(Profile);

@@ -1,10 +1,6 @@
 import React from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
-<<<<<<< HEAD
-=======
-// import { UserOrderTable } from '../../../shared/components/client/UserOrderTable';
->>>>>>> c981ee38ef84f604e039d7c1a9525fc2cd1b81a9
 import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable';
 import Image from 'next/image';
 import withClientAuth from '../../../shared/HOC/withClienAuth';
