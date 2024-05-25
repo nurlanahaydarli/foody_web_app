@@ -5,6 +5,7 @@ import paymentIcon from '../../../public/paymentIcon.svg';
 import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
+import { Put } from '../../../server/helper/reguests';
 
 const initialState = {
     address: '',
@@ -119,6 +120,17 @@ function Checkout() {
 
     const handleCheckout = () => {
         setCheckoutComplete(true);
+
+    //     let body = {
+    //             "basket_id": "Hn6qrZMmzM8NrFI1CAWc",
+    //             "delivery_address": "Baku, yasamal",
+    //             "contact": "51-503-79-27",
+    //             "payment_method": "1"
+    //     }
+
+    //    let res = Put("order", body)
+    //    console.log(res);
+       
     };
 
     return (
@@ -199,6 +211,7 @@ function Checkout() {
                                     </div>
 
                                     <div className='flex items-center justify-center mt-16'>
+
                                         <button
                                             className={`w-11/12 h-11 ${isRectVisible || isRectVisible2 ? 'bg-textColorGreen' : ' bg-overlayColorGreen'} text-white rounded-sm`}
                                             onClick={handleCheckout}
@@ -206,6 +219,8 @@ function Checkout() {
                                         >
                                             Checkout
                                         </button>
+
+
                                     </div>
                                 </div>
 
