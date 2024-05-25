@@ -68,6 +68,8 @@ const formatPhoneNumber = (value) => {
 
 function Checkout() {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
     const [checkoutComplete, setCheckoutComplete] = useState(false);
