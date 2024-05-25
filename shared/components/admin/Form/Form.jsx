@@ -3,20 +3,15 @@ import CloseSvg from "../svg/CloseSvg";
 import CustomButton from "../Button";
 import style_form from "./form.module.css";
 import UploadImage from "../uploadImage/UploadImage";
-import {useState} from "react";
+import {useEffect, useState} from "react";;
 
-
-
-
-
-function Form({onClose,isOpen,children,title,subtitle,
-                btnTitle='Create  Product',
-                onAction=()=>console.log('add action'),
-                setIMG=(img)=>console.log('add set img'),
-                IMG=undefined
-            }) {
-  
-    
+function Form({
+                  onClose, isOpen, children, title, subtitle,collectionId,documentId,
+                  btnTitle = 'Create  Product',
+                  onAction = () => console.log('add action'),
+                  setIMG = (img) => console.log('add set img'),
+                  IMG = undefined,
+              }) {
     return (
         <>
             {isOpen &&
@@ -53,9 +48,9 @@ function Form({onClose,isOpen,children,title,subtitle,
 
                         <div className={styles.form_bottom}>
                             <CustomButton icon={false} title={'Cancel'} type='button' size={'lg'} color={'2'}
-                                         />
-                            <CustomButton icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
-                                          onAction={onAction}/>
+                            />
+                            <CustomButton  icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
+                                          onAction={onAction} />
 
                         </div>
                     </div>
@@ -65,4 +60,5 @@ function Form({onClose,isOpen,children,title,subtitle,
         </>
     )
 }
+
 export default Form

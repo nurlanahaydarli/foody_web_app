@@ -1,36 +1,24 @@
 import styles from './card.module.css'
 import Image from "next/image";
 import {shortText} from '../../../utils/shortText'
+import {RestaurantSingleApiResponse} from "../../../interfaces";
 
-type RestaurantState={
-    id:number,
-    description:string,
-    title:string,
-    delivery_price:number,
-    delivery_time:string,
-    isNew:boolean,
-    image: string,
-    onReadMore: any
-    categoryId:number
-}
 
-export default function RestaurantCard(props:RestaurantState) {
-    let  restaurant = props
-    console.log(restaurant,'restaurant')
+export default function RestaurantCard(restaurant:RestaurantSingleApiResponse) {
     let onReadMore = restaurant.onReadMore
     return (
         <>
             <div className={styles.restaurant_card} onClick={onReadMore} >
                 <div className={styles.card_top}>
-                    <Image src={restaurant.image} alt={restaurant.title} width={175} height={165}/>
+                    {/*<Image src={restaurant?.img_url} alt={restaurant.title} width={175} height={165}/>*/}
                     {restaurant.isNew && <span className={styles.new_restaurant}>New</span>}
                 </div>
                 <div className={styles.card_body}>
-                    <h4>{restaurant.title}</h4>
-                    <p>{shortText(restaurant.description,44)}</p>
+                    <h4>{restaurant.name}</h4>
+                    <p>{shortText(restaurant.cuisine,44)}</p>
                     <div className={styles.restaurant_bottom}>
-                        <span>{restaurant.delivery_price}</span>
-                        <p>{restaurant.delivery_time}</p>
+                        <span>{restaurant.delivery_price} AZN Delivery</span>
+                        <p>{restaurant.delivery_min} min</p>
                     </div>
                 </div>
             </div>
