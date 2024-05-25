@@ -5,7 +5,8 @@ import {
     RestaurantApiResponse,
     CategoryApiResponse,
     CategoryPostDataType,
-    InitialCategoryState
+    InitialCategoryState,
+    ApiResponse
 
 } from "../interfaces/";
 import {AxiosPromise} from "axios";
@@ -43,7 +44,7 @@ export const getBasket = (): AxiosPromise => {
 };
 
 //===============================  ADD BASKET ===============================
-export const addBasket: (
+export const AddBasket: (
     basketProduct: BasketPostDataType
 ) => AxiosPromise<BasketPostDataType> = (basketProduct) => {
     const accessToken = localStorage.getItem("access_token");
@@ -118,3 +119,11 @@ export const EditCategory = (
         data: editedCategory,
     });
 };
+
+// =============================== GET PRODUCTS ===============================
+export const GetProducts = (): AxiosPromise<ApiResponse> =>
+    instanceAxios({ method: "GET", url: 'products' });
+
+
+
+

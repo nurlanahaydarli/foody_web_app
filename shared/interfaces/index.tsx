@@ -75,3 +75,25 @@ export interface CategoryApiResponse {
     status: number;
     message: string;
 }
+export interface ApiResponse {
+    result: {
+        data: PostDataType[];
+    };
+    status: number;
+    message: string;
+}
+
+export interface BasketPostDataType {
+    id?: string | number | any;
+    basket_id?: string | number;
+    user_id: string | number;
+    product_id?: string | number;
+    img_url?: string | null;
+    price?: number;
+    name?: string;
+    count?: number;
+    amount?: number;
+    total_count?: number;
+    total_item?: number;
+    total_amount?: number;
+}
