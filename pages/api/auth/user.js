@@ -43,9 +43,9 @@ export default async function handler(req, res) {
     try {
       const { email, username, fullname, img_url, phone } = req.body ?? {};
 
-      if (!email || !username || !fullname || !phone) {
-        res.status(404).json({ error: "Please fill to fields" });
-      }
+      // if (!email || !username || !fullname || !phone) {
+      //   res.status(404).json({ error: "Please fill to fields" });
+      // }
 
       const updateUser = {
         email,

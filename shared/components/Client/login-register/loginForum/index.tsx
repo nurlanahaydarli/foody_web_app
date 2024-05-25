@@ -34,6 +34,7 @@ const SignInForm: React.FC = () => {
       let res= await Post(values, `auth/signin`)
       console.log(res.user); 
       // add to local
+      localStorage.setItem("access_token",res.user.access_token)
 
       dispatch(setUser(res.user));
       // add to local
