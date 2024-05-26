@@ -17,11 +17,12 @@ export default function Offer() {
     let [Img ,setImg]=useState<any>('')
     let [editImg ,seteditImg]=useState<any>('')
     let [editID ,seteditID]=useState<any>('')
+
     let [TitleYup ,setTitleYup]=useState('')
     let [Titlevalue ,setTitlevalue]=useState('')
     let [DescYup ,setDescYup]=useState('')
-
     let [DescValue ,setDescValue]=useState('')
+
     let [ResetData,setResetData]=useState(true)
     const inpTitle=useRef<any>()
     const inpDesc=useRef<any>()
