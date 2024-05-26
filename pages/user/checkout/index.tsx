@@ -226,7 +226,7 @@ function Checkout() {
                                             <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your
                                                 Order</h1>
 
-                                            <div className='flex ml-9 mt-6'>
+                                            <div className='flex p-2'>
                                                 <h1 className='font-bold text-2xl text-grayText'>1</h1>
 
                                                 <div className='flex gap-16 ml-2'>
@@ -236,7 +236,7 @@ function Checkout() {
                                                 </div>
                                             </div>
 
-                                            <div className='flex ml-9 mt-6'>
+                                            <div className='flex p-2'>
                                                 <h1 className='font-bold text-2xl text-grayText'>2</h1>
 
                                                 <div className='flex gap-52 ml-2'>
@@ -245,7 +245,7 @@ function Checkout() {
                                                 </div>
                                             </div>
 
-                                            <div className='flex ml-9 mt-6'>
+                                            <div className='flex p-2'>
                                                 <h1 className='font-bold text-2xl text-grayText'>2</h1>
 
                                                 <div className='flex gap-56 ml-2'>
@@ -254,7 +254,7 @@ function Checkout() {
                                                 </div>
                                             </div>
 
-                                            <div className='flex ml-9 mt-6'>
+                                            <div className='flex p-2'>
                                                 <h1 className='font-bold text-2xl text-grayText'>2</h1>
 
                                                 <div className='flex gap-52 ml-2'>
@@ -263,7 +263,7 @@ function Checkout() {
                                                 </div>
                                             </div>
 
-                                            <div className='flex ml-9 mt-6'>
+                                            <div className='flex p-2'>
                                                 <h1 className='font-bold text-2xl text-grayText'>1</h1>
 
                                                 <div className='flex gap-16 ml-2'>
