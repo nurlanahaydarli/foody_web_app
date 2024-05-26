@@ -203,7 +203,7 @@ export default function Products() {
               />
             </div>
 
-            <div className="w-full sm:w-auto m-5 flex flex-wrap gap-10 justify-center">
+            <div className="w-full sm:w-auto m-5 flex flex-wrap  justify-start">
 
             {/* {data?.map((item:any,i:number)=>{ */}
                 <AdminCard data={products} edit={editProduct}
