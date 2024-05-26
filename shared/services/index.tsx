@@ -32,7 +32,7 @@ export const getRestaurantById = (
     });
 
 // =============================== GET BASKET ===============================
-export const getBasket = (): AxiosPromise => {
+export const GetBasket = (): AxiosPromise => {
     const accessToken = localStorage.getItem("access_token");
     return instanceAxios({
         method: "GET",

@@ -19,30 +19,34 @@ type ProductState = {
 export default function ProductsCard(product: ProductState) {
     let {id, description, img_url, name, price} = product;
     const queryClient = useQueryClient();
-    const [active, setActive] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(false);
     const user = useSelector((state: RootState) => state.user);
-
+    const mutation = useMutation(
+        (basketProduct: BasketPostDataType) => AddBasket(basketProduct),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('basket');
+                toast.success("Product added to the basket successfully!", {
+                    autoClose: 1000,
+                });
+            },
+            onError: (error) => {
+                console.error("Error adding product to the basket:", error);
+                toast.error("Error adding product to the basket", {
+                    autoClose: 1000,
+                });
+            },
+        }
+    );
     // const {data: basketData} =useQuery(getBasket)
-    function onActive() {
-        setActive(!active)
-    }
 
     const handleAddToBasket = () => {
-        let basketProduct: BasketPostDataType | string
-        setActive(!active);
-        // mutation.mutate(basketProduct);
-        if (active) {
-            console.log(active,'active true' )
-            basketProduct = {
-                user_id: user?.id,
-                product_id: product.id,
-            };
-        } else {
-            console.log(active,'active false')
-            basketProduct = ''
-            setActive(true);
-        }
-        console.log(basketProduct,'basketProduct')
+        const basketProduct: BasketPostDataType = {
+            user_id: user.id,
+            product_id: product.id,
+        };
+        setButtonClicked(true);
+        mutation.mutate(basketProduct);
     };
     return (
         <>
@@ -59,9 +63,9 @@ export default function ProductsCard(product: ProductState) {
                 </div>
                 <div className={`flex justify-end items-center md:gap-[30px] gap-2 ${styles.product_right}`}>
                     <p>
-                        From <span>{price} AZN</span>
+                        From <span>{price} &#8380;</span>
                     </p>
-                    <button onClick={handleAddToBasket} className={active ? styles.active : ''}><PlusSvg/></button>
+                    <button onClick={handleAddToBasket} className={buttonClicked ? styles.active : ''}><PlusSvg/></button>
                 </div>
             </div>
         </>

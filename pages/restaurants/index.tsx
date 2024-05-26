@@ -44,7 +44,8 @@ export default function Restaurants() {
     function onDetail(id: number) {
         router.push('restaurants/' + id)
     }
-
+    let categories= data?.data?.result?.data
+    console.log(categories,'categories')
     return (
         <>
             <MainLayout>
@@ -58,8 +59,8 @@ export default function Restaurants() {
                                             {t("all categories")}
                                         </p>
                                     </li>
-                                    {data &&
-                                    data.data.result.data.map((category: CategoryPostDataType) => (
+                                    {
+                                    categories?.map((category: CategoryPostDataType) => (
                                         <li className='capitalize' key={category.id} onClick={() => handleCategory(category.id)}>
                                             <img src={category?.img_url} alt={category.name} className="w-[25px] h-[25px]" />
                                             <span>{category.name}</span>

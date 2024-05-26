@@ -7,6 +7,7 @@ import MinusSvg from '../svg/MinusSvg'
 
 
 export default function BasketItem(product: any) {
+    console.log(product,'product')
     const [count, setCount] = useState(1);
 
     function increaseFn(product: any) {
@@ -27,7 +28,7 @@ export default function BasketItem(product: any) {
                     <img src='/imgs/basket1.png'  alt={'title'}/>
                     <div className={styles.basket_text}>
                         <h4>
-                            {product.title}
+                            {product.name}
                         </h4>
                         <p>
                             ${product.price}

@@ -10,14 +10,14 @@ export default function RestaurantCard(restaurant:RestaurantSingleApiResponse) {
         <>
             <div className={styles.restaurant_card} onClick={onReadMore} >
                 <div className={styles.card_top}>
-                    {/*<Image src={restaurant?.img_url} alt={restaurant.title} width={175} height={165}/>*/}
+                    <img src={restaurant?.img_url} alt={restaurant.title} className='w-[175px] h-[175px]'/>
                     {restaurant.isNew && <span className={styles.new_restaurant}>New</span>}
                 </div>
                 <div className={styles.card_body}>
                     <h4>{restaurant.name}</h4>
                     <p>{shortText(restaurant.cuisine,44)}</p>
                     <div className={styles.restaurant_bottom}>
-                        <span>{restaurant.delivery_price} AZN Delivery</span>
+                        <span>{restaurant.delivery_price} &#8380; Delivery</span>
                         <p>{restaurant.delivery_min} min</p>
                     </div>
                 </div>
