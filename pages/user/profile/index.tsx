@@ -5,10 +5,17 @@ import styles from '../profile/profile.module.css'
 import Image from 'next/image';
 import UserForm from '../../../shared/components/Client/userForum';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
+import { AppDispatch, RootState } from '../../../shared/redux/store';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import withClientAuth from "../../../shared/HOC/withClienAuth";
 
 function Profile() {
     let {Profile, headText, addPhoto} = styles
+    const dispatch: AppDispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.user);
+    console.log(user);
+    
     return (
         <>
          <MainLayout>
@@ -31,7 +38,7 @@ function Profile() {
                                  <h5>upload</h5>
                              </div>
                          </div>
-                         <UserForm/>
+                         <UserForm />
                      </div>
                      </div>
                  </div>
