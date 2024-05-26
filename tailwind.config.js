@@ -24,9 +24,10 @@ module.exports = {
       customgray: "#D2D2D4",
       custompurple: "#C035A2",
       categorycolor: "#5A5B70",
-      white: "#FFFFFF",
       fontcolorhow: "#828282",
-      categorycolor: "#5A5B70"
+      cardColor: "#F3F4F6",
+      textColorGreen: "#6FCF97",
+      overlayColorGreen: "#A0D6B4",
     },
 
 
