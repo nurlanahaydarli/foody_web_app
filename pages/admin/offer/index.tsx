@@ -25,6 +25,7 @@ export default function Offer() {
     let [ResetData,setResetData]=useState(true)
     const inpTitle=useRef<any>()
     const inpDesc=useRef<any>()
+
     useEffect(()=>{
     (async()=>{
         try{
@@ -35,7 +36,10 @@ export default function Offer() {
             
         }catch(err){console.log(err);}
     })()
+    
     },[ResetData])
+
+    
     async function postOffer(offer:object){
         try{
             axios.post('http://localhost:3000/api/offer',offer )

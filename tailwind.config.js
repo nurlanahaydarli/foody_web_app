@@ -28,6 +28,7 @@ module.exports = {
       cardColor: "#F3F4F6",
       textColorGreen: "#6FCF97",
       overlayColorGreen: "#A0D6B4",
+      CategoryBtnColor: "#5A5B70"
     },
 
 

@@ -5,7 +5,6 @@ import paymentIcon from '../../../public/paymentIcon.svg';
 import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
-import { Put } from '../../../server/helper/reguests';
 
 const initialState = {
     address: '',
@@ -104,7 +103,7 @@ function Checkout() {
             dispatch({ type: "SET_FORMAT_NUMBER", payload: '' });
         } else {
             dispatch({ type: "SET_ERROR_NUMBER", payload: "Azerbaycan nömresi girməlisiz!" });
-            dispatch({ type: "SET_FORMAT_NUMBER", payload: "Örnək: +994-55-555-55-55" });
+            dispatch({ type: "SET_FORMAT_NUMBER", payload: "Örnək: +994-XX-XXX-XX-XX" });
         }
     };
 
@@ -120,16 +119,6 @@ function Checkout() {
 
     const handleCheckout = () => {
         setCheckoutComplete(true);
-
-    //     let body = {
-    //             "basket_id": "Hn6qrZMmzM8NrFI1CAWc",
-    //             "delivery_address": "Baku, yasamal",
-    //             "contact": "51-503-79-27",
-    //             "payment_method": "1"
-    //     }
-
-    //    let res = Put("order", body)
-    //    console.log(res);
        
     };
 
