@@ -26,7 +26,7 @@ export default function RestaurantDetail() {
             <MainLayout>
                 {restaurant ?
                 <>
-                    <div className='px-8 pt-1 pb-[100px]'>
+                    <div className='lg:px-8 px-3 pt-1 pb-[100px]'>
                         <div className={styles.restaurant_top}>
                             <img src={restaurant.img_url} alt={restaurant.name} className={styles.cover_width} />
                         </div>
@@ -37,7 +37,7 @@ export default function RestaurantDetail() {
                                 </h1>
                                 <p>{restaurant.address}</p>
                             </div>
-                            <div className={`flex items-center md:justify-end justify-between md:flex-nowrap flex-wrap  ${styles.top_right} gap-10`}>
+                            <div className={`flex items-center md:justify-end w-full justify-between md:flex-nowrap flex-wrap  ${styles.top_right} gap-10`}>
                                 <div className={styles.restaurant_desc}>
                                     <p>Cuisine</p>
                                     <span>{restaurant.cuisine}</span>
@@ -66,7 +66,11 @@ export default function RestaurantDetail() {
                             <div className="lg:w-2/6  w-full">
                                 <BasketContainer size={'md'} />
                             </div>
+                            <div className="w-full lg:hidden flex justify-center ">
+                                <button  className={styles.basket_btn}>Basket</button>
+                            </div>
                         </div>
+
                     </div>
                 </>
                 :<Loading/>}

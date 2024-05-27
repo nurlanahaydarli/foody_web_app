@@ -13,7 +13,6 @@ const sidebarSlice = createSlice({
     initialState,
     reducers: {
         openSidebar: (state,action) => {
-            console.log(state,'state')
              state.isOpen = true;
         },
         closeSidebar: (state, action: PayloadAction<sidebarState>) => {

@@ -214,6 +214,15 @@
         height: 65px;
         resize: none;
     }
+    .form_box,
+    .form_list,
+    .form_bottom{
+        padding: 12px;
+    }
+    .form_items{
+        margin-bottom: 30px;
+        gap: 10px;
+    }
 }
 /* Firefox */
 /*input[type='number'] {*/
