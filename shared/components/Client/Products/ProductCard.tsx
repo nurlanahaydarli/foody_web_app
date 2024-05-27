@@ -1,13 +1,13 @@
 import styles from './products.module.css'
 import Image from "next/image";
 import PlusSvg from "../svg/PlusSvg";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {AddBasket, getBasket} from "../../../services";
-import {toast} from "react-toastify";
+import {AddBasket} from "../../../services";
 import {BasketPostDataType} from "../../../interfaces";
+import { ToastContainer, toast } from 'react-toastify';
 
 type ProductState = {
     id: string;
@@ -45,8 +45,20 @@ export default function ProductsCard(product: ProductState) {
             user_id: user.id,
             product_id: product.id,
         };
-        setButtonClicked(true);
-        mutation.mutate(basketProduct);
+        if(user){
+            setButtonClicked(true);
+            mutation.mutate(basketProduct);
+            toast.success({
+                position:"top-right",
+            });
+        }
+        if(!user){
+            setButtonClicked(false);
+            toast.error({
+                position:"top-right",
+            });
+        }
+
     };
     return (
         <>
@@ -68,6 +80,7 @@ export default function ProductsCard(product: ProductState) {
                     <button onClick={handleAddToBasket} className={buttonClicked ? styles.active : ''}><PlusSvg/></button>
                 </div>
             </div>
+
         </>
     )
 }

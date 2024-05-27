@@ -10,6 +10,7 @@ import Form from "../../../shared/components/admin/Form/Form";
 import axios, {AxiosResponse} from "axios";
 import {DeleteCategory, EditCategory, getCategories, PostCategory} from "../../../shared/services";
 import uploadFile from "../../../shared/utils/uploadFile";
+import {toast} from "react-toastify";
 
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
@@ -25,7 +26,7 @@ export default function Category() {
     let [TitleYup ,setTitleYup]=useState('')
     let [Titlevalue ,setTitlevalue]=useState('')
     let [ResetData,setResetData]=useState(true)
-
+    console.log(Img,'Img')
 
     useEffect(()=>{
         (async()=>{
@@ -45,23 +46,24 @@ export default function Category() {
             "name": Title,
             "img_url":""
         }
-
-
         try{
             let res= await uploadFile({
-                file:Img[0].file,
+                file:Img,
                 collectionId:"category",
-                documentId:"lsad"
+                documentId:"category"
             }) as  string
             newCategory.img_url = res;
-            let addedCategory =  await PostCategory(newCategory);
-
-            console.log("addd",addedCategory)
-
-            console.log("res",res);
+            await PostCategory(newCategory);
+            toast.success({
+                position:"top-right",
+            });
             inpTitle?.current?.value==''
             onClose()
-        }catch(err){console.log(err);
+        }catch(err){
+            toast.error({
+                position:"top-right",
+            });
+            console.log(err);
         }
 
     }
@@ -86,15 +88,21 @@ export default function Category() {
         };
         try{
             let res= await uploadFile({
-                file:Img[0].file,
+                file:Img,
                 collectionId:"category",
-                documentId:"lsad"
+                documentId:"category"
             }) as  string
             updatedCategory.img_url = res;
             await EditCategory(updatedCategory)
+            toast.success({
+                position:"top-right",
+            });
             inpTitle.current.value = '';
             onClose();
         }catch(err){
+            toast.error({
+                position:"top-right",
+            });
             console.log(err);
         }
 

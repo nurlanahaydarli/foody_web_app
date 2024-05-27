@@ -2,8 +2,12 @@ import styles from './form.module.css'
 import CloseSvg from "../svg/CloseSvg";
 import CustomButton from "../Button";
 import style_form from "./form.module.css";
-import UploadImage from "../uploadImage/UploadImage";
-import {useEffect, useState} from "react";;
+// import UploadImage from "../uploadImage/UploadImage";
+import {useEffect, useState} from "react";
+import UploadSvg from "../svg/UploadSvg";
+import Image from "next/image";
+
+;
 
 function Form({
                   onClose, isOpen, children, title, subtitle,collectionId,documentId,
@@ -12,6 +16,19 @@ function Form({
                   setIMG = (img) => console.log('add set img'),
                   IMG = undefined,
               }) {
+    const [imgFile,setImgFile]=useState('/imgs/no-photo.avif')
+    function setImgChange(e){
+        const file = e.target.files[0];
+        if (file) {
+            setIMG(e.target.files[0])
+            setImgFile(URL.createObjectURL(file));
+        }
+    }
+    useEffect(() => {
+        if (IMG) {
+            setImgFile(IMG instanceof File ? URL.createObjectURL(IMG) : IMG);
+        }
+    }, [IMG]);
     return (
         <>
             {isOpen &&
@@ -27,10 +44,16 @@ function Form({
                             <div className={style_form.form_items}>
                                 <div className={style_form.left_item}>
                                     <h4>Upload your image</h4>
+                                    <img  className='mt-2' src={IMG? IMG : imgFile} alt=""/>
                                 </div>
                                 <div className={style_form.right_item}>
                                     <div className={style_form.upload_box}>
-                                        <UploadImage setImageList={setIMG} IMG={IMG} />
+                                        <input type="file" id='upload_file' onChange={setImgChange}  />
+                                        <label htmlFor="upload_file">
+                                            <UploadSvg/>
+                                            <span>upload</span>
+                                        </label>
+                                        {/*<UploadImage setImageList={setIMG} IMG={IMG} />*/}
                                     </div>
                                 </div>
                             </div>

@@ -5,10 +5,11 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { appWithTranslation } from 'next-i18next';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS CSS
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { wrapper } from '../shared/redux/store';
 import {QueryClient,QueryClientProvider} from "react-query";
-
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 type Props = {
   // Add custom props here
 }
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
+            <ToastContainer />
           <Component {...pageProps} />
         </ChakraProvider>
       </QueryClientProvider>

@@ -68,7 +68,11 @@
     max-width: 255px;
     width: 100%;
 }
-
+.left_item img{
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+}
 .left_item h4 {
     font-size: 18px;
     font-weight: 500;
@@ -103,7 +107,12 @@
     gap: 10px;
     width: 100%;
 }
-
+.upload_box input{
+    display: none;
+}
+.upload_box label{
+    cursor: pointer;
+}
 .upload_box span {
     color: rgba(199, 199, 199, 1);
     font-size: 18px;
