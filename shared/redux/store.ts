@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import userReducer from '../redux/featuries/user/userSılice';
-import basketSlice from "./featuries/basket/basketSlice";
+import sidebarReducer from './featuries/sidebar/sidebarSlice'
 
 const makeStore = () => 
   configureStore({
     reducer: {
         user: userReducer,
-        basket: basketSlice,
+        sidebar: sidebarReducer,
     },
   });
 
