@@ -11,6 +11,7 @@ import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
 import CustomButton from "../../../shared/components/admin/Button";
 import Modal from "../../../shared/components/admin/Modal";
+import { toast } from "react-toastify";
 
 
 const AdminLayout = dynamic(
@@ -39,8 +40,8 @@ export default function Products() {
 
   let [products, setProducts] = useState([])
 
-  let [Img, setImg] = useState<any>('')
-
+  let [Img, setImg] = useState<any>('')   
+// type string
   let [editImg, seteditImg] = useState<any>('')
   let [editID, seteditID] = useState<any>('')
 
@@ -65,21 +66,23 @@ export default function Products() {
 
   async function postProduct(product: object) {
     try {
-      axios.post('http://localhost:3000/api/products', product)
-          .then(function (response) {
-            console.log(response);
-            setResetData(prev => !prev)
-            // toast.success("Offer added sucsesfuly", {
-            //     position:"top-right",
-            //   });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+     
+    //   axios.post('http://localhost:3000/api/products', product)
+    //       .then(function (response) {
+    //         console.log(response);
+    //         setResetData(prev => !prev)
+    //         // toast.success("Added successfully", {
+    //         //     position:"top-right",
+    //         //   });
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+    //       });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  // }
+
   async function upProduct(product: object, id: string) {
     console.log(id, product);
 
@@ -88,7 +91,7 @@ export default function Products() {
           .then(function (response) {
             console.log(response);
             setResetData(prev => !prev)
-            // toast.success("Offer update sucsesfuly", {
+            // toast.success("Edit was successfully!", {
             //     position:"top-right",
             //   });
           })
@@ -108,6 +111,8 @@ export default function Products() {
     Title?.length<=3?setTitleYup('title have to be longer than 3 '):setTitleYup('')
     Desc?.length<=3?setDescYup('description have to be longer than 3 '):setDescYup('')
     Rest?.length<=3?setRestYup('restauran have to be longer than 3 '):setRestYup('')
+    // WRITE HERE PRICE SETPRICEYUP
+
     if(Desc?.length<=3 || Title.length<=3){
       return
     }
@@ -220,8 +225,8 @@ export default function Products() {
           <Form
               isOpen={isOpen}
 
-              title={editImg ? 'Edit Product' : 'Edit Product'}
-              subtitle={`${editImg? 'Edit' : 'Edit'} 
+              title={editImg ? 'Edit Product' : 'Add Product'}
+              subtitle={`${editImg? 'Edit' : 'Add'} 
           your Product description and necessary information `}
               onClose={()=>{
                 onClose()
@@ -232,8 +237,8 @@ export default function Products() {
                 setRestValue('')
               }}
 
-              onAction={editImg? updateProduct: addProduct}
-              btnTitle={editImg ? "Edit product" : "Update product"}
+              onAction={editImg? updateProduct:addProduct }
+              btnTitle={editImg ? "Update product" : "Create product"}
               IMG={editImg}
               setIMG={setImg}
 

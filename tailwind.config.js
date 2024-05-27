@@ -13,6 +13,7 @@ module.exports = {
       grayText: "#828282",
       grayText2: "#4F4F4F",
       whiteLight1: "#F3F4F6",
+      whiteLight: "#F2F2F2",
       mainRedLight: "rgba(214, 54, 38, 0.3)",
       whiteLight3: "#BDBDBD",
       mainRed: "#D63626",
@@ -23,7 +24,8 @@ module.exports = {
       white: "#FFFFFF",
       customgray: "#D2D2D4",
       custompurple: "#C035A2",
-      categorycolor: "#5A5B70"
+      categorycolor: "#5A5B70",
+      darkBlue: "#5A5B70"
     },
 
 

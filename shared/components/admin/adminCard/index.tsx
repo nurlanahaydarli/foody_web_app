@@ -54,9 +54,9 @@ console.log("datdatadatadataa",data);
         .then(response => {
           console.log(`deleted `);
           // reset()
-          toast.success("Offer deleted sucsesfuly", {
-            position:"top-right",
-          });
+          // toast.success("Deleted Successfully!", {
+          //   position:"top-right",
+          // });
         })
         .catch(error => {
           console.error(error);
