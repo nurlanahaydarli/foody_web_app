@@ -194,7 +194,27 @@
     -webkit-appearance: none;
     margin: 0;
 }
+@media(max-width: 991px){
+    .form_items{
+        flex-direction: column;
+    }
+    .close{
+        left: auto;
+        right: 30px;
+    }
+    .form_bottom{
+        gap: 10px;
+    }
+    .form_list input,
+    .form_list select {
+        height: 30px;
+    }
 
+    .form_list textarea {
+        height: 65px;
+        resize: none;
+    }
+}
 /* Firefox */
 /*input[type='number'] {*/
 /*    -moz-appearance: textfield;*/
