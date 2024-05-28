@@ -100,6 +100,7 @@ export default function Offer() {
             console.log(err);
         }
     }
+<<<<<<< HEAD
 
     async function updateOffer() {
         let Title = inpTitle?.current?.value;
@@ -123,6 +124,35 @@ export default function Offer() {
         } catch (err) {
             console.log(err);
         }
+=======
+    async function deleteOffer(id:string){
+        try{
+            axios.delete(`http://localhost:3000/api/offer/${id}`)
+                .then(response => {
+                    console.log(`deleted `);
+                    setResetData(prev=>!prev)
+                    toast.success("Offer deleted sucsesfuly", {
+                        position:"top-right",
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        }catch(err){console.log(err);
+        }
+
+    }
+    function editOffer(name:string,description:string,image:string,id:string){
+            setTitlevalue(name)
+            setDescValue(description)
+            seteditImg(image)
+            setImg([image])
+            seteditID(id)
+            
+            
+        onOpen()
+>>>>>>> 8106112c068c0a505564aee2e60176fa47075596
     }
 
     function editOffer(name: string, description: string, image: string, id: string) {
@@ -148,6 +178,7 @@ export default function Offer() {
     return (
         <>
             <AdminLayout>
+<<<<<<< HEAD
                 <AdminHedetbuttom
                     typeButton={false}
                     addButton={true}
@@ -159,6 +190,21 @@ export default function Offer() {
                     data={offers}
                     reset={() => setResetData(prev => !prev)}
                 />
+=======
+            <AdminHedetbuttom 
+            typeButton={false}
+            
+            addButton={true}
+            addTitle={"ADD OFFER"}
+            Title={"Offers"}
+            addButtonFun={onOpen}/>
+            <AdminTable
+            edit={editOffer}
+            data={offers}
+            removeDocument={deleteOffer}
+            reset={()=>setResetData(prev=>!prev)}
+            />
+>>>>>>> 8106112c068c0a505564aee2e60176fa47075596
             </AdminLayout>
             <Form
                 isOpen={isOpen}

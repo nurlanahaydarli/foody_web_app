@@ -11,22 +11,23 @@ import axios, {AxiosResponse} from "axios";
 import {DeleteCategory, EditCategory, getCategories, PostCategory} from "../../../shared/services";
 import uploadFile from "../../../shared/utils/uploadFile";
 import {toast} from "react-toastify";
+import {CategoryPostDataType} from "../../../shared/interfaces";
+import withAuth from "../../../shared/HOC/withAuth";
 
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });
 
-export default function Category() {
+function Category() {
     const inpTitle=useRef<any>()
     const {isOpen,onOpen,onClose} = useModalOpen()
-    let [categories ,setCategories]=useState()
+    let [categories ,setCategories]=useState<CategoryPostDataType[]>([]);
     let [Img ,setImg]=useState<any>('')
     let [editImg ,seteditImg]=useState<any>('')
     let [editID ,seteditID]=useState<any>('')
     let [TitleYup ,setTitleYup]=useState('')
     let [Titlevalue ,setTitlevalue]=useState('')
     let [ResetData,setResetData]=useState(true)
-    console.log(Img,'Img')
 
     useEffect(()=>{
         (async()=>{
@@ -44,7 +45,7 @@ export default function Category() {
 
         let newCategory={
             "name": Title,
-            "img_url":""
+            "img_url": ''
         }
         try{
             let res= await uploadFile({
@@ -53,15 +54,22 @@ export default function Category() {
                 documentId:"category"
             }) as  string
             newCategory.img_url = res;
-            await PostCategory(newCategory);
-            toast.success({
-                position:"top-right",
+
+            setCategories(prevCategories => [...prevCategories, { ...newCategory, id: Date.now() }]);
+
+            let createdCategory = await PostCategory(newCategory);
+            setCategories(prevCategories => prevCategories.map(category =>
+                category.id === newCategory.id ? createdCategory.data : category
+            ));
+            toast.success("Category successfully added", {
+                position: "top-right",
             });
             inpTitle?.current?.value==''
             onClose()
+            setImg('')
         }catch(err){
-            toast.error({
-                position:"top-right",
+            toast.error("An error occurred while adding the category", {
+                position: "top-right",
             });
             console.log(err);
         }
@@ -84,24 +92,30 @@ export default function Category() {
         let updatedCategory = {
             id: editID,
             name: Title,
-            img_url: ""
+            img_url: editImg
         };
         try{
-            let res= await uploadFile({
-                file:Img,
-                collectionId:"category",
-                documentId:"category"
-            }) as  string
-            updatedCategory.img_url = res;
+            if (Img instanceof File) {
+                let res = await uploadFile({
+                    file: Img,
+                    collectionId: "category",
+                    documentId: "category"
+                }) as string;
+                updatedCategory.img_url = res;
+            }
+
+            setCategories(prevCategories => prevCategories.map(category =>
+                category.id === updatedCategory.id ? { ...category, ...updatedCategory } : category
+            ));
             await EditCategory(updatedCategory)
-            toast.success({
-                position:"top-right",
+            toast.success("Category successfully edited", {
+                position: "top-right",
             });
             inpTitle.current.value = '';
             onClose();
         }catch(err){
-            toast.error({
-                position:"top-right",
+            toast.error("An error occurred while adding the category", {
+                position: "top-right",
             });
             console.log(err);
         }
@@ -110,9 +124,11 @@ export default function Category() {
 
     
     async function removeCategory(id: string | number){
-        console.log(id,'editID')
         try{
             await DeleteCategory(id)
+            toast.success("Category successfully deleted", {
+                position: "top-right",
+            });
             setResetData(prev => !prev);
         }catch(err){
             console.log(err);
@@ -132,8 +148,9 @@ export default function Category() {
             <AdminLayout>
                 <div >
                     <AdminHedetbuttom typeButton={false}  addButton={true} addButtonFun={onOpen} addTitle={'ADD CATEGORY '} Title={'CATEGORY '}/>
-                    <AdminTable edit={editCategory} removeDocument={removeCategory}
+                    <AdminTable edit={editCategory}
                                 data={categories}
+                                removeDocument={removeCategory}
                                     reset={()=>setResetData(prev=>!prev)} />
                     <Form
                             isOpen={isOpen}
@@ -157,3 +174,5 @@ export default function Category() {
         </>
     );
 }
+
+export default withAuth(Category)
