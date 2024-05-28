@@ -131,7 +131,7 @@ export default function Category() {
             <AdminLayout>
                 <div >
                     <AdminHedetbuttom typeButton={false}  addButton={true} addButtonFun={onOpen} addTitle={'ADD CATEGORY '} Title={'CATEGORY '}/>
-                    <AdminTable edit={editCategory} removeDocument={removeCategory}
+                    <AdminTable edit={editCategory}
                                 data={categories}
                                     reset={()=>setResetData(prev=>!prev)} />
                     <Form
