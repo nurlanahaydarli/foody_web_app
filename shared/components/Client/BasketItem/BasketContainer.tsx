@@ -21,7 +21,10 @@ type BasketProps = {
 export default function BasketContainer(props: BasketProps) {
     let {size} = props
     let {push}=useRouter()
-    const { data: basketList } = useQuery("basket", GetBasket);
+    const [userLoaded, setUserLoaded] = useState(false);
+    const { data: basketList, isLoading: basketLoading } = useQuery("basket", GetBasket, {
+        enabled: userLoaded
+    });
     let basket_list = basketList?.data.result.data;
     const user = useSelector((state: RootState) => state.user);
     const queryClient = useQueryClient();
@@ -49,7 +52,15 @@ export default function BasketContainer(props: BasketProps) {
         };
         mutationClear.mutate(basketId);
     }
+    useEffect(() => {
+        if (user.id) {
+            setUserLoaded(true);
+        }
+    }, [user.id]);
 
+    if (!user.id || basketLoading) {
+        return null; // or loading indicator
+    }
     return (
         <>
             <div className={`${styles.user_cabinet_box} ${styles[size]}`}>
