@@ -9,7 +9,6 @@ export default function RestaurantCard(restaurant:RestaurantSingleApiResponse) {
     let onReadMore = restaurant.onReadMore;
     let created_at = restaurant.created
     let isNew =isNewFunction(created_at)
-    console.log(isNew,'isNew')
     return (
         <>
             <div className={styles.restaurant_card} onClick={onReadMore} >
