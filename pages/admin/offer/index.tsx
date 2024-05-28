@@ -123,6 +123,24 @@ export default function Offer() {
         }
         
     }
+    async function deleteOffer(id:string){
+        try{
+            axios.delete(`http://localhost:3000/api/offer/${id}`)
+                .then(response => {
+                    console.log(`deleted `);
+                    setResetData(prev=>!prev)
+                    toast.success("Offer deleted sucsesfuly", {
+                        position:"top-right",
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        }catch(err){console.log(err);
+        }
+
+    }
     function editOffer(name:string,description:string,image:string,id:string){
             setTitlevalue(name)
             setDescValue(description)
@@ -146,6 +164,7 @@ export default function Offer() {
             <AdminTable
             edit={editOffer}
             data={offers}
+            removeDocument={deleteOffer}
             reset={()=>setResetData(prev=>!prev)}
             />
             </AdminLayout>

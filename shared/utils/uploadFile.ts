@@ -28,7 +28,6 @@ export const uploadFile = async ({
     if (!collectionId) {
         throw new Error('Please enter a collection ID');
     }
-    console.log(metadata,'metadata')
     const storageRef = ref(storage, `${collectionId}/${documentId}/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file,metadata);
 
@@ -37,7 +36,6 @@ export const uploadFile = async ({
             'state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log(`Upload is ${progress}% done`);
             },
             (error) => {
                 reject('Upload failed: ' + error.message);

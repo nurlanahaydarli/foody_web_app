@@ -106,7 +106,7 @@ export const DeleteCategory = (
 ): AxiosPromise<CategoryApiResponse> =>
     instanceAxios({
         method: "DELETE",
-        url: `'category'/${categoryId}`,
+        url: `category/${categoryId}`,
     });
 
 // =============================== EDIT CATEGORY ===============================

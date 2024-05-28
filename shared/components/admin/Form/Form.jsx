@@ -2,15 +2,13 @@ import styles from './form.module.css'
 import CloseSvg from "../svg/CloseSvg";
 import CustomButton from "../Button";
 import style_form from "./form.module.css";
-// import UploadImage from "../uploadImage/UploadImage";
 import {useEffect, useState} from "react";
 import UploadSvg from "../svg/UploadSvg";
-import Image from "next/image";
 
 ;
 
 function Form({
-                  onClose, isOpen, children, title, subtitle,collectionId,documentId,
+                  onClose, isOpen, children, title, subtitle,
                   btnTitle = 'Create  Product',
                   onAction = () => console.log('add action'),
                   setIMG = (img) => console.log('add set img'),
@@ -27,8 +25,11 @@ function Form({
     useEffect(() => {
         if (IMG) {
             setImgFile(IMG instanceof File ? URL.createObjectURL(IMG) : IMG);
+        }else {
+            setImgFile('/imgs/no-photo.avif');
         }
     }, [IMG]);
+
     return (
         <>
             {isOpen &&
@@ -44,7 +45,7 @@ function Form({
                             <div className={style_form.form_items}>
                                 <div className={style_form.left_item}>
                                     <h4>Upload your image</h4>
-                                    <img  className='mt-2' src={IMG? IMG : imgFile} alt=""/>
+                                    <img  className='mt-2' src={imgFile} alt=""/>
                                 </div>
                                 <div className={style_form.right_item}>
                                     <div className={style_form.upload_box}>

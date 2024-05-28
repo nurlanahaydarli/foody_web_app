@@ -10,29 +10,11 @@ interface PROPS {
     data? : any,
     reset :Function,
     edit :any,
+    removeDocument:any
 }
 function AdminTable(props:PROPS) {
-let {data,reset,edit} =props
+let {data,reset,edit,removeDocument} =props
 
-
-async function deleteOffer(id:string){
-    try{
-        axios.delete(`http://localhost:3000/api/offer/${id}`)
-        .then(response => {
-          console.log(`deleted `);
-          reset()
-          toast.success("Offer deleted sucsesfuly", {
-            position:"top-right",
-          });
-        })
-        .catch(error => {
-          console.error(error);
-        });
-
-    }catch(err){console.log(err);
-    }
-   
-}
 
 let [mobile,setmobile]=useState(false)
 useEffect(()=>{
@@ -76,7 +58,7 @@ useEffect(()=>{
                         </td>
                     <td  className=' align-middle'>
                         <div className='h-full'>
-                        <img src={item.img_url} alt="" className={styles.tableImg}/>
+                        <img src={item.img_url} alt="" className={`${styles.tableImg} object-contain`} />
 
                         </div>
 
@@ -93,7 +75,7 @@ useEffect(()=>{
                         <div className={styles.icons}>
                         <Image
                         src={editicon}
-                        className={styles.mr}
+                        className={`${styles.mr} cursor-pointer`}
                         width={24}
                         height={24}
                         alt='editicon'
@@ -103,13 +85,13 @@ useEffect(()=>{
                         />
                         <Image
                         src={deliteicon}
-                        className={styles.mr}
+                        className={`${styles.mr} cursor-pointer`}
                         width={14}
                         height={18}
                         alt='editicon'
                         onClick={()=>{
-                            
-                            deleteOffer(item.id)
+
+                            removeDocument(item.id)
                         }}
                         />
                         </div>

@@ -27,7 +27,6 @@ export default function Category() {
     let [TitleYup ,setTitleYup]=useState('')
     let [Titlevalue ,setTitlevalue]=useState('')
     let [ResetData,setResetData]=useState(true)
-    console.log(Img,'Img')
 
     useEffect(()=>{
         (async()=>{
@@ -45,7 +44,7 @@ export default function Category() {
 
         let newCategory={
             "name": Title,
-            "img_url":""
+            "img_url": ''
         }
         try{
             let res= await uploadFile({
@@ -54,12 +53,19 @@ export default function Category() {
                 documentId:"category"
             }) as  string
             newCategory.img_url = res;
-            await PostCategory(newCategory);
+
+            setCategories(prevCategories => [...prevCategories, { ...newCategory, id: Date.now() }]);
+
+            let createdCategory = await PostCategory(newCategory);
+            setCategories(prevCategories => prevCategories.map(category =>
+                category.id === newCategory.id ? createdCategory.data : category
+            ));
             toast.success("Category successfully added", {
                 position: "top-right",
             });
             inpTitle?.current?.value==''
             onClose()
+            setImg('')
         }catch(err){
             toast.error("An error occurred while adding the category", {
                 position: "top-right",
@@ -85,17 +91,31 @@ export default function Category() {
         let updatedCategory = {
             id: editID,
             name: Title,
-            img_url: ""
+            img_url: editImg
         };
         try{
-            let res= await uploadFile({
-                file:Img,
-                collectionId:"category",
-                documentId:"category"
-            }) as  string
-            updatedCategory.img_url = res;
+            // let res= await uploadFile({
+            //     file:Img,
+            //     collectionId:"category",
+            //     documentId:"category"
+            // }) as  string
+            //
+            // updatedCategory.img_url = res;
+            if (Img instanceof File) {
+                // If a new image file has been selected, upload it
+                let res = await uploadFile({
+                    file: Img,
+                    collectionId: "category",
+                    documentId: "category"
+                }) as string;
+                updatedCategory.img_url = res;
+            }
+
+            setCategories(prevCategories => prevCategories.map(category =>
+                category.id === updatedCategory.id ? { ...category, ...updatedCategory } : category
+            ));
             await EditCategory(updatedCategory)
-            toast.success("Category successfully added", {
+            toast.success("Category successfully edited", {
                 position: "top-right",
             });
             inpTitle.current.value = '';
@@ -109,9 +129,11 @@ export default function Category() {
 
     }
     async function removeCategory(id: string | number){
-        console.log(id,'editID')
         try{
             await DeleteCategory(id)
+            toast.success("Category successfully deleted", {
+                position: "top-right",
+            });
             setResetData(prev => !prev);
         }catch(err){
             console.log(err);
@@ -133,6 +155,7 @@ export default function Category() {
                     <AdminHedetbuttom typeButton={false}  addButton={true} addButtonFun={onOpen} addTitle={'ADD CATEGORY '} Title={'CATEGORY '}/>
                     <AdminTable edit={editCategory}
                                 data={categories}
+                                removeDocument={removeCategory}
                                     reset={()=>setResetData(prev=>!prev)} />
                     <Form
                             isOpen={isOpen}
