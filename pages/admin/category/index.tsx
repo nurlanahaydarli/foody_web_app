@@ -11,6 +11,7 @@ import axios, {AxiosResponse} from "axios";
 import {DeleteCategory, EditCategory, getCategories, PostCategory} from "../../../shared/services";
 import uploadFile from "../../../shared/utils/uploadFile";
 import {toast} from "react-toastify";
+import {CategoryPostDataType} from "../../../shared/interfaces";
 
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
@@ -19,7 +20,7 @@ const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layou
 export default function Category() {
     const inpTitle=useRef<any>()
     const {isOpen,onOpen,onClose} = useModalOpen()
-    let [categories ,setCategories]=useState()
+    let [categories ,setCategories]=useState<CategoryPostDataType[]>([]);
     let [Img ,setImg]=useState<any>('')
     let [editImg ,seteditImg]=useState<any>('')
     let [editID ,seteditID]=useState<any>('')
