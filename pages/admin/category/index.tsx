@@ -107,6 +107,8 @@ export default function Category() {
         }
 
     }
+
+    
     async function removeCategory(id: string | number){
         console.log(id,'editID')
         try{
