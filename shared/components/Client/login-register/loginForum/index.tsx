@@ -6,6 +6,11 @@ import styles from '../loginForum/forum.module.css'
 import { Post } from '../../../../../server/helper/reguests';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../../../redux/store';
+import { setUser, clearUser, updateUser } from '../../../../redux/featuries/user/userSılice';
+import { useRouter } from 'next/router';
 interface SignInFormValues {
   email: string;
   password: string;
@@ -21,7 +26,7 @@ const SignInForm: React.FC = () => {
     email: Yup.string().email('Invalid email address').required('Required'),
     password: Yup.string().required('Required'),
   });
-
+    let ruter=useRouter()
   const handleSubmit = (values: SignInFormValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     // You can perform your sign-in logic here
     console.log('Submitting:', values);
@@ -29,14 +34,34 @@ const SignInForm: React.FC = () => {
       let res= await Post(values, `auth/signin`)
       console.log(res.user); 
       // add to local
+      localStorage.setItem("access_token",res.user.access_token)
+
+      dispatch(setUser(res.user));
+      // add to local
+
       toast.success("singin sucsesfuly", {
         position:"top-right",
       });
+      ruter.push('/user/profile')
+
       
     })()
     setSubmitting(false);
   };
-
+    //tolkid
+  const dispatch: AppDispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+  // logouth
+  const handleLogout = () => {
+    dispatch(clearUser());
+  };
+  //update
+  const handleUpdateUser = () => {
+    const updateData = {
+      email: 'newemail@example.com',
+    };
+    dispatch(updateUser(updateData));
+  };
   return (<div>
     <Formik
       initialValues={initialValues}

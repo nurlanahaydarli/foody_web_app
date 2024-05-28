@@ -1,47 +1,105 @@
 import styles from "../../../../pages/user/basket/basket.module.css";
 import Image from "next/image";
 import RemoveSvg from "../svg/RemoveSvg";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PlusSvg from '../svg/PlusSvg'
 import MinusSvg from '../svg/MinusSvg'
+import {clearBasket, deleteBasket} from "../../../services";
+import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../redux/store";
+import {BasketPostDataType} from "../../../interfaces";
+import {toast} from "react-toastify";
 
+type ProductState = {
+    id: string,
+    name: string,
+    price: string,
+    count: number,
+    img_url:string,
+    setTotalAmount: any,
+}
+export default function BasketItem(product: ProductState) {
+    let {name, id, price,img_url, count, setTotalAmount} = product;
+    let price_number: number = +price;
+    const [quantity, setQuantity] = useState(1);
+    const user = useSelector((state: RootState) => state.user);
+    const queryClient = useQueryClient();
+    console.log(user,'user')
+    const mutationClear = useMutation(
+        (basketProduct: BasketPostDataType) => clearBasket(basketProduct),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('basket');
+                toast.success("Product deleted successfully!", {
+                    autoClose: 1000,
+                });
+            },
+            onError: (error) => {
+                console.error("Error deleteing product :", error);
+                toast.error("Error deleteing product count", {
+                    autoClose: 1000,
+                });
+            },
+        }
+    );
 
-export default function BasketItem(product: any) {
-    const [count, setCount] = useState(1);
+    useEffect(() => {
+        setTotalAmount((prev) => prev + price_number * quantity);
+        return () => {
+            setTotalAmount((prev) => prev - price_number * quantity);
+        };
+    }, []);
 
-    function increaseFn(product: any) {
-        // let num = count == product.quantity ? product.quantity : count + 1
-        let num = count === product.quantity ? product.quantity : Math.min(count + 1, product.quantity)
-        setCount(num)
+    function increaseFn() {
+        if (quantity < count) {
+            setQuantity((prevQuantity) => {
+                const newQuantity = prevQuantity + 1;
+                setTotalAmount((prev) => prev + price_number);
+                return newQuantity;
+            });
+        }
     }
 
     function decreaseFn() {
-        let num = count === 1 ? 1 : count - 1
-        setCount(num)
+        if (quantity > 1) {
+            setQuantity((prevQuantity) => {
+                const newQuantity = prevQuantity - 1;
+                setTotalAmount((prev) => prev - price_number);
+                return newQuantity;
+            });
+        }
+    }
+    async function  handleRemove(){
+        const basketId: BasketPostDataType = {
+            user_id: user.id,
+            basket_id: id,
+        };
+        mutationClear.mutate(basketId);
     }
 
     return (
         <>
-            <div className={styles.basket_box} key={product.id}>
+            <div className={styles.basket_box} key={id}>
                 <div className={styles.basket_item}>
-                    <img src='/imgs/basket1.png'  alt={'title'}/>
+                    <img src={img_url} alt={'title'}/>
                     <div className={styles.basket_text}>
                         <h4>
-                            {product.title}
+                            {name}
                         </h4>
                         <p>
-                            ${product.price}
+                            ${price}
                         </p>
                     </div>
                 </div>
                 <div className={styles.basket_item}>
                     <div className={styles.basket_quantity}>
-                        <button disabled={count === product.quantity} onClick={() => increaseFn(product)}><PlusSvg/>
+                        <button disabled={quantity === count} onClick={increaseFn}><PlusSvg/>
                         </button>
-                        <input type="number" value={count}/>
-                        <button onClick={decreaseFn} disabled={count === 1}><MinusSvg/></button>
+                        <input type="number" value={quantity}/>
+                        <button onClick={decreaseFn} disabled={quantity === 1}><MinusSvg/></button>
                     </div>
-                    <button><RemoveSvg/></button>
+                    <button onClick={handleRemove}><RemoveSvg/></button>
                 </div>
             </div>
         </>

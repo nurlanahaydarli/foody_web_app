@@ -3,7 +3,7 @@
     height: 601px;
     width: 100%;
     background: #F3F4F6;
-    margin: 16px  0 0 16px;
+    /*margin: 16px  0 0 16px;*/
     display: flex;
     flex-direction: column;
 }

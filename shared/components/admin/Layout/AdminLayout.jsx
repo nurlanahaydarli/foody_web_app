@@ -12,17 +12,7 @@ const Navbar = dynamic(() => import("../Navbar/Navbar"), {
 
 
 const AdminLayout = ({children}) => {
-    let [mobile,setmobile]=useState(false)
-useEffect(()=>{
-    if(window.innerWidth<800){
-        setmobile(true)
-    }else{
-        setmobile(false)
-    }
-  
-    
-    
-},[])
+
     return (
         <div>
             <Head>
@@ -34,10 +24,7 @@ useEffect(()=>{
                 <Navbar/>
 
                 <section className={styles.main_section}>
-                    <div style={mobile?{display:'none'}:{}}>
                     <Sidebar />
-                    </div>
-                    
                     <div className={styles.content_box}>
                         {children}
                     </div>

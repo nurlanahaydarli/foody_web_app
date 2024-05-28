@@ -68,7 +68,11 @@
     max-width: 255px;
     width: 100%;
 }
-
+.left_item img{
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+}
 .left_item h4 {
     font-size: 18px;
     font-weight: 500;
@@ -103,7 +107,12 @@
     gap: 10px;
     width: 100%;
 }
-
+.upload_box input{
+    display: none;
+}
+.upload_box label{
+    cursor: pointer;
+}
 .upload_box span {
     color: rgba(199, 199, 199, 1);
     font-size: 18px;
@@ -185,7 +194,36 @@
     -webkit-appearance: none;
     margin: 0;
 }
+@media(max-width: 991px){
+    .form_items{
+        flex-direction: column;
+    }
+    .close{
+        left: auto;
+        right: 30px;
+    }
+    .form_bottom{
+        gap: 10px;
+    }
+    .form_list input,
+    .form_list select {
+        height: 30px;
+    }
 
+    .form_list textarea {
+        height: 65px;
+        resize: none;
+    }
+    .form_box,
+    .form_list,
+    .form_bottom{
+        padding: 12px;
+    }
+    .form_items{
+        margin-bottom: 30px;
+        gap: 10px;
+    }
+}
 /* Firefox */
 /*input[type='number'] {*/
 /*    -moz-appearance: textfield;*/

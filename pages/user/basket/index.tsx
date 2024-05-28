@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import BasketContainer from "../../../shared/components/Client/BasketItem/BasketContainer";
-
+import withClientAuth from '../../../shared/HOC/withClienAuth';
 
 
 function Basket() {

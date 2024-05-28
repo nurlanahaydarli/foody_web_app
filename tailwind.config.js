@@ -21,11 +21,15 @@ module.exports = {
       lightRed: "#EB5757",
       green: "#066839",
       black: "#181617",
-      white: "#FFFFFF",
       customgray: "#D2D2D4",
       custompurple: "#C035A2",
       categorycolor: "#5A5B70",
-      darkBlue: "#5A5B70"
+      darkBlue: "#5A5B70",
+      fontcolorhow: "#828282",
+      cardColor: "#F3F4F6",
+      textColorGreen: "#6FCF97",
+      overlayColorGreen: "#A0D6B4",
+
     },
 
 

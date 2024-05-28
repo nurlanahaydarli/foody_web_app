@@ -6,16 +6,22 @@ import {useModalOpen} from "../../../hooks/UseModalOpen";
 import Input from "../Form/Input";
 import ChangeLanguage from "../../Language/ChangeLanguage";
 import MenuSvg from '../svg/MenuSvg';
+import {useDispatch, useSelector} from "react-redux";
+import {openSidebar} from "../../../redux/featuries/sidebar/sidebarSlice";
+import {AppDispatch, RootState} from "../../../redux/store";
 export default function Navbar() {
     let {push} = useRouter();
     const {isOpen,onOpen,onClose} = useModalOpen()
-    
+    let  dispatch: AppDispatch = useDispatch()
+    function handleOpenSidebar(){
+        dispatch(openSidebar())
+    }
     return (
         <>
 
             <div className={styles.navbar_box}>
                 <div className='flex items-center gap-3'>
-                    <button className={styles.menu_btn}> <MenuSvg /></button>
+                    <button onClick={handleOpenSidebar} className={styles.menu_btn}> <MenuSvg /></button>
                     <div className={`${styles.logo_box} flex`}>
                         <button onClick={() => push('/admin/')}>
                             <img src={'/imgs/logo.png'} alt={'logo'}/>

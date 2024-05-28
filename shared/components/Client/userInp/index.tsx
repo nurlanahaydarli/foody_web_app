@@ -7,15 +7,16 @@ interface Props {
     type: string,
     placeholder?: string,
     title?: string,
+    value?:string
 }
 
 function Input(props: Props) {
     let {label, inp, eror} = style
-    let {name, type, placeholder, title} = props
+    let {name, type, placeholder, title,value} = props
     return (
         <div className='flex flex-col'>
             <label htmlFor={name} className={label}>{title}</label>
-            <Field type={type} id={name} name={name} className={inp} placeholder={placeholder}/>
+            <Field type={type} id={name} name={name} className={inp} value={value} placeholder={placeholder}/>
             <ErrorMessage name={name} component="div" className={eror}/>
         </div>
     );

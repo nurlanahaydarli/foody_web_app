@@ -7,24 +7,11 @@ import Auth from "../auth/Auth";
 import MenuSvg from '../../admin/svg/MenuSvg';
 import CloseSvg from '../../admin/svg/CloseSvg';
 import { useModalOpen } from '../../../hooks/UseModalOpen';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import {useResize} from "../../../hooks/useResize";
 
 export default function Header() {
         let {isOpen,onOpen,onClose}=useModalOpen();
-        const [isMobile, setIsMobile] = useState(false);
-        
-        useEffect(() => {
-            const handleResize = () => {
-            if (typeof window !== 'undefined') {
-                setIsMobile(window.innerWidth <= 991);
-            }
-            };
-            handleResize();
-            window.addEventListener('resize', handleResize);
-            return () => {
-            window.removeEventListener('resize', handleResize);
-            };
-        }, []);
+    let {isMobile} = useResize()
 
     return (
         <>

@@ -54,8 +54,6 @@
     padding: 15px 24px;
     max-width: 400px;
     width: 100%;
-
-
 }
 
 .type_submit {
@@ -64,7 +62,20 @@
 }
 
 .type_cancel {
-    /* background-color: rgba(67, 68, 90, 1) !important; */
+     background-color: rgba(67, 68, 90, 1) !important;
     color: #fff;
 }
 
+@media(max-width: 991px){
+    .lg {
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 21px;
+        letter-spacing: 0.25px;
+        text-align: center;
+    }
+    .btn{
+        border-radius: 2px;
+    }
+}

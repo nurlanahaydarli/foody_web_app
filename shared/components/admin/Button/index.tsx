@@ -4,7 +4,7 @@ import styles from './button.module.css'
 interface CustomButtonProps {
     title?: any;
     size?: any;
-    onAction?: any;
+    onAction?:any;
     type?: any;
     color?: any;
     icon?: any;

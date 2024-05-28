@@ -143,3 +143,114 @@
     padding: 10px;
     border-radius: 5px;
 }
+.close_category{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.close_category button{
+    width: 36px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid #BDBDBD;
+}
+
+.close_category button svg path{
+    fill: #BDBDBD;
+}
+.show{
+    display: block!important;
+}
+.hide{
+    display: none!important;
+}
+@media(max-width: 1200px){
+    .category_list{
+        padding: 10px;
+    }
+    .category_list ul{
+        gap: 10px;
+    }
+    .category_list ul img{
+        display: none;
+    }
+}
+@media(max-width: 1024px){
+    .category_list{
+        position: unset;
+        padding: 28px;
+        background-color: #fff;
+    }
+    .mobile_filter{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        width: 100%;
+        padding: 8px;
+        box-shadow: 0px 3px 8px -2px #00000033;
+
+    }
+    .category_list ul li:first-child{
+        margin-top: 10px;
+    }
+    .shadow{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 100;
+    }
+    .category_list_box{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        max-height: 80vh;
+        border-radius: 20px 20px 0 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        z-index: 101;
+        padding: 15px 20px 50px 20px;
+    }
+    .category_list_box ul{
+        gap: 10px;
+        height: 100%;
+        overflow: auto;
+    }
+    .category_list_box li{
+        border-bottom: 1px solid #E0E0E0;
+        border-radius: 0;
+    }
+    .category_list_box li img{
+        display: none;
+    }
+    .category_list_box li span{
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21.09px;
+        letter-spacing: 0.03em;
+    }
+    .restaurant_top{
+        height: 175px;
+    }
+    .restaurant_detail{
+        padding: 8px;
+    }
+    .action button{
+        display: none;
+    }
+    .basket_btn{
+        background-color: #D63626;
+        padding: 6px 12px;
+        border-radius: 24px;
+        color: #fff;
+        width: 100%;
+    }
+}

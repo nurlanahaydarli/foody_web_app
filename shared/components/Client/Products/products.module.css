@@ -87,3 +87,28 @@ object-fit: contain;
 .product_right button.active svg path{
     fill: #fff;
 }
+@media(max-width: 1024px){
+    .products_container{
+        padding: 14px;
+    }
+    .products_title{
+        line-height: unset;
+    }
+    .products_list ul li{
+        padding: 5px 0;
+    }
+    .products_list ul li img{
+        display: none;
+    }
+    .product_left h4{
+        font-size: 14px;
+    }
+    .product_left p{
+        font-size: 12px;
+    }
+    .product_right button{
+        min-width: 30px;
+        width: 30px;
+        height: 30px;
+    }
+}

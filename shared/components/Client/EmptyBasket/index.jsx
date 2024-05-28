@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function EmptyBasket() {
     return (
         <>
-            <div className={styles.empty_box}>
+            <div className={`${styles.empty_box} min-h-[550px]`}>
                 <div className={`${styles.item_counts} ${styles.disabled}`}>
                     <BasketSvg/> <span>0 items</span>
                 </div>

@@ -39,13 +39,14 @@
   }
   .mobile_svg svg{
     width: 36px;
-    height: 36px;
+    height: 30px;
   }
   .mobile_svg svg path{
     fill: #181617;
   }
   .header_box {
     margin-top: 0;
+      padding: 10px 18px;
   }
   .menu_box {
         position: fixed;
@@ -67,7 +68,6 @@
   .shadow{
     content: '';
     display: block;
-    z-index: 100;
     background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100%;
@@ -87,5 +87,9 @@
   .mobile_hide {
     display: none;
   }
+    .logo_box > svg {
+        height: 25px;
+        width: auto;
+    }
 }
 

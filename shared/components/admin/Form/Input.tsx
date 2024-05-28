@@ -12,7 +12,7 @@ type inputTypes = {
 export default function Input(props: inputTypes) {
     let {title, input_name, type, value='',Ref, hasLabel = true} = props
     let [inpval,setinpval]=useState('')
-    console.log(inpval,'inpval')
+    // console.log(inpval,'inpval')
     useEffect(()=>setinpval(value),[])
     return(
         <>

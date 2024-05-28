@@ -22,6 +22,7 @@ export default function Nav(){
                     <li onClick={()=>push('/faq')} className={styles[`${isActive("/faq")}`]}>
                         FAQs
                     </li>
+                   
                 </ul>
             </nav>
         </>
