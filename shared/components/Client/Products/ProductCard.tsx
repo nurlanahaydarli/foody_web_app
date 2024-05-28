@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 type ProductState = {
     id: string | undefined;
-    description: string | undefined;
+    description?: string | undefined;
     img_url: string | undefined;
     name: string | undefined;
     price: number | undefined;
