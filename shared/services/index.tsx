@@ -124,6 +124,20 @@ export const EditCategory = (
 export const GetProducts = (): AxiosPromise<ApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
 
+export async function updateBasketProductCount(data: { user_id: string; basket_id: string; quantity: number }) {
+    const response = await fetch('/api/basket/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
 
+    if (!response.ok) {
+        throw new Error('Failed to update basket product count');
+    }
+
+    return response.json();
+}
 
 

@@ -4,30 +4,28 @@ import RemoveSvg from "../svg/RemoveSvg";
 import React, {useEffect, useState} from "react";
 import PlusSvg from '../svg/PlusSvg'
 import MinusSvg from '../svg/MinusSvg'
-import {clearBasket, deleteBasket} from "../../../services";
+import {AddBasket, clearBasket, deleteBasket, updateBasketProductCount} from "../../../services";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {BasketPostDataType} from "../../../interfaces";
 import {toast} from "react-toastify";
 
-type ProductState = {
+type BasketState = {
     id: string,
+    product_id:string,
     name: string,
     price: string,
     count: number,
     img_url:string,
-    setTotalAmount: any,
+    basket_id:string
 }
-export default function BasketItem(product: ProductState) {
-    let {name, id, price,img_url, count, setTotalAmount} = product;
-    let price_number: number = +price;
-    const [quantity, setQuantity] = useState(1);
+export default function BasketItem(product: BasketState) {
+    let {name, id, price,img_url, count,basket_id} = product;
     const user = useSelector((state: RootState) => state.user);
     const queryClient = useQueryClient();
-    console.log(user,'user')
     const mutationClear = useMutation(
-        (basketProduct: BasketPostDataType) => clearBasket(basketProduct),
+        (basketProduct: BasketPostDataType) => deleteBasket(basketProduct),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');
@@ -36,44 +34,53 @@ export default function BasketItem(product: ProductState) {
                 });
             },
             onError: (error) => {
-                console.error("Error deleteing product :", error);
-                toast.error("Error deleteing product count", {
+                console.error("Error deleting product:", error);
+                toast.error("Error deleting product count", {
                     autoClose: 1000,
                 });
             },
         }
     );
-
-    useEffect(() => {
-        setTotalAmount((prev) => prev + price_number * quantity);
-        return () => {
-            setTotalAmount((prev) => prev - price_number * quantity);
+    const mutation = useMutation(
+        (basketProduct: BasketPostDataType) => AddBasket(basketProduct),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('basket');
+                toast.success("Product added to the basket successfully!", {
+                    autoClose: 1000,
+                });
+            },
+            onError: (error) => {
+                console.error("Error adding product to the basket:", error);
+                toast.error("Error adding product to the basket", {
+                    autoClose: 1000,
+                });
+            },
+        }
+    );
+    const handleAddToBasket = () => {
+        const basketProduct: BasketPostDataType = {
+            user_id: user.id,
+            product_id: product.id,
         };
-    }, []);
-
-    function increaseFn() {
-        if (quantity < count) {
-            setQuantity((prevQuantity) => {
-                const newQuantity = prevQuantity + 1;
-                setTotalAmount((prev) => prev + price_number);
-                return newQuantity;
+        if(user){
+            mutation.mutate(basketProduct);
+            toast.success({
+                position:"top-right",
             });
         }
-    }
-
-    function decreaseFn() {
-        if (quantity > 1) {
-            setQuantity((prevQuantity) => {
-                const newQuantity = prevQuantity - 1;
-                setTotalAmount((prev) => prev - price_number);
-                return newQuantity;
+        if(!user){
+            toast.error({
+                position:"top-right",
             });
         }
-    }
+
+    };
     async function  handleRemove(){
         const basketId: BasketPostDataType = {
             user_id: user.id,
-            basket_id: id,
+            basket_id: basket_id,
+            product_id: id,
         };
         mutationClear.mutate(basketId);
     }
@@ -94,10 +101,10 @@ export default function BasketItem(product: ProductState) {
                 </div>
                 <div className={styles.basket_item}>
                     <div className={styles.basket_quantity}>
-                        <button disabled={quantity === count} onClick={increaseFn}><PlusSvg/>
+                        <button onClick={handleAddToBasket}><PlusSvg/>
                         </button>
-                        <input type="number" value={quantity}/>
-                        <button onClick={decreaseFn} disabled={quantity === 1}><MinusSvg/></button>
+                        <input type="number" value={count}/>
+                        <button onClick={handleRemove}><MinusSvg/></button>
                     </div>
                     <button onClick={handleRemove}><RemoveSvg/></button>
                 </div>
