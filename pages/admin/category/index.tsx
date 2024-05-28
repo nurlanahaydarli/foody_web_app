@@ -12,12 +12,13 @@ import {DeleteCategory, EditCategory, getCategories, PostCategory} from "../../.
 import uploadFile from "../../../shared/utils/uploadFile";
 import {toast} from "react-toastify";
 import {CategoryPostDataType} from "../../../shared/interfaces";
+import withAuth from "../../../shared/HOC/withAuth";
 
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });
 
-export default function Category() {
+function Category() {
     const inpTitle=useRef<any>()
     const {isOpen,onOpen,onClose} = useModalOpen()
     let [categories ,setCategories]=useState<CategoryPostDataType[]>([]);
@@ -94,15 +95,7 @@ export default function Category() {
             img_url: editImg
         };
         try{
-            // let res= await uploadFile({
-            //     file:Img,
-            //     collectionId:"category",
-            //     documentId:"category"
-            // }) as  string
-            //
-            // updatedCategory.img_url = res;
             if (Img instanceof File) {
-                // If a new image file has been selected, upload it
                 let res = await uploadFile({
                     file: Img,
                     collectionId: "category",
@@ -179,3 +172,5 @@ export default function Category() {
         </>
     );
 }
+
+export default withAuth(Category)
