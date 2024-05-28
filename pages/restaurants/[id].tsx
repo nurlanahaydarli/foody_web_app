@@ -56,7 +56,7 @@ export default function RestaurantDetail() {
                                         <ul>
                                             {products?.map((product)=>(
                                                 <li key={product.id}>
-                                                    <ProductsCard  {...product}  />
+                                                    <ProductsCard  {...product} id={String(product.id)} />
                                                 </li>
                                             ))}
                                         </ul>
