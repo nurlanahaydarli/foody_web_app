@@ -19,7 +19,7 @@ const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layou
 export default function Category() {
     const inpTitle=useRef<any>()
     const {isOpen,onOpen,onClose} = useModalOpen()
-    let [categories ,setCategories]=useState([])
+    let [categories ,setCategories]=useState()
     let [Img ,setImg]=useState<any>('')
     let [editImg ,seteditImg]=useState<any>('')
     let [editID ,seteditID]=useState<any>('')
