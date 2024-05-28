@@ -95,14 +95,14 @@ export default function Category() {
             }) as  string
             updatedCategory.img_url = res;
             await EditCategory(updatedCategory)
-            toast.success({
-                position:"top-right",
+            toast.success("Category successfully added", {
+                position: "top-right",
             });
             inpTitle.current.value = '';
             onClose();
         }catch(err){
-            toast.error({
-                position:"top-right",
+            toast.error("An error occurred while adding the category", {
+                position: "top-right",
             });
             console.log(err);
         }
