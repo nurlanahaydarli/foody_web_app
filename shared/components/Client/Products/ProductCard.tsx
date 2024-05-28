@@ -70,7 +70,7 @@ export default function ProductsCard(product: ProductState) {
                         <h4>
                             {name}
                         </h4>
-                        <p>{description}</p>
+                        {description && <p>{description}</p>}
                     </div>
                 </div>
                 <div className={`flex justify-end items-center md:gap-[30px] gap-2 ${styles.product_right}`}>
