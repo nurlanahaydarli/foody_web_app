@@ -10,11 +10,11 @@ import {BasketPostDataType} from "../../../interfaces";
 import { ToastContainer, toast } from 'react-toastify';
 
 type ProductState = {
-    id: string;
-    description: string;
-    img_url: string;
-    name: string;
-    price: number;
+    id: string | undefined;
+    description: string | undefined;
+    img_url: string | undefined;
+    name: string | undefined;
+    price: number | undefined;
 }
 export default function ProductsCard(product: ProductState) {
     let {id, description, img_url, name, price} = product;
