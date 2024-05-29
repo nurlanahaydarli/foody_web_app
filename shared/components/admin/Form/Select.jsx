@@ -5,7 +5,7 @@ export default function Select({title, name,value,options=[]}) {
                 <label htmlFor="name">{title}</label>
                 <select name={name} id={name}>
                     {options?.map((option)=>(
-                        <option value={option.id}>{option.title}</option>
+                        <option value={option.id}>{option.name}</option>
                     ))}
                 </select>
             </div>

@@ -9,6 +9,18 @@ import MenuSvg from '../svg/MenuSvg';
 import {useDispatch, useSelector} from "react-redux";
 import {openSidebar} from "../../../redux/featuries/sidebar/sidebarSlice";
 import {AppDispatch, RootState} from "../../../redux/store";
+import uploadFile from "../../../utils/uploadFile";
+import {PostProduct} from "../../../services";
+import {toast} from "react-toastify";
+import {useFormik} from "formik";
+import * as Yup from "yup";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../../../server/configs/firebase";
+
+interface SignInFormValues {
+    email: string;
+    password: string;
+}
 export default function Navbar() {
     let {push} = useRouter();
     const {isOpen,onOpen,onClose} = useModalOpen()
@@ -16,6 +28,74 @@ export default function Navbar() {
     function handleOpenSidebar(){
         dispatch(openSidebar())
     }
+    const formik = useFormik<SignInFormValues>({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email('Invalid email address').required('Required'),
+            password: Yup.string().required('Required'),
+        }),
+        onSubmit: async (values, { setSubmitting, setErrors }) => {
+                try {
+                    let res = await uploadFile({
+                        file: Img,
+                        collectionId: "products",
+                        documentId: "products"
+                    }) as string
+                    values.img_url = res;
+                    await PostProduct(values);
+                    toast.success("Signin successfully!", { autoClose: 1000,position:"top-right" });
+                } catch (error) {
+                    setErrors({ email: 'Failed to sign in' });
+
+                    console.log(error,'error')
+                    toast.error("Please, Enter Correct Email and Password! ", {
+                        autoClose: 1000,
+                        position:'top-right'
+                    });
+                } finally {
+                    setSubmitting(false);
+                }
+        }
+    })
+    // async function addProduct() {
+    //     let Title = inpTitle?.current?.value
+    //
+    //
+    //     Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
+    //
+    //     let newProduct = {
+    //         "name": Title,
+    //         "img_url": ''
+    //     }
+    //     try {
+    //         let res = await uploadFile({
+    //             file: Img,
+    //             collectionId: "products",
+    //             documentId: "products"
+    //         }) as string
+    //         newProduct.img_url = res;
+    //         setProducts(prevProducts => [...prevProducts, {...newProduct, id: Date.now()}]);
+    //         let createdProduct = await PostProduct(newProduct);
+    //         setProducts(prevCategories => prevCategories.map(product =>
+    //             product.name === newProduct.name ? createdProduct.data : product
+    //         ));
+    //         toast.success("Product successfully added", {
+    //             position: "top-right",
+    //         });
+    //         inpTitle?.current?.value == ''
+    //         onClose()
+    //         setImg('')
+    //     } catch (err) {
+    //         toast.error("An error occurred while adding the product", {
+    //             position: "top-right",
+    //         });
+    //         console.log(err);
+    //     }
+    //
+    // }
     return (
         <>
 

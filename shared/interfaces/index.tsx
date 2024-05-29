@@ -101,9 +101,12 @@ export interface BasketPostDataType {
 
 
 export interface ProductPostDataType {
-    id: number | string | any;
+    id?: number | string | any;
     name: string;
     img_url: string | null;
+    rest_id: string | number,
+    price: string | number,
+    description?: string | undefined
 }
 
 export interface InitialProductState
