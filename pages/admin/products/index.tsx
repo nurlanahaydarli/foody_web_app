@@ -39,7 +39,6 @@ export default function Products() {
   let [Img, setImg] = useState<any>('')
   let [editImg, seteditImg] = useState<any>('')
   let [editID, seteditID] = useState<any>('')
-
   let [TitleYup, setTitleYup] = useState('')
   let [Titlevalue, setTitlevalue] = useState('')
   let [DescYup, setDescYup] = useState('');
@@ -47,9 +46,8 @@ export default function Products() {
   let [PriceYup, setPriceYup] = useState('');
   let [PriceValue, setPriceValue] = useState('');
   let [ResetData, setResetData] = useState(true)
-  let [restaurants, setRestaurants] = useState(true)
+  let [restaurants, setRestaurants] = useState()
   let [restaurantID, setRestaurantId] = useState()
-
 
   useEffect(() => {
     (async () => {
@@ -65,7 +63,7 @@ export default function Products() {
     })()
   }, [ResetData])
 
-  function getRestaurantById(e) { 
+  function getRestaurantById(e) {
     setRestaurantId(e.currentTarget.value)
     
         }
@@ -93,6 +91,7 @@ export default function Products() {
         documentId: "products"
       }) as string
       newProduct.img_url = res;
+      console.log(newProduct,'newProduct')
       setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
       let createdProduct = await PostProduct(newProduct);
       // setProducts(prevProducts => prevProducts.map(product =>
@@ -137,7 +136,7 @@ export default function Products() {
       id: editID,
       name: Title,
       img_url: editImg,
-      rest_id: "TCr28ES3sjpVv4R7ere",
+      rest_id: restaurantID,
       price: Price,
       description: Desc,
     };
@@ -150,11 +149,12 @@ export default function Products() {
         }) as string;
         updatedProduct.img_url = res;
       }
+      console.log(updatedProduct,'updatedProduct')
       setProducts(prevProducts => prevProducts.map(product =>
         product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
       ));
-      let test = await EditProduct(updatedProduct)
-      console.log(updatedProduct.id, 'test')
+      await EditProduct(updatedProduct)
+      console.log(updatedProduct, 'test')
       toast.success("Product successfully edited", {
         position: "top-right",
       });
@@ -182,14 +182,14 @@ export default function Products() {
     }
   }
 
-  function editProduct(name: string, description: string, image: string, price: string, id: string,) {
-setDescValue(description)
-setPriceValue(price)
+  function editProduct(name: string, description: string, image: string, price: string,rest_id: string | undefined,id: string) {
+    setDescValue(description)
+    setPriceValue(price)
     setTitlevalue(name)
+    setRestaurantId(rest_id)
     seteditImg(image)
     setImg([image])
     seteditID(id)
-
     onOpen()
   }
 
@@ -234,6 +234,7 @@ setPriceValue(price)
             btnTitle={editImg ? "Edit product" : "Create product"}
             IMG={editImg}
             setIMG={setImg}
+
 
           >
             <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}

@@ -28,7 +28,6 @@ interface PROPS {
 function AdminCard(props:PROPS) {
   let {data,reset,edit,removeDocument} =props
 
-
 let [mobile,setmobile]=useState(false)
 useEffect(()=>{
     if(window.innerWidth<800){
@@ -72,7 +71,7 @@ useEffect(()=>{
                                 alt=""
                                 className=" cursor-pointer"
                                 onClick={() => {
-                                    edit(data.name, data.description, data.img_url, data.id)
+                                    edit(data.name, data.description, data.img_url, data.price, data.rest_id,data.id)
                                     // edit(data.name, data.description, data.img_url, data.price, data.rest_id, data.id)
                                 }}
 
