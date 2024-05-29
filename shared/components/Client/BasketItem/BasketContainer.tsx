@@ -58,9 +58,6 @@ export default function BasketContainer(props: BasketProps) {
         }
     }, [user.id]);
 
-    if (!user.id || basketLoading) {
-        return null; // or loading indicator
-    }
     return (
         <>
             <div className={`${styles.user_cabinet_box} ${styles[size]}`}>

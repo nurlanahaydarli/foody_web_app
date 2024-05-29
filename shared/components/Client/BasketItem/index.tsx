@@ -95,7 +95,7 @@ export default function BasketItem(product: BasketState) {
                             {name}
                         </h4>
                         <p>
-                            ${price}
+                            {price} ₼
                         </p>
                     </div>
                 </div>

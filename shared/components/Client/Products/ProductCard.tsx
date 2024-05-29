@@ -1,11 +1,11 @@
 import styles from './products.module.css'
 import Image from "next/image";
 import PlusSvg from "../svg/PlusSvg";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {AddBasket} from "../../../services";
+import {AddBasket, GetBasket} from "../../../services";
 import {BasketPostDataType} from "../../../interfaces";
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -21,6 +21,17 @@ export default function ProductsCard(product: ProductState) {
     const queryClient = useQueryClient();
     const [buttonClicked, setButtonClicked] = useState(false);
     const user = useSelector((state: RootState) => state.user);
+    // const {data: basket_data} = useQuery('basket',GetBasket)
+    // useEffect(()=>{
+    //     basket_data?.data.result.data.items.filter((basket_product)=>{
+    //         if(basket_product.id === id){
+    //             return setButtonClicked(true)
+    //         }else{
+    //             return setButtonClicked(false)
+    //         }
+    //     })
+    // },[])
+
     const mutation = useMutation(
         (basketProduct: BasketPostDataType) => AddBasket(basketProduct),
         {
@@ -32,14 +43,13 @@ export default function ProductsCard(product: ProductState) {
             },
             onError: (error) => {
                 console.error("Error adding product to the basket:", error);
+                setButtonClicked(false)
                 toast.error("Error adding product to the basket", {
                     autoClose: 1000,
                 });
             },
         }
     );
-    // const {data: basketData} =useQuery(getBasket)
-
     const handleAddToBasket = () => {
         const basketProduct: BasketPostDataType = {
             user_id: user.id,

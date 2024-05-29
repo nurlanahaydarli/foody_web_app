@@ -52,35 +52,56 @@ export default function Sidebar() {
                                     <LogoWeb/>
                                 </div>
                             </div>
-                            <li onClick={() => push('/admin')} className={styles[`${isActive("/admin")}`]}>
+                            <li onClick={() => {
+                                push('/admin');
+                                dispatch(closeSidebar())
+                            }} className={styles[`${isActive("/admin")}`]}>
                                 <DashboardSvg/>
                                 <span>Dashboard</span>
                             </li>
-                            <li onClick={() => push('/admin/products')}
+                            <li onClick={() => {
+                                push('/admin/products');
+                                dispatch(closeSidebar())
+                            }}
                                 className={styles[`${isActive("/admin/products")}`]}>
                                 <ProductsSvg/>
                                 <span>Products</span>
                             </li>
-                            <li onClick={() => push('/admin/restaurants')}
+                            <li onClick={() => {
+                                push('/admin/restaurants');
+                                dispatch(closeSidebar())
+                            }}
                                 className={styles[`${isActive("/admin/restaurants")}`]}>
                                 <RestaurantsSvg/>
                                 <span>Restaurants</span>
                             </li>
-                            <li onClick={() => push('/admin/category')}
+                            <li onClick={() => {
+                                push('/admin/category');
+                                dispatch(closeSidebar())
+                            }}
                                 className={styles[`${isActive("/admin/category")}`]}>
                                 <CategorySvg/>
                                 <span>Category</span>
                             </li>
-                            <li onClick={() => push('/admin/orders')} className={styles[`${isActive("/admin/orders")}`]}>
+                            <li onClick={() => {
+                                push('/admin/orders');
+                                dispatch(closeSidebar())
+                            }}  className={styles[`${isActive("/admin/orders")}`]}>
                                 <OrdersSvg/>
                                 <span>Orders</span>
                             </li>
-                            <li onClick={() => push('/admin/orders/history')}
+                            <li onClick={() => {
+                                push('/admin/orders/history');
+                                dispatch(closeSidebar())
+                            }}
                                 className={styles[`${isActive("/admin/orders/history")}`]}>
                                 <UploadSvg/>
                                 <span>Orders History</span>
                             </li>
-                            <li onClick={() => push('/admin/offer')} className={styles[`${isActive("/admin/offer")}`]}>
+                            <li onClick={() => {
+                                push('//admin/offer');
+                                dispatch(closeSidebar())
+                            }}  className={styles[`${isActive("/admin/offer")}`]}>
                                 <OfferSvg/>
                                 <span>Offer</span>
                             </li>
