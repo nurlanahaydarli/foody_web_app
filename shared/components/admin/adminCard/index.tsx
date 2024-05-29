@@ -12,9 +12,9 @@ import Loading from "../../Loading/Loading";
 
 interface PROPS {
   data? : any,
-  reset? :Function,
-  edit? :any,
-
+  reset :Function,
+  edit :any,
+  removeDocument:any
   // id: string;
   // description: string;
   // price: number;
@@ -26,46 +26,8 @@ interface PROPS {
 
 
 function AdminCard(props:PROPS) {
-  let {data,reset,edit} =props
+  let {data,reset,edit,removeDocument} =props
 
-
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       let res = await axios.get('http://localhost:3000/api/products')
-  //       let newData = await res.data.result.data
-  //       setProducts(newData)
-      
-      
-
-  //     } catch (err) { console.log(err); }
-  //   })()
-  // }, [ResetData])
-console.log("datdatadatadataa",data);
-
-
-
-
-
-  async function deleteProduct(id:string){
-    try{
-        axios.delete(`http://localhost:3000/api/products/${id}`)
-        .then(response => {
-          console.log(`deleted `);
-          // reset()
-          toast.success("Offer deleted sucsesfuly", {
-            position:"top-right",
-          });
-        })
-        .catch(error => {
-          console.error(error);
-        });
-
-    }catch(err){console.log(err);
-    }
-   
-}
 
 let [mobile,setmobile]=useState(false)
 useEffect(()=>{
@@ -110,7 +72,8 @@ useEffect(()=>{
                                 alt=""
                                 className=" cursor-pointer"
                                 onClick={() => {
-                                    edit(data.name, data.description, data.img_url, data.price, data.rest_id, data.id)
+                                    edit(data.name, data.description, data.img_url, data.id)
+                                    // edit(data.name, data.description, data.img_url, data.price, data.rest_id, data.id)
                                 }}
 
                             />
@@ -122,7 +85,7 @@ useEffect(()=>{
                                 className=" cursor-pointer"
                                 onClick={() => {
 
-                                    deleteProduct(data.id)
+                                  removeDocument(data.id)
                                 }}
                             />
                         </div>
