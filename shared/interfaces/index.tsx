@@ -58,6 +58,7 @@ export interface RestaurantPostDataType {
     address: string | undefined;
     delivery_min: number | undefined;
     delivery_price: number | undefined;
+    created: number;
     name?: string;
 }
 export interface CategoryPostDataType {
