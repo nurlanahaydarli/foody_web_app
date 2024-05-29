@@ -10,92 +10,109 @@ import {useDispatch, useSelector} from "react-redux";
 import {openSidebar} from "../../../redux/featuries/sidebar/sidebarSlice";
 import {AppDispatch, RootState} from "../../../redux/store";
 import uploadFile from "../../../utils/uploadFile";
-import {PostProduct} from "../../../services";
+import {PostProduct, getRestaurants} from "../../../services";
 import {toast} from "react-toastify";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../../../server/configs/firebase";
+import { useEffect, useRef, useState } from 'react';
+import { ProductPostDataType } from '../../../interfaces';
+import Select from '../Form/Select';
 
-interface SignInFormValues {
-    email: string;
-    password: string;
-}
+// interface SignInFormValues {
+//     email: string;
+//     password: string;
+// }
 export default function Navbar() {
     let {push} = useRouter();
     const {isOpen,onOpen,onClose} = useModalOpen()
     let  dispatch: AppDispatch = useDispatch()
     function handleOpenSidebar(){
-        dispatch(openSidebar())
+        // dispatch(openSidebar())
     }
-    const formik = useFormik<SignInFormValues>({
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().email('Invalid email address').required('Required'),
-            password: Yup.string().required('Required'),
-        }),
-        onSubmit: async (values, { setSubmitting, setErrors }) => {
-                try {
-                    let res = await uploadFile({
-                        file: Img,
-                        collectionId: "products",
-                        documentId: "products"
-                    }) as string
-                    values.img_url = res;
-                    await PostProduct(values);
-                    toast.success("Signin successfully!", { autoClose: 1000,position:"top-right" });
-                } catch (error) {
-                    setErrors({ email: 'Failed to sign in' });
+    const inpTitle = useRef<any>()
+    const inpDesc = useRef<any>()
+    const inpPrice = useRef<any>()
+    const inpRest = useRef<any>()
+    
+    let [DescYup, setDescYup] = useState('');
+    let [TitleYup, setTitleYup] = useState('')
+    let [PriceYup, setPriceYup] = useState('');
+    let [Img, setImg] = useState<any>('')
+    let [products, setProducts] = useState<ProductPostDataType[]>([]);
+    let [DescValue, setDescValue] = useState('');
+    let [Titlevalue, setTitlevalue] = useState('')
+    let [PriceValue, setPriceValue] = useState('');
+    let [restaurants, setRestaurants] = useState(true)
+    let [restaurantID, setRestaurantId] = useState(true)
+    let [isAdd, setIsAdd] = useState(false)
 
-                    console.log(error,'error')
-                    toast.error("Please, Enter Correct Email and Password! ", {
-                        autoClose: 1000,
-                        position:'top-right'
-                    });
-                } finally {
-                    setSubmitting(false);
-                }
+    useEffect(() => {
+        (async () => {
+          try {
+           
+            let restaurants = await getRestaurants()
+            setRestaurants(restaurants?.data.result.data)
+          } catch (err) {
+            console.log(err);
+          }
+        })()
+      }, [isAdd])
+    
+    function getRestaurantById(e) { 
+setRestaurantId(e.currentTarget.value)
+
+    }
+    async function addProduct() {
+        let Title = inpTitle?.current?.value
+        let Desc = inpDesc?.current?.value
+        let Price = inpPrice?.current?.value
+        let Rest = inpRest?.current?.value
+        Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
+        Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
+        let newProduct = {
+            name: Title,
+            img_url: '',
+            description: Desc,
+            price: Price,
+            rest_id: restaurantID,
         }
-    })
-    // async function addProduct() {
-    //     let Title = inpTitle?.current?.value
-    //
-    //
-    //     Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
-    //
-    //     let newProduct = {
-    //         "name": Title,
-    //         "img_url": ''
-    //     }
-    //     try {
-    //         let res = await uploadFile({
-    //             file: Img,
-    //             collectionId: "products",
-    //             documentId: "products"
-    //         }) as string
-    //         newProduct.img_url = res;
-    //         setProducts(prevProducts => [...prevProducts, {...newProduct, id: Date.now()}]);
-    //         let createdProduct = await PostProduct(newProduct);
-    //         setProducts(prevCategories => prevCategories.map(product =>
-    //             product.name === newProduct.name ? createdProduct.data : product
-    //         ));
-    //         toast.success("Product successfully added", {
-    //             position: "top-right",
-    //         });
-    //         inpTitle?.current?.value == ''
-    //         onClose()
-    //         setImg('')
-    //     } catch (err) {
-    //         toast.error("An error occurred while adding the product", {
-    //             position: "top-right",
-    //         });
-    //         console.log(err);
-    //     }
-    //
-    // }
+        try {
+setIsAdd(true)
+            let res = await uploadFile({ 
+                file: Img,
+                collectionId: "products",
+                documentId: "products"
+            }) as string
+            newProduct.img_url = res;
+            console.log(res,"res");
+            
+console.log( newProduct,"newProduct" ); 
+
+setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
+      
+            let createdProduct = await PostProduct(newProduct);
+           
+            toast.success("Product successfully added", {
+                position: "top-right",
+            });
+            inpTitle?.current?.value == ''
+            inpDesc?.current?.value == ''
+            inpPrice?.current?.value == ''
+            inpRest?.current?.value == ''
+            onClose()
+            setImg('')
+        } catch (err) {
+            toast.error("An error occurred while adding the product", {
+                position: "top-right",
+            });
+           
+            console.log(err);
+        } finally{
+            setIsAdd(false)
+           }
+    }
     return (
         <>
 
@@ -117,10 +134,20 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-            <Form  isOpen={isOpen} title={'Add Product'} subtitle={"Add your Product description and necessary information"}  onClose={onClose}>
-                <Input title={'Name'} type={'text'} input_name={'product_name'}/>
-                <Input title={'Price'} type={'number'} input_name={'product_price'}/>
-                <Input title={'Price'} type={'number'} input_name={'product_price'}/>
+            <Form  isOpen={isOpen} title={'Add Product'} subtitle={"Add your Product description and necessary information"}  onClose={onClose}
+            onAction={addProduct} setIMG={setImg}
+            >
+            <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}
+              value={Titlevalue}  />
+            <div className=" text-red-600">{TitleYup}</div>
+            <Input hasLabel={true} title={"Description"} type={"text"} input_name={"description"} Ref={inpDesc}
+              value={DescValue}  />
+            <div className=" text-red-600">{DescYup}</div>
+            <Input hasLabel={true} title={"Price"} type={"number"} input_name={"price"} Ref={inpPrice}
+              value={PriceValue} />
+            <div className=" text-red-600">{PriceYup}</div>
+           
+            <Select title={"Restaurants"} name={"rest_id"} options={restaurants} Ref={inpRest} onChange={getRestaurantById}  />
             </Form>
         </>
     );
