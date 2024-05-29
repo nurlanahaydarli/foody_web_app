@@ -45,9 +45,9 @@ export default function BasketItem(product: ProductState) {
     );
 
     useEffect(() => {
-        setTotalAmount((prev) => prev + price_number * quantity);
+        setTotalAmount((prev:any) => prev + price_number * quantity);
         return () => {
-            setTotalAmount((prev) => prev - price_number * quantity);
+            setTotalAmount((prev:any) => prev - price_number * quantity);
         };
     }, []);
 
@@ -55,7 +55,7 @@ export default function BasketItem(product: ProductState) {
         if (quantity < count) {
             setQuantity((prevQuantity) => {
                 const newQuantity = prevQuantity + 1;
-                setTotalAmount((prev) => prev + price_number);
+                setTotalAmount((prev:any) => prev + price_number);
                 return newQuantity;
             });
         }
@@ -65,7 +65,7 @@ export default function BasketItem(product: ProductState) {
         if (quantity > 1) {
             setQuantity((prevQuantity) => {
                 const newQuantity = prevQuantity - 1;
-                setTotalAmount((prev) => prev - price_number);
+                setTotalAmount((prev:any) => prev - price_number);
                 return newQuantity;
             });
         }

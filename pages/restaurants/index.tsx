@@ -31,8 +31,8 @@ export default function Restaurants() {
         isError,
     } = useQuery("restuarants", getRestaurants);
 
-
-    const filteredRestaurants = (restaurants?.data.result.data || []).filter((restaurant: RestaurantSingleApiResponse) => {
+    // elvvel restaurant:RestaurantSingleApiResponse
+    const filteredRestaurants = (restaurants?.data.result.data || []).filter((restaurant: any) => {
         const category_id = restaurant.category_id;
         return (
             !chooseCategory || (typeof category_id === "string" && category_id.includes(chooseCategory))
@@ -79,7 +79,7 @@ export default function Restaurants() {
                                         {
                                             categories?.map((category: CategoryPostDataType) => (
                                                 <li className={`capitalize ${chooseCategory === category.id && styles.active}`} key={category.id} onClick={() => {handleCategory(category.id);onClose();}}>
-                                                    <img src={category?.img_url} alt={category.name} className="w-[25px] h-[25px]" />
+                                                    <img src={`${category?.img_url}`} alt={category.name} className="w-[25px] h-[25px]" />
                                                     <span>{category.name}</span>
                                                 </li>
                                             ))}

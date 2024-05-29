@@ -3,8 +3,8 @@ import Image from "next/image";
 import {shortText} from '../../../utils/shortText'
 import {RestaurantSingleApiResponse} from "../../../interfaces";
 
-
-export default function RestaurantCard(restaurant:RestaurantSingleApiResponse) {
+// evvel restaurant:RestaurantSingleApiResponse
+export default function RestaurantCard(restaurant:any) {
     let onReadMore = restaurant.onReadMore
     return (
         <>

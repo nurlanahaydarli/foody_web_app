@@ -26,12 +26,12 @@ export default function BasketContainer(props: BasketProps) {
 
     useEffect(() => {
         function initialAmount() {
-            let x = basket_list?.items?.map((num) => {
+            let x = basket_list?.items?.map((num:any) => {
                 return +num.price * (num.quantity || 1); // Use quantity if available
             }) || [];
 
             // Calculate the sum of the array
-            let sum = x.reduce((acc, curr) => acc + curr, 0);
+            let sum = x.reduce((acc:any, curr:any) => acc + curr, 0);
 
             setTotalAmount(sum);
         }
@@ -51,7 +51,7 @@ export default function BasketContainer(props: BasketProps) {
                             <BasketSvg/> <span>{basket_list?.items.length} items</span>
                         </div>
                         <div className={styles.basket_list}>
-                            {basket_list?.items?.map((product) => (
+                            {basket_list?.items?.map((product :any) => (
                                 <BasketItem setTotalAmount={setTotalAmount} key={product.id}  {...product} />
                             ))}
                         </div>

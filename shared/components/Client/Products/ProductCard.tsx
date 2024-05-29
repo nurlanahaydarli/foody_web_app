@@ -11,8 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 type ProductState = {
     id: string;
-    description: string;
-    img_url: string;
+    description: string ;
+    img_url: string,
     name: string;
     price: number;
 }
@@ -48,16 +48,15 @@ export default function ProductsCard(product: ProductState) {
         if(user){
             setButtonClicked(true);
             mutation.mutate(basketProduct);
-            toast.success({
-                position:"top-right",
+            toast.success("successfully!", {
+                autoClose: 1000,
             });
         }
         if(!user){
             setButtonClicked(false);
-            toast.error({
-                position:"top-right",
+            toast.error("Error ", {
+                autoClose: 1000,
             });
-        }
 
     };
     return (
@@ -83,4 +82,4 @@ export default function ProductsCard(product: ProductState) {
 
         </>
     )
-}
+    }}

@@ -19,7 +19,7 @@ const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layou
 export default function Category() {
     const inpTitle=useRef<any>()
     const {isOpen,onOpen,onClose} = useModalOpen()
-    let [categories ,setCategories]=useState([])
+    let [categories ,setCategories]=useState<any>([])
     let [Img ,setImg]=useState<any>('')
     let [editImg ,seteditImg]=useState<any>('')
     let [editID ,seteditID]=useState<any>('')
@@ -54,15 +54,16 @@ export default function Category() {
             }) as  string
             newCategory.img_url = res;
             await PostCategory(newCategory);
-            toast.success({
+            toast.success("cotegory added sucsesfuly", {
                 position:"top-right",
-            });
+              });
+            
             inpTitle?.current?.value==''
             onClose()
         }catch(err){
-            toast.error({
+            toast.error(`${err}`),{
                 position:"top-right",
-            });
+            };
             console.log(err);
         }
 
@@ -94,15 +95,15 @@ export default function Category() {
             }) as  string
             updatedCategory.img_url = res;
             await EditCategory(updatedCategory)
-            toast.success({
+            toast.success("cotegory adited sucsesfuly", {
                 position:"top-right",
-            });
+              });
             inpTitle.current.value = '';
             onClose();
         }catch(err){
-            toast.error({
+            toast.error(`${err}`),{
                 position:"top-right",
-            });
+            };
             console.log(err);
         }
 

@@ -124,6 +124,48 @@ export const EditCategory = (
 export const GetProducts = (): AxiosPromise<ApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
 
+// =============================== DELETE ORDER ===============================
+export const DeleteOrder = (
+    OrderID: string | number
+) =>{
+    const accessToken = localStorage.getItem("access_token");
+    instanceAxios({
+        method: "DELETE",
+        url: `order`,
+        data:{
+            order_id:OrderID
+        },
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
 
 
+}
+// =============================== GET ORDER HISTORY ===============================
+export const GetOrderHistory = () =>{
+   
+    const accessToken = localStorage.getItem("access_token");
+    return instanceAxios({
+        method: "GET",
+        url: "order/history",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    })
+}
+    
+    // =============================== PUT AUTH USET ===============================
 
+    export const PutAuthUser = (body:object) =>{
+   
+        const accessToken = localStorage.getItem("access_token");
+        return instanceAxios({
+            method: "GET",
+            url: "auth/user",
+            data:body,
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
+    }

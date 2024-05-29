@@ -10,7 +10,7 @@ import Image from "next/image";
 ;
 
 function Form({
-                  onClose, isOpen, children, title, subtitle,collectionId,documentId,
+                  onClose, isOpen, children, title, subtitle,
                   btnTitle = 'Create  Product',
                   onAction = () => console.log('add action'),
                   setIMG = (img) => console.log('add set img'),

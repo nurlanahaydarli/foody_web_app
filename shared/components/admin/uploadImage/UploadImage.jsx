@@ -50,8 +50,8 @@ export default function UploadImage({setImageList,IMG=undefined}){
                     </button>
                     {imageList.map((image, index) => (
                         <div key={index} className={`${style_form.image_item} image-item`}>
-                            <img src={image?image:image['data_url']} alt="" width="100" />
-                            <div className={`${style_form.image_item__btn_wrapper} image-item__btn-wrapper`}>
+                            <img src={image?IMG:image['data_url']} alt="" width="100" />
+                            <div className={`${style_form.image_item__btn_wrapper} image-item__btn-wrapper flex flex-row`}>
                                 <CustomButton icon={false} onAction={() => onImageRemove(index)} title='Remove' color={'2'} type={'button'} size={'xs'} />
                                 <CustomButton icon={false} onAction={() => onImageUpdate(index)} title='Update' color={'1'} type={'button'} size={'xs'} />
                             </div>
