@@ -49,7 +49,7 @@ export function UserOrderTable() {
         {orderData?.map((item: any, index: number) => (
             <UserOrderTableDatas
               key={`tableData_${index}`}
-              id={item.id}
+              id={index+1}
               time="12:50"
               adress={item.delivery_address}
               amount={item.amount}
