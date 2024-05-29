@@ -1,5 +1,10 @@
+import { useGlobalStore } from "../../../services/provider";
 import { UserOrderDetailDatas } from "../UserOrderDetailDatas";
-export function UserOrdersDetail() {
+  export const UserOrdersDetail = (id: any) => {
+  const { orderShow, setOrderShow } = useGlobalStore();
+  let FilteredData = orderShow.data.result.data.filter(
+    (item: any) => item.id == id.id
+  );
   return (
     <table className="min-w-full text-center ">
       <thead>
@@ -23,7 +28,15 @@ export function UserOrdersDetail() {
       </thead>
       <tbody>
 
-        <UserOrderDetailDatas />
+        {FilteredData[0]?.products?.map((item: any) => (
+          <UserOrderDetailDatas
+            image={item.img_url}
+            name={item.name}
+            price={item.price}
+            count={item.count}
+            amount={item.amount}
+          />
+        ))}
       </tbody>
     </table>
   );

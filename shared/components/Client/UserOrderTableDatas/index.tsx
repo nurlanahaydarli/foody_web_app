@@ -3,13 +3,37 @@ import { useState } from "react";
 import Modal from "../../admin/Modal";
 import CustomButton from "../../admin/Button";
 import { UserOrdersDetail } from "../UserOrdersDetail";
-
-export function UserOrderTableDatas() {
-
+import { deleteOrder } from "../../../services";
+import { useGlobalStore } from "../../../services/provider";
+interface TableDataProps {
+    id: number | string;
+    time: number | string;
+    adress: string;
+    amount: number;
+    payment: string;
+    contact: number;
+}
+export const UserOrderTableDatas: React.FC<TableDataProps> = ({
+    id,
+    time,
+    adress,
+    amount,
+    payment,
+    contact,
+}) => {
     const [showPopup, setShowPopup] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
+    const { orderData, setOrderData } = useGlobalStore();
+    async function inDeleteOrder() {
+        const response = await deleteOrder(id);
 
+        if (response?.status == 204) {
+            let newdata = orderData.filter((item: any) => item.id !== id);
+            setOrderData(newdata);
+            handleModalClose();
+        }
+    }
     const handleButtonClick = () => {
         setIsModalOpen(true);
     };
@@ -34,14 +58,14 @@ export function UserOrderTableDatas() {
     return (
         <>
             <tr className=" border-solid border-b-2 border-whiteLight3" >
-                <td className="py-2 px-4 border-b ">aaaaaaaaaaaaaaaa</td>
-                <td className="py-2 px-4 border-b ">12:00 PM</td>
+                <td className="py-2 px-4 border-b ">{id}</td>
+                <td className="py-2 px-4 border-b ">{time} PM</td>
                 <td className="py-2 px-0 sm:px-4 border-b  max-w-60 text-center sm:text-start w-60">
-                    Baku Bakikhanov, street Yaver Aliyev 25/95
+                    {adress}
                 </td>
-                <td className="py-2 px-4 border-b">$5</td>
-                <td className="py-2 px-4 border-b ">Pay Cash</td>
-                <td className="py-2 px-4 border-b ">+994505555555</td>
+                <td className="py-2 px-4 border-b">${amount}</td>
+                <td className="py-2 px-4 border-b ">{payment}</td>
+                <td className="py-2 px-4 border-b ">+{contact}</td>
                 <td className="py-2 px-4 border-b ">
                     <div className="realtive z-50 m-auto">
                         <Image
@@ -92,14 +116,14 @@ export function UserOrderTableDatas() {
                         onAction={handleModalClose}
                     />
                     <CustomButton
-                        onAction={handleModalClose}
+                        onAction={inDeleteOrder}
                         className="bg-mainRed border-solid border-b-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
                         innerText="Delete"
                     />
                 </div>
             </Modal>
             <Modal isOpen={isModalOpen2} onClose={handleModalClose2}>
-                <UserOrdersDetail />
+                <UserOrdersDetail id={id} />
                 <CustomButton
                     className="mt-4 border-solid border-b-2 border-grayText1 text-grayText1 py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
                     innerText="Close"
