@@ -4,8 +4,14 @@ import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable';
 import Image from 'next/image';
 import withClientAuth from '../../../shared/HOC/withClienAuth';
+import { getOrder } from '../../../shared/services';
 
 function Orders() {
+
+
+    getOrder();
+
+
     return (
         <>
             <MainLayout>

@@ -8,6 +8,7 @@ import 'aos/dist/aos.css'; // Import AOS CSS
 import React, { useEffect } from 'react';
 import { wrapper } from '../shared/redux/store';
 import {QueryClient,QueryClientProvider} from "react-query";
+import Provider from '../shared/services/provider'
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 type Props = {
@@ -22,12 +23,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
+    <Provider>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
             <ToastContainer />
           <Component {...pageProps} />
         </ChakraProvider>
       </QueryClientProvider>
+      </Provider>
   );
 }
 
