@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Provider>
+    <Provider store={wrapper}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
             <ToastContainer />
