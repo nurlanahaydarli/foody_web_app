@@ -60,13 +60,24 @@ export interface RestaurantPostDataType {
     delivery_price: number | undefined;
     name?: string;
 }
+
+
+export interface InitialRestaurantState
+extends Omit<RestaurantPostDataType, "id"> {}
+
+
 export interface CategoryPostDataType {
     id: number | string | any;
     name: string;
     img_url: string | null;
 }
+
+
 export interface InitialCategoryState
     extends Omit<CategoryPostDataType, "id"> {}
+
+    
+
 
 export interface CategoryApiResponse {
     result: {
@@ -75,6 +86,7 @@ export interface CategoryApiResponse {
     status: number;
     message: string;
 }
+
 export interface ApiResponse {
     result: {
         data: PostDataType[];

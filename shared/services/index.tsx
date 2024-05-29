@@ -6,8 +6,9 @@ import {
     CategoryApiResponse,
     CategoryPostDataType,
     InitialCategoryState,
-    ApiResponse
-
+    ApiResponse,
+    InitialRestaurantState,
+    RestaurantPostDataType,
 } from "../interfaces/";
 import {AxiosPromise} from "axios";
 import {instanceAxios} from "../helpers/instanceAxios";
@@ -18,9 +19,6 @@ export const getCategories = (): AxiosPromise<CategoryApiResponse> =>
     instanceAxios({ method: "GET", url:"category"});
 
 
-// =============================== GET RESTAURANT ===============================
-export const getRestaurants = (): AxiosPromise<RestaurantApiResponse> =>
-    instanceAxios({ method: "GET", url: "restuarants" });
 
 // =============================== GET RESTAURANT_BY_ID ===============================
 export const getRestaurantById = (
@@ -90,9 +88,8 @@ export const clearBasket: (
 
 
 // =============================== ADD CATEGORY ===============================
-export const PostCategory: (
-    newCategory: InitialCategoryState
-) => AxiosPromise<CategoryPostDataType> = (newCategory) => {
+export const PostCategory: (newCategory: InitialCategoryState) => AxiosPromise<CategoryPostDataType> = (newCategory) => 
+    {
     return instanceAxios({
         method: "POST",
         url: 'category',
@@ -110,9 +107,7 @@ export const DeleteCategory = (
     });
 
 // =============================== EDIT CATEGORY ===============================
-export const EditCategory = (
-    editedCategory: CategoryPostDataType
-): AxiosPromise<CategoryApiResponse> => {
+export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromise<CategoryApiResponse> => {
     return instanceAxios({
         method: "PUT",
         url: `category/${editedCategory.id}`,
@@ -141,3 +136,31 @@ export async function updateBasketProductCount(data: { user_id: string; basket_i
 }
 
 
+// =============================== GET RESTAURANT ===============================
+export const getRestaurants = (): AxiosPromise<RestaurantApiResponse> =>
+    instanceAxios({ method: "GET", url: "restuarants" });
+
+
+
+
+// =============================== ADD RESTAURANT ===============================
+
+export const PostRestaurant: ( newRestaurant: InitialRestaurantState ) => AxiosPromise<RestaurantPostDataType> = (newRestaurant) => {
+    return instanceAxios({
+        method: "POST",
+        url: 'restuarants',
+        data: newRestaurant,
+    });
+};
+
+
+
+
+// =============================== EDIT RESTAURANT ===============================
+export const EditRestaurant = ( editedRestaurant: RestaurantPostDataType ): AxiosPromise<RestaurantApiResponse> => {
+    return instanceAxios({
+        method: "PUT",
+        url: `restuarants/${editedRestaurant.id}`,
+        data: editedRestaurant,
+    });
+};

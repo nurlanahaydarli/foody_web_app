@@ -17,10 +17,15 @@ interface PROPS {
 
 function AdminHedetbuttom(props:PROPS) {
     let {typeButton,addButton,typeButtonFun,addButtonFun,typeTitle,addTitle ,Title}=props
+    
     return (
         <div className={'adminHeaderbg '+styles.heder}>
             <h2 className={ styles.title}> {Title}</h2>
+
+
+
              <div className={styles.div}>
+
                 <button 
                 className={ styles.typeButton  }
                  style={typeButton?{display:'flex'}:{display:'none'}}
@@ -34,12 +39,19 @@ function AdminHedetbuttom(props:PROPS) {
                         width={16}
                         height={16}
                     />
+
+
+
                      </button>
+                     
                      <div style={addButton?{display:'flex'}:{display:'none'}} >
                      <CustomButton innerText={''} className={' '} type={'submit'} size={'md'} color={'1'} title={addTitle}  onAction={addButtonFun} icon={true}/>
                      </div>
-                    
+
              </div>
+
+
+
         </div>
     );
 }

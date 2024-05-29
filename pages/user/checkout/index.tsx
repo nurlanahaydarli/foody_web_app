@@ -212,6 +212,8 @@ function Checkout() {
                                                     at the door by credit card</h1>
                                             </div>
 
+                                            
+
                                             <div className='flex items-center justify-center mt-16'>
                                                 <button
                                                     className={`w-11/12 h-11 ${isRectVisible || isRectVisible2 ? 'bg-textColorGreen' : ' bg-overlayColorGreen'} text-white rounded-sm`}
@@ -222,6 +224,11 @@ function Checkout() {
                                                 </button>
                                             </div>
                                         </div>
+
+
+
+
+
                                         <div className=' w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                                             <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your
                                                 Order</h1>
@@ -283,6 +290,9 @@ function Checkout() {
                                             <h1 className=' mt-7'></h1>
 
                                         </div>
+
+
+
                                     </div>
 
                                 </>
