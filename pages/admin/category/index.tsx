@@ -57,10 +57,10 @@ function Category() {
 
             setCategories(prevCategories => [...prevCategories, { ...newCategory, id: Date.now() }]);
 
-            let createdCategory = await PostCategory(newCategory);
-            setCategories(prevCategories => prevCategories.map(category =>
-                category.name === newCategory.name ? createdCategory.data : category
-            ));
+            await PostCategory(newCategory);
+            // setCategories(prevCategories => prevCategories.map(category =>
+            //     category.name === newCategory.name ? createdCategory.data : category
+            // ));
             toast.success("Category successfully added", {
                 position: "top-right",
             });
