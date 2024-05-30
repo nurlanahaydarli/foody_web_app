@@ -17,6 +17,7 @@ type ProductState = {
     price: number | undefined;
 }
 export default function ProductsCard(product: ProductState) {
+    console.log(product,'product')
     let {id, description, img_url, name, price} = product;
     const queryClient = useQueryClient();
     const [buttonClicked, setButtonClicked] = useState(false);
