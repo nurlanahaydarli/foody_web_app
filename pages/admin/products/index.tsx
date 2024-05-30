@@ -63,10 +63,9 @@ export default function Products() {
     })()
   }, [ResetData])
 
-  function getRestaurantById(e) {
+  function getRestaurantById(e:any) {
     setRestaurantId(e.currentTarget.value)
-    
-        }
+  }
   async function addProduct() {
     let Title = inpTitle?.current?.value
     let Desc = inpDesc?.current?.value
@@ -80,9 +79,6 @@ export default function Products() {
       description: Desc,
       price: Price,
       rest_id: restaurantID,
-  
- 
- 
     }
     try {
       let res = await uploadFile({
@@ -91,12 +87,10 @@ export default function Products() {
         documentId: "products"
       }) as string
       newProduct.img_url = res;
-      console.log(newProduct,'newProduct')
+      console.log(newProduct, 'newProduct')
       setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
       let createdProduct = await PostProduct(newProduct);
-      // setProducts(prevProducts => prevProducts.map(product =>
-      //   product.name === newProduct.name ? createdProduct.data : product
-      // ));
+     
       toast.success("Product successfully added", {
         position: "top-right",
       });
@@ -149,7 +143,7 @@ export default function Products() {
         }) as string;
         updatedProduct.img_url = res;
       }
-      console.log(updatedProduct,'updatedProduct')
+      console.log(updatedProduct, 'updatedProduct')
       setProducts(prevProducts => prevProducts.map(product =>
         product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
       ));
@@ -169,7 +163,6 @@ export default function Products() {
 
   }
 
-
   async function removeProduct(id: string | number) {
     try {
       await DeleteProduct(id)
@@ -182,7 +175,7 @@ export default function Products() {
     }
   }
 
-  function editProduct(name: string, description: string, image: string, price: string,rest_id: string | undefined,id: string) {
+  function editProduct(name: string, description: string, image: string, price: string, rest_id: string | undefined, id: string) {
     setDescValue(description)
     setPriceValue(price)
     setTitlevalue(name)
@@ -213,10 +206,7 @@ export default function Products() {
                 reset={() => setResetData(prev => !prev)}
 
               />
-
-
             </div>
-
           </section>
           <Form
             isOpen={isOpen}
@@ -234,11 +224,9 @@ export default function Products() {
             btnTitle={editImg ? "Edit product" : "Create product"}
             IMG={editImg}
             setIMG={setImg}
-
-
           >
             <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}
-              value={Titlevalue}  />
+              value={Titlevalue} />
             <div className=" text-red-600">{TitleYup}</div>
             <Input hasLabel={true} title={"Description"} type={"text"} input_name={"Description"} Ref={inpDesc}
               value={DescValue} />
@@ -246,22 +234,14 @@ export default function Products() {
             <Input hasLabel={true} title={"Price"} type={"number"} input_name={"Price"} Ref={inpPrice}
               value={PriceValue} />
             <div className=" text-red-600">{PriceYup}</div>
-
-
             <Select title={"Restaurants"} name={"rest_id"} options={restaurants} onChange={getRestaurantById} />
-
-
-
-
           </Form>
-
           <Modal isOpen={isModalOpen} onClose={handleModalClose}>
             <div className="flex justify-between items-center">
               <p className="mx-auto text-3xl font-medium">
                 Are you sure it's deleted?
               </p>
             </div>
-
             <p className=" text-grayText w-2/3 mx-auto text-center my-5">
               Attention! If you delete this order, it will not come back...
             </p>
