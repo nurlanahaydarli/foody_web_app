@@ -23,14 +23,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Provider store={wrapper}>
+    // <Provider store={wrapper}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
             <ToastContainer />
           <Component {...pageProps} />
         </ChakraProvider>
       </QueryClientProvider>
-      </Provider>
+      // </Provider>
   );
 }
 
