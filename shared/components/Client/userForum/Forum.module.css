@@ -20,4 +20,7 @@
     text-align: center;
     height: 53px;
   margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

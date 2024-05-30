@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import LoginInp from '../loinInp';
@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../../../redux/store';
 import { setUser, clearUser, updateUser } from '../../../../redux/featuries/user/userSılice';
 import { useRouter } from 'next/router';
+import Spiner from '../../Spiner';
 interface SignInFormValues {
   email: string;
   password: string;
@@ -22,6 +23,7 @@ const initialValues: SignInFormValues = {
 };
 
 const SignInForm: React.FC = () => {
+  let [Loading,setLoaging]=useState(false)
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
     password: Yup.string().required('Required'),
@@ -31,18 +33,31 @@ const SignInForm: React.FC = () => {
     // You can perform your sign-in logic here
     console.log('Submitting:', values);
     (async()=>{
-      let res= await Post(values, `auth/signin`)
-      console.log(res.user); 
-      // add to local
-      localStorage.setItem("access_token",res.user.access_token)
-
-      dispatch(setUser(res.user));
-      // add to local
-
-      toast.success("singin sucsesfuly", {
-        position:"top-right",
-      });
-      ruter.push('/user/profile')
+      try{
+        setLoaging(true)
+         await Post(values, `auth/signin`).then((res)=>{
+          setLoaging(false)
+        console.log(res);
+        // add to local
+        localStorage.setItem("access_token",res.user.access_token)
+  
+        dispatch(setUser(res.user));
+        // // add to local
+        toast.success("singin sucsesfuly", {
+          position:"top-right",
+        });
+        ruter.push('/user/profile')
+        })
+        
+        
+  
+       
+      }catch(err){
+        toast.error("Email or password is wrong", {
+          position:"top-right",
+        });
+      }
+      
 
       
     })()
@@ -84,8 +99,9 @@ const SignInForm: React.FC = () => {
           icon={false}
           type='password'
           />
-          <button className={styles.button} type="submit" disabled={isSubmitting}>
-            Sign In
+          <button className={styles.button} type="submit" disabled={isSubmitting} style={ Loading?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
+            
+            {Loading?<Spiner />:"Sign In"}
           </button>
         </Form>
       )}

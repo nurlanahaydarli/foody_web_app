@@ -72,10 +72,9 @@ export async function handlerAddOrderPOST(req, res, col) {
 
   try {
     const decodedToken = verifyJWT(idToken);
-
+;
     const { basket_id, delivery_address, payment_method, contact } = req.body;
-
-    console.log('"payment_method', payment_method);
+    
 
     // if (payment_method != 0 || payment_method != 1) {
     //   res
@@ -89,6 +88,7 @@ export async function handlerAddOrderPOST(req, res, col) {
     if (!userBasket.items.length) {
       res.status(404).json({ error: "Basket is empty!" });
     }
+    
 
     const order = new Order(
       decodedToken.userId,
@@ -98,9 +98,10 @@ export async function handlerAddOrderPOST(req, res, col) {
       payment_method,
       userBasket.items
     );
+    
 
     const data = await addData(col, order);
-
+console.log("data:",data);
     await uptData(ROUTER.CARD, basket_id, emptyBasket(decodedToken.userId));
 
     res.status(201).json(data);

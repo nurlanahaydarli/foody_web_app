@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Input from '../userInp';
@@ -8,6 +8,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+import uploadFile from '../../../utils/uploadFile';
+import { PutAuthUser } from '../../../services';
+import Spiner from '../../../components/Client/Spiner'
+import Image from 'next/image';
 interface FormValues {
   phoneNumber: string;
   username: string;
@@ -33,24 +37,65 @@ const initialValues: FormValues = {
   fullName: '',
   address: '',
 };
+interface Props{
+  img:any|undefined
 
-const UserForm: React.FC = () => {
+}
+const UserForm: any = (props:Props) => {
+  let {img}:any=props
+  let [logoding,setlogoding]=useState(false)
+  // let IMG=img[0]?.data_url
+  
+  
   const user = useSelector((state: RootState) => state.user);
-  console.log(user);
+
   
 
   const onSubmit = (values: FormValues) => {
+    console.log(img);
     
+    if(img==undefined||img===""){
+      console.log("sssss");
+      
+      toast.info("You have to add image to profile", {
+        position:"top-right",
+      });
+      return
+    }
     (async ()=>{
-      let res =await AccessPut("auth/user",{
-        ...values,
-        img_url: "data:imag9/TDpYM3kp1lcWySmoW26UjAH0vqP9cKRSCeJesQemNC/wD15/fAZLSvax0hrn1/u2E5ZUDkKGA7b4CQJM//2Q==",
-      })
-      if(res){
-        toast.success(res.message, {
-          position:"top-right",
-        });
+    
+        setlogoding(true)
+      try{
+        let imgres= await uploadFile({
+          file:img,
+          collectionId:"users-hash-password",
+          documentId:"users-hash-password"
+      }) as  string
+     
+      // let res =await AccessPut("auth/user",{
+      //     ...values,
+      //     img_url: imgres,
+      //   })
+        let res =await PutAuthUser({
+          ...values,
+          img_url: imgres,
+        })
+        if(res){
+          toast.success("User Uptodate", {
+            position:"top-right",
+          });
+          setlogoding(false)
+        }
+      }catch(err){
+        console.log(err);
+        setlogoding(false)
+        
       }
+      
+  
+    
+      //
+   
     })()
    
 
@@ -65,7 +110,7 @@ const UserForm: React.FC = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <Form>
+        <Form> 
             <div className={div}>
                 <div className={inpdiv}>
                     <Input name='phoneNumber' type='text' placeholder='+994' title='Contact'/>
@@ -75,7 +120,11 @@ const UserForm: React.FC = () => {
                 <div className={inpdiv}>
                     <Input name='email' type='email' placeholder='rahimlisarkhan@gmail.com' title='Email' value={user.email}/>
                     <Input name='address' type='text' placeholder='address' title='Address'/>
-                    <button type="submit" className={button}>Submit</button>
+                    <button type="submit" className={button}  style={ logoding?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
+                      {logoding?<Spiner />:"Save"}
+                    
+                    </button>
+                    
                 </div>
             </div>
         </Form>

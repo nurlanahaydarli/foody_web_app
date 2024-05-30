@@ -82,3 +82,25 @@ export async function AccessPut(api: string, body: object) {
         throw error; // Throw error to be caught by caller
     }
 }
+export async function AccessGet(api: string) {
+    try {
+        let accessKey=localStorage.getItem("access_token")
+      
+        const response = await axios({
+            method: "GET",
+            url:` http://localhost:3000/api/${api}`,
+            
+            headers: {
+              Authorization: `Bearer ${accessKey}`,
+            },
+          })
+        // Handle success
+        console.log('PUT request successful');
+        console.log('Response data:', response);
+        return response.data; // Return response data
+    } catch (error) {
+        // Handle error
+        console.error('Error making PUT request:', error);
+        throw error; // Throw error to be caught by caller
+    }
+}

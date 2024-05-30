@@ -54,11 +54,14 @@ export default function RestaurantDetail() {
                                     <h2 className={`text-center ${styles_products.products_title}`}>Products</h2>
                                     <div className={styles_products.products_list}>
                                         <ul>
-                                            {products?.map((product)=>(
+                                            {products?.map((product)=>{
+                                                console.log(product);
+                                                
+                                                return(
                                                 <li key={product.id}>
                                                     <ProductsCard  {...product} id={String(product.id)} />
                                                 </li>
-                                            ))}
+                                            )})}
                                         </ul>
                                     </div>
                                 </div>

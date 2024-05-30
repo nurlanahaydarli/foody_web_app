@@ -31,7 +31,7 @@ export interface RestaurantSingleApiResponse {
             id: number | string;
             name: string | undefined;
             category_id: number | string | undefined;
-            img_url: string | null | undefined;
+            img_url: string  | undefined;
             cuisine: string | undefined;
             address: string | undefined;
             delivery_min: number | undefined;
