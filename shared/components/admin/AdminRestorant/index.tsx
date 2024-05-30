@@ -87,15 +87,28 @@ function AdminRestaurant() {
 
   const [TitleValue, setTitleValue] = useState('');
   const [TitleStroge, setTitleStroge] = useState('');
+
   const [CategoryValue, setCategoryValue] = useState('');
   const [CategoryStroge, setCategoryStroge] = useState('');
 
   const [CuisineValue, setCuisineValue] = useState('');
   const [CuisineStroge, setCuisineStroge] = useState('');
 
+  const [DeliveryPriceValue, setDeliveryPriceValue] = useState('');
+  const [DeliveryPriceStroge, setDeliveryPriceStroge] = useState('');
+
+  const [DeliveryMinValue, setDeliveryMinValue] = useState('');
+  const [DeliveryMinStroge, setDeliveryMinStroge] = useState('');
+
+  const [AdressValue, setAdressValue] = useState('');
+  const [AdressStroge, setAdressStroge] = useState('');
+
   const inpTitle = useRef();
   const inpCategory = useRef();
   const inpCuisine = useRef()
+  const inpDeliveryPrice = useRef();
+  const inpDeliveryMin = useRef();
+  const inpAdress = useRef();
 
 
   useEffect(() => {
@@ -111,32 +124,51 @@ function AdminRestaurant() {
     fetchRestaurants();
   }, [state.isDeleting, state.isAdd]);
 
+  
 
   async function addRestaurant() {
+    const addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
     let Title = inpTitle?.current?.value;
     let Category = inpCategory?.current?.value;
     let Cuisine = inpCuisine?.current?.value;
+    let DeliveryPrice = inpDeliveryPrice?.current?.value;
+    let DeliveryMin = inpDeliveryMin?.current?.value;
+    let Adress = inpAdress?.current?.value;
 
 
-    if (Title.length <= 3 || Category?.length<=3 || Cuisine?.length <=3  ){
+    
+
+    if (Title.length <= 1 || Category?.length<=3 || Cuisine?.length <=3 || Adress?.length <= 3)
+      {
       setTitleStroge('Title must be longer than 3 characters');
       setCategoryStroge('Cuisine must be longer than 3 characters');
       setCuisineStroge('Cuisine must be longer than 3 characters');
+      setAdressStroge('Not the correct Address Format!');
       return;
     }else {
       setTitleStroge('');
       setCategoryStroge('');
       setCuisineStroge('');
+      setDeliveryPriceStroge('');
+      setDeliveryMinStroge('');
+      setAdressStroge('');
     }
+
+   
+    if(!addressRegex.test(Adress)){
+      setAdressStroge('Not the correct Address Format!');
+      return;
+    }
+  
 
     let newRestaurant = {
       name: Title,
       img_url: '',
       category_id: Category,
       cuisine: Cuisine,
-      address: "ksdhlhelf",
-      delivery_min: 3,
-      delivery_price: 2
+      address: Adress,
+      delivery_min: DeliveryMin,
+      delivery_price: DeliveryPrice
     };
 
     try {
@@ -146,6 +178,7 @@ function AdminRestaurant() {
         collectionId: "restuarants",
         documentId: "restuarants",
       });
+      
       newRestaurant.img_url = res;
       console.log("newRestaurant", newRestaurant);
       
@@ -171,21 +204,31 @@ function AdminRestaurant() {
   }
 
   async function updateRestaurant() {
-    let Title = inpTitle.current?.value;
+    let Title = inpTitle?.current?.value;
     let Category = inpCategory?.current?.value;
     let Cuisine = inpCuisine?.current?.value;
+    let DeliveryPrice = inpDeliveryPrice?.current?.value;
+    let DeliveryMin = inpDeliveryMin?.current?.value;
+    let Adress = inpAdress?.current?.value;
+
 
    
 
-    if (Title.length <= 3 || Category?.length<=3 || Cuisine?.length <=3  ){
+    if (Title.length <= 1 || Category?.length<=3 || Cuisine?.length <=3 || DeliveryPrice?.length <=3 || DeliveryMin?.length <= 3 || Adress?.length <= 3 ){
       setTitleStroge('Title must be longer than 3 characters');
-      setCategoryStroge('Cuisine must be longer than 3 characters')
-      setCuisineStroge('Cuisine must be longer than 3 characters')
+      setCategoryStroge('Cuisine must be longer than 3 characters');
+      setCuisineStroge('Cuisine must be longer than 3 characters');
+      setDeliveryPriceStroge('DeliveryPrice must be longer than 3 characters');
+      setDeliveryMinStroge('DeliveryMin must be longer than 3 characters');
+      setAdressStroge('Adress must be longer than 3 characters');
       return;
     }else {
       setTitleStroge('');
       setCategoryStroge('');
       setCuisineStroge('');
+      setDeliveryPriceStroge('');
+      setDeliveryMinStroge('');
+      setAdressStroge('');
     }
 
 
@@ -235,12 +278,16 @@ function AdminRestaurant() {
     }
   }
 
-  function editRestaurant(name: string, category: string, image: string, id: string) {
+  function editRestaurant(name: string, category: string, image: string, id: string, cuisine: string, deliveryPrice: number, deliveryMin: number, adress: string) {
     setTitleValue(name);
     setEditImg(image);
     setImg(image);
     setEditID(id);
     setCategoryValue(category);
+    setCuisineValue(cuisine);
+    setDeliveryPriceValue(deliveryPrice);
+    setDeliveryMinValue(deliveryMin);
+    setAdressValue(adress);
     onOpen();
   }
 
@@ -281,6 +328,7 @@ function AdminRestaurant() {
   const handleCategoryClick = (category: string) => {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
+
 
   const renderCategories = () => {
     const uniqueCategories: string[] = Array.from(new Set(state.restaurantData.map((restaurant: Restaurant) => restaurant.category_id)));
@@ -406,8 +454,13 @@ function AdminRestaurant() {
         <div className="text-mainRed font-bold">{CategoryStroge}</div>
         <Input hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
         <div className="text-mainRed font-bold">{CuisineStroge}</div>
-        <Input hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
-        <div className="text-mainRed font-bold">{CuisineStroge}</div>
+        <Input hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
+        <div className="text-mainRed font-bold">{DeliveryPriceStroge}</div>
+        <Input hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
+        <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
+        <Input hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
+        <div className="text-mainRed font-bold">{AdressStroge}</div>
+        
 
 
       </Form>
