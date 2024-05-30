@@ -11,7 +11,7 @@ import Modal from "../../../shared/components/admin/Modal";
 import { DeleteProduct, EditProduct, PostProduct, getProducts, getRestaurants } from "../../../shared/services";
 import { toast } from "react-toastify";
 import uploadFile from "../../../shared/utils/uploadFile";
-import { ProductPostDataType } from "../../../shared/interfaces";
+import { ProductPostDataType, RestaurantPostDataType } from "../../../shared/interfaces";
 import Select from "../../../shared/components/admin/Form/Select";
 
 
@@ -46,7 +46,7 @@ export default function Products() {
   let [PriceYup, setPriceYup] = useState('');
   let [PriceValue, setPriceValue] = useState('');
   let [ResetData, setResetData] = useState(true)
-  let [restaurants, setRestaurants] = useState()
+  let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
   let [restaurantID, setRestaurantId] = useState()
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function Products() {
         console.log(err);
       }
     })()
-  }, [ResetData])
+  }, [ResetData,products])
 
   function getRestaurantById(e:any) {
     setRestaurantId(e.currentTarget.value)

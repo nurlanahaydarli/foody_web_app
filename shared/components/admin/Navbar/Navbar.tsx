@@ -17,7 +17,7 @@ import * as Yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../server/configs/firebase";
 import { useEffect, useRef, useState } from 'react';
-import { ProductPostDataType } from '../../../interfaces';
+import { ProductPostDataType, RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
 
 // interface SignInFormValues {
@@ -35,7 +35,7 @@ export default function Navbar() {
     const inpDesc = useRef<any>()
     const inpPrice = useRef<any>()
     const inpRest = useRef<any>()
-    let [isAdd, setIsAdd] = useState(false)
+    
     let [DescYup, setDescYup] = useState('');
     let [TitleYup, setTitleYup] = useState('')
     let [PriceYup, setPriceYup] = useState('');
@@ -44,8 +44,9 @@ export default function Navbar() {
     let [DescValue, setDescValue] = useState('');
     let [Titlevalue, setTitlevalue] = useState('')
     let [PriceValue, setPriceValue] = useState('');
-    let [restaurants, setRestaurants] = useState(true)
+    let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
     let [restaurantID, setRestaurantId] = useState(true)
+
 
     useEffect(() => {
         (async () => {
@@ -56,8 +57,8 @@ export default function Navbar() {
                 console.log(err);
             }
         })()
-    }, [])
-    function getRestaurantById(e) {
+    }, [products])
+    function getRestaurantById(e:any) {
         setRestaurantId(e.currentTarget.value)
 
     }
@@ -76,7 +77,6 @@ export default function Navbar() {
             rest_id: restaurantID,
         }
         try {
-            setIsAdd(true)
             let res = await uploadFile({
                 file: Img,
                 collectionId: "products",
@@ -90,6 +90,9 @@ export default function Navbar() {
             setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
 
             let createdProduct = await PostProduct(newProduct);
+            setProducts(prevProducts => prevProducts.map(product =>
+                product.name === newProduct.name ? createdProduct.data : product
+            ));
 
             toast.success("Product successfully added", {
                 position: "top-right",
@@ -106,9 +109,7 @@ export default function Navbar() {
             });
 
             console.log(err);
-        } finally {
-            setIsAdd(false)
-        }
+        } 
     }
     return (
         <>
