@@ -33,7 +33,7 @@ export default function Restaurants() {
     } = useQuery("restuarants", getRestaurants);
 
 
-    const filteredRestaurants = (restaurants?.data.result.data || []).filter((restaurant: RestaurantPostDataType) => {
+    const filteredRestaurants = (restaurants?.data.result.data || []).filter((restaurant: any) => {
         const category_id = restaurant.category_id;
         return (
             !chooseCategory || (typeof category_id === "string" && category_id.includes(chooseCategory))

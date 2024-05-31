@@ -1,7 +1,7 @@
 export default function firebaseIdToShortNumber(id) {
     let hash = 5381;
-    for (let i = 0; i < id.length; i++) {
-        hash = (hash * 33) ^ id.charCodeAt(i);
+    for (let i = 0; i < id?.length; i++) {
+        hash = (hash * 33) ^ id?.charCodeAt(i);
     }
     return Math.abs(hash);
 }
