@@ -6,7 +6,10 @@ import {
     CategoryApiResponse,
     CategoryPostDataType,
     InitialCategoryState,
-    ApiResponse
+    ApiResponse,
+    ProductApiResponse,
+    ProductPostDataType,
+    InitialProductState
 
 } from "../interfaces/";
 import { AxiosPromise } from "axios";
@@ -124,9 +127,41 @@ export const EditCategory = (
 };
 
 // =============================== GET PRODUCTS ===============================
-export const GetProducts = (): AxiosPromise<ApiResponse> =>
+export const getProducts = (): AxiosPromise<ProductApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
 
+
+// =============================== ADD PRODUCT ===============================
+export const PostProduct: (
+    newCategory: InitialProductState
+) => AxiosPromise<ProductPostDataType> = (newProduct) => {
+    return instanceAxios({
+        method: "POST",
+        url: 'products',
+        data: newProduct,
+    });
+};
+
+
+// =============================== DELETE PRODUCT ===============================
+export const DeleteProduct = (
+    productId: string | number
+): AxiosPromise<ProductApiResponse> =>
+    instanceAxios({
+        method: "DELETE",
+        url: `products/${productId}`,
+    });
+
+    // =============================== EDIT PRODUCT ===============================
+    export const EditProduct = (
+        editedProduct: ProductPostDataType
+    ): AxiosPromise<ProductApiResponse> => {
+        return instanceAxios({
+            method: "PUT",
+            url: `products/${editedProduct.id}`,
+            data: editedProduct,
+        });
+    };
 // =============================== GET ORDERS  ===============================
 export async function getOrder() {
     try {
@@ -196,7 +231,7 @@ export const GetOrderHistory = () =>{
     })
 }
     
-    // =============================== PUT AUTH USET ===============================
+    // =============================== PUT AUTH USER ===============================
 
     export const PutAuthUser = (body:object) =>{
    

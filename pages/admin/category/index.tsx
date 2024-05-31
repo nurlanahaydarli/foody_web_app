@@ -107,6 +107,7 @@ function Category() {
             setCategories(prevCategories => prevCategories.map(category =>
                 category.id === updatedCategory.id ? { ...category, ...updatedCategory } : category
             ));
+            
             await EditCategory(updatedCategory)
             toast.success("Category successfully edited", {
                 position: "top-right",
