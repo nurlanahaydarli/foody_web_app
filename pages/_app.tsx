@@ -21,16 +21,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       // Global settings for AOS
     });
   }, []);
-
-  return (
-    // <Provider store={wrapper}>
+    const { store } = wrapper.useWrappedStore(pageProps);
+    return (
+    <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
             <ToastContainer />
           <Component {...pageProps} />
         </ChakraProvider>
       </QueryClientProvider>
-      // </Provider>
+     </Provider>
   );
 }
 

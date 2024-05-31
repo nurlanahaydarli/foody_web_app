@@ -53,7 +53,7 @@
     align-items: center;
     padding: 14px 24px;
     cursor: pointer;
-    gap: 40px;
+    gap: 5px;
     border-bottom: 1px solid #F7F6FC;
     transition: all 0.5s;
     background-color: transparent;
