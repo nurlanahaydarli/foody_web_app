@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </ChakraProvider>
       </QueryClientProvider>
-      </Provider>
+     </Provider>
   );
 }
 
