@@ -172,9 +172,16 @@ export default function Offer() {
         seteditImg(image)
         setImg([image])
         seteditID(id)
-
-
         onOpen()
+    }
+
+    function editOffer(name: string, description: string, image: string, id: string) {
+        setTitlevalue(name);
+        setDescValue(description);
+        setEditImg(image);
+        setImg([image]);
+        setEditID(id);
+        onOpen();
     }
 
     return (
