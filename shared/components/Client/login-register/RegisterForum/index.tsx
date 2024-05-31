@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
+import { PostSingUP } from '../../../../services';
 interface RegisterFormValues {
   fullname: string;
   username: string;
@@ -24,10 +25,12 @@ const initialValues: RegisterFormValues = {
   
   
 };
-
-const RegisterForm: React.FC = () => {
+interface Props{
+  setsingin:any
+}
+const RegisterForm= (props:Props) => {
   const user = useSelector((state: RootState) => state.user);
-  console.log(user);
+  let {setsingin}:any=props
   
   const validationSchema = Yup.object({
     fullname: Yup.string().required('Required'),
@@ -40,15 +43,31 @@ const RegisterForm: React.FC = () => {
     // You can perform your registration logic here
     
       (async()=>{
-        let res= await Post(values, `auth/signup`)
-        console.log(res.user); 
-        // add to local 
-        toast.success("register sucsesfuly", {
-          position:"top-right",
-        });
-        toast.info("now sing in", {
-          position:"top-right",
-        });
+       
+        
+        try{
+          PostSingUP(values).then(()=>{
+            toast.success("register sucsesfuly", {
+                position:"top-right",
+              });
+              toast.info("now sing in", {
+                  position:"top-right",
+                });
+                
+          }).then(()=>{
+            setsingin()
+          }).catch((err)=>{
+            toast.info(err.message, {
+              position:"top-right",
+            });
+          })
+
+        }catch(err){
+          console.log(err);
+          
+        }
+       
+
         // const user = useSelector((state: RootState) => state.user);
         // console.log(user);
         

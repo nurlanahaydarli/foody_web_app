@@ -169,8 +169,10 @@ export const deleteOrder = async (id: string | number) => {
 export const DeleteOrder = (
     OrderID: string | number
 ) =>{
+    console.log("aaaaaaaaaaaaa");
+    
     const accessToken = localStorage.getItem("access_token");
-    instanceAxios({
+     return instanceAxios({
         method: "DELETE",
         url: `order`,
         data:{
@@ -210,3 +212,14 @@ export const GetOrderHistory = () =>{
             },
         })
     }
+        // =============================== POST SingUP ===============================
+        export const PostSingUP = (body:object) =>{
+   
+         
+            return instanceAxios({
+                method: "POST",
+                url: "auth/signup",
+                data:body,
+               
+            })
+        }

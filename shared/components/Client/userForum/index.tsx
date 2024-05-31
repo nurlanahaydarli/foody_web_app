@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Input from '../userInp';
@@ -39,15 +39,16 @@ const initialValues: FormValues = {
 };
 interface Props{
   img:any|undefined
-
+  
 }
 const UserForm: any = (props:Props) => {
-  let {img}:any=props
+  let {img,}:any=props
   let [logoding,setlogoding]=useState(false)
   // let IMG=img[0]?.data_url
   
   
   const user = useSelector((state: RootState) => state.user);
+console.log(user);
 
   
 
@@ -113,12 +114,12 @@ const UserForm: any = (props:Props) => {
         <Form> 
             <div className={div}>
                 <div className={inpdiv}>
-                    <Input name='phoneNumber' type='text' placeholder='+994' title='Contact'/>
-                    <Input name='username' type='text' placeholder='rahimlisarkhan' title='Username'/>
+                    <Input name='phoneNumber' type='text' placeholder='+994 XX XXX XX XX' title='Contact'/>
+                    <Input name='username' type='text' placeholder={user.username} title='Username'/>
                     <Input name='fullName' type='text' placeholder='Sarkhan Rahimli' title='Full Name'/>
                 </div>
                 <div className={inpdiv}>
-                    <Input name='email' type='email' placeholder='rahimlisarkhan@gmail.com' title='Email' value={user.email}/>
+                    <Input name='email' type='email' placeholder='Exsample@gmail.com' title='Email' value={user.email}/>
                     <Input name='address' type='text' placeholder='address' title='Address'/>
                     <button type="submit" className={button}  style={ logoding?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
                       {logoding?<Spiner />:"Save"}

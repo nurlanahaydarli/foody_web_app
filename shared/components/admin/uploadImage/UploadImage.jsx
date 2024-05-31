@@ -4,7 +4,7 @@ import CustomButton from "../Button";
 import ImageUploading from "react-images-uploading";
 import {useEffect, useState} from "react";
 
-export default function UploadImage({setImageList,IMG=undefined}){
+export default function UploadImage({setImageList,IMG=undefined,uerPage=false}){
     const [images, setImages] = useState([]);
     const maxNumber = 1;
     useEffect(()=>{
@@ -44,13 +44,13 @@ export default function UploadImage({setImageList,IMG=undefined}){
                     >
                         {images.length ===0 &&
                         <>
-                            <UploadSvg/>
+                            <UploadSvg color={uerPage?"#6FCF97":"#EC5CF8"}/>
                             <span>upload</span>
                         </>}
                     </button>
                     {imageList.map((image, index) => (
                         <div key={index} className={`${style_form.image_item} image-item`}>
-                            <img src={image?IMG:image['data_url']} alt="" width="100" />
+                            <img src={IMG?IMG:image?IMG:image['data_url']} alt="" width="100" />
                             <div className={`${style_form.image_item__btn_wrapper} image-item__btn-wrapper flex flex-row`}>
                                 <CustomButton icon={false} onAction={() => onImageRemove(index)} title='Remove' color={'2'} type={'button'} size={'xs'} />
                                 <CustomButton icon={false} onAction={() => onImageUpdate(index)} title='Update' color={'1'} type={'button'} size={'xs'} />
