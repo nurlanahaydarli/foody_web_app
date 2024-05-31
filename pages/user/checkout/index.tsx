@@ -15,7 +15,7 @@ const initialState = {
     formatNumber: '',
 }
 
-const reducer = (state, action) => {
+const reducer = (state:any, action:any) => {
     switch (action.type) {
         case "SET_ADDRESS":
             return { ...state, address: action.payload };
@@ -38,7 +38,7 @@ const reducer = (state, action) => {
 const addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
 const azerbaijanPhoneRegex = /^\+994-(50|51|55|60|70|77|99)-\d{3}-\d{2}-\d{2}$/;
 
-const formatPhoneNumber = (value) => {
+const formatPhoneNumber = (value:any) => {
     const digits = value.replace(/[^\d]/g, '').substring(3);
     let formatted = '+994';
 
@@ -72,7 +72,7 @@ function Checkout() {
     const [isRectVisible2, setIsRectVisible2] = useState(false);
     const [checkoutComplete, setCheckoutComplete] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const value = e.target.value;
         dispatch({ type: "SET_ADDRESS", payload: value });
 
@@ -85,7 +85,7 @@ function Checkout() {
         }
     }
 
-    const handleChange1 = (event) => {
+    const handleChange1 = (event:any) => {
         let value = event.target.value;
 
         if (!value.startsWith('+994')) {
@@ -132,7 +132,7 @@ function Checkout() {
                             {checkoutComplete ? (
                                 <div className='w-10/12 ml-5 mt-4 rounded-md bg-cardColor bg-rounded-md shadow-md'>
                                     <div className=' flex justify-center mt-20'>
-                                        <Image src={confirmationIcon} />
+                                        <Image src={confirmationIcon}alt=''/>
                                     </div>
                                     <h1 className='flex justify-center text-2xl font-bold text-grayText2'>Your order has been</h1>
                                     <h1 className='flex justify-center text-2xl font-bold text-grayText2'>received</h1>

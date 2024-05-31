@@ -51,7 +51,7 @@ export const uploadFile = async ({
                         createdAt: new Date(),
                     });
                     resolve(downloadURL);
-                } catch (error) {
+                } catch (error:any) {
                     reject('Failed to save file metadata: ' + error.message);
                 }
             }

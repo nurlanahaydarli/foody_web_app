@@ -28,7 +28,7 @@ export default function RestaurantDetail() {
                 <>
                     <div className='lg:px-8 px-3 pt-1 pb-[100px]'>
                         <div className={styles.restaurant_top}>
-                            <img src={restaurant.img_url} alt={restaurant.name} className={styles.cover_width} />
+                            <img src={restaurant.img_url || undefined}  alt={restaurant.name} className={styles.cover_width} />
                         </div>
                         <div className={`${styles.restaurant_detail} l:flex-nowrap flex-wrap flex justify-between items-center`}>
                             <div className={styles.left_top}>
@@ -56,7 +56,7 @@ export default function RestaurantDetail() {
                                         <ul>
                                             {products?.map((product)=>(
                                                 <li key={product.id}>
-                                                    <ProductsCard  {...product}  />
+                                                    <ProductsCard  {...product} id={String(product.id)}  />
                                                 </li>
                                             ))}
                                         </ul>

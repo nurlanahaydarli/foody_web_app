@@ -10,7 +10,7 @@ interface PROPS {
     data? : any,
     reset :Function,
     edit :any,
-    removeDocument:any
+    removeDocument?:any
 }
 function AdminTable(props:PROPS) {
 let {data,reset,edit,removeDocument} =props

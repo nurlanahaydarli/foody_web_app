@@ -5,7 +5,7 @@ type inputTypes = {
     input_name: string;
     type:string;
     value?:any;
-    hasLabel:boolean
+    hasLabel?:boolean
     name?:string
     Ref? : any;
     onChange:any;

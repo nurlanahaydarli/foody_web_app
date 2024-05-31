@@ -4,15 +4,18 @@ import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable';
 import Image from 'next/image';
 import withClientAuth from '../../../shared/HOC/withClienAuth';
+import { getOrder } from '../../../shared/services';
 
 function Orders() {
+    
+    getOrder();
     return (
         <>
             <MainLayout>
                 <div className='px-8 pt-1 pb-[100px]'>
                     <div className='flex flex-row'>
                        <div className="w-1/4">
-                           <Navbar active={1} />
+                           <Navbar active={3} />
                        </div>
                         <div className="w-3/4 p-[16px] pe-[0px]">
                             <main>

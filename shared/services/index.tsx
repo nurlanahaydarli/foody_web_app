@@ -7,18 +7,25 @@ import {
     CategoryPostDataType,
     InitialCategoryState,
     ApiResponse,
-    InitialRestaurantState,
+    ProductApiResponse,
+    ProductPostDataType,
+    InitialProductState,
+     InitialRestaurantState,
     RestaurantPostDataType,
+
 } from "../interfaces/";
-import {AxiosPromise} from "axios";
-import {instanceAxios} from "../helpers/instanceAxios";
+import { AxiosPromise } from "axios";
+import { instanceAxios } from "../helpers/instanceAxios";
 
 
 //  =============================== GET CATEGORY ===============================
 export const getCategories = (): AxiosPromise<CategoryApiResponse> =>
-    instanceAxios({ method: "GET", url:"category"});
+    instanceAxios({ method: "GET", url: "category" });
 
 
+
+export const searchRestaurants = (query: string): AxiosPromise<RestaurantApiResponse> =>
+    instanceAxios({ method: 'GET', url: `restuarants`, params: { name: query } });
 
 // =============================== GET RESTAURANT_BY_ID ===============================
 export const getRestaurantById = (
@@ -116,27 +123,127 @@ export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromi
 };
 
 // =============================== GET PRODUCTS ===============================
-export const GetProducts = (): AxiosPromise<ApiResponse> =>
+export const getProducts = (): AxiosPromise<ProductApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
 
-export async function updateBasketProductCount(data: { user_id: string; basket_id: string; quantity: number }) {
-    const response = await fetch('/api/basket/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+
+// =============================== ADD PRODUCT ===============================
+export const PostProduct: (
+    newCategory: InitialProductState
+) => AxiosPromise<ProductPostDataType> = (newProduct) => {
+    return instanceAxios({
+        method: "POST",
+        url: 'products',
+        data: newProduct,
+    });
+};
+
+
+// =============================== DELETE PRODUCT ===============================
+export const DeleteProduct = (
+    productId: string | number
+): AxiosPromise<ProductApiResponse> =>
+    instanceAxios({
+        method: "DELETE",
+        url: `products/${productId}`,
     });
 
-    if (!response.ok) {
-        throw new Error('Failed to update basket product count');
+    // =============================== EDIT PRODUCT ===============================
+    export const EditProduct = (
+        editedProduct: ProductPostDataType
+    ): AxiosPromise<ProductApiResponse> => {
+        return instanceAxios({
+            method: "PUT",
+            url: `products/${editedProduct.id}`,
+            data: editedProduct,
+        });
+    };
+// =============================== GET ORDERS  ===============================
+export async function getOrder() {
+    try {
+        const accessToken = localStorage.getItem("access_token");
+        const response = await instanceAxios.get(`/order`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response
+    } catch (error) {
+        console.log("order's error: ", error);
     }
-
-    return response.json();
 }
 
 
-// =============================== GET RESTAURANT ===============================
+
+// =============================== DELETE ORDERS ===============================
+
+export const deleteOrder = async (id: string | number) => {
+    try {
+        let item: any = localStorage.getItem("access_token")
+        let accessToken = JSON.parse(item)
+
+        const response = await instanceAxios.delete(`/order`, {
+            data: {
+                "order_id": id,
+            },
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// =============================== DELETE ORDER ===============================
+export const DeleteOrder = (
+    OrderID: string | number
+) =>{
+    const accessToken = localStorage.getItem("access_token");
+    instanceAxios({
+        method: "DELETE",
+        url: `order`,
+        data:{
+            order_id:OrderID
+        },
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+
+}
+// =============================== GET ORDER HISTORY ===============================
+export const GetOrderHistory = () =>{
+   
+    const accessToken = localStorage.getItem("access_token");
+    return instanceAxios({
+        method: "GET",
+        url: "order/history",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    })
+}
+    
+    // =============================== PUT AUTH USER ===============================
+
+    export const PutAuthUser = (body:object) =>{
+   
+        const accessToken = localStorage.getItem("access_token");
+        return instanceAxios({
+            method: "GET",
+            url: "auth/user",
+            data:body,
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
+    }
+
+
+    // =============================== GET RESTAURANT ===============================
 export const getRestaurants = (): AxiosPromise<RestaurantApiResponse> =>
     instanceAxios({ method: "GET", url: "restuarants" });
 

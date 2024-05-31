@@ -15,6 +15,9 @@ const AreaChart = dynamic(() => import("../../shared/components/admin/ChartCard/
 const BarChart = dynamic(() => import("../../shared/components/admin/ChartCard/BarChart"), {
     ssr: false,
 });
+const LineChart = dynamic(() => import("../../shared/components/admin/ChartCard/LineChart"), {
+    ssr: false,
+});
 
 const AdminDashboard: NextPage = () => {
     return (
@@ -28,6 +31,9 @@ const AdminDashboard: NextPage = () => {
                 </div>
                 <div className="md:w-3/5 ">
                     <BarChart />
+                </div>
+                <div className="md:w-2/5 ">
+                    <LineChart/>
                 </div>
             </div>
         </AdminLayout>
