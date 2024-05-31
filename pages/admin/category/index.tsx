@@ -39,6 +39,8 @@ function Category() {
         })()
     },[ResetData])
 
+
+
     async function addCategory(){
         let Title=inpTitle?.current?.value
         Title.length<=3?setTitleYup('title have to be longer than 3 '):setTitleYup('')
@@ -47,6 +49,7 @@ function Category() {
             "name": Title,
             "img_url": ''
         }
+
         try{
             let res= await uploadFile({
                 file:Img,
@@ -107,6 +110,7 @@ function Category() {
             setCategories(prevCategories => prevCategories.map(category =>
                 category.id === updatedCategory.id ? { ...category, ...updatedCategory } : category
             ));
+            
             await EditCategory(updatedCategory)
             toast.success("Category successfully edited", {
                 position: "top-right",
@@ -121,6 +125,8 @@ function Category() {
         }
 
     }
+
+    
     async function removeCategory(id: string | number){
         try{
             await DeleteCategory(id)
@@ -144,12 +150,16 @@ function Category() {
     return (
         <>
             <AdminLayout>
+
+                
                 <div >
                     <AdminHedetbuttom typeButton={false}  addButton={true} addButtonFun={onOpen} addTitle={'ADD CATEGORY '} Title={'CATEGORY '}/>
                     <AdminTable edit={editCategory}
                                 data={categories}
                                 removeDocument={removeCategory}
                                     reset={()=>setResetData(prev=>!prev)} />
+
+                                    
                     <Form
                             isOpen={isOpen}
                             title={editImg ? 'Edit Category' : 'Add Category'}
@@ -167,6 +177,9 @@ function Category() {
                         <Input hasLabel={true} title={'Name'} type={'text'} input_name={'category_title'} Ref={inpTitle} value={Titlevalue} />
                         <div className=" text-red-600">{TitleYup}</div>
                     </Form>
+
+
+
                 </div>
             </AdminLayout>
         </>

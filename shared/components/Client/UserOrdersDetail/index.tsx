@@ -1,10 +1,46 @@
+import { useEffect, useState } from "react";
 import { useGlobalStore } from "../../../services/provider";
 import { UserOrderDetailDatas } from "../UserOrderDetailDatas";
-  export const UserOrdersDetail = (id: any) => {
-  const { orderShow, setOrderShow } = useGlobalStore();
-  let FilteredData = orderShow.data.result.data.filter(
-    (item: any) => item.id == id.id
-  );
+import { getOrder } from "../../../services";
+export const UserOrdersDetail = (id: any) => {
+  const [orderShow, setOrderShow] = useState([]);
+  const [orderData, setOrderData] = useState([]);
+  const [filteredData, setFilteredData] = useState();
+
+
+  const fetchOrder = async () => {
+    try {
+      const res = await getOrder();
+      const result = res?.data.result.data || [];
+      setOrderShow(res);
+      setOrderData(result);
+    } catch (error) {
+      console.error("Error fetching order:", error);
+    }
+  };
+  function handleFilter() {
+    let filteredData = orderShow?.data?.result?.data?.find((item: any) => {
+      console.log(item?.id, "item?.iditem?.iditem?.id");
+      
+     return item?.id == id?.id  
+    }  )
+    setFilteredData(filteredData)
+  }
+
+
+  useEffect(() => {
+    fetchOrder();
+
+    handleFilter()
+
+
+  }, []);
+
+  console.log(id, "id");
+  console.log(filteredData, "filteredData");
+
+
+
   return (
     <table className="min-w-full text-center ">
       <thead>
@@ -27,8 +63,8 @@ import { UserOrderDetailDatas } from "../UserOrderDetailDatas";
         </tr>
       </thead>
       <tbody>
-
-        {FilteredData[0]?.products?.map((item: any) => (
+        {console.log(filteredData)}
+        {filteredData?.products?.map((item: any) => (
           <UserOrderDetailDatas
             image={item.img_url}
             name={item.name}

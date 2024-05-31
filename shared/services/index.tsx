@@ -6,7 +6,12 @@ import {
     CategoryApiResponse,
     CategoryPostDataType,
     InitialCategoryState,
-    ApiResponse
+    ApiResponse,
+    ProductApiResponse,
+    ProductPostDataType,
+    InitialProductState,
+     InitialRestaurantState,
+    RestaurantPostDataType,
 
 } from "../interfaces/";
 import { AxiosPromise } from "axios";
@@ -18,9 +23,6 @@ export const getCategories = (): AxiosPromise<CategoryApiResponse> =>
     instanceAxios({ method: "GET", url: "category" });
 
 
-// =============================== GET RESTAURANT ===============================
-export const getRestaurants = (): AxiosPromise<RestaurantApiResponse> =>
-    instanceAxios({ method: "GET", url: "restuarants" });
 
 export const searchRestaurants = (query: string): AxiosPromise<RestaurantApiResponse> =>
     instanceAxios({ method: 'GET', url: `restuarants`, params: { name: query } });
@@ -93,9 +95,8 @@ export const clearBasket: (
 
 
 // =============================== ADD CATEGORY ===============================
-export const PostCategory: (
-    newCategory: InitialCategoryState
-) => AxiosPromise<CategoryPostDataType> = (newCategory) => {
+export const PostCategory: (newCategory: InitialCategoryState) => AxiosPromise<CategoryPostDataType> = (newCategory) => 
+    {
     return instanceAxios({
         method: "POST",
         url: 'category',
@@ -113,9 +114,7 @@ export const DeleteCategory = (
     });
 
 // =============================== EDIT CATEGORY ===============================
-export const EditCategory = (
-    editedCategory: CategoryPostDataType
-): AxiosPromise<CategoryApiResponse> => {
+export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromise<CategoryApiResponse> => {
     return instanceAxios({
         method: "PUT",
         url: `category/${editedCategory.id}`,
@@ -124,9 +123,41 @@ export const EditCategory = (
 };
 
 // =============================== GET PRODUCTS ===============================
-export const GetProducts = (): AxiosPromise<ApiResponse> =>
+export const getProducts = (): AxiosPromise<ProductApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
 
+
+// =============================== ADD PRODUCT ===============================
+export const PostProduct: (
+    newCategory: InitialProductState
+) => AxiosPromise<ProductPostDataType> = (newProduct) => {
+    return instanceAxios({
+        method: "POST",
+        url: 'products',
+        data: newProduct,
+    });
+};
+
+
+// =============================== DELETE PRODUCT ===============================
+export const DeleteProduct = (
+    productId: string | number
+): AxiosPromise<ProductApiResponse> =>
+    instanceAxios({
+        method: "DELETE",
+        url: `products/${productId}`,
+    });
+
+    // =============================== EDIT PRODUCT ===============================
+    export const EditProduct = (
+        editedProduct: ProductPostDataType
+    ): AxiosPromise<ProductApiResponse> => {
+        return instanceAxios({
+            method: "PUT",
+            url: `products/${editedProduct.id}`,
+            data: editedProduct,
+        });
+    };
 // =============================== GET ORDERS  ===============================
 export async function getOrder() {
     try {
@@ -198,7 +229,7 @@ export const GetOrderHistory = () =>{
     })
 }
     
-    // =============================== PUT AUTH USET ===============================
+    // =============================== PUT AUTH USER ===============================
 
     export const PutAuthUser = (body:object) =>{
    
@@ -212,14 +243,42 @@ export const GetOrderHistory = () =>{
             },
         })
     }
-        // =============================== POST SingUP ===============================
-        export const PostSingUP = (body:object) =>{
+     // =============================== POST SingUP ===============================
+     export const PostSingUP = (body:object) =>{
    
          
-            return instanceAxios({
-                method: "POST",
-                url: "auth/signup",
-                data:body,
-               
-            })
-        }
+        return instanceAxios({
+            method: "POST",
+            url: "auth/signup",
+            data:body,
+           
+        })
+    }
+       // =============================== GET RESTAURANT ===============================
+export const getRestaurants = (): AxiosPromise<RestaurantApiResponse> =>
+    instanceAxios({ method: "GET", url: "restuarants" });
+
+
+
+
+// =============================== ADD RESTAURANT ===============================
+
+export const PostRestaurant: ( newRestaurant: InitialRestaurantState ) => AxiosPromise<RestaurantPostDataType> = (newRestaurant) => {
+    return instanceAxios({
+        method: "POST",
+        url: 'restuarants',
+        data: newRestaurant,
+    });
+};
+
+
+
+
+// =============================== EDIT RESTAURANT ===============================
+export const EditRestaurant = ( editedRestaurant: RestaurantPostDataType ): AxiosPromise<RestaurantApiResponse> => {
+    return instanceAxios({
+        method: "PUT",
+        url: `restuarants/${editedRestaurant.id}`,
+        data: editedRestaurant,
+    });
+};

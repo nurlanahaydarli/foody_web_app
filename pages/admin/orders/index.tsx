@@ -140,7 +140,7 @@ export default function Orders() {
                         </div>
                         <div className="flex flex-col w-1/4 h-full overflow-auto">
                             <div >
-                                {Order?.products.map((item:any)=>(
+                                {Order?.products?.map((item:any)=>(
                                     <div className='m-[20px]'>
                                     <div  className=" rounded-lg w-52 h-72 bg-white">
 

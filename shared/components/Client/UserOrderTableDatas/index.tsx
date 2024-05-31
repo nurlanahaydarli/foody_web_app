@@ -24,7 +24,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     const [showPopup, setShowPopup] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
-    const { orderData, setOrderData } = useGlobalStore();
+    const [orderData, setOrderData] = useState([]);
     async function inDeleteOrder() {
         const response = await deleteOrder(id);
 

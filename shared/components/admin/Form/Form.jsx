@@ -5,8 +5,6 @@ import style_form from "./form.module.css";
 import {useEffect, useState} from "react";
 import UploadSvg from "../svg/UploadSvg";
 
-;
-
 function Form({
                   onClose, isOpen, children, title, subtitle,
                   btnTitle = 'Create  Product',

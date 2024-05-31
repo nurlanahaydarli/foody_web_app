@@ -61,13 +61,24 @@ export interface RestaurantPostDataType {
     created: number;
     name?: string;
 }
+
+
+export interface InitialRestaurantState
+extends Omit<RestaurantPostDataType, "id"> {}
+
+
 export interface CategoryPostDataType {
     id: number | string | any;
     name: string;
     img_url: string | null;
 }
+
+
 export interface InitialCategoryState
     extends Omit<CategoryPostDataType, "id"> {}
+
+    
+
 
 export interface CategoryApiResponse {
     result: {
@@ -76,6 +87,7 @@ export interface CategoryApiResponse {
     status: number;
     message: string;
 }
+
 export interface ApiResponse {
     result: {
         data: PostDataType[];
@@ -97,4 +109,25 @@ export interface BasketPostDataType {
     total_count?: number;
     total_item?: number;
     total_amount?: number;
+}
+
+
+export interface ProductPostDataType {
+    id?: number | string | any;
+    name: string;
+    img_url: string | null;
+    rest_id: string | number,
+    price: string | number,
+    description?: string | undefined
+}
+
+export interface InitialProductState
+    extends Omit<ProductPostDataType, "id"> {}
+
+export interface ProductApiResponse {
+    result: {
+        data: ProductPostDataType[];
+    };
+    status: number;
+    message: string;
 }

@@ -7,11 +7,8 @@ import withClientAuth from '../../../shared/HOC/withClienAuth';
 import { getOrder } from '../../../shared/services';
 
 function Orders() {
-
-
+    
     getOrder();
-
-
     return (
         <>
             <MainLayout>

@@ -172,10 +172,9 @@ export default function Offer() {
         seteditImg(image)
         setImg([image])
         seteditID(id)
-
-
         onOpen()
     }
+
 
     return (
         <>
