@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getOrder } from "../../../services";
 import { useGlobalStore } from "../../../services/provider";
 import { UserOrderTableDatas } from "../UserOrderTableDatas";
 export function UserOrderTable() {
-  const { orderData, setOrderData } = useGlobalStore();
-  const { orderShow, setOrderShow } = useGlobalStore();
+  const [orderData, setOrderData] = useState([]);
+  const [orderShow, setOrderShow] = useState([]);
 
   const fetchOrder = async () => {
     try {
@@ -49,7 +49,7 @@ export function UserOrderTable() {
         {orderData?.map((item: any, index: number) => (
             <UserOrderTableDatas
               key={`tableData_${index}`}
-              id={index+1}
+              id={item.id}
               time="12:50"
               adress={item.delivery_address}
               amount={item.amount}
