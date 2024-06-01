@@ -414,6 +414,8 @@ function AdminRestaurant() {
     );
   };
 
+  
+
   return (
     <div className="p-6">
       <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
@@ -461,6 +463,9 @@ function AdminRestaurant() {
             </div>
           ))}
       </div>
+
+
+
 
       {state.showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
