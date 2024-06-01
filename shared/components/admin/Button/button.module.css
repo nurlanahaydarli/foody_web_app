@@ -7,6 +7,10 @@
     gap: 3px;
     cursor: pointer;
 }
+.btn:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 .btn svg{
     width: 16px;
     height: 16px;

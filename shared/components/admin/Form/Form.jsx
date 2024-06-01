@@ -10,6 +10,7 @@ function Form({
                   btnTitle = 'Create  Product',
                   onAction = () => console.log('add action'),
                   setIMG = (img) => console.log('add set img'),
+                  loading,
                   IMG = undefined,
               }) {
     const [imgFile,setImgFile]=useState('/imgs/no-photo.avif')
@@ -71,7 +72,7 @@ function Form({
                         <div className={styles.form_bottom}>
                             <CustomButton icon={false} title={'Cancel'} type='button' size={'lg'} color={'2'}
                             />
-                            <CustomButton  icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
+                            <CustomButton loading={loading}  icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
                                           onAction={onAction} />
 
                         </div>

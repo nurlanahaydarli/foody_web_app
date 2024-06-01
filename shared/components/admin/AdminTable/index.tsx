@@ -90,7 +90,6 @@ useEffect(()=>{
                         height={18}
                         alt='editicon'
                         onClick={()=>{
-
                             removeDocument(item.id)
                         }}
                         />
