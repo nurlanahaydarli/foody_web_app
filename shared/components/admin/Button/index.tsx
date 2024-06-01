@@ -1,5 +1,6 @@
 import PlusSvg from "../svg/PlusSvg";
 import styles from './button.module.css'
+import { Spinner } from '@chakra-ui/react'
 
 interface CustomButtonProps {
     title?: any;
@@ -10,6 +11,7 @@ interface CustomButtonProps {
     icon?: any;
     innerText?: any;
     className?: any;
+    loading?:boolean
 }
 
 export default function CustomButton({
@@ -20,7 +22,8 @@ export default function CustomButton({
                                          color,
                                          icon,
                                          innerText,
-                                         className
+                                         className,
+                                         loading
                                      }: CustomButtonProps) {
     let type_color = color === '1' ? 'type_submit' : 'type_cancel';
     // let type_btn = type === 'submit' ? 'submit' : 'button';
@@ -30,9 +33,10 @@ export default function CustomButton({
                 type={type}
                 onClick={onAction}
                 className={`${styles[size]} ${className} ${styles.btn} ${styles[type_color]}`}
+                disabled={loading}
             >
                 {icon && <PlusSvg />}
-                <span>{innerText} {title}</span>
+                <span>{loading&&  <Spinner size='sm' /> } {innerText} {title}</span>
                 
             </button>
         </>

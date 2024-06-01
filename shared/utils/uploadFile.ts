@@ -1,6 +1,7 @@
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { storage } from '../../server/configs/firebase';
+import {AxiosPromise, AxiosResponse} from "axios";
 
 interface IUploadFile{
     file:File;
@@ -16,7 +17,7 @@ export const uploadFile = async ({
                                      metadata
                                  }:IUploadFile
 
-): Promise<string | null> => {
+): AxiosPromise<string | null> => {
     if (!file) {
         throw new Error('Please select a file');
     }
@@ -31,7 +32,7 @@ export const uploadFile = async ({
     const storageRef = ref(storage, `${collectionId}/${documentId}/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file,metadata);
 
-    return new Promise<string | null >((resolve, reject) => {
+    return new Promise<AxiosResponse<string | null >>((resolve, reject) => {
         uploadTask.on(
             'state_changed',
             (snapshot) => {
