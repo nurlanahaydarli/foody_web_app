@@ -1,12 +1,13 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
+import {AxiosResponse} from "axios";
 
 interface UseEntityHandlerProps {
-    uploadFile:  (params: { file: File; collectionId: string; documentId: string }) => Promise<string | null>;
+    uploadFile:  (params: { file: File; collectionId: string; documentId: string }) => Promise<AxiosResponse<string | null>>;
     addEntity: (entity: object) => Promise<any>;
     editEntity: (entity: object, id: string | number) => Promise<any>;
     deleteEntity: (id: string | number) => Promise<any>;
-    onClose: () => void;
+    onClose: Function;
 }
 
 export const useEntityHandler = ({
@@ -36,9 +37,10 @@ export const useEntityHandler = ({
         setEntities: React.Dispatch<React.SetStateAction<any[]>>;
         inputs: { [key: string]: React.RefObject<HTMLInputElement> };
         isEdit: boolean;
-        editID?: string | number | null;
+        editID?: string | number;
         collectionId: string;
         documentId: string;
+        onClose:Function;
     }) => {
         setLoading(true);
         setError(null);
@@ -57,13 +59,13 @@ export const useEntityHandler = ({
             if (isEdit) {
                 await editEntity(entity, editID);
                 setEntities(prev => prev.map(item => (item.id === editID ? { ...item, ...entity } : item)));
-                toast.success("Entity successfully edited", {
+                toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)} successfully edited`, {
                     position: "top-right",
                 });
             } else {
                 const newEntity = await addEntity(entity);
                 setEntities(prevEntities => [...prevEntities, { ...entity, id: newEntity.id }]);
-                toast.success("Entity successfully added", {
+                toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)}  successfully added`, {
                     position: "top-right",
                 });
             }
@@ -73,7 +75,7 @@ export const useEntityHandler = ({
             });
             onClose();
         } catch (err) {
-            toast.error(`An error occurred while ${isEdit ? 'editing' : 'adding'} the entity`, {
+            toast.error(`An error occurred while ${isEdit ? 'editing' : 'adding'} the ${collectionId[0].toUpperCase() + collectionId.slice(1)}`, {
                 position: "top-right",
             });
             setError(err);
@@ -85,15 +87,15 @@ export const useEntityHandler = ({
     const removeEntity = async (id: string | number, setEntities: React.Dispatch<React.SetStateAction<any[]>>) => {
         setLoading(true);
         try {
-            console.log(id,'id')
             await deleteEntity(id);
             setEntities(prev => prev.filter((entity)=>{
                 return  entity.id !== id
             }))
-            toast.success("Entity successfully deleted", { position: "top-right" });
+            toast.success("Successfully deleted", { position: "top-right" });
         } catch (err) {
+            console.log(err,'err')
             setError(err);
-            // toast.error("An error occurred while deleting the entity", { position: "top-right" });
+            toast.error("An error occurred while deleting the document", { position: "top-right" });
         } finally {
             setLoading(false);
         }

@@ -1,16 +1,12 @@
-import Sidebar from "../../../shared/components/admin/Sidebar/Sidebar";
 import dynamic from "next/dynamic";
-
 import AdminHedetbuttom from '../../../shared/components/admin/AdminHeaderButtom'
 import AdminTable from '../../../shared/components/admin/AdminTable'
 import {useEffect, useRef, useState} from "react";
 import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
 import Input from "../../../shared/components/admin/Form/Input";
 import Form from "../../../shared/components/admin/Form/Form";
-import axios, {AxiosResponse} from "axios";
 import {DeleteCategory, EditCategory, getCategories, PostCategory} from "../../../shared/services";
 import uploadFile from "../../../shared/utils/uploadFile";
-import {toast} from "react-toastify";
 import {CategoryPostDataType} from "../../../shared/interfaces";
 import withAuth from "../../../shared/HOC/withAuth";
 import {useEntityHandler} from "../../../shared/hooks/UseFetchData";
@@ -26,16 +22,16 @@ function Category() {
     let [categories, setCategories] = useState<CategoryPostDataType[]>([]);
     let [Img, setImg] = useState<any>('')
     let [editImg, seteditImg] = useState<any>('')
-    let [editID, seteditID] = useState<any>('')
+    let [editID, seteditID] = useState<string>('')
     let [TitleYup, setTitleYup] = useState('')
     let [Titlevalue, setTitlevalue] = useState('')
     let [ResetData, setResetData] = useState(true)
 
     const {handleEntity, removeEntity, loading} = useEntityHandler({
         uploadFile,
-        addEntity:PostCategory,
-        editEntity:EditCategory,
-        deleteEntity: DeleteCategory,
+        addEntity: PostCategory,
+        editEntity: EditCategory,
+        deleteEntity:DeleteCategory,
         onClose
     });
 
@@ -98,8 +94,9 @@ function Category() {
             isEdit: true,
             editID,
             editImg,
-            collectionId: "offer",
-            documentId: editID ?? ""
+            collectionId: "category",
+            documentId: editID ?? "",
+            onClose
         });
     }
 
@@ -123,7 +120,7 @@ function Category() {
                         <Loading/> :
                         <AdminTable edit={editCategory}
                                     data={categories}
-                                    removeDocument={removeEntity}
+                                    removeDocument={(id:string)=>removeEntity(id,setCategories)}
                                     reset={() => setResetData(prev => !prev)}/>
                     }
 
