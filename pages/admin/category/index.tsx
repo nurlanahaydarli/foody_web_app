@@ -33,9 +33,9 @@ function Category() {
 
     const {handleEntity, removeEntity, loading} = useEntityHandler({
         uploadFile,
-        PostCategory,
-        EditCategory,
-        DeleteCategory,
+        addEntity:PostCategory,
+        editEntity:EditCategory,
+        deleteEntity: DeleteCategory,
         onClose
     });
 
