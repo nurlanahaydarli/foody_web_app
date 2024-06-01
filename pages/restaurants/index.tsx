@@ -18,6 +18,7 @@ import CloseSvg from "../../shared/components/admin/svg/CloseSvg";
 import {useModalOpen} from "../../shared/hooks/UseModalOpen";
 import {useResize} from "../../shared/hooks/useResize";
 import Loading from "../../shared/components/Loading/Loading";
+import {sortDataByCreated} from "../../shared/utils/sortData";
 
 export default function Restaurants() {
     const {data} = useQuery("category", getCategories);
@@ -32,8 +33,9 @@ export default function Restaurants() {
         isError,
     } = useQuery("restuarants", getRestaurants);
 
+    let sortedRestaurants = sortDataByCreated(restaurants?.data.result.data)
 
-    const filteredRestaurants = (restaurants?.data.result.data || []).filter((restaurant: any) => {
+    const filteredRestaurants = (sortedRestaurants || []).filter((restaurant: any) => {
         const category_id = restaurant.category_id;
         return (
             !chooseCategory || (typeof category_id === "string" && category_id.includes(chooseCategory))
@@ -50,7 +52,7 @@ export default function Restaurants() {
     function onDetail(id: number) {
         router.push('restaurants/' + id)
     }
-    let categories= data?.data?.result?.data
+    let categories= sortDataByCreated(data?.data?.result?.data)
 
 
     return (

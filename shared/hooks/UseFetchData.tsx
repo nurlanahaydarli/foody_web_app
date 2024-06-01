@@ -64,7 +64,7 @@ export const useEntityHandler = ({
                 });
             } else {
                 const newEntity = await addEntity(entity);
-                setEntities(prevEntities => [...prevEntities, { ...entity, id: newEntity.id }]);
+                setEntities(prevEntities => [{ ...entity, id: newEntity.id }, ...prevEntities]);
                 toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)}  successfully added`, {
                     position: "top-right",
                 });

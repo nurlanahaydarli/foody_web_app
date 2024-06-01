@@ -6,6 +6,7 @@ import pizza from '../../../../public/pizza.svg'
 import styles from '../AdminTable/Admin.module.css'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {sortDataByCreated} from "../../../utils/sortData";
 interface PROPS {
     data? : any,
     reset :Function,
@@ -27,6 +28,7 @@ useEffect(()=>{
     
     
 },[])
+    const sortedData = sortDataByCreated(data || []);
     return (
         <div className={styles.table}>
             <table className={styles.tablebg}  >
@@ -48,7 +50,7 @@ useEffect(()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    {data?.map((item:any,i:number)=>{
+                    {sortedData?.map((item:any,i:number)=>{
                         
                         
                        return(
