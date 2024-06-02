@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import LoginInp from '../loinInp';
@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { PostSingUP } from '../../../../services';
+import Spiner from '../../Spiner';
 interface RegisterFormValues {
   fullname: string;
   username: string;
@@ -31,6 +32,7 @@ interface Props{
 const RegisterForm= (props:Props) => {
   const user = useSelector((state: RootState) => state.user);
   let {setsingin}:any=props
+  let [Loading,setLoading]=useState(false)
   
   const validationSchema = Yup.object({
     fullname: Yup.string().required('Required'),
@@ -46,6 +48,7 @@ const RegisterForm= (props:Props) => {
        
         
         try{
+          setLoading(true)
           PostSingUP(values).then(()=>{
             toast.success("register sucsesfuly", {
                 position:"top-right",
@@ -54,9 +57,9 @@ const RegisterForm= (props:Props) => {
                   position:"top-right",
                 });
                 
-          }).then(()=>{
-            setsingin()
+            setLoading(false)
           }).catch((err)=>{
+            setLoading(false)
             toast.info(err.message, {
               position:"top-right",
             });
@@ -123,7 +126,8 @@ onSubmit={handleSubmit}
           type='password'
           />
           <button className={styles.button} type="submit" disabled={isSubmitting}>
-            Register
+            {Loading?<Spiner/>:"Register"}
+            
           </button>
         </Form>
       )}

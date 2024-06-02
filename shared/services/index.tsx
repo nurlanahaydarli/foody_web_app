@@ -16,7 +16,7 @@ import {
 } from "../interfaces/";
 import { AxiosPromise } from "axios";
 import { instanceAxios } from "../helpers/instanceAxios";
-
+import { GetServerSideProps } from 'next';
 
 //  =============================== GET CATEGORY ===============================
 export const getCategories = (): AxiosPromise<CategoryApiResponse> =>
@@ -282,3 +282,23 @@ export const EditRestaurant = ( editedRestaurant: RestaurantPostDataType ): Axio
         data: editedRestaurant,
     });
 };
+// =============================== SERVER SIDE GET HOME ===============================
+
+export const GetServerHome=()=>{
+    interface PageProps {
+        Products: any
+      }
+    const getServerSideProps: GetServerSideProps<PageProps> = async () => {
+        const res =getProducts()
+        const Products: any = res;
+      console.log(Products);
+      
+        return {
+          props: {
+            Products,
+          },
+        };
+      };
+}
+
+
