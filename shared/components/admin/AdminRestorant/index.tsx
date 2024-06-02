@@ -3,7 +3,6 @@ import CardPencil from '../../../../public/cardpensil.svg';
 import TrashIcon from '../../../../public/trashicon.svg';
 import Image from "next/image";
 import BtnTypeIcon from '../../../../public/BtnTypeIcon.svg';
-import axios from "axios";
 import { toast } from "react-toastify";
 import Form from "../../../../shared/components/admin/Form/Form";
 import Input from "../../../../shared/components/admin/Form/Input";
