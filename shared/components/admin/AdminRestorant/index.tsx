@@ -3,13 +3,16 @@ import CardPencil from '../../../../public/cardpensil.svg';
 import TrashIcon from '../../../../public/trashicon.svg';
 import Image from "next/image";
 import BtnTypeIcon from '../../../../public/BtnTypeIcon.svg';
+import axios from "axios";
 import { toast } from "react-toastify";
 import Form from "../../../../shared/components/admin/Form/Form";
 import Input from "../../../../shared/components/admin/Form/Input";
 import { useModalOpen } from "../../../../shared/hooks/UseModalOpen";
 import uploadFile from "../../../../shared/utils/uploadFile";
-import { EditRestaurant, PostRestaurant, getRestaurants } from "../../../services";
+import { EditRestaurant, PostRestaurant, getRestaurants, getCategories } from "../../../services";
 import { instanceAxios } from "../../../helpers/instanceAxios";
+import { CategoryPostDataType} from '../../../interfaces/index'
+import Select from "../Form/Select";
 
 interface Restaurant {
   category: string;
@@ -28,20 +31,6 @@ interface State {
   showModal: boolean;
   deleteId: string | null;
   isAdd: boolean;
-  editID: string;
-  editImg: string;
-  titleValue: string;
-  titleStroge: string;
-  categoryValue: string;
-  categoryStroge: string;
-  cuisineValue: string;
-  cuisineStroge: string;
-  deliveryPriceValue: string;
-  deliveryPriceStroge: string;
-  deliveryMinValue: string;
-  deliveryMinStroge: string;
-  adressValue: string;
-  adressStroge: string;
 }
 
 type Action =
@@ -52,22 +41,7 @@ type Action =
   | { type: 'SET_IS_DELETING'; payload: boolean }
   | { type: 'SET_IS_ADD'; payload: boolean}
   | { type: 'SHOW_MODAL'; payload: string }
-  | { type: 'SET_EDIT_ID'; payload: string }
-  | { type: 'SET_EDIT_IMG'; payload: string }
-  | { type: 'SET_TITLE_VALUE'; payload: string }
-  | { type: 'SET_TITLE_STROGE'; payload: string }
-  | { type: 'SET_CATEGORY_VALUE'; payload: string }
-  | { type: 'SET_CATEGORY_STROGE'; payload: string }
-  | { type: 'SET_CUISINE_VALUE'; payload: string }
-  | { type: 'SET_CUISINE_STROGE'; payload: string }
-  | { type: 'SET_DELIVERY_PRICE_VALUE'; payload: string }
-  | { type: 'SET_DELIVERY_PRICE_STROGE'; payload: string }
-  | { type: 'SET_DELIVERY_MIN_VALUE'; payload: string }
-  | { type: 'SET_DELIVERY_MIN_STROGE'; payload: string }
-  | { type: 'SET_ADRESS_VALUE'; payload: string }
-  | { type: 'SET_ADRESS_STROGE'; payload: string }
   | { type: 'HIDE_MODAL' };
-
 
 const initialState: State = {
   restaurantData: [],
@@ -77,20 +51,6 @@ const initialState: State = {
   showModal: false,
   deleteId: null,
   isAdd: false,
-  editID:'',
-  editImg:'',
-  titleValue:'',
-  titleStroge:'',
-  categoryValue:'',
-  categoryStroge: '',
-  cuisineValue:'',
-  cuisineStroge: '',
-  deliveryPriceValue: '',
-  deliveryPriceStroge:'',
-  deliveryMinValue:'',
-  deliveryMinStroge:'',
-  adressValue:'',
-  adressStroge:'',
 };
 
 function reducer(state: State, action: Action): State {
@@ -112,34 +72,6 @@ function reducer(state: State, action: Action): State {
       return { ...state, showModal: false, deleteId: null };
     case "SET_IS_ADD":
       return {...state, isAdd: action.payload}
-    case "SET_EDIT_ID":
-        return { ...state, editID: action.payload };
-    case "SET_EDIT_IMG":
-        return { ...state, editImg: action.payload };
-    case "SET_TITLE_VALUE":
-        return { ...state, titleValue: action.payload };
-    case "SET_TITLE_STROGE":
-        return { ...state, titleStroge: action.payload };
-    case "SET_CATEGORY_VALUE":
-        return { ...state, categoryValue: action.payload };
-    case "SET_CATEGORY_STROGE":
-          return { ...state, categoryStroge: action.payload };
-    case "SET_CUISINE_VALUE":
-            return { ...state, cuisineValue: action.payload };
-    case "SET_CUISINE_STROGE":
-        return { ...state, cuisineStroge: action.payload };
-    case "SET_DELIVERY_PRICE_VALUE":
-        return { ...state, deliveryPriceValue: action.payload };
-    case "SET_DELIVERY_PRICE_STROGE":
-        return { ...state, deliveryPriceStroge: action.payload };
-        case "SET_DELIVERY_MIN_VALUE":
-      return { ...state, deliveryMinValue: action.payload };
-      case "SET_DELIVERY_MIN_STROGE":
-      return { ...state, deliveryMinStroge: action.payload };
-      case "SET_ADRESS_VALUE":
-        return { ...state, adressValue: action.payload };
-        case "SET_ADRESS_STROGE":
-      return { ...state, adressStroge: action.payload };
     default:
       return state;
   }
@@ -148,28 +80,57 @@ function reducer(state: State, action: Action): State {
 function AdminRestaurant() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-
+ 
   const { isOpen, onOpen, onClose } = useModalOpen();
-  const [Img, setImg] = useState<string | File>('');
+  const [Img, setImg] = useState<any>('');
+ 
+
+  const [editID, setEditID] = useState('');
+  const [editImg, setEditImg] = useState<any>('');
+
+  const [TitleValue, setTitleValue] = useState('');
+  const [TitleStroge, setTitleStroge] = useState('');
 
 
-  const inpTitle = useRef();
-  const inpCategory = useRef();
-  const inpCuisine = useRef()
-  const inpDeliveryPrice = useRef();
-  const inpDeliveryMin = useRef();
-  const inpAdress = useRef();
+  const [CuisineValue, setCuisineValue] = useState('');
+  const [CuisineStroge, setCuisineStroge] = useState('');
+
+  const [DeliveryPriceValue,setDeliveryPriceValue ] = useState('');
+  const [DeliveryPriceStroge, setDeliveryPriceStroge] = useState('');
+
+  const [DeliveryMinValue, setDeliveryMinValue] = useState('');
+  const [DeliveryMinStroge, setDeliveryMinStroge] = useState('');
+
+  const [AdressValue, setAdressValue] = useState('');
+  const [AdressStroge, setAdressStroge] = useState('');
+
+  let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
+  let [categorysID, setcategorysID] = useState();
+  const [selectedCategoryName, setSelectedCategoryName] = useState('');
+
+
+  const inpTitle = useRef<any>();
+  const inpCategory = useRef<any>();
+  const inpCuisine = useRef<any>();
+  const inpDeliveryPrice = useRef<any>();
+  const inpDeliveryMin = useRef<any>();
+  const inpAdress = useRef<any>();
+
 
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         let res = await getRestaurants();
+        let categorysApi = await getCategories();
+
+      
         
-        
-        let newData: Restaurant[] = res.data.result.data;
-        console.log(newData);
+        let newData:any = res.data.result.data;
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: newData });
+
+        setCategorys(categorysApi?.data.result.data)
+
       } catch (err) {
         console.log(err);
       }
@@ -177,53 +138,59 @@ function AdminRestaurant() {
     fetchRestaurants();
   }, [state.isDeleting, state.isAdd]);
 
-  
+
+
+  function getCategoryById(e: any) {
+    const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
+    if (selectedCategory) {
+        setcategorysID(selectedCategory.id);
+        setSelectedCategoryName(selectedCategory.name);
+    }
+}
+
+
 
   async function addRestaurant() {
     const addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
+  
     let Title = inpTitle?.current?.value;
-    let Category = inpCategory?.current?.value;
     let Cuisine = inpCuisine?.current?.value;
     let DeliveryPrice = inpDeliveryPrice?.current?.value;
     let DeliveryMin = inpDeliveryMin?.current?.value;
     let Adress = inpAdress?.current?.value;
-
-
-    
-
-    if (Title.length <= 1 || Category?.length<=3 || Cuisine?.length <=3 || Adress?.length <= 3)
-      {
-      dispatch({ type: 'SET_TITLE_STROGE', payload: 'Title must be longer than 3 characters' });
-      dispatch({ type: 'SET_CATEGORY_STROGE', payload: 'Cuisine must be longer than 3 characters' });
-      dispatch({ type: 'SET_CUISINE_STROGE', payload: 'Cuisine must be longer than 3 characters' });
-      dispatch({ type: 'SET_ADRESS_STROGE', payload: 'Not the correct Address Format!' });
+  
+    if (Title.length <= 1 || Cuisine?.length <= 1 || Adress?.length <= 3 || DeliveryPrice?.length <= 0 || DeliveryMin?.length <= 0) {
+      setTitleStroge('Title must be longer than 3 characters');
+     
+      setCuisineStroge('Cuisine must be longer than 3 characters');
+      setDeliveryPriceStroge('should be the delivery price!');
+      setDeliveryMinStroge('should be the delivery min!');
+      setAdressStroge('Not the correct Address Format!');
       return;
-    }else {
-      dispatch({ type: 'SET_TITLE_STROGE', payload: '' });
-      dispatch({ type: 'SET_CATEGORY_STROGE', payload: '' });
-      dispatch({ type: 'SET_CUISINE_STROGE', payload: '' });
-      dispatch({ type: 'SET_DELIVERY_PRICE_STROGE', payload: '' });
-      dispatch({ type: 'SET_DELIVERY_MIN_STROGE', payload: '' });
-      dispatch({ type: 'SET_ADRESS_STROGE', payload: '' });
+    } else {
+      setTitleStroge('');
+ 
+      setCuisineStroge('');
+      setDeliveryPriceStroge('');
+      setDeliveryMinStroge('');
+      setAdressStroge('');
     }
-
-   
-    if(!addressRegex.test(Adress)){
-      dispatch({ type: 'SET_ADRESS_STROGE', payload: 'Not the correct Address Format!' });
+  
+    if (!addressRegex.test(Adress)) {
+      setAdressStroge('Not the correct Address Format!');
       return;
     }
   
-
-    let newRestaurant = {
+    let newRestaurant:any = {
       name: Title,
       img_url: '',
-      category_id: Category,
+      category_id: selectedCategoryName,
       cuisine: Cuisine,
       address: Adress,
       delivery_min: DeliveryMin,
-      delivery_price: DeliveryPrice
+      delivery_price: DeliveryPrice,
     };
-
+  
     try {
       dispatch({ type: 'SET_IS_ADD', payload: true });
       let res = await uploadFile({
@@ -231,18 +198,15 @@ function AdminRestaurant() {
         collectionId: "restuarants",
         documentId: "restuarants",
       });
-      
       newRestaurant.img_url = res;
-      console.log("newRestaurant", newRestaurant);
-      
-      dispatch({ type: 'SET_RESTAURANT_DATA', payload: [...state.restaurantData, { ...newRestaurant, id: Date.now() }] });
-
+     
+  
       let createdRestaurant = await PostRestaurant(newRestaurant);
-      console.log("createdRestaurant", createdRestaurant);
-      
+
+  
       dispatch({
         type: 'SET_RESTAURANT_DATA',
-        payload: state.restaurantData.map(restaurant => (restaurant.id === newRestaurant.id ? createdRestaurant.data : restaurant)),
+        payload: [...state.restaurantData, { ...newRestaurant, id: Date.now() }],
       });
       toast.success("Restaurant successfully added", { position: "top-right" });
       inpTitle.current.value = '';
@@ -251,55 +215,59 @@ function AdminRestaurant() {
     } catch (err) {
       toast.error("An error occurred while adding the restaurant", { position: "top-right" });
       console.log(err);
-    }finally{
+    } finally {
       dispatch({ type: 'SET_IS_ADD', payload: false });
     }
   }
+  
 
   async function updateRestaurant() {
     const addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
-    let Title = inpTitle?.current?.value;
+
+    let Title = inpTitle.current?.value;
     let Category = inpCategory?.current?.value;
     let Cuisine = inpCuisine?.current?.value;
     let DeliveryPrice = inpDeliveryPrice?.current?.value;
     let DeliveryMin = inpDeliveryMin?.current?.value;
     let Adress = inpAdress?.current?.value;
 
-
    
 
-    if (Title.length <= 1 || Category?.length<=3 || Cuisine?.length <=3 || Adress?.length <= 3)
-      {
-      dispatch({ type: 'SET_TITLE_STROGE', payload: 'Title must be longer than 3 characters' });
-      dispatch({ type: 'SET_CATEGORY_STROGE', payload: 'Cuisine must be longer than 3 characters' });
-      dispatch({ type: 'SET_CUISINE_STROGE', payload: 'Cuisine must be longer than 3 characters' });
-      dispatch({ type: 'SET_ADRESS_STROGE', payload: 'Not the correct Address Format!' });
+    if (Title?.length <= 1 || Category?.length <=3 || Cuisine?.length <=1 || Adress?.length <= 3 || DeliveryPrice?.length <1 || DeliveryMin?.length <1 ){
+      setTitleStroge('Title must be longer than 3 characters');
+      
+      setCuisineStroge('Cuisine must be longer than 3 characters');
+      setDeliveryPriceStroge('should be the delivery price!');
+      setDeliveryMinStroge('should be the delivery min!');
+      setAdressStroge('Not the correct Address Format!')
       return;
     }else {
-      dispatch({ type: 'SET_TITLE_STROGE', payload: '' });
-      dispatch({ type: 'SET_CATEGORY_STROGE', payload: '' });
-      dispatch({ type: 'SET_CUISINE_STROGE', payload: '' });
-      dispatch({ type: 'SET_DELIVERY_PRICE_STROGE', payload: '' });
-      dispatch({ type: 'SET_DELIVERY_MIN_STROGE', payload: '' });
-      dispatch({ type: 'SET_ADRESS_STROGE', payload: '' });
+      setTitleStroge('');
+   
+      setCuisineStroge('');
+      setDeliveryPriceStroge('');
+      setDeliveryMinStroge('');
+      setAdressStroge('');
     }
 
-  
+
+
     if(!addressRegex.test(Adress)){
-      dispatch({ type: 'SET_ADRESS_STROGE', payload: 'Not the correct Address Format!' });
+     setAdressStroge('Not the correct Address Format!');
       return;
     }
-  
+
+
     if (!Img) {
       console.error('Image is required');
       return;
     }
 
     let updateRestaurant = {
-      id: state.editID,
+      id: editID,
       name: Title,
-      img_url: state.editImg,
-      category_id: Category,
+      img_url: editImg,
+      category_id: selectedCategoryName,
       cuisine: Cuisine,
       address: Adress,
       delivery_min: DeliveryMin,
@@ -336,16 +304,12 @@ function AdminRestaurant() {
     }
   }
 
-  function editRestaurant(name: string, category: string, image: string, id: string, cuisine: string, deliveryPrice: number, deliveryMin: number, adress: string) {
-    dispatch({ type: 'SET_TITLE_VALUE', payload: name });
-    dispatch({ type: 'SET_EDIT_IMG', payload: image });
+  function editRestaurant(name: string, category: string, image: string, id: string) {
+    setTitleValue(name);
+    setEditImg(image);
     setImg(image);
-   dispatch({ type: 'SET_EDIT_ID', payload: id });
-    dispatch({ type: 'SET_CATEGORY_VALUE', payload: category });
-    dispatch({ type: 'SET_CUISINE_VALUE', payload: cuisine });
-    dispatch({ type: 'SET_DELIVERY_PRICE_VALUE', payload: deliveryPrice});
-    dispatch({ type: 'SET_DELIVERY_MIN_VALUE', payload: deliveryMin });
-    dispatch({ type: 'SET_ADRESS_VALUE', payload: adress });
+    setEditID(id);
+    setSelectedCategoryName(category);
     onOpen();
   }
 
@@ -382,14 +346,13 @@ function AdminRestaurant() {
   const handleAllCategoryClick = () => {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: '' });
   };
-
+  
   const handleCategoryClick = (category: string) => {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
 
-
   const renderCategories = () => {
-    const uniqueCategories: string[] = Array.from(new Set(state.restaurantData.map((restaurant: Restaurant) => restaurant.category_id)));
+
 
     return (
       <div className="absolute z-50 mt-60 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
@@ -400,13 +363,12 @@ function AdminRestaurant() {
           >
             All Categories
           </li>
-          {uniqueCategories.map((category, index) => (
+          {categorys.map((category) => (
             <li
-              key={index}
               className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-              onClick={() => handleCategoryClick(category)}
-            >
-              {category}
+              onClick={() => handleCategoryClick(category.name)}>
+
+              {category.name}
             </li>
           ))}
         </ul>
@@ -414,7 +376,8 @@ function AdminRestaurant() {
     );
   };
 
-  
+
+
 
   return (
     <div className="p-6">
@@ -425,10 +388,13 @@ function AdminRestaurant() {
             className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
             onClick={() => dispatch({ type: 'TOGGLE_SHOW_CATEGORIES' })}
           >
+            
+     
             <span>Category type</span>
             <Image src={BtnTypeIcon} className="w-6 h-6" alt="Category Type Icon" />
           </button>
           {state.showCategories && renderCategories()}
+         
 
           <button className="bg-custompurple text-white py-2 px-4 rounded-xl" onClick={onOpen}>
             + ADD RESTAURANT
@@ -439,7 +405,9 @@ function AdminRestaurant() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {state.restaurantData
           .filter((restaurant: Restaurant) => state.selectedCategory === '' || restaurant.category_id === state.selectedCategory)
-          .map((restaurant: Restaurant, index: number) => (
+          .map((restaurant: Restaurant, index: number) => {
+            
+            return(
             <div key={index} className="bg-gray-800 shadow-black rounded-lg p-4 flex flex-col items-center mb-4">
               <div className="relative flex shadow-black items-center space-x-4 bg-white rounded-lg p-4 w-full">
                 <img
@@ -453,7 +421,7 @@ function AdminRestaurant() {
                     {restaurant.category_id}
                   </span>
                 </div>
-                <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category, restaurant.img_url, restaurant.id)}>
+                <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
                   <Image  src={TrashIcon} alt="Edit" width={20} height={0} />
                 </button>
                 <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
@@ -461,11 +429,8 @@ function AdminRestaurant() {
                 </button>
               </div>
             </div>
-          ))}
+          )})}
       </div>
-
-
-
 
       {state.showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -495,35 +460,36 @@ function AdminRestaurant() {
 
 
       <Form
+        loading={false}
         isOpen={isOpen}
-        title={state.editImg ? 'Edit Restaurant' : 'Add Restaurant'}
-        subtitle={`${state.editImg ? 'Edit' : 'Add'} your Restaurant Name`}
+        title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
+        subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}
         onClose={() => {
           onClose();
-          dispatch({ type: 'SET_EDIT_IMG', payload: '' });
-          dispatch({ type: 'SET_TITLE_VALUE', payload: '' });
+          setEditImg('');
+          setTitleValue('');
         }}
         
-        onAction={state.editImg ? updateRestaurant : addRestaurant}
-        btnTitle={state.editImg ? "Edit Restaurant" : "Create Restaurant"}
-        IMG={state.editImg}
+        onAction={editImg ? updateRestaurant : addRestaurant}
+        btnTitle={editImg ? "Edit Restaurant" : "Create Restaurant"}
+        IMG={editImg}
         setIMG={setImg}
       >
 
         
-        <Input hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={state.titleValue} />
-        <div className=" text-mainRed font-bold">{state.titleStroge}</div>
-        <Input hasLabel={true} title={'Category'} type={'text'} input_name={'restaurant_category'} Ref={inpCategory} value={state.categoryValue} />
-        <div className="text-mainRed font-bold">{state.categoryStroge}</div>
-        <Input hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={state.cuisineValue} />
-        <div className="text-mainRed font-bold">{state.cuisineStroge}</div>
-        <Input hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={state.deliveryPriceValue} />
-        <div className="text-mainRed font-bold">{state.deliveryPriceStroge}</div>
-        <Input hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={state.deliveryMinValue} />
-        <div className="text-mainRed font-bold">{state.deliveryMinStroge}</div>
-        <Input hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={state.adressValue} />
-        <div className="text-mainRed font-bold">{state.adressStroge}</div>
-        
+        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
+        <div className=" text-mainRed font-bold">{TitleStroge}</div>
+     
+        <Select value={selectedCategoryName} onChange={getCategoryById} title={"Categorys"} name={"cat_id"} options={categorys}  />
+
+        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
+        <div className="text-mainRed font-bold">{CuisineStroge}</div>
+        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
+        <div className="text-mainRed font-bold">{DeliveryPriceStroge}</div>
+        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
+        <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
+        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
+        <div className="text-mainRed font-bold">{AdressStroge}</div>
 
 
       </Form>
