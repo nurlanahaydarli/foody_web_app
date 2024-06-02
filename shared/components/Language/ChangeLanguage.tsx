@@ -35,7 +35,7 @@ export default function ChangeLanguage() {
                 </ul>
                 }
             </div>
-            {isOpen && <div className={styles.shadow} onClick={onClose}></div>}
+            {isOpen && <div className={styles.shadow} onClick={onClose} />}
         </>
     )
 }

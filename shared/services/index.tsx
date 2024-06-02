@@ -200,7 +200,7 @@ export const deleteOrder = async (id: string | number) => {
 export const DeleteOrder = (
     OrderID: string | number
 ) =>{
-    console.log("aaaaaaaaaaaaa");
+    
     
     const accessToken = localStorage.getItem("access_token");
      return instanceAxios({
@@ -282,23 +282,12 @@ export const EditRestaurant = ( editedRestaurant: RestaurantPostDataType ): Axio
         data: editedRestaurant,
     });
 };
-// =============================== SERVER SIDE GET HOME ===============================
-
-export const GetServerHome=()=>{
-    interface PageProps {
-        Products: any
-      }
-    const getServerSideProps: GetServerSideProps<PageProps> = async () => {
-        const res =getProducts()
-        const Products: any = res;
-      console.log(Products);
-      
-        return {
-          props: {
-            Products,
-          },
-        };
-      };
-}
-
-
+// =============================== GET PRODUCTS SERVER SIDE ===============================
+export const getProductServer = async () => {
+    const response:any = await instanceAxios.get('/products') // Replace with your actual API URL
+    if (response.message==="OK"?false:true) {
+        throw new Error('Failed to fetch products');
+    }
+    const data = await response.result.data
+    return data;
+};

@@ -6,12 +6,13 @@ import styles from '../infoSection/infoSection.module.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 interface Props{
-    img1:any,
-    img2:any,
-    img3:any,
-    title1:string,
-    title2:string,
-    title3:string,
+  data:any
+    // img1:any,
+    // img2:any,
+    // img3:any,
+    // title1:string,
+    // title2:string,
+    // title3:string,
     TITLE:string,
     DES:string
 }
@@ -27,12 +28,7 @@ function InfoSection(props:Props) {
       }
       }, []);
     let {
-        img1,
-        img2,
-        img3,
-        title1,
-        title2,
-        title3,
+        data,
         TITLE,
         DES
     }=props
@@ -43,8 +39,14 @@ function InfoSection(props:Props) {
         <h2 className={Title} data-aos='fade-up'>{TITLE}</h2>
         <p className={des} data-aos='fade-up'>{DES}</p>
         <div className={mobile?'w-full flex flex-col items-center justify-around mt-7':"w-full flex flex-row justify-around mt-7"} data-aos='fade-up'>
-            
-            <InfoBox
+            {data?.map((item:any)=>(
+              <InfoBox
+              Desc={item.description}
+              img={item.img_url}
+              Title={item.name}
+              />
+            ))}
+            {/* <InfoBox
             img={img1}
             Title={title1}
             />
@@ -61,7 +63,7 @@ function InfoSection(props:Props) {
             img={img3}
             Title={title3}
             />
-            
+             */}
             
             
         </div>
