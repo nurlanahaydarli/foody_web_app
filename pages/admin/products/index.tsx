@@ -8,7 +8,7 @@ import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
 import CustomButton from "../../../shared/components/admin/Button";
 import Modal from "../../../shared/components/admin/Modal";
-import { DeleteProduct, EditProduct, PostProduct, getProducts, getRestaurants } from "../../../shared/services";
+import { DeleteProduct, EditProduct, PostProduct, GetProducts, getRestaurants } from "../../../shared/services";
 import { toast } from "react-toastify";
 import uploadFile from "../../../shared/utils/uploadFile";
 import { ProductPostDataType, RestaurantPostDataType } from "../../../shared/interfaces";
@@ -35,7 +35,7 @@ export default function Products() {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  let [products, setProducts] = useState<ProductPostDataType[]>([]);
+  let [products, setProducts] = useState([]);
   let [Img, setImg] = useState<any>('')
   let [editImg, seteditImg] = useState<any>('')
   let [editID, seteditID] = useState<any>('')
@@ -49,10 +49,11 @@ export default function Products() {
   let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
   let [restaurantID, setRestaurantId] = useState()
 
+
   useEffect(() => {
     (async () => {
       try {
-        let res = await getProducts()
+        let res = await GetProducts()
         let restaurants = await getRestaurants()
         let newData = await res.data.result.data
         setProducts(newData)
@@ -87,7 +88,6 @@ export default function Products() {
         documentId: "products"
       }) as string
       newProduct.img_url = res;
-      console.log(newProduct, 'newProduct')
       setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
       let createdProduct = await PostProduct(newProduct);
      
@@ -143,12 +143,10 @@ export default function Products() {
         }) as string;
         updatedProduct.img_url = res;
       }
-      console.log(updatedProduct, 'updatedProduct')
       setProducts(prevProducts => prevProducts.map(product =>
         product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
       ));
       await EditProduct(updatedProduct)
-      console.log(updatedProduct, 'test')
       toast.success("Product successfully edited", {
         position: "top-right",
       });
@@ -186,7 +184,6 @@ export default function Products() {
     onOpen()
   }
 
-  console.log(restaurants, 'restaurants')
   return (
     <>
       <AdminLayout>

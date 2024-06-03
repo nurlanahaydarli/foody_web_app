@@ -65,7 +65,7 @@ export default function BasketItem(product: BasketState) {
         };
         if(user){
             mutation.mutate(basketProduct);
-            toast.success({
+            toast.success("sucses",{
                 position:"top-right",
             });
         }

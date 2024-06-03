@@ -4,7 +4,7 @@ import React, {useEffect} from "react";
 import styles from './restaurants.module.css'
 import styles_products from '../../shared/components/Client/Products/products.module.css'
 import BasketContainer from "../../shared/components/Client/BasketItem/BasketContainer";
-import {GetProducts, getRestaurantById} from "../../shared/services";
+import {getRestaurantById} from "../../shared/services";
 import {useQuery} from "react-query";
 import Loading from "../../shared/components/Loading/Loading";
 import ProductsCard from "../../shared/components/Client/Products/ProductCard";
