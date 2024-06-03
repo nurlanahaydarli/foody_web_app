@@ -120,7 +120,9 @@
     line-height: 24px;
     letter-spacing: 0.01em;
     text-align: left;
-
+}
+.upload_box svg path{
+    fill: #EC5CF8;
 }
 .image_item{
     display: flex;

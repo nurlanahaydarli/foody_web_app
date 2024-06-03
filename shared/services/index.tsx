@@ -10,7 +10,8 @@ import {
     ProductApiResponse,
     ProductPostDataType,
     InitialProductState,
-     InitialRestaurantState,
+    ProductPostDataType,
+    InitialRestaurantState,
     RestaurantPostDataType,
 } from "../interfaces/";
 import {AxiosPromise} from "axios";
