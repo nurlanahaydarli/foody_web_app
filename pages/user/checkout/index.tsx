@@ -194,6 +194,7 @@ function Checkout() {
                                                         <rect x="8" y="8" width="15" height="15" rx="7.5"
                                                               fill="#6FCF97"/>}
                                                     </svg>
+                                                    
                                                 </button>
                                                 <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>pay
                                                     at the door</h1>

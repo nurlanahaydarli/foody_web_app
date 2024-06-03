@@ -170,7 +170,7 @@ function AdminRestaurant() {
       setTitleStroge('');
  
       setCuisineStroge('');
-      setDeliveryPriceStroge('');
+        setDeliveryPriceStroge('');
       setDeliveryMinStroge('');
       setAdressStroge('');
     }
@@ -183,7 +183,7 @@ function AdminRestaurant() {
     let newRestaurant:any = {
       name: Title,
       img_url: '',
-      category_id: selectedCategoryName,
+      category_id: categorysID,
       cuisine: Cuisine,
       address: Adress,
       delivery_min: DeliveryMin,
