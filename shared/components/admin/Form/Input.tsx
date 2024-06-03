@@ -8,9 +8,10 @@ type inputTypes = {
     hasLabel?:boolean
     name?:string
     Ref? : any;
+    onChange:any;
 }
 export default function Input(props: inputTypes) {
-    let {title, input_name, type, value='',Ref, hasLabel = true} = props
+    let {title, input_name, type, onChange, value='',Ref, hasLabel = true} = props
     let [inpval,setinpval]=useState('')
     // console.log(inpval,'inpval')
     useEffect(()=>setinpval(value),[])

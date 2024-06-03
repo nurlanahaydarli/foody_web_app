@@ -31,7 +31,7 @@ export interface RestaurantSingleApiResponse {
             id: number | string;
             name: string | undefined;
             category_id: number | string | undefined;
-            img_url: string  | undefined;
+            img_url: string | null | undefined;
             cuisine: string | undefined;
             address: string | undefined;
             delivery_min: number | undefined;
@@ -58,7 +58,6 @@ export interface RestaurantPostDataType {
     address: string | undefined;
     delivery_min: number | undefined;
     delivery_price: number | undefined;
-    created: number;
     name?: string;
 }
 
@@ -109,25 +108,4 @@ export interface BasketPostDataType {
     total_count?: number;
     total_item?: number;
     total_amount?: number;
-}
-
-
-export interface ProductPostDataType {
-    id?: number | string | any;
-    name: string;
-    img_url: string | null;
-    rest_id: string | number,
-    price: string | number,
-    description?: string | undefined
-}
-
-export interface InitialProductState
-    extends Omit<ProductPostDataType, "id"> {}
-
-export interface ProductApiResponse {
-    result: {
-        data: ProductPostDataType[];
-    };
-    status: number;
-    message: string;
 }
