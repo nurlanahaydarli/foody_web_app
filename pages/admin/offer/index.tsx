@@ -11,6 +11,7 @@ import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import uploadFile from "../../../shared/utils/uploadFile";
+import Loading from "../../../shared/components/Loading/Loading";
 
 export default function Offer() {
     const {isOpen, onOpen, onClose} = useModalOpen()
@@ -60,7 +61,9 @@ export default function Offer() {
     }
 
     async function upOffer(offer: object, id: string) {
-        console.log(id, offer);
+
+        console.log(offer);
+        
 
         try {
 
@@ -126,15 +129,13 @@ export default function Offer() {
 
             "name": Title,
             "description": Desc,
-            "img_url": ''
+            "img_url": Img
         }
         try {
-            let res = await uploadFile({
-                file: Img,
-                collectionId: "offer",
-                documentId: "offer"
-            }) as string
-            newOffer.img_url = res;
+
+            
+            
+            // newOffer.img_url = res;
             await upOffer(newOffer, editID)
 
             inpTitle?.current?.value == ''
@@ -174,7 +175,9 @@ export default function Offer() {
         seteditID(id)
         onOpen()
     }
-
+    if(offers.length===0){
+        return(<Loading/>)
+    }
 
     return (
         <>

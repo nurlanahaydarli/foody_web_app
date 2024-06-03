@@ -34,7 +34,7 @@ function Profile() {
                          <div className='w-full flex items-center justify-center'>
                              <div className={addPhoto}>
                                 
-                                 <UploadImage setImageList={setIMG} IMG={IMG[0]?.data_url?IMG[0]?.data_url:""} />
+                                 <UploadImage setImageList={setIMG} IMG={IMG[0]?.data_url?IMG[0]?.data_url:""}  uerPage={true}/>
                                  
                              </div>
                          </div>

@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import PizzaIcon from '../../../../public/BIGPIZZA.svg'
 import BurgerIcon from '../../../../public/HAMBURGER.svg'
 import style from '../FooterTop/top.module.css'
+import { useRouter } from 'next/router';
 function FooterTop() {
+    let router = useRouter()
     const {Footer,title,button}=style
     let [mobile,setmobile]=useState(false)
     useEffect(()=>{
@@ -28,7 +30,7 @@ function FooterTop() {
                 />
                 <div className='flex flex-col justify-center items-center'>
                     <h3 className={title}>Discover Restaurants Near From you</h3>
-                    <button className={button}>Explore now</button>
+                    <button className={button} onClick={()=>router.push("restaurants")}>Explore now</button>
                 </div>
                 <Image
                 src={BurgerIcon}

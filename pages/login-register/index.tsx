@@ -42,7 +42,9 @@ function Login_register() {
                     <h2 className={singin? style.headerTextActive: style.headerTextDeActive}  onClick={()=>setsingin(true)}>Login</h2>
                     <h2 className={!singin? style.headerTextActive: style.headerTextDeActive} onClick={()=>setsingin(false)}>Register</h2>
                    </div>
-                   {singin?<SignInForm/>:<RegisterForm/>}
+                   {singin?<SignInForm/>:<RegisterForm setsingin={()=>{
+                    setsingin(true)
+                   }}/>}
                     
                     
 

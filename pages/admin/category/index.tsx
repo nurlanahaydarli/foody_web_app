@@ -60,7 +60,7 @@ function Category() {
             setEntities: setCategories,
             inputs: {inpTitle},
             isEdit: false,
-            onClose: onClose,
+            onClose,
             collectionId: "category",
             documentId: "category"
         });

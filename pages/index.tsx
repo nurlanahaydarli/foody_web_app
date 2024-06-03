@@ -23,14 +23,22 @@ import MiniBurgerIcon from '../public/MiniBurger.svg'
 import MiniPizzaIcon from '../public/MiniPizza.svg'
 import FooterTop from "../shared/components/Client/FooterTop";
 import { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../shared/redux/store";
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import { getProductServer, getProducts } from "../shared/services";
 
 const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainLayout"), {
     ssr: true,
 });
 
-const Home: NextPage = () => {
+
+const Home: NextPage = (Props) => {
+    
+    let {repo}:any=Props
+    
         let [mobile,setmobile]=useState(false)
+        const user = useSelector((state: RootState) => state.user);
         useEffect(()=>{
             if(window.innerWidth<800){
                 setmobile(true)
@@ -53,8 +61,12 @@ const Home: NextPage = () => {
                 <h1 className={ButtomTitle +' flex flex-wrap'}>Our Food site makes it easy to find local food</h1>
                 <p className={buttomDesc+ ' w-4/5 flex flex-wrap mt-2'}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
                 <div className={mobile?'flex flex-col mt-10 gap-4 justify-center items-center':"flex flex-row  w-4/5 gap-10 mt-10 mb"}>
-                    <button onClick={()=>ruter.push('login-register')} className={Registerbtn}>Register </button>
-                    <button className={Orderbtn}>Order now </button>
+                    <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>Register </button>
+                    <button className={Orderbtn} onClick={()=>{
+                        
+                        ruter.push('restaurants')
+                        
+                    }}>Order now </button>
                 </div>
             </div>
             <div className={" relative flex justify-center items-center p-14 "+iconDiv}>
@@ -75,13 +87,13 @@ const Home: NextPage = () => {
            
             
         </div>
-        <InfoSection img1={BoucherIcon} img2={soupIcon} img3={deliveryIcon} title1='Discount Boucher' title2='Fresh healthy Food' title3='Fast Home Delivery' TITLE="Features" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+        <InfoSection data={repo} TITLE="Features" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
         <INFoBox row={true} img={ComboIcon} title="Menu That Always Make You Fall In Love" desc="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." w={636} h={441}/>
         <INFoBox row={false} img={PIZZaIcon} title="Yummy Always Papa John’s Pizza.Agree?" desc="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."  w={498} h={472}/>
         <INFoBox row={true} img={FryIcon} title="Do You Like French Fries? Mmm..." desc="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."  w={667} h={462}/>
         
         
-        <InfoSection img1={MiniBurgerIcon} img2={MiniPizzaIcon} img3={ComboIcon} title1='Dubble Chees' title2='Margarita' title3='Twister Menu' TITLE="Our Popular Update New Foods" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+        <InfoSection data={repo} TITLE="Our Popular Update New Foods" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
         
         <FooterTop/>
      </MainLayout>
@@ -93,10 +105,46 @@ export default Home;
 type Props={
 
 }
-export const getStaticProps: GetStaticProps<Props> = async ({locale}) => ({
-    props: {
-        ...(await serverSideTranslations(locale ?? 'az', [
-            'common'
-        ])),
-    },
-})
+// export const  getStaticProps: GetStaticProps<Props> = async ({locale}) => {
+
+// try{
+//     let Produts:any= await getProductServer()
+    
+//     console.log(Produts);
+    
+// }catch(err){
+//     console.log(err);
+    
+// }
+
+
+// return({
+//     props: {
+//         // ProductsRES:res,
+        // ...(await serverSideTranslations(locale ?? 'az', ['common' ])),
+//     },
+// })}
+
+ 
+type Repo = {
+  
+}
+ 
+export const getServerSideProps = (async ({locale}) => {
+  // Fetch data from external API
+  const res = await fetch('http://localhost:3000/api/products')
+  let newrepo=await res.json()
+  const repo: Repo = newrepo.result.data
+  // Pass data to the page via props
+  return { props: { repo, ...(await serverSideTranslations(locale ?? 'az', ['common' ])), } }
+}) satisfies GetServerSideProps<{  repo: Repo, }>
+ 
+// export default function Page({
+//   repo,
+// }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+//   return (
+//     <main>
+//       <p>{repo.stargazers_count}</p>
+//     </main>
+//   )
+// }
