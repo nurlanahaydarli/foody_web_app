@@ -26,7 +26,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../shared/redux/store";
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
-import { getProductServer, getProducts } from "../shared/services";
+// import { getProductServer, getProducts } from "../shared/services";
 
 const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainLayout"), {
     ssr: true,
@@ -130,15 +130,36 @@ type Repo = {
   
 }
  
-export const getServerSideProps = (async ({locale}) => {
-  // Fetch data from external API
-  const res = await fetch('http://localhost:3000/api/products')
-  let newrepo=await res.json()
-  const repo: Repo = newrepo.result.data
-  // Pass data to the page via props
-  return { props: { repo, ...(await serverSideTranslations(locale ?? 'az', ['common' ])), } }
-}) satisfies GetServerSideProps<{  repo: Repo, }>
- 
+// export const getServerSideProps = (async ({locale}) => {
+//   // Fetch data from external API
+//   const res = await fetch('http://localhost:3000/api/products')
+//   let newrepo=await res.json()
+//   const repo: Repo = newrepo.result.data
+//   // Pass data to the page via props
+//   return { props: { repo, ...(await serverSideTranslations(locale ?? 'az', ['common' ])), } }
+// }) satisfies GetServerSideProps<{  repo: Repo, }>
+export const getServerSideProps = async ({ locale }: { locale: string }) => {
+    // Fetch data from external API
+    try {
+        const res = await fetch('http://localhost:3000/api/products');
+        if (!res.ok) {
+            throw new Error(`Failed to fetch products: ${res.statusText}`);
+        }
+        const newrepo = await res.json();
+        const repo: Repo = newrepo.result.data; // Assuming nested structure
+        // Pass data to the page via props
+        return {
+            props: {
+                repo,
+                ...(await serverSideTranslations(locale ?? 'az', ['common'])),
+            },
+        };
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        // You can optionally return an empty object or redirect to an error page here
+        return { props: {} };
+    }
+};
 // export default function Page({
 //   repo,
 // }: InferGetServerSidePropsType<typeof getServerSideProps>) {

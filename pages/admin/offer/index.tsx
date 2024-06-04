@@ -3,7 +3,7 @@ import AdminLayout from "../../../shared/components/admin/Layout/AdminLayout";
 import AdminHedetbuttom from "../../../shared/components/admin/AdminHeaderButtom";
 import AdminTable from "../../../shared/components/admin/AdminTable";
 import {cache, useEffect, useRef, useState} from "react";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
 import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
@@ -85,25 +85,23 @@ export default function Offer() {
     }
 
     async function AddOffer() {
-        let Title = inpTitle?.current?.value
-        let Desc = inpDesc?.current?.value
+        let Title = inpTitle?.current?.value as string;
+        let Desc = inpDesc?.current?.value as string;
         Title.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
         Desc.length <= 3 ? setDescYup('description have to be longer than 3 ') : setDescYup('')
         if (Desc.length <= 3 || Title.length <= 3) {
             return
         }
-        let newOffer = {
-
+        let newOffer:{name:string,description:string,img_url?:AxiosResponse<string|null>} = {
             "name": Title,
-            "description": Desc,
-            "img_url": ''
+            "description": Desc
         }
         try {
             let res = await uploadFile({
                 file: Img,
                 collectionId: "offer",
                 documentId: "offer"
-            }) as string
+            }) as AxiosResponse<string|null>;
             newOffer.img_url = res;
             await postOffer(newOffer)
 
@@ -126,15 +124,18 @@ export default function Offer() {
         }
 
         let newOffer = {
-
+            id: editID,
             "name": Title,
             "description": Desc,
             "img_url": Img
         }
         try {
-
-            
-            
+            let res = await uploadFile({
+                file: Img,
+                collectionId: "offer",
+                documentId: "offer"
+            }) as AxiosResponse<string|null>;
+            newOffer.img_url = res;
             // newOffer.img_url = res;
             await upOffer(newOffer, editID)
 
@@ -175,9 +176,9 @@ export default function Offer() {
         seteditID(id)
         onOpen()
     }
-    if(offers.length===0){
-        return(<Loading/>)
-    }
+    // if(offers.length===0){
+    //     return(<Loading/>)
+    // }
 
     return (
         <>

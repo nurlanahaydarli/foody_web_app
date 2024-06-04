@@ -12,6 +12,7 @@ import uploadFile from '../../../utils/uploadFile';
 import { PutAuthUser } from '../../../services';
 import Spiner from '../../../components/Client/Spiner'
 import Image from 'next/image';
+import {AxiosResponse} from "axios";
 interface FormValues {
   phoneNumber: string;
   username: string;
@@ -71,7 +72,7 @@ console.log(user);
           file:img,
           collectionId:"users-hash-password",
           documentId:"users-hash-password"
-      }) as  string
+      }) as AxiosResponse<string|null>;
      
       // let res =await AccessPut("auth/user",{
       //     ...values,

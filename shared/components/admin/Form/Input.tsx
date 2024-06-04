@@ -8,7 +8,7 @@ type inputTypes = {
     hasLabel?:boolean
     name?:string
     Ref? : any;
-    onChange:any;
+    onChange?:any;
 }
 export default function Input(props: inputTypes) {
     let {title, input_name, type, onChange, value='',Ref, hasLabel = true} = props
