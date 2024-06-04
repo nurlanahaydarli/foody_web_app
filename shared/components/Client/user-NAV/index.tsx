@@ -68,7 +68,10 @@ function Navbar(props:PROPs) {
             </div>
             <div 
             className={active===5? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
-            onClick={()=>push('/user/logout')}
+            onClick={()=>{
+                push('/')
+                localStorage.removeItem("access_token")
+            }}
             >
                 <Image
                 src={active===5?ActiBasketIcon:defBasketIcon}

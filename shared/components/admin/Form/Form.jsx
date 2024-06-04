@@ -10,7 +10,7 @@ function Form({
                   btnTitle = 'Create  Product',
                   onAction = () => console.log('add action'),
                   setIMG = (img) => console.log('add set img'),
-                  loading,
+                  loading=false,
                   IMG = undefined,
               }) {
     const [imgFile,setImgFile]=useState('/imgs/no-photo.avif')

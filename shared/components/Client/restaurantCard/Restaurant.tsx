@@ -6,6 +6,7 @@ import {isNewFunction} from "../../../utils/isNewCreated";
 
 export interface RestaurantCardProps extends RestaurantPostDataType {
     onReadMore: () => void;
+    created: number
 }
 export default function RestaurantCard(restaurant:RestaurantCardProps) {
     let onReadMore = restaurant.onReadMore;
@@ -15,7 +16,7 @@ export default function RestaurantCard(restaurant:RestaurantCardProps) {
         <>
             <div className={styles.restaurant_card} onClick={onReadMore} >
                 <div className={styles.card_top}>
-                    <img src={restaurant?.img_url} alt={restaurant.name} className='w-[175px] h-[175px]'/>
+                    <img src={restaurant?.img_url ?? '/imgs/no-photo.avif'} alt={restaurant.name} className='w-[175px] h-[175px]'/>
                     {isNew && <span className={styles.new_restaurant}>New</span>}
                 </div>
                 <div className={styles.card_body}>

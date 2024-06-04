@@ -12,7 +12,7 @@ import { AccessGet, Delete } from "../../../server/helper/reguests";
 import formatDate from "../../../server/helper/convertDateToDAy";
 import Modal from "../../../shared/components/admin/Modal";
 import CustomButton from "../../../shared/components/admin/Button";
-import { DeleteOrder } from "../../../shared/services";
+import { DeleteOrder, deleteOrder, getOrder } from "../../../shared/services";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from "../../../shared/components/Loading/Loading";
@@ -22,20 +22,24 @@ export default function Orders() {
     let [data ,setdata]=useState()
     let [id ,setid]=useState<string>()
     let [Order ,setOrder]=useState<any>()
+    let [refreh ,setrefreh]=useState<any>(true)
+
 
     
     useEffect(()=>{
         (async()=>{
             try{
-                let res= await AccessGet("order")
-                let newdata= await res.result.data
+                let res:any= await getOrder()
+                let newdata= await res.data.result.data
+                // console.log(newdata);
+                
                 setdata(newdata)
             }catch(err){console.log(err);
             }
             
         })()
         
-    },[])
+    },[refreh])
     function ShowOrder(Order:object){
        
         setdisplay(true)
@@ -47,13 +51,28 @@ export default function Orders() {
     }
     function Ondelete(id:string){
         setdisplayModal(true)
-
+        
+        
          setid(id)
          
      }
     function Delete(){
+        console.log("delete");
+        console.log(id);
+        setrefreh((prev:boolean)=>!prev)
+        
         if(id){
-            DeleteOrder(id)
+            (async()=>{
+                try{
+                    let res= await DeleteOrder(id)
+                    console.log(res);
+                    
+
+                }catch(err){
+                    console.log(err);
+                    
+                }
+            })()
             toast.success("Order deleted sucsesfuly", {
                 position:"top-right",
               });

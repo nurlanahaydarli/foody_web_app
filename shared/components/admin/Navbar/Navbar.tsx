@@ -7,23 +7,15 @@ import Input from "../Form/Input";
 import ChangeLanguage from "../../Language/ChangeLanguage";
 import MenuSvg from '../svg/MenuSvg';
 import { useDispatch, useSelector } from "react-redux";
-import { openSidebar } from "../../../redux/featuries/sidebar/sidebarSlice";
 import { AppDispatch, RootState } from "../../../redux/store";
 import uploadFile from "../../../utils/uploadFile";
 import { PostProduct, getRestaurants } from "../../../services";
 import { toast } from "react-toastify";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../../server/configs/firebase";
 import { useEffect, useRef, useState } from 'react';
-import { ProductPostDataType, RestaurantPostDataType } from '../../../interfaces';
+import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
+import {AxiosResponse} from "axios";
 
-// interface SignInFormValues {
-//     email: string;
-//     password: string;
-// }
 export default function Navbar() {
     let { push } = useRouter();
     const { isOpen, onOpen, onClose } = useModalOpen()
@@ -40,24 +32,25 @@ export default function Navbar() {
     let [TitleYup, setTitleYup] = useState('')
     let [PriceYup, setPriceYup] = useState('');
     let [Img, setImg] = useState<any>('')
-    let [products, setProducts] = useState<ProductPostDataType[]>([]);
+    let [products, setProducts] = useState<any[]>([]);
     let [DescValue, setDescValue] = useState('');
     let [Titlevalue, setTitlevalue] = useState('')
     let [PriceValue, setPriceValue] = useState('');
     let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
     let [restaurantID, setRestaurantId] = useState(true)
 
-
     useEffect(() => {
         (async () => {
             try {
                 let restaurants = await getRestaurants()
-                setRestaurants(restaurants?.data.result.data)
+                let new_res = await restaurants?.data.result.data
+                console.log(new_res,'new_res')
+                setRestaurants(new_res)
             } catch (err) {
                 console.log(err);
             }
         })()
-    }, [products])
+    }, [])
     function getRestaurantById(e:any) {
         setRestaurantId(e.currentTarget.value)
 
@@ -69,9 +62,8 @@ export default function Navbar() {
         let Rest = inpRest?.current?.value
         Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
         Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
-        let newProduct = {
+        let newProduct:{name:any,price:any,rest_id:any| undefined, description:any,img_url?:AxiosResponse<string|null>} = {
             name: Title,
-            img_url: '',
             description: Desc,
             price: Price,
             rest_id: restaurantID,
@@ -81,7 +73,7 @@ export default function Navbar() {
                 file: Img,
                 collectionId: "products",
                 documentId: "products"
-            }) as string
+            }) as AxiosResponse<string|null>;
             newProduct.img_url = res;
             console.log(res, "res");
 
@@ -145,7 +137,7 @@ export default function Navbar() {
                     value={PriceValue} />
                 <div className=" text-red-600">{PriceYup}</div>
 
-                <Select title={"Restaurants"} name={"rest_id"} options={restaurants} Ref={inpRest} onChange={getRestaurantById} />
+                <Select title={"Restaurants"} name={"rest_id"} options={restaurants}  onChange={getRestaurantById} />
             </Form>
         </>
     );

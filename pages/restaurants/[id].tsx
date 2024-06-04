@@ -4,10 +4,11 @@ import React, {useEffect} from "react";
 import styles from './restaurants.module.css'
 import styles_products from '../../shared/components/Client/Products/products.module.css'
 import BasketContainer from "../../shared/components/Client/BasketItem/BasketContainer";
-import {GetProducts, getRestaurantById} from "../../shared/services";
+import {getRestaurantById} from "../../shared/services";
 import {useQuery} from "react-query";
 import Loading from "../../shared/components/Loading/Loading";
 import ProductsCard from "../../shared/components/Client/Products/ProductCard";
+import {sortDataByCreated} from "../../shared/utils/sortData";
 
 export default function RestaurantDetail() {
     let router = useRouter()
@@ -20,7 +21,7 @@ export default function RestaurantDetail() {
         getRestaurantById(id as string)
     );
     let restaurant = restaurantData?.data.result.data
-    let products = restaurantData?.data.result.data.products
+    let products = sortDataByCreated(restaurantData?.data.result.data.products)
     return (
         <>
             <MainLayout>

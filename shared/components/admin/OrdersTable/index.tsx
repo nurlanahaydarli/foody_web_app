@@ -14,7 +14,7 @@ interface Props{
 }
 function OrdersTable(props:Props) {
     let {data,ShowOrder,Ondelete,cantdelet}=props
-    console.log(data);
+   
     
 
 
@@ -37,7 +37,7 @@ function OrdersTable(props:Props) {
                     <tbody className={style.Tablebody}>
                         {data?.map((item:any,i:number)=>{
                                 let custemerid= firebaseIdToNumber(item.customer_id)
-                                console.log(custemerid);
+                                
                                 
                             return(
                             <tr className={style.thbody}>

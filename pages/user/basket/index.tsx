@@ -24,4 +24,4 @@ function Basket() {
     );
 }
 
-export default Basket;
+export default withClientAuth(Basket);

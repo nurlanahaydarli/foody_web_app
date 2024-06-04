@@ -7,6 +7,7 @@ interface UserState {
   fullname: string;
   access_token: string;
   refresh_token: string;
+  img_url:string;
 }
 
 const initialState: UserState = {
@@ -16,6 +17,7 @@ const initialState: UserState = {
   fullname: '',
   access_token: '',
   refresh_token: '',
+  img_url:''
 };
 
 const userSlice = createSlice({
