@@ -1,5 +1,5 @@
 /server/configs/foody-3-firebase-adminsdk-8atpy-6897ff2d7c.json
-/server/configs/foody-5-firebase-adminsdk-pvv01-e301ba401b.json
+#/server/configs/foody-5-firebase-adminsdk-pvv01-e301ba401b.json
 /node_modules
 /.next
 /.idea
