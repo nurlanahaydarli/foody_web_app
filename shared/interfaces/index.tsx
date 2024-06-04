@@ -1,5 +1,4 @@
-
-
+import {AxiosResponse} from "axios";
 
 
 export interface BasketPostDataType {
@@ -69,7 +68,7 @@ extends Omit<RestaurantPostDataType, "id"> {}
 export interface CategoryPostDataType {
     id: number | string | any;
     name: string;
-    img_url: string | null;
+    img_url: File | string | null;
 }
 
 
@@ -109,3 +108,21 @@ export interface BasketPostDataType {
     total_item?: number;
     total_amount?: number;
 }
+
+export interface ProductPostDataType{
+    id?: string | number | any;
+    img_url?: AxiosResponse<string|null>;
+    price?: number;
+    name?: string;
+    description?: string;
+    rest_id?: string;
+}
+export interface ProductApiResponse {
+    result: {
+        data: ProductPostDataType[];
+    };
+    status: number;
+    message: string;
+}
+export interface InitialProductState
+    extends Omit<ProductPostDataType, "id"> {}

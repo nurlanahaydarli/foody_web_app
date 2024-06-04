@@ -10,7 +10,6 @@ import {
     ProductApiResponse,
     ProductPostDataType,
     InitialProductState,
-    ProductPostDataType,
     InitialRestaurantState,
     RestaurantPostDataType,
 } from "../interfaces/";

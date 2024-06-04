@@ -76,7 +76,7 @@ export default function BasketContainer(props: BasketProps) {
                                 <button onClick={handleClear} className={`lightRed gap-2 flex items-center ${styles.clear_btn}`}><RemoveSvg/> Clear Basket</button>
                             </div>
                             <div className={styles.basket_list}>
-                                {basket_list?.items?.map((product) => (
+                                {basket_list?.items?.map((product:any) => (
                                     <BasketItem  total_count={basket_list.total_count} basket_id={basket_list.id} total_amount={basket_list.total_amount}  key={product.id}  {...product} />
                                 ))}
                             </div>

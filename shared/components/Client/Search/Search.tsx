@@ -1,14 +1,14 @@
 import styles from './search.module.css'
 import RightIcon from "../svg/RightIcon";
 import {useEffect, useState} from "react";
-import {getRestaurants, searchRestaurants} from "../../../services";
-import {RestaurantApiResponse} from "../../../interfaces";
+import {getRestaurants} from "../../../services";
+import { RestaurantPostDataType} from "../../../interfaces";
 import {useRouter} from "next/router";
 
 export default function Search(){
     let {push}=useRouter()
     const [query, setQuery] = useState('');
-    const [restaurants, setRestaurants] = useState<RestaurantApiResponse[]>();
+    const [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>();
     const [loading, setLoading] = useState(false);
     const [focus,setFocus]=useState(false)
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function Search(){
             setLoading(true);
             try {
                 const response = await getRestaurants();
-                let restaurants =   response.data.result.data.filter((restaurant)=>{
+                let restaurants =   response?.data?.result?.data.filter((restaurant)=>{
                     return restaurant.name?.toLowerCase()?.includes(query)
                 })
                 setRestaurants(restaurants)
@@ -50,7 +50,7 @@ export default function Search(){
                             {loading ? <li>Loading...</li> :
                                 <>{restaurants?.map((restaurant) => (
                                     <li key={restaurant.id} onClick={()=>{push('/restaurants/'+ restaurant.id);setFocus(false)}}>
-                                        <img src={restaurant.img_url} alt={restaurant.name}/>
+                                        <img src={restaurant?.img_url ?? '/imgs/no-photo.avif'} alt={restaurant.name}/>
                                         <div>
                                             <p>{restaurant.name}</p>
                                             <span>{restaurant.address}</span>
