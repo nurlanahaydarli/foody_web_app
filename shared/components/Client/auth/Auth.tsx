@@ -17,7 +17,7 @@ export default function Auth() {
     let {isMobile} =useResize()
     let user = useSelector((state: RootState) => state.user);
     const nameChar = getNameFirstLetter(user.fullname);
-    function handleClick(e){
+    function handleClick(){
         setActive(!active)
     }
     return (

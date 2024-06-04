@@ -13,10 +13,11 @@ import { useModalOpen } from "../../shared/hooks/UseModalOpen";
 import { useResize } from "../../shared/hooks/useResize";
 import Loading from "../../shared/components/Loading/Loading";
 import { sortDataByCreated } from "../../shared/utils/sortData";
+import Axios from "axios";
 
 export default function Restaurants() {
-    const [categories, setCategories] = useState([]);
-    const [restaurants, setRestaurants] = useState([]);
+    const [categories, setCategories] = useState<any[] | undefined>([]);
+    const [restaurants, setRestaurants] = useState<any[] | undefined>([]);
     const [chooseCategory, setChooseCategory] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
@@ -24,7 +25,7 @@ export default function Restaurants() {
     const { t } = useTranslation("common");
     let { isOpen, onClose, onOpen } = useModalOpen();
     let { isMobile } = useResize();
-
+    console.log(restaurants,'restaurants')
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -33,8 +34,12 @@ export default function Restaurants() {
                     getRestaurants()
                 ]);
 
-                setCategories(sortDataByCreated(categoryData.data.result.data));
-                setRestaurants(sortDataByCreated(restaurantData.data.result.data));
+                if (categoryData?.data?.result?.data) {
+                    setCategories(sortDataByCreated(categoryData.data.result.data));
+                }
+                if (restaurantData?.data?.result?.data) {
+                    setRestaurants(sortDataByCreated(restaurantData.data.result.data));
+                }
                 setIsLoading(false);
             } catch (error) {
                 setIsError(true);
@@ -45,7 +50,7 @@ export default function Restaurants() {
         fetchData();
     }, []);
 
-    const filteredRestaurants = restaurants.filter((restaurant: any) => {
+    const filteredRestaurants = restaurants?.filter((restaurant: any) => {
         const category_id = restaurant.category_id;
         return (
             !chooseCategory || (typeof category_id === "string" && category_id.includes(chooseCategory))
@@ -89,7 +94,7 @@ export default function Restaurants() {
                                                 {t("all categories")}
                                             </p>
                                         </li>
-                                        {categories.map((category: any) => (
+                                        {categories?.map((category: any) => (
                                             <li className={`capitalize ${chooseCategory === category.id && styles.active}`} key={category.id} onClick={() => { handleCategory(category.id); onClose(); }}>
                                                 <img src={category?.img_url || undefined} alt={category.name} className="w-[25px] h-[25px]" />
                                                 <span>{category.name}</span>
@@ -103,7 +108,7 @@ export default function Restaurants() {
 
                         <div className="lg:w-4/5 w-full">
                             <div className="flex flex-row flex-wrap">
-                                {filteredRestaurants.map((restaurant: any) => (
+                                {filteredRestaurants?.map((restaurant: any) => (
                                     <div className="xl:w-1/4 w-full lg:w-1/3 md:w-1/2" key={restaurant.id}>
                                         <RestaurantCard {...restaurant} onReadMore={() => onDetail(restaurant.id)} />
                                     </div>

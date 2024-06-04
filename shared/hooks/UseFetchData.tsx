@@ -1,11 +1,11 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
-import {AxiosResponse} from "axios";
+import {AxiosPromise, AxiosResponse} from "axios";
 
 interface UseEntityHandlerProps {
     uploadFile:  (params: { file: File; collectionId: string; documentId: string }) => Promise<AxiosResponse<string | null>>;
-    addEntity: (entity: object) => Promise<any>;
-    editEntity: (entity: object, id: string | number) => Promise<any>;
+    addEntity: (entity: any) => AxiosPromise<any>;
+    editEntity: (entity: any, id: string | number) => Promise<any>;
     deleteEntity: (id: string | number) => Promise<any>;
     onClose: Function;
 }
