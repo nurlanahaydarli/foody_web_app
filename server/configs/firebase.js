@@ -15,13 +15,21 @@ import { getAuth } from 'firebase/auth';
 //     appId: "1:962449069028:web:63e285cc26c17e4a0aedf1"
 // };
 
+// const firebaseConfig = {
+//     apiKey: "AIzaSyC68IobQTT7kIpF39ZOAdZFcgv75doxD50",
+//     authDomain: "foody-4.firebaseapp.com",
+//     projectId: "foody-4",
+//     storageBucket: "foody-4.appspot.com",
+//     messagingSenderId: "745316669318",
+//     appId: "1:745316669318:web:84ab8b0b32d51120717e07"
+// };
 const firebaseConfig = {
-    apiKey: "AIzaSyC68IobQTT7kIpF39ZOAdZFcgv75doxD50",
-    authDomain: "foody-4.firebaseapp.com",
-    projectId: "foody-4",
-    storageBucket: "foody-4.appspot.com",
-    messagingSenderId: "745316669318",
-    appId: "1:745316669318:web:84ab8b0b32d51120717e07"
+    apiKey: "AIzaSyDlD4lxZIGn7riJ_0mfrIbBITvxlPspcCA",
+    authDomain: "foody-5.firebaseapp.com",
+    projectId: "foody-5",
+    storageBucket: "foody-5.appspot.com",
+    messagingSenderId: "1049682588546",
+    appId: "1:1049682588546:web:0f4eac632effcfca51959b"
 };
 
 

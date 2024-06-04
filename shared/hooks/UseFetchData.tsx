@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 import {AxiosPromise, AxiosResponse} from "axios";
 
 interface UseEntityHandlerProps {
-    uploadFile:  (params: { file: File; collectionId: string; documentId: string }) => Promise<AxiosResponse<string | null>>;
+    uploadFile: (params: { file: File; collectionId: string; documentId: string }) => Promise<AxiosResponse<string | null>>;
     addEntity: (entity: any) => AxiosPromise<any>;
     editEntity: (entity: any, id: string | number) => Promise<any>;
     deleteEntity: (id: string | number) => Promise<any>;
@@ -11,7 +11,7 @@ interface UseEntityHandlerProps {
 }
 
 export const useEntityHandler = ({
-                                     uploadFile ,
+                                     uploadFile,
                                      addEntity,
                                      editEntity,
                                      deleteEntity,
@@ -37,10 +37,10 @@ export const useEntityHandler = ({
         setEntities: React.Dispatch<React.SetStateAction<any[]>>;
         inputs: { [key: string]: React.RefObject<HTMLInputElement> };
         isEdit: boolean;
-        editID?: string | number;
+        editID?: string | number | undefined;
         collectionId: string;
         documentId: string;
-        onClose:Function;
+        onClose: Function;
     }) => {
         setLoading(true);
         setError(null);
@@ -57,14 +57,17 @@ export const useEntityHandler = ({
             }
 
             if (isEdit) {
-                await editEntity(entity, editID);
-                setEntities(prev => prev.map(item => (item.id === editID ? { ...item, ...entity } : item)));
+                if (editID) {
+                    await editEntity(entity, editID);
+                }
+                setEntities(prev => prev.map(item => (item.id === editID ? {...item, ...entity} : item)));
                 toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)} successfully edited`, {
                     position: "top-right",
                 });
             } else {
                 const newEntity = await addEntity(entity);
-                setEntities(prevEntities => [{ ...entity, id: newEntity.id }, ...prevEntities]);
+                // setEntities(prevEntities => [{...entity, id: newEntity.id}, ...prevEntities]);
+                setEntities(prevEntities => [{ ...entity, id: newEntity.data.id }, ...prevEntities]);
                 toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)}  successfully added`, {
                     position: "top-right",
                 });
@@ -78,7 +81,7 @@ export const useEntityHandler = ({
             toast.error(`An error occurred while ${isEdit ? 'editing' : 'adding'} the ${collectionId[0].toUpperCase() + collectionId.slice(1)}`, {
                 position: "top-right",
             });
-            setError(err);
+            // setError(err);
         } finally {
             setLoading(false);
         }
@@ -88,14 +91,14 @@ export const useEntityHandler = ({
         setLoading(true);
         try {
             await deleteEntity(id);
-            setEntities(prev => prev.filter((entity)=>{
-                return  entity.id !== id
+            setEntities(prev => prev.filter((entity) => {
+                return entity.id !== id
             }))
-            toast.success("Successfully deleted", { position: "top-right" });
+            toast.success("Successfully deleted", {position: "top-right"});
         } catch (err) {
-            console.log(err,'err')
-            setError(err);
-            toast.error("An error occurred while deleting the document", { position: "top-right" });
+            console.log(err, 'err')
+            // setError(err);
+            toast.error("An error occurred while deleting the document", {position: "top-right"});
         } finally {
             setLoading(false);
         }
