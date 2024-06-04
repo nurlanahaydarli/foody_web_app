@@ -170,7 +170,7 @@ function AdminRestaurant() {
       setTitleStroge('');
  
       setCuisineStroge('');
-        setDeliveryPriceStroge('');
+      setDeliveryPriceStroge('');
       setDeliveryMinStroge('');
       setAdressStroge('');
     }

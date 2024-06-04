@@ -1,10 +1,11 @@
-import React, { useReducer, useState } from 'react';
+import React, {useEffect , useReducer, useState } from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import paymentIcon from '../../../public/paymentIcon.svg';
 import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
+import {GetBasket} from '../../../shared/services/index';
 
 const initialState = {
     address: '',
@@ -71,6 +72,45 @@ function Checkout() {
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
     const [checkoutComplete, setCheckoutComplete] = useState(false);
+    const [inputVal, setInputVal] = useState(false)
+    const [inputPhoneNumber, setInputPhoneNumbe] = useState(false)
+    const [phoneNumRegex, setPhoneNumRegex] = useState(false)
+    const [addressValid, setAddressValid] = useState(false);
+
+    useEffect(() => {
+
+    },[])
+    
+    useEffect(() => {
+        setInputVal(state.address.length > 0);
+    }, [state.address]);
+
+    useEffect(() => {
+        setInputPhoneNumbe(state.phoneNumber.length > 5);
+    }, [state.phoneNumber]);
+
+    useEffect(() => {
+        setPhoneNumRegex(azerbaijanPhoneRegex.test(state.phoneNumber));
+    }, [state.phoneNumber]);
+
+    useEffect(() => {
+        setAddressValid(addressRegex.test(state.address));
+    }, [state.address]);
+
+    const handleToggle = () => {
+        setIsRectVisible2(true);
+        setIsRectVisible(false);
+    };
+
+    const handleToggle2 = () => {
+        setIsRectVisible(true);
+        setIsRectVisible2(false);
+    };
+
+  
+
+
+
 
     const handleChange = (e:any) => {
         const value = e.target.value;
@@ -79,11 +119,15 @@ function Checkout() {
         if (!addressRegex.test(value)) {
             dispatch({ type: "SET_ERROR", payload: "Yanlış adres formatı!" });
             dispatch({ type: "SET_FORMAT_MESSAGE", payload: "Örnək format: Ataturk 45 Ganclik Baku" });
+      
+
         } else {
             dispatch({ type: "SET_ERROR", payload: '' });
             dispatch({ type: "SET_FORMAT_MESSAGE", payload: '' });
         }
+
     }
+    
 
     const handleChange1 = (event:any) => {
         let value = event.target.value;
@@ -105,19 +149,14 @@ function Checkout() {
         }
     };
 
-    const handleToggle = () => {
-        setIsRectVisible2(true);
-        setIsRectVisible(false);
-    };
 
-    const handleToggle2 = () => {
-        setIsRectVisible(true);
-        setIsRectVisible2(false);
-    };
 
     const handleCheckout = () => {
         setCheckoutComplete(true);
+    
     };
+
+
 
     return (
         <>
@@ -185,6 +224,8 @@ function Checkout() {
 
 
                                             <div className="flex ml-6 mt-4">
+
+
                                                 <button onClick={handleToggle}>
                                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg">
@@ -196,8 +237,12 @@ function Checkout() {
                                                     </svg>
                                                     
                                                 </button>
+
                                                 <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>pay
                                                     at the door</h1>
+
+
+
 
                                                 <button className=' ml-16' onClick={handleToggle2}>
                                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
@@ -209,6 +254,7 @@ function Checkout() {
                                                               fill="#6FCF97"/>}
                                                     </svg>
                                                 </button>
+
                                                 <h1 className={`ml-2 ${isRectVisible ? 'text-textColorGreen' : ''}`}>pay
                                                     at the door by credit card</h1>
                                             </div>
@@ -216,14 +262,16 @@ function Checkout() {
                                             
 
                                             <div className='flex items-center justify-center mt-16'>
-                                                <button
-                                                    className={`w-11/12 h-11 ${isRectVisible || isRectVisible2 ? 'bg-textColorGreen' : ' bg-overlayColorGreen'} text-white rounded-sm`}
-                                                    onClick={handleCheckout}
-                                                    disabled={!isRectVisible && !isRectVisible2}
-                                                >
+                                            <button
+                                                className={`w-11/12 h-11 ${((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid) ? 'bg-textColorGreen' : 'bg-overlayColorGreen'} text-white rounded-sm`}
+                                                onClick={handleCheckout}
+                                                disabled={!((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid)}
+                                                 >
                                                     Checkout
-                                                </button>
+                                            </button>
+
                                             </div>
+
                                         </div>
 
 
