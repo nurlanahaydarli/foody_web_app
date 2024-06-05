@@ -479,7 +479,7 @@ function AdminRestaurant() {
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
         <div className=" text-mainRed font-bold">{TitleStroge}</div>
      
-        <Select  onChange={getCategoryById} title={"Categorys"} name={"cat_id"} options={categorys}  />
+        <Select value={selectedCategoryName} onChange={getCategoryById} title={"Categorys"} name={"cat_id"} options={categorys}  />
 
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
         <div className="text-mainRed font-bold">{CuisineStroge}</div>
