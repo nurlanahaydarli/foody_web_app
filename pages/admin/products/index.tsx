@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import uploadFile from "../../../shared/utils/uploadFile";
 import {PostDataType, ProductPostDataType, RestaurantPostDataType} from "../../../shared/interfaces";
 import Select from "../../../shared/components/admin/Form/Select";
+import withAuth from "../../../shared/HOC/withAuth";
 
 
 const AdminLayout = dynamic(
@@ -32,7 +33,7 @@ interface  IProduct{
 }
 
 
-export default function Products() {
+function Products() {
   const inpTitle = useRef<any>()
   const inpDesc = useRef<any>()
   const inpPrice = useRef<any>()
@@ -288,6 +289,8 @@ export default function Products() {
     </>
   );
 }
+export default withAuth(Products)
+
 //
 // export default function Products(){
 //

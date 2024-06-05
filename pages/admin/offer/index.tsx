@@ -12,8 +12,8 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import uploadFile from "../../../shared/utils/uploadFile";
 import Loading from "../../../shared/components/Loading/Loading";
-
-export default function Offer() {
+import withAuth from "../../../shared/HOC/withAuth";
+ function Offer() {
     const {isOpen, onOpen, onClose} = useModalOpen()
     let [offers, setoffers] = useState([])
     let [Img, setImg] = useState<any>('')
@@ -223,3 +223,5 @@ export default function Offer() {
         </>
     );
 }
+
+export default withAuth(Offer)

@@ -25,7 +25,7 @@ export default function Restaurants() {
     const { t } = useTranslation("common");
     let { isOpen, onClose, onOpen } = useModalOpen();
     let { isMobile } = useResize();
-    console.log(restaurants,'restaurants')
+    // console.log(restaurants,'restaurants')
     useEffect(() => {
         const fetchData = async () => {
             try {
