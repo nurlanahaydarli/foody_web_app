@@ -228,7 +228,10 @@ function Checkout(props: BasketProps) {
                                     <h1 className='flex justify-center text-2xl font-bold text-grayText2'>received</h1>
                                 </div>
                             ) : (
+                                
                                 <>
+                                 {basket_Loading?
+                                        <Loading/>:
                                     <div className="flex justify-between">
                                         <div className='w-8/12 mx-5 mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
                                             <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>Checkout</h1>
@@ -331,8 +334,7 @@ function Checkout(props: BasketProps) {
 
 
                                         <>
-                                        {basket_Loading?
-                                        <Loading/>:
+                                       
                                         <div className=' w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                                             {basketList?.items.length>0?
                                             <>
@@ -367,13 +369,13 @@ function Checkout(props: BasketProps) {
                                                <EmptyBasket/>
                                                }
                                         </div>
-                                           }
+                                        
                                         </>
 
 
 
                                     </div>
-
+   }
                                 </>
                             )}
                         </div>

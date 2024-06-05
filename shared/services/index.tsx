@@ -59,6 +59,21 @@ export const AddBasket: (
     });
 };
 
+
+// =============================== POST ORDERS ============================================
+
+export const AddOrder: (orderProduct: BasketPostDataType) => AxiosPromise<BasketPostDataType> = (basketProduct) => {
+    const accessToken = localStorage.getItem("access_token");
+    return instanceAxios({
+        method: "POST",
+        url: `basket/add`,
+        data: basketProduct,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+};
+
 // =============================== DELETE BASKET ===============================
 export const deleteBasket: (
     basketProduct: BasketPostDataType
@@ -303,6 +318,4 @@ export const getProductServer = async () => {
     return data;
 };
 
-
-// =============================== POST ORDERS ============================================
 
