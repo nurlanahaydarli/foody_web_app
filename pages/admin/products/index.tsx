@@ -59,7 +59,7 @@ export default function Products() {
   let [editID, seteditID] = useState<any>('')
   let [TitleYup, setTitleYup] = useState('')
   let [Titlevalue, setTitlevalue] = useState('')
-  let [DescYup, setDescYup] = useState('');
+ 
   let [DescValue, setDescValue] = useState('');
   let [PriceYup, setPriceYup] = useState('');
   let [PriceValue, setPriceValue] = useState('');
@@ -81,7 +81,7 @@ export default function Products() {
         console.log(err);
       }
     })()
-  }, [ResetData,products])
+  }, [])
 
   function getRestaurantById(e:any) {
     setRestaurantId(e.currentTarget.value)
@@ -135,7 +135,7 @@ export default function Products() {
     let Price = inpPrice?.current?.value
 
     Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
-    Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
+   
     if (Title.length <= 3) {
       setTitleYup('title have to be longer than 3 ');
       return;
@@ -249,7 +249,7 @@ export default function Products() {
             <div className=" text-red-600">{TitleYup}</div>
             <Input hasLabel={true} title={"Description"} type={"text"} input_name={"Description"} Ref={inpDesc}
               value={DescValue} />
-            <div className=" text-red-600">{DescYup}</div>
+           
             <Input hasLabel={true} title={"Price"} type={"number"} input_name={"Price"} Ref={inpPrice}
               value={PriceValue} />
             <div className=" text-red-600">{PriceYup}</div>

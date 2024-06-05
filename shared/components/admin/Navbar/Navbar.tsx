@@ -28,7 +28,7 @@ export default function Navbar() {
     const inpPrice = useRef<any>()
     const inpRest = useRef<any>()
     
-    let [DescYup, setDescYup] = useState('');
+   
     let [TitleYup, setTitleYup] = useState('')
     let [PriceYup, setPriceYup] = useState('');
     let [Img, setImg] = useState<any>('')
@@ -61,7 +61,7 @@ export default function Navbar() {
         let Price = inpPrice?.current?.value
         let Rest = inpRest?.current?.value
         Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
-        Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
+       
         let newProduct:{name:any,price:any,rest_id:any| undefined, description:any,img_url?:AxiosResponse<string|null>} = {
             name: Title,
             description: Desc,
@@ -132,7 +132,7 @@ export default function Navbar() {
                 <div className=" text-red-600">{TitleYup}</div>
                 <Input hasLabel={true} title={"Description"} type={"text"} input_name={"description"} Ref={inpDesc}
                     value={DescValue} />
-                <div className=" text-red-600">{DescYup}</div>
+              
                 <Input hasLabel={true} title={"Price"} type={"number"} input_name={"price"} Ref={inpPrice}
                     value={PriceValue} />
                 <div className=" text-red-600">{PriceYup}</div>
