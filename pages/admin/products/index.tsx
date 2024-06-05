@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import AdminCard from "../../../shared/components/admin/adminCard";
 import AdminHedetbuttom from "../../../shared/components/admin/AdminHeaderButtom";
 import React, { useEffect, useRef, useState } from "react";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import { useModalOpen } from "../../../shared/hooks/UseModalOpen";
 import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
@@ -11,7 +11,7 @@ import Modal from "../../../shared/components/admin/Modal";
 import { DeleteProduct, EditProduct, PostProduct, GetProducts, getRestaurants } from "../../../shared/services";
 import { toast } from "react-toastify";
 import uploadFile from "../../../shared/utils/uploadFile";
-import {PostDataType, ProductPostDataType, RestaurantPostDataType} from "../../../shared/interfaces";
+import { ProductPostDataType, RestaurantPostDataType } from "../../../shared/interfaces";
 import Select from "../../../shared/components/admin/Form/Select";
 
 
@@ -21,15 +21,6 @@ const AdminLayout = dynamic(
     ssr: false,
   }
 );
-
-interface  IProduct{
-  id:string,
-  name?:string,
-  description?:string,
-  price?:number,
-  rest_id?:string | undefined,
-  img_url?:AxiosResponse<string|null>
-}
 
 
 export default function Products() {
@@ -44,16 +35,7 @@ export default function Products() {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  const [products, setProducts] = useState<IProduct[]>([]);
-
-// Type for setProducts
-  type SetProductsType = React.Dispatch<React.SetStateAction<IProduct[]>>;
-
-// You can now use SetProductsType wherever you need to refer to the type of setProducts
-  const updateProducts: SetProductsType = (newProducts) => {
-    setProducts(newProducts);
-  };
-  //let [products, setProducts] = useState<PostDataType[] >([]);
+  let [products, setProducts] = useState([]);
   let [Img, setImg] = useState<any>('')
   let [editImg, seteditImg] = useState<any>('')
   let [editID, seteditID] = useState<any>('')
@@ -65,7 +47,7 @@ export default function Products() {
   let [PriceValue, setPriceValue] = useState('');
   let [ResetData, setResetData] = useState(true)
   let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
-  let [restaurantID, setRestaurantId] = useState<string>()
+  let [restaurantID, setRestaurantId] = useState()
 
 
   useEffect(() => {
@@ -73,61 +55,59 @@ export default function Products() {
       try {
         let res = await GetProducts()
         let restaurants = await getRestaurants()
-        let newData:any = await res?.data.result.data ;
+        let newData = await res.data.result.data
         setProducts(newData)
-        let new_res = await restaurants?.data.result.data
-        setRestaurants(new_res)
+        setRestaurants(restaurants?.data.result.data)
       } catch (err) {
         console.log(err);
       }
     })()
-  }, [ResetData,products])
+  }, [])
 
   function getRestaurantById(e:any) {
     setRestaurantId(e.currentTarget.value)
   }
-  // async function addProduct() {
-  //   let Title = inpTitle?.current?.value as string;
-  //   let Desc = inpDesc?.current?.value as string;
-  //   let Price = inpPrice?.current?.value as number;
-  //
-  //   Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
-  //   Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
-  //   let newProduct:IProduct = {
-  //     name: Title,
-  //     description: Desc,
-  //     price: Price,
-  //     rest_id: restaurantID,
-  //   }
-  //   try {
-  //     let res = await uploadFile({
-  //       file: Img,
-  //       collectionId: "products",
-  //       documentId: "products"
-  //     }) as AxiosResponse<string|null>;
-  //     newProduct.img_url = res;
-  //
-  //     // setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
-  //     updateProducts(prevProducts => [...prevProducts, { ...newProduct}])
-  //     let createdProduct = await PostProduct(newProduct);
-  //
-  //     toast.success("Product successfully added", {
-  //       position: "top-right",
-  //     });
-  //     inpTitle?.current?.value == ''
-  //     inpDesc?.current?.value == ''
-  //     inpPrice?.current?.value == ''
-  //
-  //     onClose()
-  //     setImg('')
-  //   } catch (err) {
-  //     toast.error("An error occurred while adding the product", {
-  //       position: "top-right",
-  //     });
-  //     console.log(err);
-  //   }
-  //
-  // }
+  async function addProduct() {
+    let Title = inpTitle?.current?.value
+    let Desc = inpDesc?.current?.value
+    let Price = inpPrice?.current?.value
+
+    Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
+    Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
+    let newProduct = {
+      name: Title,
+      img_url: '',
+      description: Desc,
+      price: Price,
+      rest_id: restaurantID,
+    }
+    try {
+      let res = await uploadFile({
+        file: Img,
+        collectionId: "products",
+        documentId: "products"
+      }) as string
+      newProduct.img_url = res;
+      setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
+      let createdProduct = await PostProduct(newProduct);
+     
+      toast.success("Product successfully added", {
+        position: "top-right",
+      });
+      inpTitle?.current?.value == ''
+      inpDesc?.current?.value == ''
+      inpPrice?.current?.value == ''
+
+      onClose()
+      setImg('')
+    } catch (err) {
+      toast.error("An error occurred while adding the product", {
+        position: "top-right",
+      });
+      console.log(err);
+    }
+
+  }
 
   async function updateProduct() {
     let Title = inpTitle?.current?.value
@@ -146,7 +126,7 @@ export default function Products() {
       console.error('Image is required');
       return;
     }
-    let updatedProduct:ProductPostDataType = {
+    let updatedProduct = {
       id: editID,
       name: Title,
       img_url: editImg,
@@ -160,14 +140,12 @@ export default function Products() {
           file: Img,
           collectionId: "products",
           documentId: "products"
-        }) as AxiosResponse<string|null>;
+        }) as string;
         updatedProduct.img_url = res;
       }
-      // setProducts(prevProducts => prevProducts.map(product =>
-      //   product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
-      // ));
-
-      updateProducts(prevProducts => [...prevProducts, { ...updatedProduct,id: updatedProduct.id}])
+      setProducts(prevProducts => prevProducts.map(product =>
+        product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
+      ));
       await EditProduct(updatedProduct)
       toast.success("Product successfully edited", {
         position: "top-right",
@@ -239,7 +217,7 @@ export default function Products() {
               setTitlevalue('')
             }}
 
-            onAction={updateProduct}
+            onAction={editImg ? updateProduct : addProduct}
             btnTitle={editImg ? "Edit product" : "Create product"}
             IMG={editImg}
             setIMG={setImg}
