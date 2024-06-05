@@ -9,6 +9,8 @@ import Form from "../Form/Form";
 import Input from "../Form/Input";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
+import { getRestaurants } from "../../../services";
+import { RestaurantPostDataType } from "../../../interfaces";
 
 interface PROPS {
   data? : any,
@@ -27,8 +29,22 @@ interface PROPS {
 
 function AdminCard(props:PROPS) {
   let {data,reset,edit,removeDocument} =props
-
+  const [restaurants,setRestaurants] = useState<RestaurantPostDataType[]>([])
 let [mobile,setmobile]=useState(false)
+useEffect(() =>{
+(async () =>{
+try {
+
+    let restaurants = await getRestaurants()
+    let new_res = await restaurants?.data.result.data  
+    setRestaurants (new_res)
+
+} catch (err) {
+    console.log(err);
+}
+  })()
+},[])
+
 useEffect(()=>{
     if(window.innerWidth<800){
         setmobile(true)
@@ -57,8 +73,10 @@ useEffect(()=>{
                         />
                     </div>
                     <div className="m-1 mx-5">
-                        <p className=" text-lg font-medium">{data.description}</p>
-                        <p className=" text-[#8E8E93]">{data.name}</p>
+                        <p className=" text-lg font-medium">{data.name}</p>
+                        <p className=" text-[#8E8E93]">
+                            {restaurants.find((restaurant) => restaurant.id === data.rest_id)?.name}
+                        </p>
                     </div>
                     <div className=" mx-5 flex justify-between">
                         <p className="text-[#00B2A9;] font-medium">${data.price}</p>
