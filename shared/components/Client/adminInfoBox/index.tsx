@@ -2,18 +2,21 @@ import React from 'react';
 import style from '../adminInfoBox/infoBox.module.css'
 import Image from 'next/image';
 import BoucherIcon from '../../../../public/Boucher.svg'
+import { useRouter } from 'next/router';
 
 interface Props{
     img:any,
     Title:string,
-    Desc:string
+    Desc:string,
+    RestuarantID:string
 }
 
 function InfoBox(props:Props) {
+    let ruter=useRouter()
 const {title,des,box,icon}=style
-let {img,Title,Desc}=props
+let {img,Title,Desc,RestuarantID}=props
     return (
-        <div className={box}>
+        <div className={box} onClick={()=>ruter.push(`/restaurants/${RestuarantID}`)}>
             {/* <Image
             src={img}
             alt={`${img}`}

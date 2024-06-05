@@ -33,15 +33,17 @@ function InfoSection(props:Props) {
         DES
     }=props
     const {Title,des,div}=styles
-
+    let newdata =data.slice(-3)
+    
     return (
         <div className={'flex flex-col  items-center mt-20 gap-2 '+div}>
         <h2 className={Title} data-aos='fade-up'>{TITLE}</h2>
         <p className={des} data-aos='fade-up'>{DES}</p>
         <div className={mobile?'w-full flex flex-col items-center justify-around mt-7':"w-full flex flex-row justify-around mt-7"} data-aos='fade-up'>
-            {data?.map((item:any)=>(
+            {newdata?.map((item:any)=>(
               <InfoBox
-              Desc={item.description}
+              RestuarantID={item.description===undefined?item.id:item.rest_id}
+              Desc={item.description===undefined?item.address:item.description}
               img={item.img_url}
               Title={item.name}
               />
