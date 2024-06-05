@@ -18,7 +18,7 @@ function Profile() {
     let {Profile, headText, addPhoto} = styles
     const dispatch: AppDispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
-    console.log(user);
+    console.log("user",user);
     
     return (
         <>

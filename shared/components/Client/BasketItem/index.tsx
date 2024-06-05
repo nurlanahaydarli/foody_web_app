@@ -20,10 +20,12 @@ type BasketState = {
     img_url:string,
     basket_id:string
 }
+
 export default function BasketItem(product: BasketState) {
     let {name, id, price,img_url, count,basket_id} = product;
     const user = useSelector((state: RootState) => state.user);
     const queryClient = useQueryClient();
+
     const mutationClear = useMutation(
         (basketProduct: BasketPostDataType) => deleteBasket(basketProduct),
         {

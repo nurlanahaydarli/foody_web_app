@@ -1,10 +1,19 @@
-import React, { useReducer, useState } from 'react';
+import React, {useEffect , useReducer, useState } from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import paymentIcon from '../../../public/paymentIcon.svg';
 import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
+import {GetBasket} from '../../../shared/services/index';
+import {useMutation, useQuery, useQueryClient} from 'react-query'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../shared/redux/store';
+import Loading from '../../../shared/components/Loading/Loading';
+import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
+import { useRouter } from 'next/router';
+import BasketItem from '../../../shared/components/Client/BasketItem/index';
+
 
 const initialState = {
     address: '',
@@ -66,11 +75,88 @@ const formatPhoneNumber = (value:any) => {
     return formatted;
 };
 
-function Checkout() {
+
+type BasketProps = {
+    productCount?: number;
+    data_list?: string[],
+    size: string
+}
+
+function Checkout(props: BasketProps) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
     const [checkoutComplete, setCheckoutComplete] = useState(false);
+    const [inputVal, setInputVal] = useState(false)
+    const [inputPhoneNumber, setInputPhoneNumbe] = useState(false)
+    const [phoneNumRegex, setPhoneNumRegex] = useState(false)
+    const [addressValid, setAddressValid] = useState(false);
+    const [userLoaded, setUserLoaded] = useState(false);
+    let {size} = props
+    const router = useRouter();
+    
+
+    const { data: basket_List, isLoading: basket_Loading, error: basket_Error, status: basket_Status } = useQuery('basket', GetBasket, {
+        enabled: userLoaded,
+      });
+    
+
+    const basketList = basket_List?.data.result.data;
+    const user = useSelector((state: RootState) => state.user);
+    console.log("user",user);
+    
+
+    console.log("basketList",basketList);
+    
+
+
+      
+    //   useEffect(() => {
+    //     console.log('basket_List:', basket_List);
+    //     console.log('basket_Loading:', basket_Loading);
+    //     console.log('basket_Error:', basket_Error);
+    //     console.log('basket_Status:', basket_Status);
+    //   }, [basket_List, basket_Loading, basket_Error, basket_Status]);
+      
+
+
+    useEffect(() => {
+        if (user.id) {
+            setUserLoaded(true);
+        }
+    }, [user.id]);
+
+
+    useEffect(() => {
+        setInputVal(state.address.length > 0);
+    }, [state.address]);
+
+    useEffect(() => {
+        setInputPhoneNumbe(state.phoneNumber.length > 5);
+    }, [state.phoneNumber]);
+
+    useEffect(() => {
+        setPhoneNumRegex(azerbaijanPhoneRegex.test(state.phoneNumber));
+    }, [state.phoneNumber]);
+
+    useEffect(() => {
+        setAddressValid(addressRegex.test(state.address));
+    }, [state.address]);
+
+    const handleToggle = () => {
+        setIsRectVisible2(true);
+        setIsRectVisible(false);
+    };
+
+    const handleToggle2 = () => {
+        setIsRectVisible(true);
+        setIsRectVisible2(false);
+    };
+
+  
+
+
+
 
     const handleChange = (e:any) => {
         const value = e.target.value;
@@ -79,11 +165,15 @@ function Checkout() {
         if (!addressRegex.test(value)) {
             dispatch({ type: "SET_ERROR", payload: "Yanlış adres formatı!" });
             dispatch({ type: "SET_FORMAT_MESSAGE", payload: "Örnək format: Ataturk 45 Ganclik Baku" });
+      
+
         } else {
             dispatch({ type: "SET_ERROR", payload: '' });
             dispatch({ type: "SET_FORMAT_MESSAGE", payload: '' });
         }
+
     }
+    
 
     const handleChange1 = (event:any) => {
         let value = event.target.value;
@@ -105,22 +195,22 @@ function Checkout() {
         }
     };
 
-    const handleToggle = () => {
-        setIsRectVisible2(true);
-        setIsRectVisible(false);
-    };
 
-    const handleToggle2 = () => {
-        setIsRectVisible(true);
-        setIsRectVisible2(false);
-    };
 
     const handleCheckout = () => {
         setCheckoutComplete(true);
+        
+        setTimeout(() => {
+            router.push('/restaurants');
+        }, 2000);
+    
     };
+
+
 
     return (
         <>
+        
             <MainLayout>
                 <div className='px-8 pt-1 pb-[100px]'>
                     <div className='flex flex-row'>
@@ -185,6 +275,8 @@ function Checkout() {
 
 
                                             <div className="flex ml-6 mt-4">
+
+
                                                 <button onClick={handleToggle}>
                                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg">
@@ -194,9 +286,14 @@ function Checkout() {
                                                         <rect x="8" y="8" width="15" height="15" rx="7.5"
                                                               fill="#6FCF97"/>}
                                                     </svg>
+                                                    
                                                 </button>
+
                                                 <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>pay
                                                     at the door</h1>
+
+
+
 
                                                 <button className=' ml-16' onClick={handleToggle2}>
                                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
@@ -208,6 +305,7 @@ function Checkout() {
                                                               fill="#6FCF97"/>}
                                                     </svg>
                                                 </button>
+
                                                 <h1 className={`ml-2 ${isRectVisible ? 'text-textColorGreen' : ''}`}>pay
                                                     at the door by credit card</h1>
                                             </div>
@@ -215,81 +313,62 @@ function Checkout() {
                                             
 
                                             <div className='flex items-center justify-center mt-16'>
-                                                <button
-                                                    className={`w-11/12 h-11 ${isRectVisible || isRectVisible2 ? 'bg-textColorGreen' : ' bg-overlayColorGreen'} text-white rounded-sm`}
-                                                    onClick={handleCheckout}
-                                                    disabled={!isRectVisible && !isRectVisible2}
-                                                >
+                                            <button
+                                                className={`w-11/12 h-11 ${((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid) ? 'bg-textColorGreen' : 'bg-overlayColorGreen'} text-white rounded-sm`}
+                                                onClick={handleCheckout}
+                                             
+                                                disabled={!((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid)}
+                                                 >
                                                     Checkout
-                                                </button>
+                                            </button>
+
                                             </div>
+
                                         </div>
 
 
 
 
 
+                                        <>
+                                        {basket_Loading?
+                                        <Loading/>:
                                         <div className=' w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
-                                            <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your
-                                                Order</h1>
+                                            {basketList?.items.length>0?
+                                            <>
+                                            <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your Order</h1>
+                                                {basketList.items.map((product:any, index:any) => (
 
-                                            <div className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>1</h1>
-
-                                                <div className='flex gap-16 ml-2'>
-                                                    <h5 className='text-grayText mt-1 text-lg'>x Papa John’s Pizza
-                                                        Restaurant</h5>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>$8.00</h5>
-                                                </div>
-                                            </div>
-
-                                            <div className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>2</h1>
-
-                                                <div className='flex gap-52 ml-2'>
-                                                    <h5 className='text-grayText mt-1 text-lg'>x Papa Coffee</h5>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>$8.00</h5>
-                                                </div>
-                                            </div>
-
-                                            <div className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>2</h1>
-
-                                                <div className='flex gap-56 ml-2'>
-                                                    <h5 className='text-grayText mt-1 text-lg'>x Coca Cola</h5>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>$8.00</h5>
-                                                </div>
-                                            </div>
-
-                                            <div className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>2</h1>
-
-                                                <div className='flex gap-52 ml-2'>
-                                                    <h5 className='text-grayText mt-1 text-lg'>x Papa Coffee</h5>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>$8.00</h5>
-                                                </div>
-                                            </div>
-
-                                            <div className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>1</h1>
+                                            <div key={index} className='flex p-2'>
+                                                <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
 
                                                 <div className='flex gap-16 ml-2'>
-                                                    <h5 className='text-grayText mt-1 text-lg'>x Papa John’s Pizza
-                                                        Restaurant</h5>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>$8.00</h5>
+                                                   
+                                                    <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                                                    <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
+                                                   
                                                 </div>
                                             </div>
+                                                ))}
+
+                                            
 
                                             <hr className=' mt-8 w-11/12'/>
 
-                                            <div className='flex gap-64 mt-4'>
+                                            <div className='flex gap-48 mt-4'>
                                                 <h1 className='font-bold text-2xl text-grayText ml-9'>Total</h1>
-                                                <h5 className='mt-1 text-xl text-grayText ml-6'>$17.80</h5>
+                                                <h5 className='mt-1 text-xl text-grayText'>{basketList.total_amount}</h5>
                                             </div>
 
                                             <h1 className=' mt-7'></h1>
-
+                                            
+                                            </>
+                                               : 
+                                               <EmptyBasket/>
+                                               }
                                         </div>
+                                           }
+                                        </>
 
 
 
