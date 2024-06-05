@@ -61,8 +61,8 @@ export default function BasketContainer(props: BasketProps) {
 
     return (
         <>
-            {basketLoading?
-                <Loading/>:
+            {/*{basketLoading?*/}
+            {/*    <Loading/>:*/}
                 <div className={`${styles.user_cabinet_box} ${styles[size]}`}>
                     {basket_list?.items.length>0?
                         <>
@@ -92,7 +92,7 @@ export default function BasketContainer(props: BasketProps) {
                         <EmptyBasket/>
                     }
                 </div>
-            }
+            {/*}*/}
 
         </>
     )
