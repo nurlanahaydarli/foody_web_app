@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../shared/redux/store';
 import Loading from '../../../shared/components/Loading/Loading';
 import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
+import { useRouter } from 'next/router';
+import BasketItem from '../../../shared/components/Client/BasketItem/index';
 
 
 const initialState = {
@@ -91,7 +93,7 @@ function Checkout(props: BasketProps) {
     const [addressValid, setAddressValid] = useState(false);
     const [userLoaded, setUserLoaded] = useState(false);
     let {size} = props
-
+    const router = useRouter();
     
 
     const { data: basket_List, isLoading: basket_Loading, error: basket_Error, status: basket_Status } = useQuery('basket', GetBasket, {
@@ -197,6 +199,10 @@ function Checkout(props: BasketProps) {
 
     const handleCheckout = () => {
         setCheckoutComplete(true);
+        
+        setTimeout(() => {
+            router.push('/restaurants');
+        }, 2000);
     
     };
 
@@ -310,6 +316,7 @@ function Checkout(props: BasketProps) {
                                             <button
                                                 className={`w-11/12 h-11 ${((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid) ? 'bg-textColorGreen' : 'bg-overlayColorGreen'} text-white rounded-sm`}
                                                 onClick={handleCheckout}
+                                             
                                                 disabled={!((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid)}
                                                  >
                                                     Checkout
@@ -329,26 +336,28 @@ function Checkout(props: BasketProps) {
                                         <div className=' w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                                             {basketList?.items.length>0?
                                             <>
-                                            <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your
-                                                Order</h1>
+                                            <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your Order</h1>
+                                                {basketList.items.map((product:any, index:any) => (
 
-                                            <div className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>1</h1>
+                                            <div key={index} className='flex p-2'>
+                                                <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
 
                                                 <div className='flex gap-16 ml-2'>
                                                    
-                                                    <span className='text-grayText mt-1 text-lg'>{basketList?.items.length}</span>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>{basketList?.total_amount}</h5>
+                                                    <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                                                    <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
+                                                   
                                                 </div>
                                             </div>
+                                                ))}
 
                                             
 
                                             <hr className=' mt-8 w-11/12'/>
 
-                                            <div className='flex gap-64 mt-4'>
+                                            <div className='flex gap-48 mt-4'>
                                                 <h1 className='font-bold text-2xl text-grayText ml-9'>Total</h1>
-                                                <h5 className='mt-1 text-xl text-grayText ml-2'>$17.80</h5>
+                                                <h5 className='mt-1 text-xl text-grayText'>{basketList.total_amount}</h5>
                                             </div>
 
                                             <h1 className=' mt-7'></h1>
