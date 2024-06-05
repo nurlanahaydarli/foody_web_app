@@ -23,12 +23,15 @@ export default function BasketContainer(props: BasketProps) {
     let {size} = props
     let {push}=useRouter()
     const [userLoaded, setUserLoaded] = useState(false);
+
     const { data: basketList, isLoading: basketLoading } = useQuery("basket", GetBasket, {
         enabled: userLoaded
     });
     let basket_list = basketList?.data.result.data;
     const user = useSelector((state: RootState) => state.user);
+    
     const queryClient = useQueryClient();
+    
     const mutationClear = useMutation(
         (basketProduct: BasketPostDataType) => clearBasket(basketProduct),
         {
