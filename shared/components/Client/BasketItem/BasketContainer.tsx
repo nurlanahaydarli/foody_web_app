@@ -23,12 +23,15 @@ export default function BasketContainer(props: BasketProps) {
     let {size} = props
     let {push}=useRouter()
     const [userLoaded, setUserLoaded] = useState(false);
+
     const { data: basketList, isLoading: basketLoading } = useQuery("basket", GetBasket, {
         enabled: userLoaded
     });
     let basket_list = basketList?.data.result.data;
     const user = useSelector((state: RootState) => state.user);
+    
     const queryClient = useQueryClient();
+    
     const mutationClear = useMutation(
         (basketProduct: BasketPostDataType) => clearBasket(basketProduct),
         {
@@ -75,11 +78,13 @@ export default function BasketContainer(props: BasketProps) {
                                 </div>
                                 <button onClick={handleClear} className={`lightRed gap-2 flex items-center ${styles.clear_btn}`}><RemoveSvg/> Clear Basket</button>
                             </div>
+                            
                             <div className={styles.basket_list}>
                                 {basket_list?.items?.map((product:any) => (
                                     <BasketItem  total_count={basket_list.total_count} basket_id={basket_list.id} total_amount={basket_list.total_amount}  key={product.id}  {...product} />
                                 ))}
                             </div>
+
                             <button className={styles.checkout_btn} onClick={()=>push('/user/checkout')}>
                                 <span>
                                     Checkout
