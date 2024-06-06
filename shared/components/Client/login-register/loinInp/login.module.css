@@ -8,13 +8,14 @@
     letter-spacing: 0.03em;
     text-align: left;
      margin-top: 25px;
+     color: #4F4F4F;
 }
 .div{
     display: flex;
     flex-direction: column;
 }
 .inp{
-    background: #5A5B70;
+    background: #FFE7E7;
     border: none;
     height: 68px;
     border-radius: 8px;
@@ -27,7 +28,7 @@ text-align: left;
 width: 100%;
 margin-top: 10px;
 padding: 22px;
-color: #fff;
+color: #4F4F4F;
 }
 .ayeIcon{
     position: absolute;
