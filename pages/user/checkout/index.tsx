@@ -6,7 +6,7 @@ import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
 import {GetBasket, AddOrder} from '../../../shared/services/index';
-import {QueryClient, useMutation, useQuery, useQueryClient} from 'react-query'
+import {useMutation, useQuery, useQueryClient} from 'react-query'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../shared/redux/store';
 import Loading from '../../../shared/components/Loading/Loading';
@@ -15,15 +15,6 @@ import { useRouter } from 'next/router';
 import BasketItem from '../../../shared/components/Client/BasketItem/index';
 import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
 import { toast } from 'react-toastify';
-
-type OrderState = {
-    id: string,
-    created: number | string,
-    delivery_address: string,
-    contact: number,
-    payment_method: string
-
-}
 
 
 const initialState = {
@@ -34,6 +25,22 @@ const initialState = {
     errorNumber: '',
     formatNumber: '',
 }
+
+
+type OrderState = {
+    id: string,
+    created: number | string,
+    delivery_address: string | number,
+    contact: number,
+    payment_method: string
+}
+
+type BasketProps = {
+    productCount?: number;
+    data_list?: string[],
+    size: string
+}
+
 
 const reducer = (state:any, action:any) => {
     switch (action.type) {
@@ -87,13 +94,9 @@ const formatPhoneNumber = (value:any) => {
 };
 
 
-type BasketProps = {
-    productCount?: number;
-    data_list?: string[],
-    size: string
-}
 
-function Checkout(props: BasketProps, basket: OrderState) {
+
+function Checkout() {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
@@ -103,10 +106,15 @@ function Checkout(props: BasketProps, basket: OrderState) {
     const [phoneNumRegex, setPhoneNumRegex] = useState(false)
     const [addressValid, setAddressValid] = useState(false);
     const [userLoaded, setUserLoaded] = useState(false);
-    let {size} = props
+
+
+   
     const router = useRouter();
+    const user = useSelector((state: RootState) => state.user);
+
+    const queryClient = useQueryClient();
     
-    let {id,created, delivery_address, contact, payment_method} = basket
+
     
 
 
@@ -116,23 +124,53 @@ function Checkout(props: BasketProps, basket: OrderState) {
     
 
     const basketList = basket_List?.data.result.data;
-    const user = useSelector((state: RootState) => state.user);
-    const queryClient = useQueryClient();
+    console.log("basketList",basketList);
+    
+   
     console.log("user",user);
+
+
+
+
+    useEffect(() => {
+        if (user.id) {
+            setUserLoaded(true);
+        }
+    }, [user.id]);
+    
+    
+    useEffect(() => {
+        setInputVal(state.address.length > 0);
+    }, [state.address]);
+    
+    useEffect(() => {
+        setInputPhoneNumbe(state.phoneNumber.length > 5);
+    }, [state.phoneNumber]);
+    
+    useEffect(() => {
+        setPhoneNumRegex(azerbaijanPhoneRegex.test(state.phoneNumber));
+    }, [state.phoneNumber]);
+    
+    useEffect(() => {
+        setAddressValid(addressRegex.test(state.address));
+    }, [state.address]);
     
 
     console.log("basketList",basketList);
+
+
+
     
-   const mutation = useMutation((orderProduct: OrderPostDataType) => AddOrder(orderProduct),
+   const mutation = useMutation((orderBasket:any) => AddOrder(orderBasket),
    {
     onSuccess: () => {
-        queryClient.invalidateQueries('product');
+        queryClient.invalidateQueries('order');
         toast.success("Product added to the basket successfully!", {
             autoClose: 1000,
         });
     },
     onError: (error) => {
-        console.log("Error deleting product", error);
+        console.log("Error add product", error);
         toast.success("Product deleted successfully!", {
             autoClose: 1000,
         });
@@ -142,28 +180,27 @@ function Checkout(props: BasketProps, basket: OrderState) {
 
 
 
-    useEffect(() => {
-        if (user.id) {
-            setUserLoaded(true);
-        }
-    }, [user.id]);
+const handleCheckout = () => {const orderBasket: OrderPostDataType = {
+    user_id: user.id,
+    basket_id: basketList.id,
+    delivery_address: state.address,
+    contact: state.phoneNumber,
+    payment_method: isRectVisible ? "2" : "1"
+
+};
+if(user) {
+    mutation.mutate(orderBasket);
+    setCheckoutComplete(true);
 
 
-    useEffect(() => {
-        setInputVal(state.address.length > 0);
-    }, [state.address]);
+    setTimeout(() => {
+        router.push('/restaurants');
+    }, 2000);
+} else {
+    toast.error("User not logged in.");
+}
 
-    useEffect(() => {
-        setInputPhoneNumbe(state.phoneNumber.length > 5);
-    }, [state.phoneNumber]);
-
-    useEffect(() => {
-        setPhoneNumRegex(azerbaijanPhoneRegex.test(state.phoneNumber));
-    }, [state.phoneNumber]);
-
-    useEffect(() => {
-        setAddressValid(addressRegex.test(state.address));
-    }, [state.address]);
+};
 
     const handleToggle = () => {
         setIsRectVisible2(true);
@@ -219,14 +256,7 @@ function Checkout(props: BasketProps, basket: OrderState) {
 
 
 
-    const handleCheckout = () => {
-        setCheckoutComplete(true);
-        
-        setTimeout(() => {
-            router.push('/restaurants');
-        }, 2000);
-    
-    };
+
 
 
 

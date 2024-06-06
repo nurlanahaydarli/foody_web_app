@@ -61,12 +61,12 @@ export const AddBasket: (basketProduct: BasketPostDataType ) => AxiosPromise<Bas
 
 // =============================== POST ORDERS ============================================
 
-export const AddOrder: (orderProduct: OrderPostDataType) => AxiosPromise<OrderPostDataType> = (orderProduct) => {
+export const AddOrder: (orderBasket: OrderPostDataType) => AxiosPromise<OrderPostDataType> = (orderBasket) => {
     const accessToken = localStorage.getItem("access_token");
     return instanceAxios({
         method: "POST",
         url: `order`,
-        data: orderProduct,
+        data: orderBasket,
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },

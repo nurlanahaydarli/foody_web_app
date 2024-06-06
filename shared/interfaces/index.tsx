@@ -111,9 +111,8 @@ export interface BasketPostDataType {
 
 export interface OrderPostDataType {
     id?: string | number | any;
-    customer_id?: string | number;
     user_id: string | number;
-    product_id?: string | number;
+    basket_id?: string | number;
     img_url?: string | null;
     price?: number | string;
     name?: string;
