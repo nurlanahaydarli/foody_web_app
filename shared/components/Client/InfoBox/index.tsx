@@ -35,13 +35,14 @@ function INFoBox( props:Props) {
             </div>
             <div className={mobile?'w-full ':'w-1/2 flex items-center justify-center relative '} data-aos={mobile?'fade-up':row?"fade-left":"fade-right"}>
                 <div className={row? bgDiv1:bgDiv2} style={mobile?{display:'none'}:{}}></div>
-                <Image
+                {/* <Image
                 src={img}
                 alt={`${img}`}
                 width={w}
                 height={h}
                 className={IMG}
-                />
+                /> */}
+                <img src={img} alt="" className={IMG} />
             </div >
             <div data-aos="zoom-in" data-aos-delay="300" style={{display: 'none'}}>
                 {/* Содержимое */}

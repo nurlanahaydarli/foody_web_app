@@ -408,7 +408,7 @@ function AdminRestaurant() {
             
             return(
             <div key={index} className="bg-gray-800 shadow-black rounded-lg p-4 flex flex-col items-center mb-4">
-              <div className="relative flex shadow-black items-center space-x-4 bg-white rounded-lg p-4 w-full">
+              <div className="overflow-hidden relative flex shadow-black items-center space-x-4 bg-white rounded-lg p-4 w-full">
                 <img
                   src={restaurant.img_url}
                   alt={restaurant.name}
