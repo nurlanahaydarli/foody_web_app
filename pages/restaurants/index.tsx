@@ -6,16 +6,15 @@ import RestaurantCard from "../../shared/components/Client/restaurantCard/Restau
 import { getCategories, getRestaurants } from "../../shared/services";
 import FilterSvg from '../../shared/components/Client/svg/FilterSvg';
 import { useTranslation } from "next-i18next";
-import { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CloseSvg from "../../shared/components/admin/svg/CloseSvg";
 import { useModalOpen } from "../../shared/hooks/UseModalOpen";
 import { useResize } from "../../shared/hooks/useResize";
 import Loading from "../../shared/components/Loading/Loading";
 import { sortDataByCreated } from "../../shared/utils/sortData";
-import Axios from "axios";
-
-export default function Restaurants() {
+import {withTranslation} from "../../shared/utils/withTranslation";
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+ function Restaurants() {
     const [categories, setCategories] = useState<any[] | undefined>([]);
     const [restaurants, setRestaurants] = useState<any[] | undefined>([]);
     const [chooseCategory, setChooseCategory] = useState<string | null>(null);
@@ -121,6 +120,9 @@ export default function Restaurants() {
         </MainLayout>
     );
 }
+
+export default Restaurants
+
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     props: {

@@ -54,7 +54,7 @@ function Products() {
   const updateProducts: SetProductsType = (newProducts) => {
     setProducts(newProducts);
   };
-  //let [products, setProducts] = useState<PostDataType[] >([]);
+  // let [products, setProducts] = useState<PostDataType[] >([]);
   let [Img, setImg] = useState<any>('')
   let [editImg, seteditImg] = useState<any>('')
   let [editID, seteditID] = useState<any>('')
@@ -67,25 +67,37 @@ function Products() {
   let [ResetData, setResetData] = useState(true)
   let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
   let [restaurantID, setRestaurantId] = useState<string>()
-
+  const [filteredProducts,setFilteredProducts]=useState<any>()
 
   useEffect(() => {
-    (async () => {
+    const fetchData = async () =>{
       try {
         let res = await GetProducts()
         let restaurants = await getRestaurants()
         let newData:any = await res?.data.result.data ;
         setProducts(newData)
+        setFilteredProducts(newData)
         let new_res = await restaurants?.data.result.data
         setRestaurants(new_res)
       } catch (err) {
         console.log(err);
       }
-    })()
+    }
+    if (products.length === 0) {
+      fetchData();
+    }
   }, [])
 
   function getRestaurantById(e:any) {
     setRestaurantId(e.currentTarget.value)
+  }
+  const  getRestaurantFilter =(e:any)=> {
+    let id = e.currentTarget.value
+    let filtered_products = products?.filter((product:IProduct)=>{
+      return product.rest_id === id
+    })
+    setFilteredProducts(filtered_products)
+
   }
   // async function addProduct() {
   //   let Title = inpTitle?.current?.value as string;
@@ -214,6 +226,9 @@ function Products() {
           <section className="w-full">
             <div className="m-0 sm:m-5">
               <AdminHedetbuttom
+                  haveSelect={true}
+                  onSelect ={getRestaurantFilter}
+                  selectOption={restaurants}
                 Title={'Products '}
               />
             </div>
@@ -221,7 +236,7 @@ function Products() {
             <div className="w-full sm:w-auto lg:m-5 flex flex-wrap  lg:justify-start justify-center">
 
               {/* {data?.map((item:any,i:number)=>{ */}
-              <AdminCard data={products} edit={editProduct}
+              <AdminCard data={filteredProducts} edit={editProduct}
                 removeDocument={removeProduct}
                 reset={() => setResetData(prev => !prev)}
 

@@ -68,3 +68,11 @@ a {
 *::-webkit-scrollbar-thumb:hover {
   background: #961108;
 }
+.custom_select select{
+  padding: 6px 20px;
+  border-radius: 14px;
+  background-color: rgba(90, 91, 112, 1);
+  display: block;
+  width: 100%;
+  color: rgba(199, 199, 199, 1);
+}
