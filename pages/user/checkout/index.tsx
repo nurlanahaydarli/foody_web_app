@@ -5,14 +5,25 @@ import paymentIcon from '../../../public/paymentIcon.svg';
 import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
-import {GetBasket} from '../../../shared/services/index';
-import {useMutation, useQuery, useQueryClient} from 'react-query'
+import {GetBasket, AddOrder} from '../../../shared/services/index';
+import {QueryClient, useMutation, useQuery, useQueryClient} from 'react-query'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../shared/redux/store';
 import Loading from '../../../shared/components/Loading/Loading';
 import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
 import { useRouter } from 'next/router';
 import BasketItem from '../../../shared/components/Client/BasketItem/index';
+import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
+import { toast } from 'react-toastify';
+
+type OrderState = {
+    id: string,
+    created: number | string,
+    delivery_address: string,
+    contact: number,
+    payment_method: string
+
+}
 
 
 const initialState = {
@@ -82,7 +93,7 @@ type BasketProps = {
     size: string
 }
 
-function Checkout(props: BasketProps) {
+function Checkout(props: BasketProps, basket: OrderState) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
@@ -95,6 +106,9 @@ function Checkout(props: BasketProps) {
     let {size} = props
     const router = useRouter();
     
+    let {id,created, delivery_address, contact, payment_method} = basket
+    
+
 
     const { data: basket_List, isLoading: basket_Loading, error: basket_Error, status: basket_Status } = useQuery('basket', GetBasket, {
         enabled: userLoaded,
@@ -103,21 +117,29 @@ function Checkout(props: BasketProps) {
 
     const basketList = basket_List?.data.result.data;
     const user = useSelector((state: RootState) => state.user);
+    const queryClient = useQueryClient();
     console.log("user",user);
     
 
     console.log("basketList",basketList);
     
+   const mutation = useMutation((orderProduct: OrderPostDataType) => AddOrder(orderProduct),
+   {
+    onSuccess: () => {
+        queryClient.invalidateQueries('product');
+        toast.success("Product added to the basket successfully!", {
+            autoClose: 1000,
+        });
+    },
+    onError: (error) => {
+        console.log("Error deleting product", error);
+        toast.success("Product deleted successfully!", {
+            autoClose: 1000,
+        });
+      },
+   }
+);
 
-
-      
-    //   useEffect(() => {
-    //     console.log('basket_List:', basket_List);
-    //     console.log('basket_Loading:', basket_Loading);
-    //     console.log('basket_Error:', basket_Error);
-    //     console.log('basket_Status:', basket_Status);
-    //   }, [basket_List, basket_Loading, basket_Error, basket_Status]);
-      
 
 
     useEffect(() => {
@@ -375,7 +397,7 @@ function Checkout(props: BasketProps) {
 
 
                                     </div>
-   }
+                                      }
                                 </>
                             )}
                         </div>

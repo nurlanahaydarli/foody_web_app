@@ -139,6 +139,7 @@ function AdminRestaurant() {
 
 
 
+
   function getCategoryById(e: any) {
     const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
     if (selectedCategory) {
@@ -146,6 +147,7 @@ function AdminRestaurant() {
         setSelectedCategoryName(selectedCategory.name);
     }
 }
+console.log("categorysID",categorysID);
 
 
 
