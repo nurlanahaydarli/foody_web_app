@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useGlobalStore } from "../../../services/provider";
 import { UserOrderDetailDatas } from "../UserOrderDetailDatas";
 import { getOrder } from "../../../services";
+import { useTranslation } from "react-i18next";
 
 // Define types for the order data
 interface Product {
@@ -21,7 +22,7 @@ export const UserOrdersDetail = ({ id }: { id: number }) => {
   const [orderShow, setOrderShow] = useState<any>(null);
   const [orderData, setOrderData] = useState<Order[]>([]);
   const [filteredData, setFilteredData] = useState<Order | undefined>();
-
+  const { t } = useTranslation("common");
   const fetchOrder = async () => {
     try {
       const res = await getOrder();
@@ -56,11 +57,11 @@ export const UserOrdersDetail = ({ id }: { id: number }) => {
     <table className="min-w-full text-center">
       <thead>
         <tr className="border-solid border-b-2 border-whiteLight3">
-          <th className="py-2 px-4 border-b-2">Image</th>
-          <th className="py-2 px-4 border-b">Name</th>
-          <th className="py-2 px-4 border-b">Price $</th>
-          <th className="py-2 px-4 border-b">Count</th>
-          <th className="py-2 px-4 border-b">Amount</th>
+          <th className="py-2 px-4 border-b-2"> {t("Image")}</th>
+          <th className="py-2 px-4 border-b">{t("Name")}</th>
+          <th className="py-2 px-4 border-b">{t("Price")} $</th>
+          <th className="py-2 px-4 border-b">{t("Count")}</th>
+          <th className="py-2 px-4 border-b">{t("Amount")}</th>
         </tr>
       </thead>
       <tbody>

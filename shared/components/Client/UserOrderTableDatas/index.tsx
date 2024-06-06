@@ -5,6 +5,7 @@ import CustomButton from "../../admin/Button";
 import { UserOrdersDetail } from "../UserOrdersDetail";
 import { deleteOrder } from "../../../services";
 import { useGlobalStore } from "../../../services/provider";
+import { useTranslation } from "react-i18next";
 interface TableDataProps {
     id: number | string;
     time: number | string;
@@ -25,6 +26,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
     const [orderData, setOrderData] = useState([]);
+    const { t } = useTranslation("common");
     async function inDeleteOrder() {
         const response = await deleteOrder(id);
 
@@ -83,14 +85,14 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                                    
 
                                     onClick={handleButtonClick2}>
-                                    SHOW
+                                    {t("Show")}
                                     </button>
                                 <hr className="w-full text-grayText" />
                                 <button
                                     className="text-lightRed cursor-pointer  hover:text-mainRed"
                                    
                                     onClick={handleButtonClick}>
-                                    DELETE
+                                     {t("Delete")}
                                     </button>
                             </div>
                         )}
@@ -100,7 +102,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
             <Modal isOpen={isModalOpen} onClose={handleModalClose}>
                 <div className="flex justify-center items-center">
                     <p className="mx-auto text-2xl sm:text-3xl font-medium">
-                        Are you sure it’s deleted?
+                    {t("Are you sure it's deleted ?")}
                     </p>
                     <CustomButton
                         className="text-mainRed text-lg mr-1 sm:mr-0"
@@ -108,18 +110,18 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                     />
                 </div>
                 <p className=" text-grayText w-2/3 mx-auto text-center my-5">
-                    Attention! If you delete this order, it will not come back...
+                {t("Attention! If you delete this product, it will not come back...")}
                 </p>
                 <div className="mx-auto flex items-center justify-center gap-9">
                 <button
                         className="border-solid border-b-2  border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
                         onClick={handleModalClose}>
-                        CANCEL
+                       {t("Cancel")}
                         </button>
                    <button
                         onClick={inDeleteOrder}
                         className="bg-mainRed border-solid border-b-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500">
-                        DELETE
+                       {t("Delete")}
                         </button>
                 </div>
             </Modal>
@@ -129,7 +131,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                     className="mt-4 border-solid border-b-2 border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
                    
                     onClick={handleModalClose2}>
-                 CLOSE
+                   {t("Close")}
                     </button>
             </Modal>
         </>

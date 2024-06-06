@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getOrder } from "../../../services";
 import { UserOrderTableDatas } from "../UserOrderTableDatas";
+import { useTranslation } from "react-i18next";
 export function UserOrderTable() {
   const [orderData, setOrderData] = useState([]);
   const [orderShow, setOrderShow] = useState([]);
+  const { t } = useTranslation("common");
 
   const fetchOrder = async () => {
     try {
@@ -27,19 +29,19 @@ export function UserOrderTable() {
           <tr className="border-solid border-b-2 border-whiteLight3" >
             <th className="py-2 px-4 border-b ">ID</th>
             <th className="py-2 px-4 border-b ">
-              Time
+             {t("Time")}
             </th>
             <th className="py-2 px-4 border-b ">
-              Delivery Adress
+            {t("Delivery Address")}
             </th>
             <th className="py-2 px-4 border-b ">
-              Amount
+            {t("Amount")}
             </th>
             <th className="py-2 px-4 border-b ">
-              Payment Method
+            {t("Paymnet Method")}
             </th>
             <th className="py-2 px-4 border-b ">
-              Contact
+            {t("Contact")}
             </th>
             <th className="py-2 px-4 border-b border-whiteLight3"></th>
           </tr>
