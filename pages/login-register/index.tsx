@@ -19,7 +19,7 @@ function Login_register() {
                 <ChangeLanguage/>
             </header>
             <div className=' flex flex-row gap-3 '>
-                <div className={style.blackbg +' w-3/5 h-4/5 flex justify-center items-center mt-5 rounded-md' }>
+                <div className={style.blackbg +' w-3/5  flex justify-center items-center mt-5 rounded-md ' }>
                 {singin?<Image
                 src={loginIcon}
                 alt='Image'

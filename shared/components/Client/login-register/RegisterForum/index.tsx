@@ -125,7 +125,7 @@ onSubmit={handleSubmit}
           icon={false}
           type='password'
           />
-          <button className={styles.button} type="submit" disabled={isSubmitting}>
+          <button className={styles.button} type="submit" disabled={isSubmitting} style={ Loading?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
             {Loading?<Spiner/>:"Register"}
             
           </button>

@@ -16,7 +16,8 @@ import { DeleteOrder, deleteOrder, getOrder } from "../../../shared/services";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from "../../../shared/components/Loading/Loading";
-export default function Orders() {
+import withAuth from "../../../shared/HOC/withAuth";
+function Orders() {
     let [display ,setdisplay]=useState(false)
     let [displayModal ,setdisplayModal]=useState(false)
     let [data ,setdata]=useState()
@@ -217,3 +218,5 @@ export default function Orders() {
         </>
     );
 }
+
+export default withAuth(Orders)

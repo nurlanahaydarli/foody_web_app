@@ -10,6 +10,7 @@ import style from "../order.module.css"
 import Image from 'next/image';
 import CloseIcon from "../../../../public/Close.svg" 
 import formatDate from '../../../../server/helper/convertDateToDAy';
+import withAuth from "../../../../shared/HOC/withAuth";
 
 
 
@@ -146,4 +147,4 @@ function index() {
     return(<Loading/>)
 }
 
-export default index;
+export default withAuth(index);

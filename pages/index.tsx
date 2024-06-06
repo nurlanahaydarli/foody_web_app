@@ -36,6 +36,7 @@ const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainL
 const Home: NextPage = (Props) => {
     
     let {repo}:any=Props
+    console.log(repo);
     
         let [mobile,setmobile]=useState(false)
         const user = useSelector((state: RootState) => state.user);
@@ -52,6 +53,8 @@ const Home: NextPage = (Props) => {
     let {headerBuutom,ButtomTitle,buttomDesc,Registerbtn,Orderbtn,hamIcon,iconDiv,bgdiv,Textdiv,}=style
     const { t } = useTranslation('common')
     let ruter =useRouter()
+    let Offer=repo.Offer.slice(-3)
+    console.log(Offer);
     
   return (
     <>
@@ -87,13 +90,13 @@ const Home: NextPage = (Props) => {
            
             
         </div>
-        <InfoSection data={repo} TITLE="Features" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
-        <INFoBox row={true} img={ComboIcon} title="Menu That Always Make You Fall In Love" desc="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." w={636} h={441}/>
-        <INFoBox row={false} img={PIZZaIcon} title="Yummy Always Papa John’s Pizza.Agree?" desc="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."  w={498} h={472}/>
-        <INFoBox row={true} img={FryIcon} title="Do You Like French Fries? Mmm..." desc="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."  w={667} h={462}/>
+        <InfoSection data={repo.Restuarent} TITLE="Features" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+        {Offer.map((item:any,i:number)=>(
+        <INFoBox row={i%2===1} img={item.img_url} title={item.name} desc={item.description} w={636} h={441}/>
+        ))}
+       
         
-        
-        <InfoSection data={repo} TITLE="Our Popular Update New Foods" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+        <InfoSection data={repo.Products} TITLE="Our Popular Update New Foods" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
         
         <FooterTop/>
      </MainLayout>
@@ -102,9 +105,7 @@ const Home: NextPage = (Props) => {
 };
 
 export default Home;
-type Props={
 
-}
 // export const  getStaticProps: GetStaticProps<Props> = async ({locale}) => {
 
 // try{
@@ -126,31 +127,38 @@ type Props={
 // })}
 
  
-type Repo = {
-  
-}
+
  
-// export const getServerSideProps = (async ({locale}) => {
-//   // Fetch data from external API
-//   const res = await fetch('http://localhost:3000/api/products')
-//   let newrepo=await res.json()
-//   const repo: Repo = newrepo.result.data
-//   // Pass data to the page via props
-//   return { props: { repo, ...(await serverSideTranslations(locale ?? 'az', ['common' ])), } }
-// }) satisfies GetServerSideProps<{  repo: Repo, }>
+
 export const getServerSideProps = async ({ locale }: { locale: string }) => {
     // Fetch data from external API
     try {
-        const res = await fetch('http://localhost:3000/api/products');
-        if (!res.ok) {
-            throw new Error(`Failed to fetch products: ${res.statusText}`);
+        const ProductRes = await fetch('http://localhost:3000/api/products');
+        if (!ProductRes.ok) {
+            throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const newrepo = await res.json();
-        const repo: Repo = newrepo.result.data; // Assuming nested structure
+        const RestuarentRES = await fetch('http://localhost:3000/api/restuarants');
+        if (!RestuarentRES.ok) {
+            throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
+        }
+        const OfferRES = await fetch('http://localhost:3000/api/offer');
+        if (!OfferRES.ok) {
+            throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
+        }
+        const newProducts = await ProductRes.json();
+        const newRestuarent = await RestuarentRES.json();
+        const newOffer = await OfferRES.json();
+        const repo: any = {
+            Products:newProducts.result.data,
+            Restuarent:newRestuarent.result.data,
+            Offer:newOffer.result.data
+        } // Assuming nested structure
         // Pass data to the page via props
+        
         return {
             props: {
                 repo,
+                
                 ...(await serverSideTranslations(locale ?? 'az', ['common'])),
             },
         };
@@ -160,12 +168,3 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => {
         return { props: {} };
     }
 };
-// export default function Page({
-//   repo,
-// }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-//   return (
-//     <main>
-//       <p>{repo.stargazers_count}</p>
-//     </main>
-//   )
-// }
