@@ -59,7 +59,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
         <>
             <tr className=" border-solid border-b-2 border-whiteLight3" >
                 <td className="py-2 px-4 border-b ">{id}</td>
-                <td className="py-2 px-4 border-b ">{time} PM</td>
+                <td className="py-2 px-4 border-b ">{time} </td>
                 <td className="py-2 px-0 sm:px-4 border-b  max-w-60 text-center sm:text-start w-60">
                     {adress}
                 </td>

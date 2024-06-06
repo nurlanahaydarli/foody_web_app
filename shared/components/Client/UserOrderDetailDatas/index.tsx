@@ -19,9 +19,9 @@ interface OrderDataProps {
         <img width={30} height={0} src={image} alt={image} />
       </td>
       <td  className="py-2 px-4 border-b ">{name}</td>
-      <td  className="py-2 px-4 border-b ">${price}</td>
+      <td  className="py-2 px-4 border-b ">{price}</td>
       <td className="py-2 px-4 border-b ">{count}</td>
-      <td  className="py-2 px-4 border-b ">${amount}</td>
+      <td  className="py-2 px-4 border-b ">{amount}</td>
     </tr>
   );
 };

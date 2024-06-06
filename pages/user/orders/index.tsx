@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable';
@@ -8,7 +8,17 @@ import { getOrder } from '../../../shared/services';
 
 function Orders() {
     
-    getOrder();
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                await getOrder();
+            } catch (error) {
+                console.error("Error fetching order:", error);
+            }
+        };
+
+        fetchOrder();
+    }, []);
     return (
         <>
             <MainLayout>
