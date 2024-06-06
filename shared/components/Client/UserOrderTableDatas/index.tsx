@@ -78,19 +78,20 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                         />
                         {showPopup && (
                             <div className="fixed right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1">
-                                <CustomButton
-                                    className="text-[#14ae5c] cursor-pointer bg-green hover:text-[#109850]"
-                                    innerText="Show"
+                               <button
+                                    className="text-[#14ae5c] cursor-pointer  hover:text-[#109850]"
+                                   
 
-                                    onAction={handleButtonClick2}
-                                />
-                                <hr className="w-full text-grayText1" />
-                                <CustomButton
-                                    className="text-lightRed cursor-pointer bg-mainRed hover:text-mainRed"
-                                    innerText="Delete"
-                                    onAction={handleButtonClick}
-
-                                />
+                                    onClick={handleButtonClick2}>
+                                    SHOW
+                                    </button>
+                                <hr className="w-full text-grayText" />
+                                <button
+                                    className="text-lightRed cursor-pointer  hover:text-mainRed"
+                                   
+                                    onClick={handleButtonClick}>
+                                    DELETE
+                                    </button>
                             </div>
                         )}
                     </div>
@@ -106,30 +107,30 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                         onAction={handleModalClose}
                     />
                 </div>
-                <p className=" text-grayText1 w-2/3 mx-auto text-center my-5">
+                <p className=" text-grayText w-2/3 mx-auto text-center my-5">
                     Attention! If you delete this order, it will not come back...
                 </p>
                 <div className="mx-auto flex items-center justify-center gap-9">
-                    <CustomButton
-                        className="border-solid border-b-2  border-grayText1 text-mainRed py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
-                        innerText="Cancel"
-                        onAction={handleModalClose}
-                    />
-                    <CustomButton
-                        onAction={inDeleteOrder}
-                        className="bg-mainRed border-solid border-b-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500"
-                        innerText="Delete"
-                    />
+                <button
+                        className="border-solid border-b-2  border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
+                        onClick={handleModalClose}>
+                        CANCEL
+                        </button>
+                   <button
+                        onClick={inDeleteOrder}
+                        className="bg-mainRed border-solid border-b-2 text-white py-1 px-8 rounded-md border-mainRed shadow-md hover:scale-95 transition-all duration-500">
+                        DELETE
+                        </button>
                 </div>
             </Modal>
             <Modal isOpen={isModalOpen2} onClose={handleModalClose2}>
                 <UserOrdersDetail id={id} />
-                <CustomButton
-                    className="mt-4 border-solid border-b-2 border-grayText1 text-grayText1 py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
-                    innerText="Close"
-                    onAction={handleModalClose2}
-                    color={"1"}
-                />
+                <button
+                    className="mt-4 border-solid border-b-2 border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
+                   
+                    onClick={handleModalClose2}>
+                 CLOSE
+                    </button>
             </Modal>
         </>
     );
