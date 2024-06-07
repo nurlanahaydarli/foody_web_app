@@ -102,6 +102,7 @@ function AdminRestaurant() {
 
   const [AdressValue, setAdressValue] = useState('');
   const [AdressStroge, setAdressStroge] = useState('');
+  const [AdressStrogeRegex, setAdressStrogeRegex] = useState('');
 
   let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
   let [categorysID, setcategorysID] = useState();
@@ -160,28 +161,58 @@ console.log("categorysID",categorysID);
     let DeliveryMin = inpDeliveryMin?.current?.value;
     let Adress = inpAdress?.current?.value;
   
-    if (Title.length <= 1 || Cuisine?.length <= 1 || Adress?.length <= 3 || DeliveryPrice?.length <= 0 || DeliveryMin?.length <= 0) {
-      setTitleStroge('Title must be longer than 3 characters');
-     
-      setCuisineStroge('Cuisine must be longer than 3 characters');
-      setDeliveryPriceStroge('should be the delivery price!');
-      setDeliveryMinStroge('should be the delivery min!');
-      setAdressStroge('Not the correct Address Format!');
-      return;
+    let error = false;
+
+    if (Title.length <= 2) {
+      setTitleStroge('Title must be longer than 2 characters');
+      error = true;
     } else {
       setTitleStroge('');
- 
+    }
+
+    if (Cuisine?.length <= 2) {
+      setCuisineStroge('Cuisine must be longer than 2 characters');
+      error = true;
+    } else {
       setCuisineStroge('');
-      setDeliveryPriceStroge('');
-      setDeliveryMinStroge('');
+    }
+
+    if (Adress?.length <= 3) {
+      setAdressStroge('Adress must be longer than 3 characters');
+      error = true;
+    } else {
       setAdressStroge('');
     }
-  
+
+    if (DeliveryPrice?.length <= 1) {
+      setDeliveryPriceStroge('should be the delivery price!');
+      error = true;
+    } else {
+      setDeliveryPriceStroge('');
+    }
+
+    if (DeliveryMin?.length <= 1) {
+      setDeliveryMinStroge('should be the delivery min!');
+      error = true;
+    } else {
+      setDeliveryMinStroge('');
+    }
+
     if (!addressRegex.test(Adress)) {
-      setAdressStroge('Not the correct Address Format!');
+      setAdressStrogeRegex('Not the correct Address Format!');
+      error = true;
+    } else {
+      setAdressStrogeRegex('');
+    }
+
+    if (error) {
       return;
     }
-  
+
+
+ 
+
+
     let newRestaurant:any = {
       name: Title,
       img_url: '',
@@ -234,29 +265,54 @@ console.log("categorysID",categorysID);
 
    
 
-    if (Title?.length <= 1 || Category?.length <=3 || Cuisine?.length <=1 || Adress?.length <= 3 || DeliveryPrice?.length <1 || DeliveryMin?.length <1 ){
-      setTitleStroge('Title must be longer than 3 characters');
-      
-      setCuisineStroge('Cuisine must be longer than 3 characters');
-      setDeliveryPriceStroge('should be the delivery price!');
-      setDeliveryMinStroge('should be the delivery min!');
-      setAdressStroge('Not the correct Address Format!')
-      return;
-    }else {
+    let error = false;
+
+    if (Title.length <= 2) {
+      setTitleStroge('Title must be longer than 2 characters');
+      error = true;
+    } else {
       setTitleStroge('');
-   
+    }
+
+    if (Cuisine?.length <= 2) {
+      setCuisineStroge('Cuisine must be longer than 2 characters');
+      error = true;
+    } else {
       setCuisineStroge('');
-      setDeliveryPriceStroge('');
-      setDeliveryMinStroge('');
+    }
+
+    if (Adress?.length <= 3) {
+      setAdressStroge('Adress must be longer than 3 characters');
+      error = true;
+    } else {
       setAdressStroge('');
     }
 
+    if (DeliveryPrice?.length <= 1) {
+      setDeliveryPriceStroge('should be the delivery price!');
+      error = true;
+    } else {
+      setDeliveryPriceStroge('');
+    }
 
+    if (DeliveryMin?.length <= 1) {
+      setDeliveryMinStroge('should be the delivery min!');
+      error = true;
+    } else {
+      setDeliveryMinStroge('');
+    }
 
-    if(!addressRegex.test(Adress)){
-     setAdressStroge('Not the correct Address Format!');
+    if (!addressRegex.test(Adress)) {
+      setAdressStrogeRegex('Not the correct Address Format!');
+      error = true;
+    } else {
+      setAdressStrogeRegex('');
+    }
+
+    if (error) {
       return;
     }
+
 
 
     if (!Img) {
@@ -491,6 +547,7 @@ console.log("categorysID",categorysID);
         <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
         <div className="text-mainRed font-bold">{AdressStroge}</div>
+        <div className="text-mainRed font-bold">{AdressStrogeRegex}</div>
 
 
       </Form>
