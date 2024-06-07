@@ -48,7 +48,6 @@ function Category() {
             }
         })()
     }, [])
-
     async function addCategory() {
         let Title = inpTitle?.current?.value
         Title.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
@@ -68,7 +67,6 @@ function Category() {
         });
 
     }
-
     async function updateCategory() {
         let Title = inpTitle?.current?.value
         if (Title.length <= 3) {
@@ -105,7 +103,6 @@ function Category() {
         setCategoryToDelete(id);
         setIsConfirmModalOpen(true);
     }
-
     function handleConfirmDelete() {
         if (categoryToDelete) {
             removeEntity(categoryToDelete, setCategories);
@@ -120,7 +117,6 @@ function Category() {
         seteditID(id)
         onOpen()
     }
-
     return (
         <>
             <AdminLayout>

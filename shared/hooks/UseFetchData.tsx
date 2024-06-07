@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {toast} from "react-toastify";
 import {AxiosPromise, AxiosResponse} from "axios";
+import { useToast } from '@chakra-ui/react'
 
 interface UseEntityHandlerProps {
     uploadFile: (params: { file: File; collectionId: string; documentId: string }) => Promise<AxiosResponse<string | null>>;
@@ -19,7 +19,7 @@ export const useEntityHandler = ({
                                  }: UseEntityHandlerProps) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
+    const toast = useToast()
     const handleEntity = async ({
                                     entity,
                                     Img,
@@ -61,16 +61,26 @@ export const useEntityHandler = ({
                     await editEntity(entity, editID);
                 }
                 setEntities(prev => prev.map(item => (item.id === editID ? {...item, ...entity} : item)));
-                toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)} successfully edited`, {
-                    position: "top-right",
-                });
+                toast({
+                    title: `${collectionId[0].toUpperCase() + collectionId.slice(1)} successfully edited`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             } else {
                 const newEntity = await addEntity(entity);
                 // setEntities(prevEntities => [{...entity, id: newEntity.id}, ...prevEntities]);
                 setEntities(prevEntities => [{ ...entity, id: newEntity.data.id }, ...prevEntities]);
-                toast.success(`${collectionId[0].toUpperCase() + collectionId.slice(1)}  successfully added`, {
-                    position: "top-right",
-                });
+                toast({
+                    title: `${collectionId[0].toUpperCase() + collectionId.slice(1)} successfully added`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                position:'top-right',
+                    variant:'subtle'
+                })
             }
 
             Object.values(inputs).forEach(input => {
@@ -78,9 +88,14 @@ export const useEntityHandler = ({
             });
             onClose();
         } catch (err) {
-            toast.error(`An error occurred while ${isEdit ? 'editing' : 'adding'} the ${collectionId[0].toUpperCase() + collectionId.slice(1)}`, {
-                position: "top-right",
-            });
+            toast({
+                title: `An error occurred while ${isEdit ? 'editing' : 'adding'} the ${collectionId[0].toUpperCase() + collectionId.slice(1)}`,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                    variant:'subtle'
+            })
             // setError(err);
         } finally {
             setLoading(false);
@@ -94,11 +109,25 @@ export const useEntityHandler = ({
             setEntities(prev => prev.filter((entity) => {
                 return entity.id !== id
             }))
-            toast.success("Successfully deleted", {position: "top-right"});
+            toast({
+                title: "Successfully deleted",
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                    variant:'subtle'
+            })
         } catch (err) {
             console.log(err, 'err')
             // setError(err);
-            toast.error("An error occurred while deleting the document", {position: "top-right"});
+            toast({
+                title: "An error occurred while deleting the document",
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                    variant:'subtle'
+            })
         } finally {
             setLoading(false);
         }
