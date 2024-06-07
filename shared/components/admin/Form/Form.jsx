@@ -21,6 +21,15 @@ function Form({
             setImgFile(URL.createObjectURL(file));
         }
     }
+    function resetForm() {
+        setImgFile('/imgs/no-photo.avif');
+        setIMG(undefined);
+
+    }
+    function handleAction() {
+        onAction();
+        resetForm();
+    }
     useEffect(() => {
         if (IMG) {
             setImgFile(IMG instanceof File ? URL.createObjectURL(IMG) : IMG);
@@ -73,7 +82,7 @@ function Form({
                             <CustomButton icon={false} title={'Cancel'} type='button' size={'lg'} color={'2'}
                             />
                             <CustomButton loading={loading}  icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
-                                          onAction={onAction} />
+                                          onAction={handleAction} />
 
                         </div>
                     </div>

@@ -11,7 +11,7 @@ import {CategoryPostDataType} from "../../../shared/interfaces";
 import withAuth from "../../../shared/HOC/withAuth";
 import {useEntityHandler} from "../../../shared/hooks/UseFetchData";
 import Loading from "../../../shared/components/Loading/Loading";
-
+import ConfirmModal from '../../../shared/components/admin/confirmModal'
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });
@@ -26,6 +26,8 @@ function Category() {
     let [TitleYup, setTitleYup] = useState('')
     let [Titlevalue, setTitlevalue] = useState('')
     let [ResetData, setResetData] = useState(true)
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
 
     const {handleEntity, removeEntity, loading} = useEntityHandler({
         uploadFile,
@@ -99,7 +101,18 @@ function Category() {
             onClose
         });
     }
+    function confirmDeleteCategory(id: string) {
+        setCategoryToDelete(id);
+        setIsConfirmModalOpen(true);
+    }
 
+    function handleConfirmDelete() {
+        if (categoryToDelete) {
+            removeEntity(categoryToDelete, setCategories);
+        }
+        setIsConfirmModalOpen(false);
+        setCategoryToDelete(null);
+    }
     function editCategory(name: string, description: string, image: string, id: string) {
         setTitlevalue(name)
         seteditImg(image)
@@ -120,7 +133,7 @@ function Category() {
                         <Loading/> :
                         <AdminTable edit={editCategory}
                                     data={categories}
-                                    removeDocument={(id:string)=>removeEntity(id,setCategories)}
+                                    removeDocument={confirmDeleteCategory}
                                     reset={() => setResetData(prev => !prev)}/>
                     }
 
@@ -145,6 +158,12 @@ function Category() {
                         <div className=" text-red-600">{TitleYup}</div>
                     </Form>
                 </div>
+                <ConfirmModal
+                    isOpen={isConfirmModalOpen}
+                    onRequestClose={() => setIsConfirmModalOpen(false)}
+                    onConfirm={handleConfirmDelete}
+                />
+
             </AdminLayout>
         </>
     );
