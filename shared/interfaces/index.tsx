@@ -109,6 +109,24 @@ export interface BasketPostDataType {
     total_amount?: number;
 }
 
+export interface OrderPostDataType {
+    id?: string | number | any;
+    user_id: string | number;
+    basket_id?: string | number;
+    img_url?: string | null;
+    price?: number | string;
+    name?: string;
+    count?: number;
+    amount?: number;
+    delivery_address: number | string | any;
+    payment_method: number | string;
+    contact: number | string |any;
+    created: number | string;
+    total_count?: number;
+    total_item?: number;
+    total_amount?: number;
+}
+
 export interface ProductPostDataType{
     id?: string | number | any;
     img_url?: AxiosResponse<string|null>;
