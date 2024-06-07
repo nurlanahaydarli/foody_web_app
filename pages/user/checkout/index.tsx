@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import BasketItem from '../../../shared/components/Client/BasketItem/index';
 import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
 import { toast } from 'react-toastify';
+import styles from "../basket/basket.module.css";
 
 
 const initialState = {
@@ -417,8 +418,10 @@ if(user) {
                                             <h1 className=' mt-7'></h1>
                                             
                                             </>
-                                               : 
-                                               <EmptyBasket/>
+                                               :
+                                                <div className={`${styles.user_cabinet_box} ${styles.md} ${styles.m0} text-center`}>
+                                                 <EmptyBasket/>
+                                                </div>
                                                }
                                         </div>
                                         
