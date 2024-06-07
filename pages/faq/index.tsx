@@ -5,12 +5,15 @@ import React, { useState } from "react";
 
 import MainLayout from "../../shared/components/admin/Layout/MainLayout";
 import Modal1 from "../../shared/components/Client/tempFaqsModal1/index";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps } from "next";
+import { useTranslation } from "react-i18next";
 
 
 
 function Faq() {
   const [isContentVisible, setContentVisibility] = useState(false);
-
+  const { t } = useTranslation("common");
   const toggleContent = () => {
     setContentVisibility(!isContentVisible);
   };
@@ -50,7 +53,7 @@ function Faq() {
   return (
     <MainLayout>
       <main className="my-[60px] flex flex-col items-center gap-5 ">
-        <h1 className=" text-5xl font-medium pb-5">F.A.Q</h1>
+        <h1 className=" text-5xl font-medium pb-5">{t("F.A.Q")}</h1>
 
 
         {data?.map((item :(any) ) => (
@@ -63,3 +66,10 @@ function Faq() {
 }
 
 export default Faq;
+
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+  },
+});

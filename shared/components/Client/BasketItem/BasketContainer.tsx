@@ -10,8 +10,8 @@ import {RootState} from "../../../redux/store";
 import {useRouter} from "next/router";
 import RemoveSvg from "../svg/RemoveSvg";
 import {BasketPostDataType} from "../../../interfaces";
-import {toast} from "react-toastify";
 import Loading from "../../Loading/Loading";
+import {useToast} from "@chakra-ui/react";
 
 type BasketProps = {
     productCount?: number;
@@ -29,7 +29,7 @@ export default function BasketContainer(props: BasketProps) {
     });
     let basket_list = basketList?.data.result.data;
     const user = useSelector((state: RootState) => state.user);
-    
+    const toast = useToast()
     const queryClient = useQueryClient();
     
     const mutationClear = useMutation(
@@ -37,15 +37,31 @@ export default function BasketContainer(props: BasketProps) {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');
-                toast.success("Product deleted successfully!", {
-                    autoClose: 1000,
-                });
+                // toast.success("Product deleted successfully!", {
+                //     autoClose: 1000,
+                // });
+                toast({
+                    title: `Product deleted successfully!`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
             onError: (error) => {
                 console.error("Error deleting basket:", error);
-                toast.error("Error deleting basket", {
-                    autoClose: 1000,
-                });
+                // toast.error("Error deleting basket", {
+                //     autoClose: 1000,
+                // });
+                toast({
+                    title: `Error deleting basket: ${error}`,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
         }
     );

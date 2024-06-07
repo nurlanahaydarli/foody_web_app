@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {BasketPostDataType} from "../../../interfaces";
 import {toast} from "react-toastify";
+import {useToast} from "@chakra-ui/react";
 
 type BasketState = {
     id: string,
@@ -25,38 +26,70 @@ export default function BasketItem(product: BasketState) {
     let {name, id, price,img_url, count,basket_id} = product;
     const user = useSelector((state: RootState) => state.user);
     const queryClient = useQueryClient();
-
+    const toast = useToast()
     const mutationClear = useMutation(
         (basketProduct: BasketPostDataType) => deleteBasket(basketProduct),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');
-                toast.success("Product deleted successfully!", {
-                    autoClose: 1000,
-                });
+                // toast.success("Product deleted successfully!", {
+                //     autoClose: 1000,
+                // });
+                toast({
+                    title: `Product deleted successfully!`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
             onError: (error) => {
                 console.error("Error deleting product:", error);
-                toast.error("Error deleting product count", {
-                    autoClose: 1000,
-                });
+                // toast.error("Error deleting product count", {
+                //     autoClose: 1000,
+                // });
+                toast({
+                    title: `Error deleting basket: ${error}`,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
         }
     );
-    const mutation = useMutation(
-        (basketProduct: BasketPostDataType) => AddBasket(basketProduct),
+    
+    const mutation = useMutation((basketProduct: BasketPostDataType) => AddBasket(basketProduct),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');
-                toast.success("Product added to the basket successfully!", {
-                    autoClose: 1000,
-                });
+                // toast.success("Product added to the basket successfully!", {
+                //     autoClose: 1000,
+                // });
+                toast({
+                    title: `Product added to the basket successfully!`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
             onError: (error) => {
                 console.error("Error adding product to the basket:", error);
-                toast.error("Error adding product to the basket", {
-                    autoClose: 1000,
-                });
+                // toast.error("Error adding product to the basket", {
+                //     autoClose: 1000,
+                // });
+                toast({
+                    title: `Error adding product to the basket`,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
         }
     );

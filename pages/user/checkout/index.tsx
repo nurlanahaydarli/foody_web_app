@@ -5,7 +5,7 @@ import paymentIcon from '../../../public/paymentIcon.svg';
 import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
-import {GetBasket} from '../../../shared/services/index';
+import {GetBasket, AddOrder} from '../../../shared/services/index';
 import {useMutation, useQuery, useQueryClient} from 'react-query'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../shared/redux/store';
@@ -13,6 +13,9 @@ import Loading from '../../../shared/components/Loading/Loading';
 import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
 import { useRouter } from 'next/router';
 import BasketItem from '../../../shared/components/Client/BasketItem/index';
+import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
+import { toast } from 'react-toastify';
+import styles from "../basket/basket.module.css";
 
 
 const initialState = {
@@ -23,6 +26,22 @@ const initialState = {
     errorNumber: '',
     formatNumber: '',
 }
+
+
+type OrderState = {
+    id: string,
+    created: number | string,
+    delivery_address: string | number,
+    contact: number,
+    payment_method: string
+}
+
+type BasketProps = {
+    productCount?: number;
+    data_list?: string[],
+    size: string
+}
+
 
 const reducer = (state:any, action:any) => {
     switch (action.type) {
@@ -76,13 +95,9 @@ const formatPhoneNumber = (value:any) => {
 };
 
 
-type BasketProps = {
-    productCount?: number;
-    data_list?: string[],
-    size: string
-}
 
-function Checkout(props: BasketProps) {
+
+function Checkout() {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
@@ -92,9 +107,17 @@ function Checkout(props: BasketProps) {
     const [phoneNumRegex, setPhoneNumRegex] = useState(false)
     const [addressValid, setAddressValid] = useState(false);
     const [userLoaded, setUserLoaded] = useState(false);
-    let {size} = props
+
+
+   
     const router = useRouter();
+    const user = useSelector((state: RootState) => state.user);
+
+    const queryClient = useQueryClient();
     
+
+    
+
 
     const { data: basket_List, isLoading: basket_Loading, error: basket_Error, status: basket_Status } = useQuery('basket', GetBasket, {
         enabled: userLoaded,
@@ -102,22 +125,12 @@ function Checkout(props: BasketProps) {
     
 
     const basketList = basket_List?.data.result.data;
-    const user = useSelector((state: RootState) => state.user);
-    console.log("user",user);
-    
-
     console.log("basketList",basketList);
     
+   
+    console.log("user",user);
 
 
-      
-    //   useEffect(() => {
-    //     console.log('basket_List:', basket_List);
-    //     console.log('basket_Loading:', basket_Loading);
-    //     console.log('basket_Error:', basket_Error);
-    //     console.log('basket_Status:', basket_Status);
-    //   }, [basket_List, basket_Loading, basket_Error, basket_Status]);
-      
 
 
     useEffect(() => {
@@ -125,23 +138,70 @@ function Checkout(props: BasketProps) {
             setUserLoaded(true);
         }
     }, [user.id]);
-
-
+    
+    
     useEffect(() => {
         setInputVal(state.address.length > 0);
     }, [state.address]);
-
+    
     useEffect(() => {
         setInputPhoneNumbe(state.phoneNumber.length > 5);
     }, [state.phoneNumber]);
-
+    
     useEffect(() => {
         setPhoneNumRegex(azerbaijanPhoneRegex.test(state.phoneNumber));
     }, [state.phoneNumber]);
-
+    
     useEffect(() => {
         setAddressValid(addressRegex.test(state.address));
     }, [state.address]);
+    
+
+    console.log("basketList",basketList);
+
+
+
+    
+   const mutation = useMutation((orderBasket:any) => AddOrder(orderBasket),
+   {
+    onSuccess: () => {
+        queryClient.invalidateQueries('order');
+        toast.success("Product added to the basket successfully!", {
+            autoClose: 1000,
+        });
+    },
+    onError: (error) => {
+        console.log("Error add product", error);
+        toast.success("Product deleted successfully!", {
+            autoClose: 1000,
+        });
+      },
+   }
+);
+
+
+
+const handleCheckout = () => {const orderBasket: OrderPostDataType = {
+    user_id: user.id,
+    basket_id: basketList.id,
+    delivery_address: state.address,
+    contact: state.phoneNumber,
+    payment_method: isRectVisible ? "2" : "1"
+
+};
+if(user) {
+    mutation.mutate(orderBasket);
+    setCheckoutComplete(true);
+
+
+    setTimeout(() => {
+        router.push('/restaurants');
+    }, 2000);
+} else {
+    toast.error("User not logged in.");
+}
+
+};
 
     const handleToggle = () => {
         setIsRectVisible2(true);
@@ -197,14 +257,7 @@ function Checkout(props: BasketProps) {
 
 
 
-    const handleCheckout = () => {
-        setCheckoutComplete(true);
-        
-        setTimeout(() => {
-            router.push('/restaurants');
-        }, 2000);
-    
-    };
+
 
 
 
@@ -228,7 +281,10 @@ function Checkout(props: BasketProps) {
                                     <h1 className='flex justify-center text-2xl font-bold text-grayText2'>received</h1>
                                 </div>
                             ) : (
+                                
                                 <>
+                                 {basket_Loading?
+                                        <Loading/>:
                                     <div className="flex justify-between">
                                         <div className='w-8/12 mx-5 mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
                                             <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>Checkout</h1>
@@ -331,8 +387,7 @@ function Checkout(props: BasketProps) {
 
 
                                         <>
-                                        {basket_Loading?
-                                        <Loading/>:
+                                       
                                         <div className=' w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                                             {basketList?.items.length>0?
                                             <>
@@ -363,17 +418,19 @@ function Checkout(props: BasketProps) {
                                             <h1 className=' mt-7'></h1>
                                             
                                             </>
-                                               : 
-                                               <EmptyBasket/>
+                                               :
+                                                <div className={`${styles.user_cabinet_box} ${styles.md} ${styles.m0} text-center`}>
+                                                 <EmptyBasket/>
+                                                </div>
                                                }
                                         </div>
-                                           }
+                                        
                                         </>
 
 
 
                                     </div>
-
+                                      }
                                 </>
                             )}
                         </div>

@@ -76,3 +76,8 @@ a {
   width: 100%;
   color: rgba(199, 199, 199, 1);
 }
+.bg_gray{
+  border-radius: 14px;
+  color: #fff;
+background-color: rgba(67, 68, 90, 1) !important;
+}

@@ -12,6 +12,7 @@ import {
     InitialProductState,
     InitialRestaurantState,
     RestaurantPostDataType,
+    OrderPostDataType
 } from "../interfaces/";
 import {AxiosPromise} from "axios";
 import {instanceAxios} from "../helpers/instanceAxios";
@@ -45,14 +46,27 @@ export const GetBasket = (): AxiosPromise => {
 };
 
 //===============================  ADD BASKET ===============================
-export const AddBasket: (
-    basketProduct: BasketPostDataType
-) => AxiosPromise<BasketPostDataType> = (basketProduct) => {
+export const AddBasket: (basketProduct: BasketPostDataType ) => AxiosPromise<BasketPostDataType> = (basketProduct) => {
     const accessToken = localStorage.getItem("access_token");
     return instanceAxios({
         method: "POST",
         url: `basket/add`,
         data: basketProduct,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+};
+
+
+// =============================== POST ORDERS ============================================
+
+export const AddOrder: (orderBasket: OrderPostDataType) => AxiosPromise<OrderPostDataType> = (orderBasket) => {
+    const accessToken = localStorage.getItem("access_token");
+    return instanceAxios({
+        method: "POST",
+        url: `order`,
+        data: orderBasket,
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
@@ -302,3 +316,5 @@ export const getProductServer = async () => {
     const data = await response.result.data
     return data;
 };
+
+
