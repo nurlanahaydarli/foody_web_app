@@ -106,7 +106,7 @@ export function UserOrderTable() {
                   time="12:50" // Assuming a way to get actual time from the data
                   adress={item.delivery_address}
                   amount={item.amount}
-                  payment={item.payment_method === 1 ? "Credit Card" : "Pay Cash"}
+                  payment={item.payment_method === "1" ? "pay at the door" : "pay at the door by credit card"}
                   contact={item.contact}
               />
           ))}

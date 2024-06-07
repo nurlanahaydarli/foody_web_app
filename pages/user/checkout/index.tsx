@@ -111,6 +111,8 @@ function Checkout() {
    
     const router = useRouter();
     const user = useSelector((state: RootState) => state.user);
+    console.log("user", user);
+    
 
     const queryClient = useQueryClient();
     
@@ -223,7 +225,7 @@ if(user) {
 
         if (!addressRegex.test(value)) {
             dispatch({ type: "SET_ERROR", payload: "Yanlış adres formatı!" });
-            dispatch({ type: "SET_FORMAT_MESSAGE", payload: "Örnək format: Ataturk 45 Ganclik Baku" });
+            dispatch({ type: "SET_FORMAT_MESSAGE", payload: "Örnək format: Ataturk Ganclik Baku 45" });
       
 
         } else {
@@ -298,7 +300,7 @@ if(user) {
                                                     onChange={handleChange}
                                                     required
                                                     className='w-11/12 h-14 p-5 rounded-md'
-                                                    placeholder='Atatürk 45 Gençlik Baku'
+                                                    placeholder='Ataturk Ganclik Baku 45'
                                                 />
                                             </div>
                                             {state.error && <span className='text-mainRed'>{state.error}</span>}
