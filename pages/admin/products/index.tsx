@@ -105,7 +105,6 @@ function Products() {
   //   let Price = inpPrice?.current?.value as number;
   //
   //   Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
-  //   Desc?.length <= 3 ? setDescYup('title have to be longer than 3 ') : setDescYup('')
   //   let newProduct:IProduct = {
   //     name: Title,
   //     description: Desc,
@@ -282,20 +281,21 @@ function Products() {
             </p>
 
             <div
-              onClick={handleModalClose}
+            
               className="mx-auto flex items-center justify-center gap-9"
             >
-              <CustomButton
+              <button
                 className=" border-grayText text-grayText py-1 px-8"
-                innerText="Cancel"
-              />
-              <div onClick={handleModalClose}>
-                <CustomButton
+                onClick={handleModalClose}
+               >Cancel
+                </button>
+              <div>
+                <button
                   type={'button'}
                   className="bg-mainRed border-2 text-white py-1 px-8"
-                  innerText="Delete"
-                  color={"1"}
-                />
+                  onClick={handleButtonClick}
+                 >Delete
+                </button>
               </div>
             </div>
           </Modal>
