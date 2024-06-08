@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable';
 import Image from 'next/image';
 import withClientAuth from '../../../shared/HOC/withClienAuth';
 import { getOrder } from '../../../shared/services';
+import { useTranslation } from 'react-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
 
 function Orders() {
+    const { t } = useTranslation("common");
     
-    getOrder();
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                await getOrder();
+            } catch (error) {
+                console.error("Error fetching order:", error);
+            }
+        };
+
+        fetchOrder();
+    }, []);
     return (
         <>
             <MainLayout>
@@ -24,7 +38,7 @@ function Orders() {
 
                                     <div data-aos="fade-left" className="w-full flex  flex-col justify-start px-8 py-10 flex-wrap gap-x-1 gap-y-8 sm:bg-whiteLight1">
                                         <h2 className=" font-semibold text-3xl text-grayText2">
-                                            Your Orders
+                                        {t("Your Orders")}
                                         </h2>
 
 
@@ -67,3 +81,10 @@ function Orders() {
 }
 
 export default withClientAuth(Orders);
+
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});
