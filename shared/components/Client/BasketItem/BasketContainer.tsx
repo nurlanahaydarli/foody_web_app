@@ -37,9 +37,6 @@ export default function BasketContainer(props: BasketProps) {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');
-                // toast.success("Product deleted successfully!", {
-                //     autoClose: 1000,
-                // });
                 toast({
                     title: `Product deleted successfully!`,
                     status: 'success',

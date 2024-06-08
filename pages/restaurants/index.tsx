@@ -11,9 +11,10 @@ import { useModalOpen } from "../../shared/hooks/UseModalOpen";
 import { useResize } from "../../shared/hooks/useResize";
 import Loading from "../../shared/components/Loading/Loading";
 import { sortDataByCreated } from "../../shared/utils/sortData";
-import {withTranslation} from "../../shared/utils/withTranslation";
 import {GetServerSideProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+
+
  function Restaurants() {
     const [categories, setCategories] = useState<any[] | undefined>([]);
     const [restaurants, setRestaurants] = useState<any[] | undefined>([]);
