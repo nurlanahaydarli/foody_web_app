@@ -9,15 +9,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { auth } from '../../../server/configs/firebase';
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from "react-toastify";
-import {useEffect, useLayoutEffect} from "react";
+import {useLayoutEffect} from "react";
 import 'react-toastify/dist/ReactToastify.css';
+
+import {useToast} from "@chakra-ui/react";
 interface SignInFormValues {
   email: string;
   password: string;
 }
 export default function Login() {
     const { t } = useTranslation('common');
+    const toast = useToast()
     const router= useRouter()
     useLayoutEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -43,15 +45,24 @@ export default function Login() {
             try {
                 await signInWithEmailAndPassword(auth, values.email, values.password);
                 router.push("/admin")
-                toast.success("Signin successfully!", { autoClose: 1000,position:"top-right" });
+                toast({
+                    title: `Signin successfully!`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
               } catch (error) {
                 setErrors({ email: 'Failed to sign in' });
-                
-                console.log(error,'error')
-                toast.error("Please, Enter Correct Email and Password! ", {
-                    autoClose: 1000,
-                    position:'top-right'
-                  });
+                toast({
+                    title: `Please, Enter Correct Email or Password!`,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
               } finally {
                 setSubmitting(false);
               }
@@ -65,7 +76,6 @@ export default function Login() {
         <>
 
             <section className={`${styles.login_section} ${styles.main_container}`}>
-                <ToastContainer />
                 <div className={styles.logo_box}>
                     <img src="/imgs/logo.png" alt=""/>
                 </div>

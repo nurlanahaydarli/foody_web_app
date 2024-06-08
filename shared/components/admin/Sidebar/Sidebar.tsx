@@ -17,6 +17,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../../redux/store";
 import {closeSidebar} from "../../../redux/featuries/sidebar/sidebarSlice";
 import {useResize} from '../../../hooks/useResize'
+import {useTranslation} from "next-i18next";
+import {useToast} from "@chakra-ui/react";
 
 export default function Sidebar() {
     let {push,pathname} = useRouter();
@@ -24,11 +26,20 @@ export default function Sidebar() {
     const isActive = (p:string) => (pathname === p ? "active" : "");
     const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
     let {isMobile} = useResize()
+    const { t } = useTranslation("common");
+    const toast = useToast()
 
     const logout = async () => {
         try {
           await signOut(auth);
-          toast.success("Logout successfully!", { autoClose: 100,position:'top-right' });
+            toast({
+                title: `Logout successfully!`,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
         } catch (error) {
           console.error('Error signing out: ', error);
         }
@@ -39,7 +50,7 @@ export default function Sidebar() {
       };
 
     function handleCloseMenu(){
-        dispatch(closeSidebar())
+        dispatch(closeSidebar)
     }
     return (
         <>
@@ -54,60 +65,60 @@ export default function Sidebar() {
                             </div>
                             <li onClick={() => {
                                 push('/admin');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }} className={styles[`${isActive("/admin")}`]}>
                                 <DashboardSvg/>
-                                <span>Dashboard</span>
+                                <span>{t("Dashboard")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/products');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }}
                                 className={styles[`${isActive("/admin/products")}`]}>
                                 <ProductsSvg/>
-                                <span>Products</span>
+                                <span>{t("Products")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/restaurants');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }}
                                 className={styles[`${isActive("/admin/restaurants")}`]}>
                                 <RestaurantsSvg/>
-                                <span>Restaurants</span>
+                                <span>{t("Restaurants")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/category');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }}
                                 className={styles[`${isActive("/admin/category")}`]}>
                                 <CategorySvg/>
-                                <span>Category</span>
+                                <span>{t("Category")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/orders');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }}  className={styles[`${isActive("/admin/orders")}`]}>
                                 <OrdersSvg/>
-                                <span>Orders</span>
+                                <span>{t("Orders")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/orders/history');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }}
                                 className={styles[`${isActive("/admin/orders/history")}`]}>
                                 <UploadSvg/>
-                                <span>Orders History</span>
+                                <span>{t("History")}</span>
                             </li>
                             <li onClick={() => {
                                 push('//admin/offer');
-                                dispatch(closeSidebar())
+                                dispatch(closeSidebar)
                             }}  className={styles[`${isActive("/admin/offer")}`]}>
                                 <OfferSvg/>
-                                <span>Offer</span>
+                                <span>{t("Offers")}</span>
                             </li>
                             <li onClick={handleLogout}>
                                 <LogoutSvg/>
-                                <span>Logout</span>
+                                <span>{t("Logout")}</span>
                             </li>
                         </ul>
                         <div className={styles.sidebar_bottom}>
@@ -118,3 +129,5 @@ export default function Sidebar() {
         </>
     );
 }
+
+

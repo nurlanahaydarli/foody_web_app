@@ -10,6 +10,8 @@
     "Time": "Zaman",
     "Delivery Address": "Çatdırılma ünvanı",
     "Amount": "Məbləğ",
+    "Count":"Sayı",
+    "Close":"Bağla",
     "Paymnet Method": "Ödəniş üsulu",
     "Contact": "Əlaqə",
     "Your Basket": "Səbətiniz",
@@ -188,6 +190,7 @@
     "Must be 15 characters or less": " 15 və ya daha az simvol olmalıdır",
     "passwordFormik": "Ən azı bir hərf və ya rəqəm olmalıdır. Uzunluğu isə 5-10 arası",
     "Online":"Onlayn",
+    "New": "Yeni",
     "FoodyChat":"FoodySöhbət",
     "All rights reserved © 2003-2024 Foody TERMS OF USE | Privacy Policy": "Bütün hüquqlar qorunur © 2003-2024 Foody İSTİFADƏ ŞƏRTLƏRİ | Gizlilik Siyasəti",
     "Delivery may be extended during sale periods. Please refer to the checkout page for an updated estimate for your location. Kindly note that once you have placed an order, it is no longer possible to modify your order. Taxes and duties are included in all product prices.It is possible to place an order with shipment to a different address than your home or billing address when paying with a credit card. Please note that Klarna payments require that your order is shipped to your registered home address.": "Satış müddətində çatdırılma uzadıla bilər. Məkanınız üçün yenilənmiş təxmin üçün yoxlama səhifəsinə baxın. Nəzərə alın ki, sifariş verdikdən sonra sifarişinizi dəyişdirmək artıq mümkün deyil. Vergilər və rüsumlar bütün məhsul qiymətlərinə daxildir. Kredit kartı ilə ödəniş edərkən evinizdən və ya faktura ünvanınızdan fərqli ünvana çatdırılma ilə sifariş vermək mümkündür. Nəzərə alın ki, Klarna ödənişləri sifarişinizin qeydiyyatdan keçmiş ev ünvanınıza göndərilməsini tələb edir."

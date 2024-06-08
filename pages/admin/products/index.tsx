@@ -261,13 +261,13 @@ function Products() {
           >
             <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}
               value={Titlevalue} />
-            <div className=" text-red-600">{TitleYup}</div>
+            <div className="text-mainRed">{TitleYup}</div>
             <Input hasLabel={true} title={"Description"} type={"text"} input_name={"Description"} Ref={inpDesc}
               value={DescValue} />
            
             <Input hasLabel={true} title={"Price"} type={"number"} input_name={"Price"} Ref={inpPrice}
               value={PriceValue} />
-            <div className=" text-red-600">{PriceYup}</div>
+            <div className="text-mainRed">{PriceYup}</div>
             <Select title={"Restaurants"} name={"rest_id"} options={restaurants} onChange={getRestaurantById} />
           </Form>
           <Modal isOpen={isModalOpen} onClose={handleModalClose}>

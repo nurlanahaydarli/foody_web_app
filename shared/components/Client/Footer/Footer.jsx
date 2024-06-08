@@ -3,8 +3,10 @@ import FbSvg from "../svg/FbSvg";
 import TwitterSvg from "../svg/TwitterSvg";
 import InstagramSvg from "../svg/InstagramSvg";
 import styles from './footer.module.css'
+import {useTranslation} from "next-i18next";
 
 export default function Footer(){
+    const { t } = useTranslation('common');
     return(
         <>
             <footer className={styles.footer_container}>
@@ -74,7 +76,7 @@ export default function Footer(){
                     </div>
                     <div className={styles.terms}>
                         <p>
-                            All rights reserved © 2003-2022 Foody TERMS OF USE | Privacy Policy
+                            {t("All rights reserved © 2003-2024 Foody TERMS OF USE | Privacy Policy")}
                         </p>
                     </div>
                 </div>

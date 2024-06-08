@@ -7,6 +7,7 @@ import styles from './auth.module.css'
 import {getNameFirstLetter} from "../../../utils/getNameFirstLetter";
 import {useState} from "react";
 import {useResize} from "../../../hooks/useResize";
+import {useTranslation} from "next-i18next";
 
 export default function Auth() {
     let {push} = useRouter()
@@ -15,6 +16,7 @@ export default function Auth() {
         push('/login-register')
     }
     let {isMobile} =useResize()
+    const { t } = useTranslation('common');
     let user = useSelector((state: RootState) => state.user);
     const nameChar = getNameFirstLetter(user.fullname);
     function handleClick(){
@@ -30,17 +32,17 @@ export default function Auth() {
                     {active &&
                     <>
                         <ul className={styles.submenu}>
-                            <li onClick={()=>push('/user/profile')}>Profile</li>
-                            <li onClick={()=>push('/user/basket')}>Your Basket</li>
-                            <li onClick={()=>push('/user/orders')}>Your Orders</li>
-                            <li onClick={()=>push('/user/checkout')}>Checkout</li>
+                            <li onClick={()=>push('/user/profile')}>{t("Your Profile")}</li>
+                            <li onClick={()=>push('/user/basket')}>{t("Your Basket")}</li>
+                            <li onClick={()=>push('/user/orders')}>{t("Your Orders")}</li>
+                            <li onClick={()=>push('/user/checkout')}>{t("Checkout")}</li>
                             <li>Logout</li>
                         </ul>
                         <div onClick={handleClick} className={styles.shadow}/>
                     </>
                     }
                 </div> :
-                <ButtonWeb addButtonFun={goAuth} typeButton={true} title={'Sign up'} btnSize={'sm'} addButton={false}/>
+                <ButtonWeb addButtonFun={goAuth} typeButton={true} title={t('Sign Up')} btnSize={'sm'} addButton={false}/>
             }
 
             {/*<button className={`${styles.btn} ${styles.btn_sm} ${styles.main}`} >Sign up</button>*/}
