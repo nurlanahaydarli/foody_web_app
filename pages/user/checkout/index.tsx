@@ -261,7 +261,6 @@ if(user) {
 
 
 
-
     return (
         <>
         
@@ -284,152 +283,114 @@ if(user) {
                             ) : (
                                 
                                 <>
-                                 {basket_Loading?
-                                        <Loading/>:
-                                    <div className="flex justify-between">
-                                        <div className='w-8/12 mx-5 mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
-                                            <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>Checkout</h1>
+                                  {basket_Loading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    {basketList?.items?.length > 0 ? (
+                      <div className="flex justify-between">
+                        <div className='w-8/12 mx-5 mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
+                          <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>Checkout</h1>
 
-                                            <div className=' mt-6 ml-6'>
-                                                <label className='text-grayText2 font-bold'>Delivery Address</label>
-                                                <input
-                                                    type="text"
-                                                    id="address"
-                                                    name="address"
-                                                    value={state.address}
-                                                    onChange={handleChange}
-                                                    required
-                                                    className='w-11/12 h-14 p-5 rounded-md'
-                                                    placeholder='Ataturk Ganclik Baku 45'
-                                                />
-                                            </div>
-                                            {state.error && <span className='text-mainRed'>{state.error}</span>}
-                                            <br/>
-                                            {state.formatMessage &&
-                                            <span className=' text-green'>{state.formatMessage}</span>}
+                          <div className=' mt-6 ml-6'>
+                            <label className='text-grayText2 font-bold'>Delivery Address</label>
+                            <input
+                              type="text"
+                              id="address"
+                              name="address"
+                              value={state.address}
+                              onChange={handleChange}
+                              required
+                              className='w-11/12 h-14 p-5 rounded-md'
+                              placeholder='Ataturk Ganclik Baku 45'
+                            />
+                          </div>
+                          {state.error && <span className='text-mainRed'>{state.error}</span>}
+                          <br />
+                          {state.formatMessage && <span className=' text-green'>{state.formatMessage}</span>}
 
-                                            <label className='text-grayText2 font-bold ml-6'>Phone Number</label>
-                                            <div className='ml-6'>
-                                                <input
-                                                    type="text"
-                                                    id="phoneNumber"
-                                                    name="number"
-                                                    value={state.phoneNumber}
-                                                    onChange={handleChange1}
-                                                    required
-                                                    className='w-11/12 h-14 p-5 rounded-md'
-                                                    placeholder='+994'
-                                                />
-                                            </div>
+                          <label className='text-grayText2 font-bold ml-6'>Phone Number</label>
+                          <div className='ml-6'>
+                            <input
+                              type="text"
+                              id="phoneNumber"
+                              name="number"
+                              value={state.phoneNumber}
+                              onChange={handleChange1}
+                              required
+                              className='w-11/12 h-14 p-5 rounded-md'
+                              placeholder='+994'
+                            />
+                          </div>
 
-                                            {state.errorNumber &&
-                                            <span className=' text-mainRed'>{state.errorNumber}</span>}
-                                            <br/>
-                                            {state.formatNumber &&
-                                            <span className=' text-green'>{state.formatNumber}</span>}
+                          {state.errorNumber && <span className=' text-mainRed'>{state.errorNumber}</span>}
+                          <br />
+                          {state.formatNumber && <span className=' text-green'>{state.formatNumber}</span>}
 
-                                            <h1 className='ml-6 font-bold text-grayText2 '>Payment Method</h1>
+                          <h1 className='ml-6 font-bold text-grayText2 '>Payment Method</h1>
 
+                          <div className="flex ml-6 mt-4">
+                            <button onClick={handleToggle}>
+                              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.5" y="0.5" width="29" height="29" rx="14.5"
+                                  fill="white" stroke="#6FCF97" />
+                                {isRectVisible2 &&
+                                  <rect x="8" y="8" width="15" height="15" rx="7.5"
+                                    fill="#6FCF97" />}
+                              </svg>
+                            </button>
+                            <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>pay at the door</h1>
 
-                                            <div className="flex ml-6 mt-4">
+                            <button className=' ml-16' onClick={handleToggle2}>
+                              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.5" y="0.5" width="29" height="29" rx="14.5"
+                                  fill="white" stroke="#6FCF97" />
+                                {isRectVisible &&
+                                  <rect x="8" y="8" width="15" height="15" rx="7.5"
+                                    fill="#6FCF97" />}
+                              </svg>
+                            </button>
+                            <h1 className={`ml-2 ${isRectVisible ? 'text-textColorGreen' : ''}`}>pay at the door by credit card</h1>
+                          </div>
 
+                          <div className='flex items-center justify-center mt-16'>
+                            <button
+                              className={`w-11/12 h-11 ${(isRectVisible || isRectVisible2) && basketList?.items?.length > 0 && inputVal && inputPhoneNumber && phoneNumRegex && addressValid ? 'bg-textColorGreen' : 'bg-overlayColorGreen'} text-white rounded-sm`}
+                              onClick={handleCheckout}
+                              disabled={!((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid && basketList?.items?.length > 0)}
+                            >
+                              Checkout
+                            </button>
+                          </div>
+                        </div>
 
-                                                <button onClick={handleToggle}>
-                                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="0.5" y="0.5" width="29" height="29" rx="14.5"
-                                                              fill="white" stroke="#6FCF97"/>
-                                                        {isRectVisible2 &&
-                                                        <rect x="8" y="8" width="15" height="15" rx="7.5"
-                                                              fill="#6FCF97"/>}
-                                                    </svg>
-                                                    
-                                                </button>
-
-                                                <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>pay
-                                                    at the door</h1>
-
-
-
-
-                                                <button className=' ml-16' onClick={handleToggle2}>
-                                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="0.5" y="0.5" width="29" height="29" rx="14.5"
-                                                              fill="white" stroke="#6FCF97"/>
-                                                        {isRectVisible &&
-                                                        <rect x="8" y="8" width="15" height="15" rx="7.5"
-                                                              fill="#6FCF97"/>}
-                                                    </svg>
-                                                </button>
-
-                                                <h1 className={`ml-2 ${isRectVisible ? 'text-textColorGreen' : ''}`}>pay
-                                                    at the door by credit card</h1>
-                                            </div>
-
-                                            
-
-                                            <div className='flex items-center justify-center mt-16'>
-                                            <button
-                                                className={`w-11/12 h-11 ${((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid) ? 'bg-textColorGreen' : 'bg-overlayColorGreen'} text-white rounded-sm`}
-                                                onClick={handleCheckout}
-                                             
-                                                disabled={!((isRectVisible || isRectVisible2) && inputVal && inputPhoneNumber && phoneNumRegex && addressValid)}
-                                                 >
-                                                    Checkout
-                                            </button>
-
-                                            </div>
-
-                                        </div>
-
-
-
-
-
-                                        <>
-                                       
-                                        <div className=' w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
-                                            {basketList?.items.length>0?
-                                            <>
-                                            <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your Order</h1>
-                                                {basketList.items.map((product:any, index:any) => (
-
-                                            <div key={index} className='flex p-2'>
-                                                <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
-
-                                                <div className='flex gap-16 ml-2'>
-                                                   
-                                                    <span className='text-grayText mt-1 text-lg'>{product.name}</span>
-                                                    <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
-                                                   
-                                                </div>
-                                            </div>
-                                                ))}
-
-                                            
-
-                                            <hr className=' mt-8 w-11/12'/>
-
-                                            <div className='flex gap-48 mt-4'>
-                                                <h1 className='font-bold text-2xl text-grayText ml-9'>Total</h1>
-                                                <h5 className='mt-1 text-xl text-grayText'>{basketList.total_amount}</h5>
-                                            </div>
-
-                                            <h1 className=' mt-7'></h1>
-                                            
-                                            </>
-                                               : 
-                                               <EmptyBasket/>
-                                               }
-                                        </div>
-                                        
-                                        </>
-
-
-
-                                    </div>
-                                      }
+                        <div className='w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
+                          <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your Order</h1>
+                          {basketList.items.map((product:any, index: any) => (
+                            <div key={index} className='flex p-2'>
+                              <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
+                              <div className='flex gap-16 ml-2'>
+                                <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                                <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
+                              </div>
+                            </div>
+                          ))}
+                          <hr className=' mt-8 w-11/12' />
+                          <div className='flex gap-48 mt-4'>
+                            <h1 className='font-bold text-2xl text-grayText ml-9'>Total</h1>
+                            <h5 className='mt-1 text-xl text-grayText'>${basketList.total_amount}</h5>
+                          </div>
+                          
+                          <h1 className=' mt-7'></h1>
+                        </div>
+                      </div>
+                    ) : (
+                      <EmptyBasket />
+                    )}
+                  </>
+                )}
                                 </>
                             )}
                         </div>

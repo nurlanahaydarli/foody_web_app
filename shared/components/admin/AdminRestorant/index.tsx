@@ -12,6 +12,7 @@ import { EditRestaurant, PostRestaurant, getRestaurants, getCategories } from ".
 import { instanceAxios } from "../../../helpers/instanceAxios";
 import { CategoryPostDataType} from '../../../interfaces/index'
 import Select from "../Form/Select";
+import Loading from "../../Loading/Loading";
 
 interface Restaurant {
   category: string;
@@ -107,6 +108,7 @@ function AdminRestaurant() {
   let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
   let [categorysID, setcategorysID] = useState();
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
 
   const inpTitle = useRef<any>();
@@ -122,6 +124,7 @@ function AdminRestaurant() {
     const fetchRestaurants = async () => {
       try {
         let res = await getRestaurants();
+      
         let categorysApi = await getCategories();
 
       
@@ -130,10 +133,11 @@ function AdminRestaurant() {
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: newData });
 
         setCategorys(categorysApi?.data.result.data)
+      
 
       } catch (err) {
         console.log(err);
-      }
+      } 
     };
     fetchRestaurants();
   }, [state.isDeleting, state.isAdd]);
@@ -457,21 +461,30 @@ console.log("categorysID",categorysID);
             + ADD RESTAURANT
           </button>
         </div>
-      </header>
 
+      </header>
+    
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {state.restaurantData
           .filter((restaurant: Restaurant) => state.selectedCategory === '' || restaurant.category_id === state.selectedCategory)
           .map((restaurant: Restaurant, index: number) => {
-            
+
+         
+          
             return(
+          
             <div key={index} className="bg-gray-800 shadow-black rounded-lg p-4 flex flex-col items-center mb-4">
               <div className="overflow-hidden relative flex shadow-black items-center space-x-4 bg-white rounded-lg p-4 w-full">
+              
                 <img
+               
                   src={restaurant.img_url}
                   alt={restaurant.name}
+                
                   className="w-24 h-24 object-cover rounded-full flex-shrink-0"
+          
                 />
+             
                 <div className="flex flex-col justify-center">
                   <h2 className="text-xl font-semibold text-black">{restaurant.name}</h2>
                   <span className="inline-block bg-gray-200 text-gray-800 text-sm rounded-full mt-2 px-2 py-1">
@@ -484,10 +497,20 @@ console.log("categorysID",categorysID);
                 <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
                   <Image src={CardPencil} alt="Delete" width={25} height={0} />
                 </button>
+                
+                
               </div>
+              
             </div>
+            
+            
+            
           )})}
+        
       </div>
+
+
+      
 
       {state.showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -515,9 +538,10 @@ console.log("categorysID",categorysID);
 
 
 
-
       <Form
-        loading={false}
+        {...(state.isAdd ? { loading: Loading } : {})}
+      
+        
         isOpen={isOpen}
         title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
         subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}
