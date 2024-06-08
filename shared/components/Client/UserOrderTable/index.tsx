@@ -45,18 +45,18 @@ export function UserOrderTable() {
             </th>
             <th className="py-2 px-4 border-b border-whiteLight3"></th>
           </tr>
-        </thead>
-        <tbody>
-        {orderData?.map((item: any, index: number) => (
-            <UserOrderTableDatas
-              key={`tableData_${index}`}
-              id={item.id}
-              time="20 Oct 2024"
-              adress={item.delivery_address}
-              amount={item.amount}
-              payment={item.payment_method == 1 ? "Credit Card" : "Pay Cash"}
-              contact={item.contact}
-            />
+          </thead>
+          <tbody>
+          {orderData.map((item: any, index: number) => (
+              <UserOrderTableDatas
+                  key={`tableData_${index}`}
+                  id={item.id}
+                  time="12:50" // Assuming a way to get actual time from the data
+                  adress={item.delivery_address}
+                  amount={item.amount}
+                  payment={item.payment_method === "1" ? "pay at the door" : "pay at the door by credit card"}
+                  contact={item.contact}
+              />
           ))}
         </tbody>
       </table>

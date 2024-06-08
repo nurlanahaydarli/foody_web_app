@@ -67,7 +67,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                 </td>
                 <td className="py-2 px-4 border-b">${amount}</td>
                 <td className="py-2 px-4 border-b ">{payment}</td>
-                <td className="py-2 px-4 border-b ">+{contact}</td>
+                <td className="py-2 px-4 border-b ">{contact}</td>
                 <td className="py-2 px-4 border-b ">
                     <div className="realtive z-50 m-auto">
                         <Image

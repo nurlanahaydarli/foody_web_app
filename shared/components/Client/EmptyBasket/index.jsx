@@ -15,12 +15,12 @@ export default function EmptyBasket() {
                     <h5>Opps! Basket empty</h5>
                 </div>
                 <button className={`${styles.checkout_btn} ${styles.disabled}`}>
-                        <span>
+                        {/* <span>
                             Checkout
                         </span>
                     <p>
                         $0.00
-                    </p>
+                    </p> */}
                 </button>
             </div>
         </>
