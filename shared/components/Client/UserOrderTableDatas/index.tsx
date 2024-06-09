@@ -7,6 +7,9 @@ import { deleteOrder } from "../../../services";
 import { useGlobalStore } from "../../../services/provider";
 import { useTranslation } from "react-i18next";
 interface TableDataProps {
+    
+customer_id:number | string;
+
     id: number | string;
     time: number | string;
     adress: string;
@@ -15,6 +18,7 @@ interface TableDataProps {
     contact: number;
 }
 export const UserOrderTableDatas: React.FC<TableDataProps> = ({
+    customer_id,
     id,
     time,
     adress,
@@ -60,7 +64,9 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     return (
         <>
             <tr className=" border-solid border-b-2 border-whiteLight3" >
-                <td className="py-2 px-4 border-b ">{id}</td>
+                <td className="py-2 px-4 border-b ">
+{customer_id}
+</td>
                 <td className="py-2 px-4 border-b ">{time} </td>
                 <td className="py-2 px-0 sm:px-4 border-b  max-w-60 text-center sm:text-start w-60">
                     {adress}
