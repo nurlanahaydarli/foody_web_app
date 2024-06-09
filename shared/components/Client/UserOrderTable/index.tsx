@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getOrder } from "../../../services";
 import { UserOrderTableDatas } from "../UserOrderTableDatas";
 import { useTranslation } from "react-i18next";
+import formatDate from "../../../../server/helper/convertDateToDAy";
 export function UserOrderTable() {
   const [orderData, setOrderData] = useState([]);
   const [orderShow, setOrderShow] = useState([]);
@@ -50,11 +51,12 @@ export function UserOrderTable() {
           {orderData.map((item: any, index: number) => (
               <UserOrderTableDatas
                   key={`tableData_${index}`}
+                  customer_id={index+1}
                   id={item.id}
-                  time="12:50" // Assuming a way to get actual time from the data
+                  time={formatDate(item.created)} // Assuming a way to get actual time from the data
                   adress={item.delivery_address}
                   amount={item.amount}
-                  payment={item.payment_method === "1" ? "pay at the door" : "pay at the door by credit card"}
+                  payment={item.payment_method === "1" ? "Cash" : "Delivery"}
                   contact={item.contact}
               />
           ))}
