@@ -12,6 +12,7 @@ import RemoveSvg from "../svg/RemoveSvg";
 import {BasketPostDataType} from "../../../interfaces";
 import Loading from "../../Loading/Loading";
 import {useToast} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 type BasketProps = {
     productCount?: number;
@@ -23,7 +24,7 @@ export default function BasketContainer(props: BasketProps) {
     let {size} = props
     let {push}=useRouter()
     const [userLoaded, setUserLoaded] = useState(false);
-
+    const { t } = useTranslation("common");
     const { data: basketList, isLoading: basketLoading } = useQuery("basket", GetBasket, {
         enabled: userLoaded
     });
@@ -63,10 +64,10 @@ export default function BasketContainer(props: BasketProps) {
         }
     );
     function handleClear(){
-        const basketId: BasketPostDataType = {
+        const basketId = {
             user_id: user.id,
             basket_id: basket_list?.id
-        };
+        }
         mutationClear.mutate(basketId);
     }
     useEffect(() => {
@@ -83,13 +84,13 @@ export default function BasketContainer(props: BasketProps) {
                     {basket_list?.items.length>0?
                         <>
                             <h2 className={styles.user_cabinet_title}>
-                                Your Basket
+                                {t("Your Basket")}
                             </h2>
                             <div className="flex justify-between items-center mb-5">
                                 <div className={styles.item_counts}>
-                                    <BasketSvg/> <span>{basket_list?.items.length} items</span>
+                                    <BasketSvg/> <span>{basket_list?.items.length} {t("items")}</span>
                                 </div>
-                                <button onClick={handleClear} className={`lightRed gap-2 flex items-center ${styles.clear_btn}`}><RemoveSvg/> Clear Basket</button>
+                                <button onClick={handleClear} className={`lightRed gap-2 flex items-center capitalize ${styles.clear_btn}`}><RemoveSvg/>{t("clear all")}</button>
                             </div>
                             
                             <div className={styles.basket_list}>
@@ -100,7 +101,7 @@ export default function BasketContainer(props: BasketProps) {
 
                             <button className={styles.checkout_btn} onClick={()=>push('/user/checkout')}>
                                 <span>
-                                    Checkout
+                                    {t("Checkout")}
                                 </span>
                                 <p>
                                     &#8380; {basket_list.total_amount}
@@ -115,3 +116,5 @@ export default function BasketContainer(props: BasketProps) {
         </>
     )
 }
+
+

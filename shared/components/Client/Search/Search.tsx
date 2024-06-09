@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {getRestaurants} from "../../../services";
 import { RestaurantPostDataType} from "../../../interfaces";
 import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
 
 export default function Search(){
     let {push}=useRouter()
@@ -11,6 +12,7 @@ export default function Search(){
     const [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>();
     const [loading, setLoading] = useState(false);
     const [focus,setFocus]=useState(false)
+    const {t} =useTranslation("common");
     useEffect(() => {
         if (query.trim() === '') {
             setRestaurants([]);
@@ -39,7 +41,7 @@ export default function Search(){
             <div className={styles.search_container}>
                 <input
                     type="text"
-                    placeholder={'Search'}
+                    placeholder={t("Search")}
                     value={query}
                     onFocus={()=>setFocus(true)}
                     onChange={(e) => setQuery(e.target.value)}
@@ -61,8 +63,8 @@ export default function Search(){
                         </ul>
 
                         <div className={styles.more_btn}>
-                            <button onClick={() => push('/restaurants')}>
-                                <span>More</span> <RightIcon/>
+                            <button onClick={() => {push('/restaurants');setFocus(false)}}>
+                                <span>{t("Show More")}</span> <RightIcon/>
                             </button>
                         </div>
                     </div>
