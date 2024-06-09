@@ -73,9 +73,9 @@ export default function RestaurantDetail() {
                             <div className="lg:w-2/6  w-full">
                                 <BasketContainer size={'md'} />
                             </div>
-                            <div className="w-full lg:hidden flex justify-center ">
-                                <button  className={styles.basket_btn}>Basket</button>
-                            </div>
+                            {/*<div className="w-full lg:hidden flex justify-center ">*/}
+                            {/*    <button  className={styles.basket_btn}>Basket</button>*/}
+                            {/*</div>*/}
                         </div>
 
                     </div>
