@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
 import {AxiosResponse} from "axios";
+import { useToast } from '@chakra-ui/react';
 
 export default function Navbar() {
     let { push } = useRouter();
@@ -38,7 +39,7 @@ export default function Navbar() {
     let [PriceValue, setPriceValue] = useState('');
     let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
     let [restaurantID, setRestaurantId] = useState(true)
-
+    const toast = useToast()
     useEffect(() => {
         (async () => {
             try {
@@ -85,10 +86,15 @@ export default function Navbar() {
             setProducts(prevProducts => prevProducts.map(product =>
                 product.name === newProduct.name ? createdProduct.data : product
             ));
-
-            toast.success("Product successfully added", {
-                position: "top-right",
-            });
+            toast({
+                title: `Product successfully added`,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
+          
             inpTitle?.current?.value == ''
             inpDesc?.current?.value == ''
             inpPrice?.current?.value == ''
@@ -96,9 +102,14 @@ export default function Navbar() {
             onClose()
             setImg('')
         } catch (err) {
-            toast.error("An error occurred while adding the product", {
-                position: "top-right",
-            });
+            toast({
+                title: `An error occurred while adding the product: ${err}`,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
 
             console.log(err);
         } 

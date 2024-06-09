@@ -14,7 +14,10 @@ import uploadFile from "../../../shared/utils/uploadFile";
 import {PostDataType, ProductPostDataType, RestaurantPostDataType} from "../../../shared/interfaces";
 import Select from "../../../shared/components/admin/Form/Select";
 import withAuth from "../../../shared/HOC/withAuth";
-
+import Loading from "../../../shared/components/Loading/Loading";
+import { useToast } from "@chakra-ui/react";
+import { sortDataByCreated } from "../../../shared/utils/sortData";
+import ConfirmModal from '../../../shared/components/admin/confirmModal'
 
 const AdminLayout = dynamic(
   () => import("../../../shared/components/admin/Layout/AdminLayout"),
@@ -68,15 +71,19 @@ function Products() {
   let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
   let [restaurantID, setRestaurantId] = useState<string>()
   const [filteredProducts,setFilteredProducts]=useState<any>()
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<string | null>(null);
 
+  const toast = useToast()
   useEffect(() => {
     const fetchData = async () =>{
       try {
         let res = await GetProducts()
         let restaurants = await getRestaurants()
         let newData:any = await res?.data.result.data ;
-        setProducts(newData)
-        setFilteredProducts(newData)
+         let sortData:any = sortDataByCreated(newData)
+        setProducts(sortData)
+        setFilteredProducts(sortData)
         let new_res = await restaurants?.data.result.data
         setRestaurants(new_res)
       } catch (err) {
@@ -175,21 +182,31 @@ function Products() {
         }) as AxiosResponse<string|null>;
         updatedProduct.img_url = res;
       }
-      // setProducts(prevProducts => prevProducts.map(product =>
-      //   product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
-      // ));
+      setProducts(prevProducts => prevProducts.map(product =>
+        product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
+      ));
 
       updateProducts(prevProducts => [...prevProducts, { ...updatedProduct,id: updatedProduct.id}])
       await EditProduct(updatedProduct)
-      toast.success("Product successfully edited", {
-        position: "top-right",
-      });
+      toast({
+        title: `Product successfully edited`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       inpTitle.current.value = '';
       onClose();
     } catch (err) {
-      toast.error("An error occurred while adding the product", {
-        position: "top-right",
-      });
+      toast({
+        title: `An error occurred while editing the product: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       console.log(err);
     }
 
@@ -198,15 +215,32 @@ function Products() {
   async function removeProduct(id: string | number) {
     try {
       await DeleteProduct(id)
-      toast.success("Product successfully deleted", {
-        position: "top-right",
-      });
+      toast({
+        title: `Product successfully deleted`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       setResetData(prev => !prev);
     } catch (err) {
       console.log(err);
     }
   }
 
+
+  function confirmDeleteProduct(id: string) {
+    setProductToDelete(id);
+    setIsConfirmModalOpen(true);
+}
+function handleConfirmDelete() {
+    if (productToDelete) {
+      removeProduct(productToDelete);
+    }
+    setIsConfirmModalOpen(false);
+    setProductToDelete(null);
+}
   function editProduct(name: string, description: string, image: string, price: string, rest_id: string | undefined, id: string) {
     setDescValue(description)
     setPriceValue(price)
@@ -217,6 +251,9 @@ function Products() {
     seteditID(id)
     onOpen()
   }
+  if(products==undefined){
+    return(<Loading/>)
+}
 
   return (
     <>
@@ -236,7 +273,7 @@ function Products() {
 
               {/* {data?.map((item:any,i:number)=>{ */}
               <AdminCard data={filteredProducts} edit={editProduct}
-                removeDocument={removeProduct}
+                removeDocument={confirmDeleteProduct}
                 reset={() => setResetData(prev => !prev)}
 
               />
@@ -270,7 +307,13 @@ function Products() {
             <div className="text-mainRed">{PriceYup}</div>
             <Select title={"Restaurants"} name={"rest_id"} options={restaurants} onChange={getRestaurantById} />
           </Form>
-          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+          <ConfirmModal
+
+                    isOpen={isConfirmModalOpen}
+                    onRequestClose={() => setIsConfirmModalOpen(false)}
+                    onConfirm={handleConfirmDelete}
+                />
+          {/* <Modal isOpen={isModalOpen} onClose={handleModalClose}>
             <div className="flex justify-between items-center">
               <p className="mx-auto text-3xl font-medium">
                 Are you sure it's deleted?
@@ -296,9 +339,11 @@ function Products() {
                   onClick={handleButtonClick}
                  >Delete
                 </button>
-              </div>
-            </div>
-          </Modal>
+
+                
+              </div> */}
+            {/* </div>
+          </Modal> */}
         </main>
       </AdminLayout>
     </>
