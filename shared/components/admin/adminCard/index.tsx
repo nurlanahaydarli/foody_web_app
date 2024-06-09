@@ -18,7 +18,7 @@ interface PROPS {
   reset :Function,
   edit :any,
   removeDocument:any
-  created: number
+//   created: number
   // id: string;
   // description: string;
   // price: number;
@@ -33,8 +33,7 @@ function AdminCard(props:PROPS) {
   let {data,reset,edit,removeDocument} =props
   const [restaurants,setRestaurants] = useState<RestaurantPostDataType[]>([])
 let [mobile,setmobile]=useState(false)
-let created_at = data.created
-let isNew = isNewFunction(created_at)
+
 useEffect(() =>{
 (async () =>{
 try {
