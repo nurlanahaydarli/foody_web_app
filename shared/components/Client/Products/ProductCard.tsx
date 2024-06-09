@@ -33,8 +33,7 @@ export default function ProductsCard(product: ProductState) {
         }
     }, [basketData, id]);
 
-    const mutation = useMutation(
-        (basketProduct: BasketPostDataType) => AddBasket(basketProduct),
+    const mutation = useMutation((basketProduct: BasketPostDataType) => AddBasket(basketProduct),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');

@@ -10,7 +10,6 @@ import {RootState} from "../../../redux/store";
 import {useRouter} from "next/router";
 import RemoveSvg from "../svg/RemoveSvg";
 import {BasketPostDataType} from "../../../interfaces";
-import Loading from "../../Loading/Loading";
 import {useToast} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 

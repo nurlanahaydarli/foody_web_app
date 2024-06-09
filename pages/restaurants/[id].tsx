@@ -15,17 +15,19 @@ import {useTranslation} from "next-i18next";
 
 export default function RestaurantDetail() {
     let router = useRouter()
+
     const {t}=useTranslation('common')
     const { id } = router.query;
     const {
         data: restaurantData,
-        isLoading,
-        isError,
     } = useQuery(['singleRestaurant', id], () =>
         getRestaurantById(id as string)
     );
-    let restaurant = restaurantData?.data.result.data
-    let products = sortDataByCreated(restaurantData?.data.result.data.products)
+
+    const restaurant = restaurantData?.data.result.data
+    const products = restaurant ? restaurant.products : [];
+
+
     return (
         <>
             <MainLayout>
