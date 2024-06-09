@@ -14,7 +14,7 @@ import uploadFile from "../../../shared/utils/uploadFile";
 import {PostDataType, ProductPostDataType, RestaurantPostDataType} from "../../../shared/interfaces";
 import Select from "../../../shared/components/admin/Form/Select";
 import withAuth from "../../../shared/HOC/withAuth";
-
+import Loading from "../../../shared/components/Loading/Loading";
 
 const AdminLayout = dynamic(
   () => import("../../../shared/components/admin/Layout/AdminLayout"),
@@ -217,6 +217,9 @@ function Products() {
     seteditID(id)
     onOpen()
   }
+  if(products==undefined){
+    return(<Loading/>)
+}
 
   return (
     <>
@@ -296,6 +299,8 @@ function Products() {
                   onClick={handleButtonClick}
                  >Delete
                 </button>
+
+                
               </div>
             </div>
           </Modal>
