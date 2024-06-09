@@ -388,7 +388,9 @@ if(user) {
                         </div>
                       </div>
                     ) : (
-                      <EmptyBasket />
+                        <div className={`${styles.user_cabinet_box} ${styles.md}`}>
+                         <EmptyBasket />
+                        </div>
                     )}
                   </>
                 )}
