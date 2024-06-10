@@ -263,7 +263,19 @@ export async function getOrder() {
         console.log("order's error: ", error);
     }
 }
-
+export async function getOrderByUser() {
+    try {
+        const accessToken = localStorage.getItem("access_token");
+        const response = await instanceAxios.get(`/order/user`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response
+    } catch (error) {
+        console.log("order's error: ", error);
+    }
+}
 
 
 // =============================== DELETE ORDERS ===============================

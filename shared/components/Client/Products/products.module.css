@@ -52,7 +52,9 @@ object-fit: contain;
 .left_text {
 
 }
-
+.product_right{
+    min-width: 200px;
+}
 .product_right p {
     font-size: 12px;
     font-weight: 500;
