@@ -270,8 +270,7 @@ export async function getOrder() {
 
 export const deleteOrder = async (id: string | number) => {
     try {
-        let item: any = localStorage.getItem("access_token")
-        let accessToken = JSON.parse(item)
+        let accessToken = localStorage.getItem("access_token")
 
         const response = await instanceAxios.delete(`/order`, {
             data: {
