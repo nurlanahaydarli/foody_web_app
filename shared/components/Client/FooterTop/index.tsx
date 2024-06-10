@@ -4,10 +4,12 @@ import PizzaIcon from '../../../../public/BIGPIZZA.svg'
 import BurgerIcon from '../../../../public/HAMBURGER.svg'
 import style from '../FooterTop/top.module.css'
 import { useRouter } from 'next/router';
+import {useTranslation} from "next-i18next";
 function FooterTop() {
     let router = useRouter()
     const {Footer,title,button}=style
     let [mobile,setmobile]=useState(false)
+    const {t} = useTranslation("common")
     useEffect(()=>{
         if(window.innerWidth<800){
             setmobile(true)
@@ -29,8 +31,8 @@ function FooterTop() {
                 style={mobile?{display:'none'}:{}}
                 />
                 <div className='flex flex-col justify-center items-center'>
-                    <h3 className={title}>Discover Restaurants Near From you</h3>
-                    <button className={button} onClick={()=>router.push("restaurants")}>Explore now</button>
+                    <h3 className={title}>{t("Discover Restaurants Near From you")}</h3>
+                    <button className={button} onClick={()=>router.push("restaurants")}>{t("Explore now")}</button>
                 </div>
                 <Image
                 src={BurgerIcon}
