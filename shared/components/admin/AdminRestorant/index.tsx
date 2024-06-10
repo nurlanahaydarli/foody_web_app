@@ -3,7 +3,6 @@ import CardPencil from '../../../../public/cardpensil.svg';
 import TrashIcon from '../../../../public/trashicon.svg';
 import Image from "next/image";
 import BtnTypeIcon from '../../../../public/BtnTypeIcon.svg';
-import { toast } from "react-toastify";
 import Form from "../../../../shared/components/admin/Form/Form";
 import Input from "../../../../shared/components/admin/Form/Input";
 import { useModalOpen } from "../../../../shared/hooks/UseModalOpen";
@@ -13,6 +12,9 @@ import { instanceAxios } from "../../../helpers/instanceAxios";
 import { CategoryPostDataType} from '../../../interfaces/index'
 import Select from "../Form/Select";
 import Loading from "../../Loading/Loading";
+import { useTranslation } from "react-i18next";
+import { useToast } from "@chakra-ui/react";
+import { sortDataByCreated } from "../../../utils/sortData";
 
 interface Restaurant {
   category: string;
@@ -78,6 +80,7 @@ function reducer(state: State, action: Action): State {
 }
 
 function AdminRestaurant() {
+  const { t } = useTranslation("common");
   const [state, dispatch] = useReducer(reducer, initialState);
 
  
@@ -109,6 +112,9 @@ function AdminRestaurant() {
   let [categorysID, setcategorysID] = useState();
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [filteredRestaurants,setFilteredRestaurants]=useState<any>()
+  const toast = useToast();
+  
 
 
   const inpTitle = useRef<any>();
@@ -131,6 +137,11 @@ function AdminRestaurant() {
         
         let newData:any = res.data.result.data;
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: newData });
+
+        let sortData:any = sortDataByCreated(newData)
+        
+        dispatch({ type: 'SET_RESTAURANT_DATA', payload: sortData });
+        setFilteredRestaurants(sortData)
 
         setCategorys(categorysApi?.data.result.data)
       
@@ -244,12 +255,27 @@ console.log("categorysID",categorysID);
         type: 'SET_RESTAURANT_DATA',
         payload: [...state.restaurantData, { ...newRestaurant, id: Date.now() }],
       });
-      toast.success("Restaurant successfully added", { position: "top-right" });
+      toast({
+        title: `Restaurant successfully added`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
+      
       inpTitle.current.value = '';
       onClose();
       setImg('');
     } catch (err) {
-      toast.error("An error occurred while adding the restaurant", { position: "top-right" });
+      toast({
+        title: `An error occurred while adding the restaurant: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       console.log(err);
     } finally {
       dispatch({ type: 'SET_IS_ADD', payload: false });
@@ -354,11 +380,25 @@ console.log("categorysID",categorysID);
         ),
       });
       await EditRestaurant(updateRestaurant);
-      toast.success("Restaurant successfully edited", { position: "top-right" });
+      toast({
+        title: `Restaurant successfully edited`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       inpTitle.current.value = '';
       onClose();
     } catch (err) {
-      toast.error("An error occurred while editing the restaurant", { position: "top-right" });
+      toast({
+        title: `An error occurred while editing the restaurant: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       console.log(err);
     }finally{
       dispatch({ type: 'SET_IS_ADD', payload: false });
@@ -379,10 +419,24 @@ console.log("categorysID",categorysID);
       dispatch({ type: 'SET_IS_DELETING', payload: true });
       await instanceAxios.delete(`/restuarants/${id}`);
       dispatch({ type: 'DELETE_RESTAURANT', payload: id });
-      toast.success("Restaurant successfully deleted", { position: "top-right" });
+      toast({
+        title: `Restaurant successfully deleted`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
     } catch (err) {
       console.log(err);
-      toast.error("An error occurred while deleting the restaurant", { position: "top-right" });
+      toast({
+        title: `An error occurred while deleting the restaurant: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
     } finally {
       dispatch({ type: 'SET_IS_DELETING', payload: false });
     }
@@ -443,7 +497,7 @@ console.log("categorysID",categorysID);
   return (
     <div className="p-6">
       <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-customgray">Restaurants</h1>
+        <h1 className="text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
         <div className="flex items-center space-x-4">
           <button
             className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
