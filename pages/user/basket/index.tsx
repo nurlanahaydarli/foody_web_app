@@ -3,6 +3,8 @@ import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
 import BasketContainer from "../../../shared/components/Client/BasketItem/BasketContainer";
 import withClientAuth from '../../../shared/HOC/withClienAuth';
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 
 function Basket() {
@@ -25,3 +27,10 @@ function Basket() {
 }
 
 export default withClientAuth(Basket);
+
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

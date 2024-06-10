@@ -7,6 +7,7 @@ import Input from "../Form/Input";
 import ChangeLanguage from "../../Language/ChangeLanguage";
 import MenuSvg from '../svg/MenuSvg';
 import { useDispatch, useSelector } from "react-redux";
+import { openSidebar } from "../../../redux/featuries/sidebar/sidebarSlice";
 import { AppDispatch, RootState } from "../../../redux/store";
 import uploadFile from "../../../utils/uploadFile";
 import { PostProduct, getRestaurants } from "../../../services";
@@ -15,13 +16,14 @@ import { useEffect, useRef, useState } from 'react';
 import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
 import {AxiosResponse} from "axios";
+import { useToast } from '@chakra-ui/react';
 
 export default function Navbar() {
     let { push } = useRouter();
     const { isOpen, onOpen, onClose } = useModalOpen()
     let dispatch: AppDispatch = useDispatch()
     function handleOpenSidebar() {
-        // dispatch(openSidebar())
+        dispatch(openSidebar({}))
     }
     const inpTitle = useRef<any>()
     const inpDesc = useRef<any>()
@@ -38,7 +40,7 @@ export default function Navbar() {
     let [PriceValue, setPriceValue] = useState('');
     let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
     let [restaurantID, setRestaurantId] = useState(true)
-
+    const toast = useToast()
     useEffect(() => {
         (async () => {
             try {
@@ -85,10 +87,15 @@ export default function Navbar() {
             setProducts(prevProducts => prevProducts.map(product =>
                 product.name === newProduct.name ? createdProduct.data : product
             ));
-
-            toast.success("Product successfully added", {
-                position: "top-right",
-            });
+            toast({
+                title: `Product successfully added`,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
+          
             inpTitle?.current?.value == ''
             inpDesc?.current?.value == ''
             inpPrice?.current?.value == ''
@@ -96,9 +103,14 @@ export default function Navbar() {
             onClose()
             setImg('')
         } catch (err) {
-            toast.error("An error occurred while adding the product", {
-                position: "top-right",
-            });
+            toast({
+                title: `An error occurred while adding the product: ${err}`,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
 
             console.log(err);
         } 

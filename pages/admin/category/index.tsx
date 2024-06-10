@@ -12,6 +12,8 @@ import withAuth from "../../../shared/HOC/withAuth";
 import {useEntityHandler} from "../../../shared/hooks/UseFetchData";
 import Loading from "../../../shared/components/Loading/Loading";
 import ConfirmModal from '../../../shared/components/admin/confirmModal'
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });
@@ -166,3 +168,9 @@ function Category() {
 }
 
 export default withAuth(Category)
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

@@ -79,7 +79,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
                                 {isMobile && (
                                     <button className={styles.mobile_filter} onClick={onOpen}>
                                         <FilterSvg />
-                                        <span>Filters</span>
+                                        <span>{t("Filters")}</span>
                                     </button>
                                 )}
                                 <div className={`${styles.category_list_box} ${isMobile ? (isOpen ? styles.show : styles.hide) : styles.show}`}>

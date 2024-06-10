@@ -9,19 +9,25 @@ import {useQuery} from "react-query";
 import Loading from "../../shared/components/Loading/Loading";
 import ProductsCard from "../../shared/components/Client/Products/ProductCard";
 import {sortDataByCreated} from "../../shared/utils/sortData";
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useTranslation} from "next-i18next";
 
 export default function RestaurantDetail() {
     let router = useRouter()
+
+    const {t}=useTranslation('common')
     const { id } = router.query;
     const {
         data: restaurantData,
-        isLoading,
-        isError,
     } = useQuery(['singleRestaurant', id], () =>
         getRestaurantById(id as string)
     );
-    let restaurant = restaurantData?.data.result.data
-    let products = sortDataByCreated(restaurantData?.data.result.data.products)
+
+    const restaurant = restaurantData?.data.result.data
+    const products = restaurant ? restaurant.products : [];
+
+
     return (
         <>
             <MainLayout>
@@ -31,7 +37,7 @@ export default function RestaurantDetail() {
                         <div className={styles.restaurant_top}>
                             <img src={restaurant.img_url || undefined}  alt={restaurant.name} className={styles.cover_width} />
                         </div>
-                        <div className={`${styles.restaurant_detail} l:flex-nowrap flex-wrap flex justify-between items-center`}>
+                        <div className={`${styles.restaurant_detail} lg:flex-nowrap flex-wrap flex justify-between items-center`}>
                             <div className={styles.left_top}>
                                 <h1>
                                     {restaurant.name}
@@ -40,19 +46,19 @@ export default function RestaurantDetail() {
                             </div>
                             <div className={`flex items-center md:justify-end w-full justify-between md:flex-nowrap flex-wrap  ${styles.top_right} gap-10`}>
                                 <div className={styles.restaurant_desc}>
-                                    <p>Cuisine</p>
+                                    <p>{t("Cuisine")}</p>
                                     <span>{restaurant.cuisine}</span>
                                 </div>
                                 <div className={`${styles.action} flex items-center gap-10`}>
-                                    <span>{restaurant.delivery_price} AZN Delivery</span>
-                                    <button onClick={()=>router.back()}>Go Back</button>
+                                    <span>{restaurant.delivery_price} &#8380; {t("Delivery")}</span>
+                                    <button onClick={()=>router.back()}>{t("Go Back")}</button>
                                 </div>
                             </div>
                         </div>
                         <div className="flex lg:flex-nowrap flex-wrap max-w-screen-xl mx-auto">
                             <div className="lg:w-4/6  w-full">
                                 <div className={styles_products.products_container}>
-                                    <h2 className={`text-center ${styles_products.products_title}`}>Products</h2>
+                                    <h2 className={`text-center ${styles_products.products_title}`}>{t("Products")}</h2>
                                     <div className={styles_products.products_list}>
                                         <ul>
                                             {products?.map((product)=>(
@@ -67,9 +73,9 @@ export default function RestaurantDetail() {
                             <div className="lg:w-2/6  w-full">
                                 <BasketContainer size={'md'} />
                             </div>
-                            <div className="w-full lg:hidden flex justify-center ">
-                                <button  className={styles.basket_btn}>Basket</button>
-                            </div>
+                            {/*<div className="w-full lg:hidden flex justify-center ">*/}
+                            {/*    <button  className={styles.basket_btn}>Basket</button>*/}
+                            {/*</div>*/}
                         </div>
 
                     </div>
@@ -79,3 +85,9 @@ export default function RestaurantDetail() {
         </>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

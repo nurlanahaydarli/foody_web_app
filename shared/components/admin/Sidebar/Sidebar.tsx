@@ -50,7 +50,7 @@ export default function Sidebar() {
       };
 
     function handleCloseMenu(){
-        dispatch(closeSidebar)
+        dispatch(closeSidebar({}))
     }
     return (
         <>
@@ -65,14 +65,14 @@ export default function Sidebar() {
                             </div>
                             <li onClick={() => {
                                 push('/admin');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }} className={styles[`${isActive("/admin")}`]}>
                                 <DashboardSvg/>
                                 <span>{t("Dashboard")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/products');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }}
                                 className={styles[`${isActive("/admin/products")}`]}>
                                 <ProductsSvg/>
@@ -80,7 +80,7 @@ export default function Sidebar() {
                             </li>
                             <li onClick={() => {
                                 push('/admin/restaurants');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }}
                                 className={styles[`${isActive("/admin/restaurants")}`]}>
                                 <RestaurantsSvg/>
@@ -88,7 +88,7 @@ export default function Sidebar() {
                             </li>
                             <li onClick={() => {
                                 push('/admin/category');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }}
                                 className={styles[`${isActive("/admin/category")}`]}>
                                 <CategorySvg/>
@@ -96,14 +96,14 @@ export default function Sidebar() {
                             </li>
                             <li onClick={() => {
                                 push('/admin/orders');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }}  className={styles[`${isActive("/admin/orders")}`]}>
                                 <OrdersSvg/>
                                 <span>{t("Orders")}</span>
                             </li>
                             <li onClick={() => {
                                 push('/admin/orders/history');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }}
                                 className={styles[`${isActive("/admin/orders/history")}`]}>
                                 <UploadSvg/>
@@ -111,7 +111,7 @@ export default function Sidebar() {
                             </li>
                             <li onClick={() => {
                                 push('//admin/offer');
-                                dispatch(closeSidebar)
+                                handleCloseMenu()
                             }}  className={styles[`${isActive("/admin/offer")}`]}>
                                 <OfferSvg/>
                                 <span>{t("Offers")}</span>

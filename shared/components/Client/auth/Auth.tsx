@@ -5,13 +5,14 @@ import {RootState} from "../../../redux/store";
 import BasketSvg from "../svg/BasketSvg";
 import styles from './auth.module.css'
 import {getNameFirstLetter} from "../../../utils/getNameFirstLetter";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useResize} from "../../../hooks/useResize";
 import {useTranslation} from "next-i18next";
 
 export default function Auth() {
     let {push} = useRouter()
-    const [active,setActive]=useState(false)
+    const [active,setActive]=useState(false);
+    const [accessToken, setAccessToken] = useState<string | null>(null);
     function goAuth() {
         push('/login-register')
     }
@@ -22,23 +23,35 @@ export default function Auth() {
     function handleClick(){
         setActive(!active)
     }
+    useEffect(() => {
+        const token = localStorage.getItem('access_token');
+        setAccessToken(token);
+    }, []);
     return (
         <>
-            {user.id.length >0 ?
+            {accessToken ?
                 <div className='flex items-center justify-end gap-3'>
                     <button onClick={()=>push('/user/basket')} className={`flex justify-center items-center ${styles.basket_btn} ${styles.auth_btn}`}><BasketSvg/></button>
                     <button onClick={handleClick} className={`flex justify-center items-center ${styles.user_btn} ${styles.auth_btn}`}>{nameChar} </button>
                     <span className={styles.user_name}>{isMobile && user.fullname}</span>
                     {active &&
                     <>
-                        <ul className={styles.submenu}>
-                            <li onClick={()=>push('/user/profile')}>{t("Your Profile")}</li>
-                            <li onClick={()=>push('/user/basket')}>{t("Your Basket")}</li>
-                            <li onClick={()=>push('/user/orders')}>{t("Your Orders")}</li>
-                            <li onClick={()=>push('/user/checkout')}>{t("Checkout")}</li>
-                            <li>Logout</li>
-                        </ul>
-                        <div onClick={handleClick} className={styles.shadow}/>
+                        {!isMobile &&
+                        <>
+                            <ul className={styles.submenu}>
+                                <li onClick={() => push('/user/profile')}>{t("Your Profile")}</li>
+                                <li onClick={() => push('/user/basket')}>{t("Your Basket")}</li>
+                                <li onClick={() => push('/user/orders')}>{t("Your Orders")}</li>
+                                <li onClick={() => push('/user/checkout')}>{t("Checkout")}</li>
+                                <li onClick={() => {
+                                    push('/')
+                                    localStorage.removeItem("access_token")
+                                }}>Logout
+                                </li>
+                            </ul>
+                            <div onClick={handleClick} className={styles.shadow}/>
+                        </>
+                        }
                     </>
                     }
                 </div> :
