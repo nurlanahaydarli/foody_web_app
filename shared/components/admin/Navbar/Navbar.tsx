@@ -7,6 +7,7 @@ import Input from "../Form/Input";
 import ChangeLanguage from "../../Language/ChangeLanguage";
 import MenuSvg from '../svg/MenuSvg';
 import { useDispatch, useSelector } from "react-redux";
+import { openSidebar } from "../../../redux/featuries/sidebar/sidebarSlice";
 import { AppDispatch, RootState } from "../../../redux/store";
 import uploadFile from "../../../utils/uploadFile";
 import { PostProduct, getRestaurants } from "../../../services";
@@ -22,7 +23,7 @@ export default function Navbar() {
     const { isOpen, onOpen, onClose } = useModalOpen()
     let dispatch: AppDispatch = useDispatch()
     function handleOpenSidebar() {
-        // dispatch(openSidebar())
+        dispatch(openSidebar({}))
     }
     const inpTitle = useRef<any>()
     const inpDesc = useRef<any>()
