@@ -109,7 +109,7 @@ function AdminRestaurant() {
   const [AdressStrogeRegex, setAdressStrogeRegex] = useState('');
 
   let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
-  let [categorysID, setcategorysID] = useState();
+  let [categorysID, setcategorysID] = useState(true);
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [filteredRestaurants,setFilteredRestaurants]=useState<any>()
@@ -156,15 +156,28 @@ function AdminRestaurant() {
 
 
 
-  function getCategoryById(e: any) {
-    const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
-    if (selectedCategory) {
-        setcategorysID(selectedCategory.id);
-        setSelectedCategoryName(selectedCategory.name);
-    }
-}
-console.log("categorysID",categorysID);
+//   function getCategoryById(e: any) {
+//     const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
+//     if (selectedCategory) {
+//         setcategorysID(selectedCategory.id);
+//         setSelectedCategoryName(selectedCategory.name);
+//     }
+// }
+// console.log("categorysID",categorysID);
 
+
+function getCategorysById(e:any) {
+  setcategorysID(e.currentTarget.value)
+}
+
+// const  getCategorysFilter =(e:any)=> {
+//   let id = e.currentTarget.value
+//   let filtered_categorys = ?.filter((product:IProduct)=>{
+//     return product.rest_id === id
+//   })
+//   setFilteredProducts(filtered_products)
+
+// }
 
 
   async function addRestaurant() {
@@ -231,7 +244,7 @@ console.log("categorysID",categorysID);
     let newRestaurant:any = {
       name: Title,
       img_url: '',
-      category_id: selectedCategoryName,
+      category_id: categorysID,
       cuisine: Cuisine,
       address: Adress,
       delivery_min: DeliveryMin,
@@ -466,6 +479,9 @@ console.log("categorysID",categorysID);
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
 
+  console.log("categorys", categorys);
+  
+
   const renderCategories = () => {
 
 
@@ -480,11 +496,12 @@ console.log("categorysID",categorysID);
           </li>
           {categorys.map((category) => (
             <li
-              className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-              onClick={() => handleCategoryClick(category.name)}>
-
-              {category.name}
-            </li>
+            key={category.id}
+            className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+            onClick={() => handleCategoryClick(category.id)}
+          >
+            {category.name}
+          </li>
           ))}
         </ul>
       </div>
@@ -542,7 +559,7 @@ console.log("categorysID",categorysID);
                 <div className="flex flex-col justify-center">
                   <h2 className="text-xl font-semibold text-black">{restaurant.name}</h2>
                   <span className="inline-block bg-gray-200 text-gray-800 text-sm rounded-full mt-2 px-2 py-1">
-                    {restaurant.category_id}
+                  {categorys.find((category) => category.id === restaurant.category_id)?.name}
                   </span>
                 </div>
                 <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
@@ -615,7 +632,7 @@ console.log("categorysID",categorysID);
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
         <div className=" text-mainRed font-bold">{TitleStroge}</div>
      
-        <Select value={selectedCategoryName} onChange={getCategoryById} title={"Categorys"} name={"cat_id"} options={categorys}  />
+        <Select value={categorys} onChange={getCategorysById} title={"Categorys"} name={"cat_id"} options={categorys}  />
 
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
         <div className="text-mainRed font-bold">{CuisineStroge}</div>
