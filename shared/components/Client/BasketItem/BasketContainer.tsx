@@ -82,7 +82,7 @@ export default function BasketContainer(props: BasketProps) {
                 <div className={`${styles.user_cabinet_box} ${styles[size]}`}>
                     {basket_list?.items.length>0?
                         <>
-                            <div className="min-h-[550px] flex justify-between flex-column">
+                            <div className="min-h-[550px] flex justify-between flex-col">
                                 <div>
                                     <h2 className={styles.user_cabinet_title}>
                                         {t("Your Basket")}
