@@ -79,9 +79,9 @@ function Form({
                         </div>
 
                         <div className={styles.form_bottom}>
-                            <CustomButton icon={false} title={'Cancel'} type='button' size={'lg'} color={'2'}
+                            <CustomButton icon={false} title={'Cancel'} onAction={onClose} type='button' size={'lg'} color={'2'}
                             />
-                            <CustomButton loading={loading}  icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
+                            <CustomButton loading={loading}   icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
                                           onAction={handleAction} />
 
                         </div>

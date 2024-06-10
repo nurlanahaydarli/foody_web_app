@@ -4,7 +4,8 @@ import styles from '../infoSection/infoSection.module.css'
 
 
 import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import 'aos/dist/aos.css';
+import {shortText} from "../../../utils/shortText";
 interface Props{
   data:any
     // img1:any,
@@ -43,7 +44,7 @@ function InfoSection(props:Props) {
             {newdata?.map((item:any)=>(
               <InfoBox
               RestuarantID={item.description===undefined?item.id:item.rest_id}
-              Desc={item.description===undefined?item.address:item.description}
+              Desc={shortText(item.description===undefined?item.address:item.description,30)}
               img={item.img_url}
               Title={item.name}
               />

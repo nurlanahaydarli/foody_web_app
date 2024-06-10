@@ -3,7 +3,6 @@ import CardPencil from '../../../../public/cardpensil.svg';
 import TrashIcon from '../../../../public/trashicon.svg';
 import Image from "next/image";
 import BtnTypeIcon from '../../../../public/BtnTypeIcon.svg';
-import { toast } from "react-toastify";
 import Form from "../../../../shared/components/admin/Form/Form";
 import Input from "../../../../shared/components/admin/Form/Input";
 import { useModalOpen } from "../../../../shared/hooks/UseModalOpen";
@@ -13,6 +12,9 @@ import { instanceAxios } from "../../../helpers/instanceAxios";
 import { CategoryPostDataType} from '../../../interfaces/index'
 import Select from "../Form/Select";
 import Loading from "../../Loading/Loading";
+import { useTranslation } from "react-i18next";
+import { useToast } from "@chakra-ui/react";
+import { sortDataByCreated } from "../../../utils/sortData";
 
 interface Restaurant {
   category: string;
@@ -78,6 +80,7 @@ function reducer(state: State, action: Action): State {
 }
 
 function AdminRestaurant() {
+  const { t } = useTranslation("common");
   const [state, dispatch] = useReducer(reducer, initialState);
 
  
@@ -106,9 +109,12 @@ function AdminRestaurant() {
   const [AdressStrogeRegex, setAdressStrogeRegex] = useState('');
 
   let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
-  let [categorysID, setcategorysID] = useState();
+  let [categorysID, setcategorysID] = useState(true);
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [filteredRestaurants,setFilteredRestaurants]=useState<any>()
+  const toast = useToast();
+  
 
 
   const inpTitle = useRef<any>();
@@ -132,6 +138,11 @@ function AdminRestaurant() {
         let newData:any = res.data.result.data;
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: newData });
 
+        let sortData:any = sortDataByCreated(newData)
+        
+        dispatch({ type: 'SET_RESTAURANT_DATA', payload: sortData });
+        setFilteredRestaurants(sortData)
+
         setCategorys(categorysApi?.data.result.data)
       
 
@@ -145,15 +156,28 @@ function AdminRestaurant() {
 
 
 
-  function getCategoryById(e: any) {
-    const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
-    if (selectedCategory) {
-        setcategorysID(selectedCategory.id);
-        setSelectedCategoryName(selectedCategory.name);
-    }
-}
-console.log("categorysID",categorysID);
+//   function getCategoryById(e: any) {
+//     const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
+//     if (selectedCategory) {
+//         setcategorysID(selectedCategory.id);
+//         setSelectedCategoryName(selectedCategory.name);
+//     }
+// }
+// console.log("categorysID",categorysID);
 
+
+function getCategorysById(e:any) {
+  setcategorysID(e.currentTarget.value)
+}
+
+// const  getCategorysFilter =(e:any)=> {
+//   let id = e.currentTarget.value
+//   let filtered_categorys = ?.filter((product:IProduct)=>{
+//     return product.rest_id === id
+//   })
+//   setFilteredProducts(filtered_products)
+
+// }
 
 
   async function addRestaurant() {
@@ -220,7 +244,7 @@ console.log("categorysID",categorysID);
     let newRestaurant:any = {
       name: Title,
       img_url: '',
-      category_id: selectedCategoryName,
+      category_id: categorysID,
       cuisine: Cuisine,
       address: Adress,
       delivery_min: DeliveryMin,
@@ -244,12 +268,27 @@ console.log("categorysID",categorysID);
         type: 'SET_RESTAURANT_DATA',
         payload: [...state.restaurantData, { ...newRestaurant, id: Date.now() }],
       });
-      toast.success("Restaurant successfully added", { position: "top-right" });
+      toast({
+        title: `Restaurant successfully added`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
+      
       inpTitle.current.value = '';
       onClose();
       setImg('');
     } catch (err) {
-      toast.error("An error occurred while adding the restaurant", { position: "top-right" });
+      toast({
+        title: `An error occurred while adding the restaurant: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       console.log(err);
     } finally {
       dispatch({ type: 'SET_IS_ADD', payload: false });
@@ -354,11 +393,25 @@ console.log("categorysID",categorysID);
         ),
       });
       await EditRestaurant(updateRestaurant);
-      toast.success("Restaurant successfully edited", { position: "top-right" });
+      toast({
+        title: `Restaurant successfully edited`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       inpTitle.current.value = '';
       onClose();
     } catch (err) {
-      toast.error("An error occurred while editing the restaurant", { position: "top-right" });
+      toast({
+        title: `An error occurred while editing the restaurant: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
       console.log(err);
     }finally{
       dispatch({ type: 'SET_IS_ADD', payload: false });
@@ -379,10 +432,24 @@ console.log("categorysID",categorysID);
       dispatch({ type: 'SET_IS_DELETING', payload: true });
       await instanceAxios.delete(`/restuarants/${id}`);
       dispatch({ type: 'DELETE_RESTAURANT', payload: id });
-      toast.success("Restaurant successfully deleted", { position: "top-right" });
+      toast({
+        title: `Restaurant successfully deleted`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
     } catch (err) {
       console.log(err);
-      toast.error("An error occurred while deleting the restaurant", { position: "top-right" });
+      toast({
+        title: `An error occurred while deleting the restaurant: ${err}`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
     } finally {
       dispatch({ type: 'SET_IS_DELETING', payload: false });
     }
@@ -412,6 +479,9 @@ console.log("categorysID",categorysID);
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
 
+  console.log("categorys", categorys);
+  
+
   const renderCategories = () => {
 
 
@@ -426,11 +496,12 @@ console.log("categorysID",categorysID);
           </li>
           {categorys.map((category) => (
             <li
-              className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-              onClick={() => handleCategoryClick(category.name)}>
-
-              {category.name}
-            </li>
+            key={category.id}
+            className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+            onClick={() => handleCategoryClick(category.id)}
+          >
+            {category.name}
+          </li>
           ))}
         </ul>
       </div>
@@ -443,7 +514,7 @@ console.log("categorysID",categorysID);
   return (
     <div className="p-6">
       <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-customgray">Restaurants</h1>
+        <h1 className="text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
         <div className="flex items-center space-x-4">
           <button
             className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
@@ -488,7 +559,7 @@ console.log("categorysID",categorysID);
                 <div className="flex flex-col justify-center">
                   <h2 className="text-xl font-semibold text-black">{restaurant.name}</h2>
                   <span className="inline-block bg-gray-200 text-gray-800 text-sm rounded-full mt-2 px-2 py-1">
-                    {restaurant.category_id}
+                  {categorys.find((category) => category.id === restaurant.category_id)?.name}
                   </span>
                 </div>
                 <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
@@ -561,7 +632,7 @@ console.log("categorysID",categorysID);
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
         <div className=" text-mainRed font-bold">{TitleStroge}</div>
      
-        <Select value={selectedCategoryName} onChange={getCategoryById} title={"Categorys"} name={"cat_id"} options={categorys}  />
+        <Select value={categorys} onChange={getCategorysById} title={"Categorys"} name={"cat_id"} options={categorys}  />
 
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
         <div className="text-mainRed font-bold">{CuisineStroge}</div>

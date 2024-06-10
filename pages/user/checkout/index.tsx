@@ -15,6 +15,10 @@ import { useRouter } from 'next/router';
 import BasketItem from '../../../shared/components/Client/BasketItem/index';
 import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
 import { toast } from 'react-toastify';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
+import { useTranslation } from 'react-i18next';
+
 import styles from "../basket/basket.module.css";
 
 
@@ -98,6 +102,7 @@ const formatPhoneNumber = (value:any) => {
 
 
 function Checkout() {
+  
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
@@ -107,6 +112,7 @@ function Checkout() {
     const [phoneNumRegex, setPhoneNumRegex] = useState(false)
     const [addressValid, setAddressValid] = useState(false);
     const [userLoaded, setUserLoaded] = useState(false);
+    const { t } = useTranslation("common");
 
 
    
@@ -291,10 +297,10 @@ if(user) {
                     {basketList?.items?.length > 0 ? (
                       <div className="flex justify-between">
                         <div className='w-8/12 mx-5 mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
-                          <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>Checkout</h1>
+                          <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>{t("Checkout")}</h1>
 
                           <div className=' mt-6 ml-6'>
-                            <label className='text-grayText2 font-bold'>Delivery Address</label>
+                            <label className='text-grayText2 font-bold'>{t("Delivery Address")}</label>
                             <input
                               type="text"
                               id="address"
@@ -310,7 +316,7 @@ if(user) {
                           <br />
                           {state.formatMessage && <span className=' text-green'>{state.formatMessage}</span>}
 
-                          <label className='text-grayText2 font-bold ml-6'>Phone Number</label>
+                          <label className='text-grayText2 font-bold ml-6'>{t("Contact Number")}</label>
                           <div className='ml-6'>
                             <input
                               type="text"
@@ -328,7 +334,7 @@ if(user) {
                           <br />
                           {state.formatNumber && <span className=' text-green'>{state.formatNumber}</span>}
 
-                          <h1 className='ml-6 font-bold text-grayText2 '>Payment Method</h1>
+                          <h1 className='ml-6 font-bold text-grayText2 '>   {t("Payment Method")}</h1>
 
                           <div className="flex ml-6 mt-4">
                             <button onClick={handleToggle}>
@@ -341,7 +347,8 @@ if(user) {
                                     fill="#6FCF97" />}
                               </svg>
                             </button>
-                            <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>pay at the door</h1>
+                            <h1 className={`ml-2 ${isRectVisible2 ? 'text-textColorGreen' : ''}`}>  {t("Pay at the door")}</h1>
+                          
 
                             <button className=' ml-16' onClick={handleToggle2}>
                               <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
@@ -353,7 +360,7 @@ if(user) {
                                     fill="#6FCF97" />}
                               </svg>
                             </button>
-                            <h1 className={`ml-2 ${isRectVisible ? 'text-textColorGreen' : ''}`}>pay at the door by credit card</h1>
+                            <h1 className={`ml-2 ${isRectVisible ? 'text-textColorGreen' : ''}`}>{t("By Credit Card")}</h1>
                           </div>
 
                           <div className='flex items-center justify-center mt-16'>
@@ -368,7 +375,7 @@ if(user) {
                         </div>
 
                         <div className='w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
-                          <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>Your Order</h1>
+                          <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>{t("Your Order")}</h1>
                           {basketList.items.map((product:any, index: any) => (
                             <div key={index} className='flex p-2'>
                               <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
@@ -380,7 +387,7 @@ if(user) {
                           ))}
                           <hr className=' mt-8 w-11/12' />
                           <div className='flex gap-48 mt-4'>
-                            <h1 className='font-bold text-2xl text-grayText ml-9'>Total</h1>
+                            <h1 className='font-bold text-2xl text-grayText ml-9'>{t("Total")}</h1>
                             <h5 className='mt-1 text-xl text-grayText'>${basketList.total_amount}</h5>
                           </div>
                           
@@ -405,3 +412,11 @@ if(user) {
 }
 
 export default Checkout;
+
+
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+  },
+});

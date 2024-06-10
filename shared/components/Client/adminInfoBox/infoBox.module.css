@@ -33,6 +33,7 @@ flex-wrap: wrap;
 .icon{
     width: 240px;
     height: 232px;
+    object-fit: contain;
 }
 
 
