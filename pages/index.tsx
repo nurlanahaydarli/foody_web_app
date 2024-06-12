@@ -64,12 +64,12 @@ const Home: NextPage = (Props) => {
                 <h1 className={ButtomTitle +' flex flex-wrap'}>{t("Our Food site makes it easy to find local food")}</h1>
                 <p className={buttomDesc+ ' w-4/5 flex flex-wrap mt-2'}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
                 <div className={mobile?'flex flex-col mt-10 gap-4 justify-center items-center':"flex flex-row  w-4/5 gap-10 mt-10 mb"}>
-                    <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>Register </button>
+                    <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>{t("Register")} </button>
                     <button className={Orderbtn} onClick={()=>{
                         
                         ruter.push('restaurants')
                         
-                    }}>Order now </button>
+                    }}>{t("Order now")} </button>
                 </div>
             </div>
             <div className={" relative flex justify-center items-center p-14 "+iconDiv}>
