@@ -17,6 +17,8 @@ import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
 import {AxiosResponse} from "axios";
 import { useToast } from '@chakra-ui/react';
+// import { useFormik } from 'formik';
+// import * as Yup from 'yup';
 
 export default function Navbar() {
     let { push } = useRouter();
@@ -30,7 +32,7 @@ export default function Navbar() {
     const inpPrice = useRef<any>()
     const inpRest = useRef<any>()
     
-   
+    const [isLoading, setIsLoading] = useState(false);
     let [TitleYup, setTitleYup] = useState('')
     let [PriceYup, setPriceYup] = useState('');
     let [Img, setImg] = useState<any>('')
@@ -58,6 +60,7 @@ export default function Navbar() {
 
     }
     async function addProduct() {
+        setIsLoading(true);
         let Title = inpTitle?.current?.value
         let Desc = inpDesc?.current?.value
         let Price = inpPrice?.current?.value
@@ -113,7 +116,9 @@ export default function Navbar() {
             })
 
             console.log(err);
-        } 
+        } finally {
+            setIsLoading(false);
+        }
     }
     return (
         <>
@@ -128,7 +133,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={styles.navbar_right}>
-                    <CustomButton icon={true} title={'Add product'} size={'sm'} color={'1'} type={'button'} onAction={onOpen} />
+                    <CustomButton icon={true} title={'Add product'} size={'sm'} color={'1'} type={'button'} onAction={onOpen}  loading={isLoading}  />
                     <ChangeLanguage />
                     <div className={styles.admin_box}>
                         <img src="/imgs/avatar.png" alt="" />
@@ -136,8 +141,9 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-            <Form isOpen={isOpen} title={'Add Product'} subtitle={"Add your Product description and necessary information"} onClose={onClose}
-                onAction={addProduct} setIMG={setImg}
+            <Form 
+            isOpen={isOpen} title={'Add Product'} subtitle={"Add your Product description and necessary information"} onClose={onClose}
+                onAction={addProduct} setIMG={setImg} loading={isLoading}
             >
                 <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}
                     value={Titlevalue} />

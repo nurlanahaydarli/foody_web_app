@@ -51,7 +51,7 @@ function Products() {
     setIsModalOpen(false);
   };
   const [products, setProducts] = useState<IProduct[]>([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   // Type for setProducts
   type SetProductsType = React.Dispatch<React.SetStateAction<IProduct[]>>;
 
@@ -108,48 +108,6 @@ function Products() {
     setFilteredProducts(filtered_products)
 
   }
-  // async function addProduct() {
-  //   let Title = inpTitle?.current?.value as string;
-  //   let Desc = inpDesc?.current?.value as string;
-  //   let Price = inpPrice?.current?.value as number;
-  //
-  //   Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
-  //   let newProduct:IProduct = {
-  //     name: Title,
-  //     description: Desc,
-  //     price: Price,
-  //     rest_id: restaurantID,
-  //   }
-  //   try {
-  //     let res = await uploadFile({
-  //       file: Img,
-  //       collectionId: "products",
-  //       documentId: "products"
-  //     }) as AxiosResponse<string|null>;
-  //     newProduct.img_url = res;
-  //
-  //     // setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
-  //     updateProducts(prevProducts => [...prevProducts, { ...newProduct}])
-  //     let createdProduct = await PostProduct(newProduct);
-  //
-  //     toast.success("Product successfully added", {
-  //       position: "top-right",
-  //     });
-  //     inpTitle?.current?.value == ''
-  //     inpDesc?.current?.value == ''
-  //     inpPrice?.current?.value == ''
-  //
-  //     onClose()
-  //     setImg('')
-  //   } catch (err) {
-  //     toast.error("An error occurred while adding the product", {
-  //       position: "top-right",
-  //     });
-  //     console.log(err);
-  //   }
-  //
-  // }
-
   async function updateProduct() {
     let Title = inpTitle?.current?.value
     let Desc = inpDesc?.current?.value
@@ -167,6 +125,9 @@ function Products() {
       console.error('Image is required');
       return;
     }
+
+    setIsLoading(true);
+
     let updatedProduct: ProductPostDataType = {
       id: editID,
       name: Title,
@@ -210,6 +171,8 @@ function Products() {
         variant: 'subtle'
       })
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
 
   }
@@ -283,7 +246,7 @@ function Products() {
           </section>
           <Form
             isOpen={isOpen}
-
+            loading={isLoading}
             title={editImg ? 'Edit Product' : 'Add Product'}
             subtitle={`${editImg ? 'Edit' : 'Add'} 
           your Product description and necessary information `}
@@ -315,37 +278,6 @@ function Products() {
             onRequestClose={() => setIsConfirmModalOpen(false)}
             onConfirm={handleConfirmDelete}
           />
-          {/* <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-            <div className="flex justify-between items-center">
-              <p className="mx-auto text-3xl font-medium">
-                Are you sure it's deleted?
-              </p>
-            </div>
-            <p className=" text-grayText w-2/3 mx-auto text-center my-5">
-              Attention! If you delete this order, it will not come back...
-            </p>
-
-            <div
-            
-              className="mx-auto flex items-center justify-center gap-9"
-            >
-              <button
-                className=" border-grayText text-grayText py-1 px-8"
-                onClick={handleModalClose}
-               >Cancel
-                </button>
-              <div>
-                <button
-                  type={'button'}
-                  className="bg-mainRed border-2 text-white py-1 px-8"
-                  onClick={handleButtonClick}
-                 >Delete
-                </button>
-
-                
-              </div> */}
-          {/* </div>
-          </Modal> */}
         </main>
       </AdminLayout>
     </>
