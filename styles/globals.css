@@ -75,6 +75,7 @@ a {
   display: block;
   width: 100%;
   color: rgba(199, 199, 199, 1);
+  max-width: 250px;
 }
 .bg_gray{
   border-radius: 14px;
