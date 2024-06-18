@@ -13,6 +13,7 @@ import { PutAuthUser } from '../../../services';
 import Spiner from '../../../components/Client/Spiner'
 import Image from 'next/image';
 import {AxiosResponse} from "axios";
+import { useTranslation } from 'react-i18next';
 interface FormValues {
   phoneNumber: string;
   username: string;
@@ -45,6 +46,8 @@ interface Props{
 const UserForm: any = (props:Props) => {
   let {img,}:any=props
   let [logoding,setlogoding]=useState(false)
+  const { t } = useTranslation("common");
+
   // let IMG=img[0]?.data_url
   
   
@@ -57,7 +60,7 @@ console.log(user);
     console.log(img);
     
     if(img==undefined||img===""){
-      console.log("sssss");
+    
       
       toast.info("You have to add image to profile", {
         position:"top-right",
@@ -115,18 +118,16 @@ console.log(user);
         <Form> 
             <div className={div}>
                 <div className={inpdiv}>
-                    <Input name='phoneNumber' type='text' placeholder='+994 XX XXX XX XX' title='Contact'/>
-                    <Input name='username' type='text' placeholder={user.username} title='Username'/>
-                    <Input name='fullName' type='text' placeholder='Sarkhan Rahimli' title='Full Name'/>
+                    <Input name='phoneNumber' type='text' placeholder='+994 XX XXX XX XX' title={t("Contact Number")}/>
+                    <Input name='username' type='text' placeholder={user.username} title={t("User Name")}/>
+                    <Input name='fullName' type='text' placeholder='Sarkhan Rahimli' title={t("Full Name")}/>
                 </div>
                 <div className={inpdiv}>
                     <Input name='email' type='email' placeholder='Exsample@gmail.com' title='Email' value={user.email}/>
-                    <Input name='address' type='text' placeholder='address' title='Address'/>
+                    <Input name='address' type='text' placeholder='address' title={t("Address")}/>
                     <button type="submit" className={button}  style={ logoding?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
-                      {logoding?<Spiner />:"Save"}
-                    
+                      {logoding?<Spiner />:t("Save")}
                     </button>
-                    
                 </div>
             </div>
         </Form>

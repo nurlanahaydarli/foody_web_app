@@ -9,18 +9,11 @@ import PizzaIcon from '../public/Main-Pizza.svg'
 import Image from "next/image";
 import AnimetedBox from "../shared/components/Client/MainAnimetedBox";
 import { useRouter } from "next/router";
-import InfoBox from "../shared/components/Client/adminInfoBox";
+
 import InfoSection from "../shared/components/Client/infoSection";
 
-import BoucherIcon from '../public/Boucher.svg'
-import soupIcon from '../public/soup.svg'
-import deliveryIcon from '../public/delivery.svg'
 import INFoBox from "../shared/components/Client/InfoBox";
-import ComboIcon from '../public/combo.svg'
-import PIZZaIcon from '../public/BIGPIZZA.svg'
-import FryIcon from '../public/Fry.svg'
-import MiniBurgerIcon from '../public/MiniBurger.svg'
-import MiniPizzaIcon from '../public/MiniPizza.svg'
+
 import FooterTop from "../shared/components/Client/FooterTop";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

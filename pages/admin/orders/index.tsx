@@ -2,11 +2,8 @@ import Sidebar from "../../../shared/components/admin/Sidebar/Sidebar";
 import AdminLayout from "../../../shared/components/admin/Layout/AdminLayout";
 import AdminHedetbuttom from "../../../shared/components/admin/AdminHeaderButtom";
 import OrdersTable from "../../../shared/components/admin/OrdersTable";
-import style from "../orders/order.module.css"
-import editicon from "../../../public/EditButton.svg"
-import LeftSvg from '../../../shared/components/admin/svg/LeftSvg'
-import CloseIcon from "../../../public/Close.svg" 
-import Image from "next/image";
+import { useTranslation } from 'react-i18next';
+
 import { useEffect, useState } from "react";
 import { AccessGet, Delete } from "../../../server/helper/reguests";
 import formatDate from "../../../server/helper/convertDateToDAy";
@@ -17,15 +14,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from "../../../shared/components/Loading/Loading";
 import withAuth from "../../../shared/HOC/withAuth";
+// import Modal from "../../admin/Modal";
+import InfoBox from "../../../shared/components/admin/Modal";
+import { UserOrdersDetail } from "../../../shared/components/Client/UserOrdersDetail";
+
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 function Orders() {
     let [display ,setdisplay]=useState(false)
     let [displayModal ,setdisplayModal]=useState(false)
     let [data ,setdata]=useState()
-    let [id ,setid]=useState<string>()
+    let [id ,setid]=useState<any>()
     let [Order ,setOrder]=useState<any>()
     let [refreh ,setrefreh]=useState<any>(true)
 
-
+    const { t } = useTranslation("common");
     
     useEffect(()=>{
         (async()=>{
@@ -41,20 +44,22 @@ function Orders() {
         })()
         
     },[refreh])
-    function ShowOrder(Order:object){
-       
+    function ShowOrder(Order:Object){
+console.log(Order);
+        
         setdisplay(true)
         setOrder(Order)
+        setid(id)
     }
     function handleModalClose(){
        setdisplayModal(false)
         
     }
-    function Ondelete(id:string){
+    function Ondelete(item:object){
         setdisplayModal(true)
         
         
-         setid(id)
+         setOrder(item)
          
      }
     function Delete(){
@@ -91,7 +96,7 @@ function Orders() {
                 <AdminHedetbuttom addButton={false} typeButton={false} Title={"Orders"}/>
                 <OrdersTable data={data} ShowOrder={ShowOrder} Ondelete={Ondelete}/>
             </AdminLayout>
-            <div className={style.infoBox} style={!display?{display:"none"}:{display:"flex"}}>
+            {/* <div className={style.infoBox} style={!display?{display:"none"}:{display:"flex"}}>
                 <div className=" bg-whiteLight1 w-2/3 h-2/3 flex flex-col relative">
                     <div className=" text-center">
                         <h2 className="text-4xl font-semibold">Order</h2>
@@ -184,7 +189,18 @@ function Orders() {
                     />
                 </div>
 
-            </div>
+            </div> */}
+            <InfoBox isOpen={display} onClose={()=>setdisplay(false)}>
+
+            <UserOrdersDetail id={Order?.id} />
+                <button
+                    className="mt-4 border-solid border-b-2 border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
+                   
+                    onClick={()=>{setdisplay(false)}}>
+                   {t("Close")}
+                   
+                    </button>
+            </InfoBox>
             <Modal isOpen={displayModal} onClose={handleModalClose}>
             <div className="flex justify-between items-center">
               <p className="mx-auto text-3xl font-medium">
@@ -220,3 +236,8 @@ function Orders() {
 }
 
 export default withAuth(Orders)
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

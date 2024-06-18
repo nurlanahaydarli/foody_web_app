@@ -329,3 +329,22 @@ export const getProductServer = async () => {
 };
 
 
+export async function PostOffer(offer: object) {
+    try {
+        instanceAxios.post("offer",offer)
+        
+    } catch (err) {
+        console.log(err);
+        
+    }
+}
+export async function PutOffer(offer: object,id:string) {
+    try {
+        instanceAxios.put(`offer/${id}`, offer)
+        
+        
+    } catch (err) {
+        console.log(err);
+        
+    }
+}
