@@ -30,7 +30,8 @@ function Category() {
     let [ResetData, setResetData] = useState(true)
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
-
+    console.log(editImg);
+    
     const {handleEntity, removeEntity, loading} = useEntityHandler({
         uploadFile,
         addEntity: PostCategory,

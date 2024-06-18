@@ -11,8 +11,9 @@ import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import uploadFile from "../../../shared/utils/uploadFile";
-import Loading from "../../../shared/components/Loading/Loading";
+
 import withAuth from "../../../shared/HOC/withAuth";
+import { PostOffer, PutOffer } from "../../../shared/services";
  function Offer() {
     const {isOpen, onOpen, onClose} = useModalOpen()
     let [offers, setoffers] = useState([])
@@ -21,11 +22,15 @@ import withAuth from "../../../shared/HOC/withAuth";
     let [editID, seteditID] = useState<any>('')
 
     let [TitleYup, setTitleYup] = useState('')
+    let [loading, setloading] = useState(false)
     let [Titlevalue, setTitlevalue] = useState('')
     let [DescYup, setDescYup] = useState('')
     let [DescValue, setDescValue] = useState('')
 
     let [ResetData, setResetData] = useState(true)
+    console.log("loading",loading);
+    
+
     const inpTitle = useRef<any>()
     const inpDesc = useRef<any>()
     useEffect(() => {
@@ -44,32 +49,42 @@ import withAuth from "../../../shared/HOC/withAuth";
 
     async function postOffer(offer: object) {
         try {
-            axios.post('http://localhost:3000/api/offer', offer)
+           
+            PostOffer(offer)
                 .then(function (response) {
-                    console.log(response);
+                   
                     setResetData(prev => !prev)
                     toast.success("Offer added sucsesfuly", {
                         position: "top-right",
                     });
+                    
+                    
                 })
                 .catch(function (error) {
                     console.log(error);
+                   
+
+                   
                 });
         } catch (err) {
             console.log(err);
+           
         }
     }
 
     async function upOffer(offer: object, id: string) {
-
+        console.log(loading);
+        
         console.log(offer);
         
 
         try {
+            
+            setloading(true)
 
-
-            axios.put(`http://localhost:3000/api/offer/${id}`, offer)
+            PutOffer(offer,id)
                 .then(function (response) {
+                   
                     console.log(response);
                     setResetData(prev => !prev)
                     toast.success("Offer update sucsesfuly", {
@@ -78,6 +93,8 @@ import withAuth from "../../../shared/HOC/withAuth";
                 })
                 .catch(function (error) {
                     console.log(error);
+                   
+
                 });
         } catch (err) {
             console.log(err);
@@ -96,6 +113,7 @@ import withAuth from "../../../shared/HOC/withAuth";
             "name": Title,
             "description": Desc
         }
+        setloading(true)
         try {
             let res = await uploadFile({
                 file: Img,
@@ -103,13 +121,15 @@ import withAuth from "../../../shared/HOC/withAuth";
                 documentId: "offer"
             }) as AxiosResponse<string|null>;
             newOffer.img_url = res;
-            await postOffer(newOffer)
+           
+            await postOffer(newOffer).then(()=>setloading(false))
 
             inpTitle?.current?.value == ''
             inpDesc?.current?.value == ''
             onClose()
         } catch (err) {
             console.log(err);
+            setloading(false)
         }
 
     }
@@ -127,23 +147,32 @@ import withAuth from "../../../shared/HOC/withAuth";
             id: editID,
             "name": Title,
             "description": Desc,
-            "img_url": Img
+            "img_url": editImg
         }
+        setloading(true)
         try {
-            let res = await uploadFile({
-                file: Img,
-                collectionId: "offer",
-                documentId: "offer"
-            }) as AxiosResponse<string|null>;
-            newOffer.img_url = res;
+            if(Img){
+                
+                    let res = await uploadFile({
+                        file: Img,
+                        collectionId: "offer",
+                        documentId: "offer"
+                    }) as AxiosResponse<string|null>;
+                    newOffer.img_url = res;
+                }
+            
+            
             // newOffer.img_url = res;
-            await upOffer(newOffer, editID)
+            setloading(true)
+            await upOffer(newOffer, editID).finally(()=>setloading(false))
 
             inpTitle?.current?.value == ''
             inpDesc?.current?.value == ''
+            
             onClose()
         } catch (err) {
             console.log(err);
+            setloading(false)
         }
 
     }
@@ -172,14 +201,14 @@ import withAuth from "../../../shared/HOC/withAuth";
         setTitlevalue(name)
         setDescValue(description)
         seteditImg(image)
-        setImg([image])
+        
         seteditID(id)
         onOpen()
     }
     // if(offers.length===0){
     //     return(<Loading/>)
     // }
-
+    
     return (
         <>
             <AdminLayout>
@@ -198,6 +227,7 @@ import withAuth from "../../../shared/HOC/withAuth";
                 />
             </AdminLayout>
             <Form
+            loading={loading}
                 isOpen={isOpen}
                 title={editImg ? 'Edit Offer' : 'Add Offer'}
                 subtitle={"Add your Offer Title and Description "}

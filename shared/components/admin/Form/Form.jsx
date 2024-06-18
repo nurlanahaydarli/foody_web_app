@@ -13,6 +13,7 @@ function Form({
                   loading=false,
                   IMG = undefined,
               }) {
+                console.log(loading);
     const [imgFile,setImgFile]=useState('/imgs/no-photo.avif')
     function setImgChange(e){
         const file = e.target.files[0];
