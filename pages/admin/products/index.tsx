@@ -20,6 +20,13 @@ import { sortDataByCreated } from "../../../shared/utils/sortData";
 import ConfirmModal from '../../../shared/components/admin/confirmModal'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../../shared/redux/store";
+import { useSelector } from "react-redux";
+import { fetchProducts } from "../../../shared/redux/featuries/product/productsSlice";
+import { fetchRestaurants } from "../../../shared/redux/featuries/restaurants/restaurantsSlice";
 
 const AdminLayout = dynamic(
   () => import("../../../shared/components/admin/Layout/AdminLayout"),
@@ -75,8 +82,22 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState<any>()
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<string | null>(null);
-
+  const dispatch = useDispatch<AppDispatch>();
   const toast = useToast()
+
+  // const products = useSelector((state: RootState) => state.products.products);
+  // const restaurants = useSelector((state: RootState) => state.restaurants.restaurants);
+
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  //   dispatch(fetchRestaurants());
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   setFilteredProducts(products);
+  // }, [products]);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,7 +127,6 @@ function Products() {
       return product.rest_id === id
     })
     setFilteredProducts(filtered_products)
-
   }
   async function updateProduct() {
     let Title = inpTitle?.current?.value
@@ -125,9 +145,7 @@ function Products() {
       console.error('Image is required');
       return;
     }
-
     setIsLoading(true);
-
     let updatedProduct: ProductPostDataType = {
       id: editID,
       name: Title,
@@ -150,6 +168,7 @@ function Products() {
       ));
 
       updateProducts(prevProducts => [...prevProducts, { ...updatedProduct, id: updatedProduct.id }])
+      // dispatch(EditProduct(updatedProduct));
       await EditProduct(updatedProduct)
       toast({
         title: `Product successfully edited`,
