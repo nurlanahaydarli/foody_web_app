@@ -369,12 +369,15 @@ function getCategorysById(e:any) {
       id: editID,
       name: Title,
       img_url: editImg,
-      category_id: selectedCategoryName,
+      category_id: categorysID,
       cuisine: Cuisine,
       address: Adress,
       delivery_min: DeliveryMin,
       delivery_price: DeliveryPrice
     };
+
+
+  
 
     try {
       dispatch({ type: 'SET_IS_ADD', payload: true });
@@ -425,7 +428,7 @@ function getCategorysById(e:any) {
     setEditImg(image);
     setImg(image);
     setEditID(id);
-    setSelectedCategoryName(category);
+    setcategorysID(category);
     onOpen();
   }
 

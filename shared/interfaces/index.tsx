@@ -69,6 +69,7 @@ export interface CategoryPostDataType {
     id: number | string | any;
     name: string;
     img_url: File | string | null;
+    category: string
 }
 
 
