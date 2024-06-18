@@ -146,6 +146,7 @@ function Category() {
                             onClose()
                             seteditImg('')
                             setTitlevalue('')
+                            
                         }}
                         onAction={editImg ? updateCategory : addCategory}
                         btnTitle={editImg ? "Edit category" : "Create category"}

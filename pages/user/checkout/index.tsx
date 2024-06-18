@@ -194,7 +194,8 @@ const handleCheckout = () => {const orderBasket: OrderPostDataType = {
     basket_id: basketList.id,
     delivery_address: state.address,
     contact: state.phoneNumber,
-    payment_method: isRectVisible ? "2" : "1"
+    payment_method: isRectVisible ? "2" : "1",
+    created: Date.now() 
 
 };
 if(user) {

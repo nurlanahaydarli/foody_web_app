@@ -15,6 +15,8 @@ import Loading from "../../Loading/Loading";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@chakra-ui/react";
 import { sortDataByCreated } from "../../../utils/sortData";
+// import adminRestaurantStyle from './adminRestaurant.module.css'
+import { shortText } from "../../../utils/shortText";
 
 interface Restaurant {
   category: string;
@@ -513,8 +515,10 @@ function getCategorysById(e:any) {
 
   return (
     <div className="p-6">
-      <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
+
+<header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
+        
+        <h1 className="md:text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
         <div className="flex items-center space-x-4">
           <button
             className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
@@ -528,12 +532,13 @@ function getCategorysById(e:any) {
           {state.showCategories && renderCategories()}
          
 
-          <button className="bg-custompurple text-white py-2 px-4 rounded-xl" onClick={onOpen}>
+          <button className="bg-custompurple text-white py-2 px-4 rounded-xl " onClick={onOpen}>
             + ADD RESTAURANT
           </button>
         </div>
 
       </header>
+
     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {state.restaurantData
@@ -573,12 +578,18 @@ function getCategorysById(e:any) {
               </div>
               
             </div>
-            
-            
-            
-          )})}
-        
-      </div>
+            <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
+              <Image src={TrashIcon} alt="Edit" width={20} height={0} />
+            </button>
+            <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
+              <Image src={CardPencil} alt="Delete" width={25} height={0} />
+            </button>
+          </div>
+        </div>
+      );
+    })}
+</div>
+
 
 
       
@@ -606,6 +617,8 @@ function getCategorysById(e:any) {
           </div>
         </div>
       )}
+
+
 
 
 
