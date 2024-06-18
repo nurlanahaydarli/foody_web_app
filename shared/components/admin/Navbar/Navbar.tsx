@@ -17,8 +17,8 @@ import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
 import {AxiosResponse} from "axios";
 import { useToast } from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+// import { useFormik } from 'formik';
+// import * as Yup from 'yup';
 
 export default function Navbar() {
     let { push } = useRouter();
