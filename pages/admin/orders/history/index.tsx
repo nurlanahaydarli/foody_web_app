@@ -8,7 +8,7 @@ import { Get } from '../../../../server/helper/reguests';
 import Loading from '../../../../shared/components/Loading/Loading';
 import style from "../order.module.css"
 import Image from 'next/image';
-import CloseIcon from "../../../../public/Close.svg" 
+import CloseIcon from "../../../../public/Close.svg";
 import formatDate from '../../../../server/helper/convertDateToDAy';
 import withAuth from "../../../../shared/HOC/withAuth";
 
@@ -116,7 +116,6 @@ function index() {
                                         </div>
                                         <div className=" mx-5 flex justify-between">
                                             <p className="text-[#00B2A9;] font-medium">{item.amount}$</p>
-
 
                                         </div>
 

@@ -24,7 +24,7 @@ export default withAuth(Restaurants)
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     props: {
-        ...(await serverSideTranslations(locale as String, ["common"])),
+        ...(await serverSideTranslations(locale as string, ["common"])),
     },
   });
   
