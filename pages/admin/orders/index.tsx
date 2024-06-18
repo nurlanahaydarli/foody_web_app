@@ -2,11 +2,7 @@ import Sidebar from "../../../shared/components/admin/Sidebar/Sidebar";
 import AdminLayout from "../../../shared/components/admin/Layout/AdminLayout";
 import AdminHedetbuttom from "../../../shared/components/admin/AdminHeaderButtom";
 import OrdersTable from "../../../shared/components/admin/OrdersTable";
-import { useTranslation } from 'react-i18next';
-
 import { useEffect, useState } from "react";
-import { AccessGet, Delete } from "../../../server/helper/reguests";
-import formatDate from "../../../server/helper/convertDateToDAy";
 import Modal from "../../../shared/components/admin/Modal";
 import CustomButton from "../../../shared/components/admin/Button";
 import { DeleteOrder, deleteOrder, getOrder } from "../../../shared/services";
@@ -14,12 +10,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from "../../../shared/components/Loading/Loading";
 import withAuth from "../../../shared/HOC/withAuth";
-// import Modal from "../../admin/Modal";
 import InfoBox from "../../../shared/components/admin/Modal";
 import { UserOrdersDetail } from "../../../shared/components/Client/UserOrdersDetail";
 
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import {useTranslation} from "next-i18next";
 function Orders() {
     let [display ,setdisplay]=useState(false)
     let [displayModal ,setdisplayModal]=useState(false)

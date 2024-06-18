@@ -253,7 +253,7 @@ function Products() {
               />
             </div>
 
-            <div className="w-full sm:w-auto lg:m-5 flex flex-wrap  justify-center">
+            <div className="w-full sm:w-auto lg:m-5 flex flex-wrap  justify-start">
 
               {/* {data?.map((item:any,i:number)=>{ */}
               <AdminCard data={filteredProducts} edit={editProduct}

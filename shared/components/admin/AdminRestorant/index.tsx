@@ -38,14 +38,14 @@ interface State {
 }
 
 type Action =
-  | { type: 'SET_RESTAURANT_DATA'; payload: Restaurant[] }
-  | { type: 'TOGGLE_SHOW_CATEGORIES' }
-  | { type: 'SET_SELECTED_CATEGORY'; payload: string }
-  | { type: 'DELETE_RESTAURANT'; payload: string }
-  | { type: 'SET_IS_DELETING'; payload: boolean }
-  | { type: 'SET_IS_ADD'; payload: boolean}
-  | { type: 'SHOW_MODAL'; payload: string }
-  | { type: 'HIDE_MODAL' };
+    | { type: 'SET_RESTAURANT_DATA'; payload: Restaurant[] }
+    | { type: 'TOGGLE_SHOW_CATEGORIES' }
+    | { type: 'SET_SELECTED_CATEGORY'; payload: string }
+    | { type: 'DELETE_RESTAURANT'; payload: string }
+    | { type: 'SET_IS_DELETING'; payload: boolean }
+    | { type: 'SET_IS_ADD'; payload: boolean}
+    | { type: 'SHOW_MODAL'; payload: string }
+    | { type: 'HIDE_MODAL' };
 
 const initialState: State = {
   restaurantData: [],
@@ -85,10 +85,10 @@ function AdminRestaurant() {
   const { t } = useTranslation("common");
   const [state, dispatch] = useReducer(reducer, initialState);
 
- 
+
   const { isOpen, onOpen, onClose } = useModalOpen();
   const [Img, setImg] = useState<any>('');
- 
+
 
   const [editID, setEditID] = useState('');
   const [editImg, setEditImg] = useState<any>('');
@@ -116,7 +116,7 @@ function AdminRestaurant() {
   const [isLoading, setIsLoading] = useState(true);
   const [filteredRestaurants,setFilteredRestaurants]=useState<any>()
   const toast = useToast();
-  
+
 
 
   const inpTitle = useRef<any>();
@@ -132,25 +132,25 @@ function AdminRestaurant() {
     const fetchRestaurants = async () => {
       try {
         let res = await getRestaurants();
-      
+
         let categorysApi = await getCategories();
 
-      
-        
+
+
         let newData:any = res.data.result.data;
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: newData });
 
         let sortData:any = sortDataByCreated(newData)
-        
+
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: sortData });
         setFilteredRestaurants(sortData)
 
         setCategorys(categorysApi?.data.result.data)
-      
+
 
       } catch (err) {
         console.log(err);
-      } 
+      }
     };
     fetchRestaurants();
   }, [state.isDeleting, state.isAdd]);
@@ -168,9 +168,9 @@ function AdminRestaurant() {
 // console.log("categorysID",categorysID);
 
 
-function getCategorysById(e:any) {
-  setcategorysID(e.currentTarget.value)
-}
+  function getCategorysById(e:any) {
+    setcategorysID(e.currentTarget.value)
+  }
 
 // const  getCategorysFilter =(e:any)=> {
 //   let id = e.currentTarget.value
@@ -184,13 +184,13 @@ function getCategorysById(e:any) {
 
   async function addRestaurant() {
     const addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
-  
+
     let Title = inpTitle?.current?.value;
     let Cuisine = inpCuisine?.current?.value;
     let DeliveryPrice = inpDeliveryPrice?.current?.value;
     let DeliveryMin = inpDeliveryMin?.current?.value;
     let Adress = inpAdress?.current?.value;
-  
+
     let error = false;
 
     if (Title.length <= 2) {
@@ -239,10 +239,10 @@ function getCategorysById(e:any) {
       return;
     }
 
-// lllll
-//  ------
 
-// let address
+
+
+
     let newRestaurant:any = {
       name: Title,
       img_url: '',
@@ -252,7 +252,7 @@ function getCategorysById(e:any) {
       delivery_min: DeliveryMin,
       delivery_price: DeliveryPrice,
     };
-  
+
     try {
       dispatch({ type: 'SET_IS_ADD', payload: true });
       let res = await uploadFile({
@@ -261,11 +261,11 @@ function getCategorysById(e:any) {
         documentId: "restuarants",
       });
       newRestaurant.img_url = res;
-     
-  
+
+
       let createdRestaurant = await PostRestaurant(newRestaurant);
 
-  
+
       dispatch({
         type: 'SET_RESTAURANT_DATA',
         payload: [...state.restaurantData, { ...newRestaurant, id: Date.now() }],
@@ -277,8 +277,8 @@ function getCategorysById(e:any) {
         isClosable: true,
         position:'top-right',
         variant:'subtle'
-    })
-      
+      })
+
       inpTitle.current.value = '';
       onClose();
       setImg('');
@@ -290,13 +290,13 @@ function getCategorysById(e:any) {
         isClosable: true,
         position:'top-right',
         variant:'subtle'
-    })
+      })
       console.log(err);
     } finally {
       dispatch({ type: 'SET_IS_ADD', payload: false });
     }
   }
-  
+
 
   async function updateRestaurant() {
     const addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
@@ -308,7 +308,7 @@ function getCategorysById(e:any) {
     let DeliveryMin = inpDeliveryMin?.current?.value;
     let Adress = inpAdress?.current?.value;
 
-   
+
 
     let error = false;
 
@@ -377,7 +377,7 @@ function getCategorysById(e:any) {
     };
 
 
-  
+
 
     try {
       dispatch({ type: 'SET_IS_ADD', payload: true });
@@ -394,7 +394,7 @@ function getCategorysById(e:any) {
       dispatch({
         type: 'SET_RESTAURANT_DATA',
         payload: state.restaurantData.map(restaurant =>
-          restaurant.id === updateRestaurant.id ? { ...restaurant, ...updateRestaurant } : restaurant
+            restaurant.id === updateRestaurant.id ? { ...restaurant, ...updateRestaurant } : restaurant
         ),
       });
       await EditRestaurant(updateRestaurant);
@@ -405,7 +405,7 @@ function getCategorysById(e:any) {
         isClosable: true,
         position:'top-right',
         variant:'subtle'
-    })
+      })
       inpTitle.current.value = '';
       onClose();
     } catch (err) {
@@ -416,7 +416,7 @@ function getCategorysById(e:any) {
         isClosable: true,
         position:'top-right',
         variant:'subtle'
-    })
+      })
       console.log(err);
     }finally{
       dispatch({ type: 'SET_IS_ADD', payload: false });
@@ -444,7 +444,7 @@ function getCategorysById(e:any) {
         isClosable: true,
         position:'top-right',
         variant:'subtle'
-    })
+      })
     } catch (err) {
       console.log(err);
       toast({
@@ -454,7 +454,7 @@ function getCategorysById(e:any) {
         isClosable: true,
         position:'top-right',
         variant:'subtle'
-    })
+      })
     } finally {
       dispatch({ type: 'SET_IS_DELETING', payload: false });
     }
@@ -479,37 +479,37 @@ function getCategorysById(e:any) {
   const handleAllCategoryClick = () => {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: '' });
   };
-  
+
   const handleCategoryClick = (category: string) => {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
 
   console.log("categorys", categorys);
-  
+
 
   const renderCategories = () => {
 
 
     return (
-      <div className="absolute z-50 mt-60 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
-        <ul className="py-1">
-          <li
-            className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-            onClick={handleAllCategoryClick}
-          >
-            All Categories
-          </li>
-          {categorys.map((category) => (
+        <div className="absolute z-50 mt-60 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+          <ul className="py-1">
             <li
-            key={category.id}
-            className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-            onClick={() => handleCategoryClick(category.id)}
-          >
-            {category.name}
-          </li>
-          ))}
-        </ul>
-      </div>
+                className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+                onClick={handleAllCategoryClick}
+            >
+              All Categories
+            </li>
+            {categorys.map((category) => (
+                <li
+                    key={category.id}
+                    className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+                    onClick={() => handleCategoryClick(category.id)}
+                >
+                  {category.name}
+                </li>
+            ))}
+          </ul>
+        </div>
     );
   };
 
@@ -517,156 +517,136 @@ function getCategorysById(e:any) {
 
 
   return (
-    <div className="p-6">
+      <div className="p-6">
 
-<header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
-        
-        <h1 className="md:text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
-        <div className="flex items-center space-x-4">
-          <button
-            className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
-            onClick={() => dispatch({ type: 'TOGGLE_SHOW_CATEGORIES' })}
-          >
-            
-     
-            <span>Category type</span>
-            <Image src={BtnTypeIcon} className="w-6 h-6" alt="Category Type Icon" />
-          </button>
-          {state.showCategories && renderCategories()}
-         
+        <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
 
-          <button className="bg-custompurple text-white py-2 px-4 rounded-xl " onClick={onOpen}>
-            + ADD RESTAURANT
-          </button>
+          <h1 className="md:text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
+          <div className="flex items-center space-x-4">
+            <button
+                className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
+                onClick={() => dispatch({ type: 'TOGGLE_SHOW_CATEGORIES' })}
+            >
+
+
+              <span>Category type</span>
+              <Image src={BtnTypeIcon} className="w-6 h-6" alt="Category Type Icon" />
+            </button>
+            {state.showCategories && renderCategories()}
+
+
+            <button className="bg-custompurple text-white py-2 px-4 rounded-xl " onClick={onOpen}>
+              + ADD RESTAURANT
+            </button>
+          </div>
+
+        </header>
+
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {state.restaurantData
+              .filter((restaurant: Restaurant) => state.selectedCategory === '' || restaurant.category_id === state.selectedCategory)
+              .map((restaurant: Restaurant, index: number) => {
+                return (
+                    <div key={index} className="bg-gray-800 shadow-black rounded-lg p-4 flex flex-col items-center mb-4">
+                      <div className="overflow-hidden relative flex shadow-black items-center space-x-4 bg-white rounded-lg p-4 w-full h-36">
+                        <img
+                            src={restaurant.img_url}
+                            alt={restaurant.name}
+                            className="w-24 h-24 object-cover rounded-full flex-shrink-0"
+                        />
+                        <div className="flex flex-col justify-center">
+                          <h2 className="text-xl font-semibold text-black truncate max-w-full">{shortText(restaurant.name, 13)}</h2>
+                          <span className="inline-block bg-gray-200 text-gray-800 text-sm rounded-full mt-2 px-2 py-1">
+                {categorys.find((category) => category.id === restaurant.category_id)?.name}
+              </span>
+                        </div>
+                        <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
+                          <Image src={TrashIcon} alt="Edit" width={20} height={0} />
+                        </button>
+                        <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
+                          <Image src={CardPencil} alt="Delete" width={25} height={0} />
+                        </button>
+                      </div>
+                    </div>
+                );
+              })}
         </div>
 
-      </header>
 
-    
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {state.restaurantData
-          .filter((restaurant: Restaurant) => state.selectedCategory === '' || restaurant.category_id === state.selectedCategory)
-          .map((restaurant: Restaurant, index: number) => {
 
-         
-          
-            return(
-          
-            <div key={index} className="bg-gray-800 shadow-black rounded-lg p-4 flex flex-col items-center mb-4">
-              <div className="overflow-hidden relative flex shadow-black items-center space-x-4 bg-white rounded-lg p-4 w-full">
-              
-                <img
-               
-                  src={restaurant.img_url}
-                  alt={restaurant.name}
-                
-                  className="w-24 h-24 object-cover rounded-full flex-shrink-0"
-          
-                />
-             
-                <div className="flex flex-col justify-center">
-                  <h2 className="text-xl font-semibold text-black">{restaurant.name}</h2>
-                  <span className="inline-block bg-gray-200 text-gray-800 text-sm rounded-full mt-2 px-2 py-1">
-                  {categorys.find((category) => category.id === restaurant.category_id)?.name}
-                  </span>
+
+
+        {state.showModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="w-96 h-48 bg-white rounded-md">
+                <h1 className="flex justify-center mt-6 font-bold text-xl">Are you sure it’s deleted?</h1>
+                <h1 className="flex justify-center items-center mt-2">Attention! If you delete this</h1>
+                <h1 className="flex justify-center items-center">product, it will not come back...</h1>
+                <div className="flex justify-center mt-5">
+                  <button
+                      className="border ml-5 border-x-8 border-y-8 bg-whiteLight1 border-black shadow-md text-gray-900 w-20 h-8"
+                      onClick={handleCancelClick}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                      className="border ml-5 border-x-8 border-y-8 bg-mainRed border-black shadow-md text-gray-900 w-20 h-8"
+                      onClick={handleConfirmDelete}
+                  >
+                    Delete
+                  </button>
                 </div>
-                <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
-                  <Image  src={TrashIcon} alt="Edit" width={20} height={0} />
-                </button>
-                <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
-                  <Image src={CardPencil} alt="Delete" width={25} height={0} />
-                </button>
-                
-                
               </div>
-              
             </div>
-            <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
-              <Image src={TrashIcon} alt="Edit" width={20} height={0} />
-            </button>
-            <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
-              <Image src={CardPencil} alt="Delete" width={25} height={0} />
-            </button>
-          </div>
-        </div>
-      );
-    })}
-</div>
-
-
-
-      
-
-      {state.showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-96 h-48 bg-white rounded-md">
-            <h1 className="flex justify-center mt-6 font-bold text-xl">Are you sure it’s deleted?</h1>
-            <h1 className="flex justify-center items-center mt-2">Attention! If you delete this</h1>
-            <h1 className="flex justify-center items-center">product, it will not come back...</h1>
-            <div className="flex justify-center mt-5">
-              <button
-                className="border ml-5 border-x-8 border-y-8 bg-whiteLight1 border-black shadow-md text-gray-900 w-20 h-8"
-                onClick={handleCancelClick}
-              >
-                Cancel
-              </button>
-              <button
-                className="border ml-5 border-x-8 border-y-8 bg-mainRed border-black shadow-md text-gray-900 w-20 h-8"
-                onClick={handleConfirmDelete}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
 
 
 
 
 
-      <Form
-        {...(state.isAdd ? { loading: Loading } : {})}
-      
-        
-        isOpen={isOpen}
-        title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
-        subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}
-        onClose={() => {
-          onClose();
-          setEditImg('');
-          setTitleValue('');
-        }}
-        
-        onAction={editImg ? updateRestaurant : addRestaurant}
-        btnTitle={editImg ? "Edit Restaurant" : "Create Restaurant"}
-        IMG={editImg}
-        setIMG={setImg}
-      >
-
-        
-        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
-        <div className=" text-mainRed font-bold">{TitleStroge}</div>
-     
-        <Select value={categorys} onChange={getCategorysById} title={"Categorys"} name={"cat_id"} options={categorys}  />
-
-        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
-        <div className="text-mainRed font-bold">{CuisineStroge}</div>
-        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
-        <div className="text-mainRed font-bold">{DeliveryPriceStroge}</div>
-        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
-        <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
-        <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
-        <div className="text-mainRed font-bold">{AdressStroge}</div>
-        <div className="text-mainRed font-bold">{AdressStrogeRegex}</div>
+        <Form
+            {...(state.isAdd ? { loading: Loading } : {})}
 
 
-      </Form>
+            isOpen={isOpen}
+            title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
+            subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}
+            onClose={() => {
+              onClose();
+              setEditImg('');
+              setTitleValue('');
+            }}
+
+            onAction={editImg ? updateRestaurant : addRestaurant}
+            btnTitle={editImg ? "Edit Restaurant" : "Create Restaurant"}
+            IMG={editImg}
+            setIMG={setImg}
+        >
+
+
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
+          <div className=" text-mainRed font-bold">{TitleStroge}</div>
+
+          <Select value={categorys} onChange={getCategorysById} title={"Categorys"} name={"cat_id"} options={categorys}  />
+
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
+          <div className="text-mainRed font-bold">{CuisineStroge}</div>
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
+          <div className="text-mainRed font-bold">{DeliveryPriceStroge}</div>
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
+          <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
+          <div className="text-mainRed font-bold">{AdressStroge}</div>
+          <div className="text-mainRed font-bold">{AdressStrogeRegex}</div>
+
+
+        </Form>
 
 
 
 
-    </div>
+      </div>
   );
 }
 
