@@ -41,7 +41,7 @@ function Profile() {
                      <div className={mobile?"hidden":"w-1/4"}>
                          <Navbar active={1}/>
                      </div>
-                     <div className=" p-[16px] pe-[0px] ">
+                     <div className="lg:w-3/4 w-full p-[16px] pe-[0px] ">
                      <div className={Profile}>
                          <h2 className={headText}>{t("Your Profile")}</h2>
                          <div className='w-full flex items-center justify-center'>

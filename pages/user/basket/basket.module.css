@@ -351,3 +351,8 @@
     letter-spacing: 0.03em;
     color: #BDBDBD;
 }
+@media (max-width: 991px) {
+    .xl.user_cabinet_box {
+        padding: 20px;
+    }
+}
