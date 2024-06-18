@@ -1,8 +1,6 @@
 import React, {useEffect , useReducer, useState } from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
-import paymentIcon from '../../../public/paymentIcon.svg';
-import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
 import {GetBasket, AddOrder} from '../../../shared/services/index';
@@ -12,14 +10,13 @@ import { RootState } from '../../../shared/redux/store';
 import Loading from '../../../shared/components/Loading/Loading';
 import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
 import { useRouter } from 'next/router';
-import BasketItem from '../../../shared/components/Client/BasketItem/index';
-import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
+import { OrderPostDataType } from '../../../shared/interfaces';
 import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import { useTranslation } from 'react-i18next';
 
 import styles from "../basket/basket.module.css";
+import {useTranslation} from "next-i18next";
 
 
 const initialState = {
@@ -194,7 +191,8 @@ const handleCheckout = () => {const orderBasket: OrderPostDataType = {
     basket_id: basketList.id,
     delivery_address: state.address,
     contact: state.phoneNumber,
-    payment_method: isRectVisible ? "2" : "1"
+    payment_method: isRectVisible ? "2" : "1",
+    created: Date.now() 
 
 };
 if(user) {
@@ -377,17 +375,19 @@ if(user) {
                         <div className='w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                           <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>{t("Your Order")}</h1>
                           {basketList.items.map((product:any, index: any) => (
-                            <div key={index} className='flex p-2'>
-                              <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
-                              <div className='flex gap-16 ml-2'>
-                                <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                            <div key={index} className='flex p-2 justify-between'>
+                                <div className='flex gap-2'>
+                                    <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
+                                    <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                                </div>
+                              {/*<div className='flex gap-16 ml-2'>*/}
                                 <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
-                              </div>
+                              {/*</div>*/}
                             </div>
                           ))}
                           <hr className=' mt-8 w-11/12' />
-                          <div className='flex gap-48 mt-4'>
-                            <h1 className='font-bold text-2xl text-grayText ml-9'>{t("Total")}</h1>
+                          <div className='flex gap-48 mt-4 justify-between p-2'>
+                            <h1 className='font-bold text-2xl text-grayText'>{t("Total")}</h1>
                             <h5 className='mt-1 text-xl text-grayText'>${basketList.total_amount}</h5>
                           </div>
                           

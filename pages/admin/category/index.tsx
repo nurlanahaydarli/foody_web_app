@@ -14,6 +14,7 @@ import Loading from "../../../shared/components/Loading/Loading";
 import ConfirmModal from '../../../shared/components/admin/confirmModal'
 import {GetServerSideProps} from "next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useTranslation} from "next-i18next";
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });
@@ -30,7 +31,8 @@ function Category() {
     let [ResetData, setResetData] = useState(true)
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
-
+    console.log(editImg);
+    const { t } = useTranslation('common')
     const {handleEntity, removeEntity, loading} = useEntityHandler({
         uploadFile,
         addEntity: PostCategory,
@@ -126,7 +128,7 @@ function Category() {
 
                 <div>
                     <AdminHedetbuttom typeButton={false} addButton={true} addButtonFun={onOpen}
-                                      addTitle={'ADD CATEGORY '} Title={'CATEGORY '}/>
+                                      addTitle={t('ADD CATEGORY ')} Title={t('Category ')}/>
                     {loading ?
                         <Loading/> :
                         <AdminTable edit={editCategory}
@@ -145,6 +147,7 @@ function Category() {
                             onClose()
                             seteditImg('')
                             setTitlevalue('')
+                            
                         }}
                         onAction={editImg ? updateCategory : addCategory}
                         btnTitle={editImg ? "Edit category" : "Create category"}

@@ -12,6 +12,7 @@ import Loading from "../../Loading/Loading";
 import { getRestaurants } from "../../../services";
 import { RestaurantPostDataType } from "../../../interfaces";
 import { isNewFunction } from "../../../utils/isNewCreated";
+import { shortText } from "../../../utils/shortText";
 
 interface PROPS {
   data? : any,
@@ -77,7 +78,7 @@ useEffect(()=>{
                          {/* {isNewFunction(data.created) && ( )} */}
                     </div>
                     <div className="m-1 mx-5">
-                        <p className=" text-lg font-medium">{data.name}</p>
+                        <p className=" text-lg font-medium">{shortText (data.name, 15)}</p>
                         <p className=" text-[#8E8E93]">
                             {restaurants.find((restaurant) => restaurant.id === data.rest_id)?.name}
                         </p>
