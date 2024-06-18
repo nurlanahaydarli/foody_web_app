@@ -24,7 +24,7 @@ export default function RestaurantCard(restaurant: RestaurantCardProps) {
                     {isNew && <span className={styles.new_restaurant}>{t("New")} </span>}
                 </div>
                 <div className={styles.card_body}>
-                    <h4>{shortText(restaurant.name, 15)}</h4>
+                    <h4>{shortText(restaurant.name, 12)}</h4>
                     <p>{shortText(restaurant.cuisine, 20)}</p>
                     <div className={styles.restaurant_bottom}>
                         <span>{shortText(`${restaurant.delivery_price}₼  ${t("Delivery")}`,10)}</span>
