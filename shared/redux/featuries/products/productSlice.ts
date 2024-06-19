@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { GetProducts } from '../../../services';
-import { ProductPostDataType } from '../../../interfaces';
 
 interface Product {
     id: string;
@@ -35,16 +34,16 @@ const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        addProduct: (state, action: PayloadAction<Product>) => {
+        AddProduct: (state, action: PayloadAction<Product>) => {
             state.productList.push(action.payload);
         },
-        editProduct: (state, action: PayloadAction<Product>) => {
+        EditProduct: (state, action: PayloadAction<Product>) => {
             const index = state.productList.findIndex(product => product.id === action.payload.id);
             if (index !== -1) {
                 state.productList[index] = action.payload;
             }
         },
-        deleteProduct: (state, action: PayloadAction<string>) => {
+        DeleteProduct: (state, action: PayloadAction<string>) => {
             state.productList = state.productList.filter(product => product.id !== action.payload);
         },
     },
@@ -64,6 +63,6 @@ const productsSlice = createSlice({
     },
 });
 
-export const { addProduct, editProduct, deleteProduct } = productsSlice.actions;
+export const { AddProduct, EditProduct, DeleteProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;
