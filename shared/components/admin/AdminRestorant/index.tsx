@@ -111,7 +111,7 @@ function AdminRestaurant() {
   const [AdressStrogeRegex, setAdressStrogeRegex] = useState('');
 
   let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
-  let [categorysID, setcategorysID] = useState(true);
+  let [categorysID, setcategorysID] = useState('');
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [filteredRestaurants,setFilteredRestaurants]=useState<any>()
@@ -145,7 +145,11 @@ function AdminRestaurant() {
         dispatch({ type: 'SET_RESTAURANT_DATA', payload: sortData });
         setFilteredRestaurants(sortData)
 
-        setCategorys(categorysApi?.data.result.data)
+        setCategorys(categorysApi?.data.result.data);
+        
+        if (categorysApi?.data.result.data.length > 0) {
+          setcategorysID(categorysApi.data.result.data[0].id);
+        }
       
 
       } catch (err) {
@@ -158,28 +162,15 @@ function AdminRestaurant() {
 
 
 
-//   function getCategoryById(e: any) {
-//     const selectedCategory = categorys.find(category => category.id === e.currentTarget.value);
-//     if (selectedCategory) {
-//         setcategorysID(selectedCategory.id);
-//         setSelectedCategoryName(selectedCategory.name);
-//     }
-// }
-// console.log("categorysID",categorysID);
 
 
 function getCategorysById(e:any) {
   setcategorysID(e.currentTarget.value)
+  console.log("categorysIDclick",categorysID);
+  
+  
 }
 
-// const  getCategorysFilter =(e:any)=> {
-//   let id = e.currentTarget.value
-//   let filtered_categorys = ?.filter((product:IProduct)=>{
-//     return product.rest_id === id
-//   })
-//   setFilteredProducts(filtered_products)
-
-// }
 
 
   async function addRestaurant() {
@@ -423,12 +414,16 @@ function getCategorysById(e:any) {
     }
   }
 
-  function editRestaurant(name: string, category: string, image: string, id: string) {
+  function editRestaurant(name: string, category: string, image: string, id: string, cuisine:string, delivery_min:number,delivery_price:number,address:string|number) {
     setTitleValue(name);
     setEditImg(image);
     setImg(image);
     setEditID(id);
     setcategorysID(category);
+    setCuisineValue(cuisine);
+    setDeliveryMinValue(delivery_min);
+    setDeliveryPriceValue(delivery_price)
+    setAdressValue(address);
     onOpen();
   }
 
@@ -484,7 +479,7 @@ function getCategorysById(e:any) {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
 
-  console.log("categorys", categorys);
+  console.log("categorysID", categorysID);
   
 
   const renderCategories = () => {
@@ -561,7 +556,7 @@ function getCategorysById(e:any) {
                 {categorys.find((category) => category.id === restaurant.category_id)?.name}
               </span>
             </div>
-            <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
+            <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id, restaurant.cuisine,restaurant.delivery_min,restaurant.delivery_price,restaurant.address)}>
               <Image src={TrashIcon} alt="Edit" width={20} height={0} />
             </button>
             <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>
@@ -616,6 +611,10 @@ function getCategorysById(e:any) {
           onClose();
           setEditImg('');
           setTitleValue('');
+          setCuisineValue('');
+          setDeliveryPriceValue('');
+          setDeliveryMinValue('');
+          setAdressValue('');
         }}
         
         onAction={editImg ? updateRestaurant : addRestaurant}
@@ -632,10 +631,13 @@ function getCategorysById(e:any) {
 
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
         <div className="text-mainRed font-bold">{CuisineStroge}</div>
+
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
         <div className="text-mainRed font-bold">{DeliveryPriceStroge}</div>
+
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
         <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
+
         <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
         <div className="text-mainRed font-bold">{AdressStroge}</div>
         <div className="text-mainRed font-bold">{AdressStrogeRegex}</div>

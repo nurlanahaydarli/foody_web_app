@@ -7,6 +7,9 @@ export default function Select({ onChange,title, name,value='',options=[]}) {
         return item.name === value ? -1 : 1
         
       })
+
+      console.log("newOption33",newOption);
+      
       return (  <>
       <div className="input_box">
           <label htmlFor="name">{title}</label>
