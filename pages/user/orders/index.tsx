@@ -5,10 +5,10 @@ import { UserOrderTable } from '../../../shared/components/Client/UserOrderTable
 import Image from 'next/image';
 import withClientAuth from '../../../shared/HOC/withClienAuth';
 import { getOrder } from '../../../shared/services';
-import {useTranslation} from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import {useResize} from "../../../shared/hooks/useResize";
+import { useTranslation } from 'next-i18next';
 
 function Orders() {
     const { t } = useTranslation("common");

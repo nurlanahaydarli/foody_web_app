@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {getOrder, getOrderByUser} from "../../../services";
 import { UserOrderTableDatas } from "../UserOrderTableDatas";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import formatDate from "../../../../server/helper/convertDateToDAy";
 export function UserOrderTable() {
   const [orderData, setOrderData] = useState([]);

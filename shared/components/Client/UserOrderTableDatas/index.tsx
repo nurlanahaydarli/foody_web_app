@@ -4,8 +4,7 @@ import Modal from "../../admin/Modal";
 import CustomButton from "../../admin/Button";
 import { UserOrdersDetail } from "../UserOrdersDetail";
 import { deleteOrder } from "../../../services";
-import { useGlobalStore } from "../../../services/provider";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 interface TableDataProps {
     
 customer_id:number | string;
