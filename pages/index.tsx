@@ -29,79 +29,71 @@ const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainL
 const Home: NextPage = (Props) => {
 
     let {repo}:any=Props
-    console.log(repo);
-    if(!repo) repo = {
-        Restuarent:[],
-        Offer:[]
-    }
-    
-        let [mobile,setmobile]=useState(false)
-        const user = useSelector((state: RootState) => state.user);
-        useEffect(()=>{
-            if(window.innerWidth<800){
-                setmobile(true)
-            }else{
-                setmobile(false)
-            }
-          
-            
-            
-        },[mobile])
+    console.log(repo,'repo');
+
+    let [mobile,setmobile]=useState(false)
+    const user = useSelector((state: RootState) => state.user);
+    useEffect(()=>{
+        if(window.innerWidth<800){
+            setmobile(true)
+        }else{
+            setmobile(false)
+        }
+
+
+
+    },[mobile])
     let {headerBuutom,ButtomTitle,buttomDesc,Registerbtn,Orderbtn,hamIcon,iconDiv,bgdiv,Textdiv,}=style
     const { t } = useTranslation('common')
     let ruter =useRouter()
-    let Offer = []
-    if(repo && repo.Offer){
-        Offer=repo.Offer?.slice(-3)
-    }
+    let Offer=repo.Offer.slice(-3)
 
-    
-  return (
-    <>
-     <MainLayout>
-        <div className={headerBuutom}>
-            <div className={ Textdiv}>
-                <h1 className={ButtomTitle +' flex flex-wrap'}>{t("Our Food site makes it easy to find local food")}</h1>
-                <p className={buttomDesc+ ' w-4/5 flex flex-wrap mt-2'}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-                <div className={mobile?'flex flex-col mt-10 gap-4 justify-center items-center':"flex flex-row  w-4/5 gap-10 mt-10 mb"}>
-                    <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>{t("Register")} </button>
-                    <button className={Orderbtn} onClick={()=>{
-                        
-                        ruter.push('restaurants')
-                        
-                    }}>{t("Order now")} </button>
+    return (
+        <>
+            <MainLayout>
+                <div className={headerBuutom}>
+                    <div className={ Textdiv}>
+                        <h1 className={ButtomTitle +' flex flex-wrap'}>{t("Our Food site makes it easy to find local food")}</h1>
+                        <p className={buttomDesc+ ' w-4/5 flex flex-wrap mt-2'}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                        <div className={mobile?'flex flex-col mt-10 gap-4 justify-center items-center':"flex flex-row  w-4/5 gap-10 mt-10 mb"}>
+                            <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>{t("Register")} </button>
+                            <button className={Orderbtn} onClick={()=>{
+
+                                ruter.push('restaurants')
+
+                            }}>{t("Order now")} </button>
+                        </div>
+                    </div>
+                    <div className={" relative flex justify-center items-center p-14 "+iconDiv}>
+                        <div className={" bg-black rounded-3xl   "+ bgdiv}>
+
+                        </div>
+                        <Image
+                            src={HamburerIcon}
+                            alt="HamburerIcon"
+                            width={657}
+                            className={hamIcon}
+                        />
+                        {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-2/4   -left-28"/>}
+                        {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-14 right-6"/>}
+
+                        {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class="  top-3/4 right-16"/>}
+                    </div>
+
+
                 </div>
-            </div>
-            <div className={" relative flex justify-center items-center p-14 "+iconDiv}>
-                <div className={" bg-black rounded-3xl   "+ bgdiv}>
-                    
-                </div>
-                <Image
-                    src={HamburerIcon}
-                    alt="HamburerIcon"
-                    width={657}
-                    className={hamIcon}
-                    />
-                    {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-2/4   -left-28"/>}
-                    {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-14 right-6"/>}
-                    
-                    {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class="  top-3/4 right-16"/>}
-            </div>
-           
-            
-        </div>
-        <InfoSection data={repo.Restuarent} TITLE={`${t("Popular")} ${t("Restaurants")}`} DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
-        {Offer.map((item:any,i:number)=>(
-        <INFoBox row={i%2===1} img={item.img_url} title={item.name} desc={item.description} w={636} h={441}/>
-        ))}
-       
-        
-        <InfoSection data={repo.Products} TITLE={t("Our Popular Update New Foods")} DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
-        
-        <FooterTop/>
-     </MainLayout>
-    </>
-  );
+                <InfoSection data={repo.Restaurant} TITLE={`${t("Popular")} ${t("Restaurants")}`} DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+                {Offer.map((item:any,i:number)=>(
+                    <INFoBox row={i%2===1} img={item.img_url} title={item.name} desc={item.description} w={636} h={441}/>
+                ))}
+
+
+                <InfoSection data={repo.Products} TITLE={t("Our Popular Update New Foods")} DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+
+                <FooterTop/>
+            </MainLayout>
+        </>
+    );
 };
 
 export default Home;
@@ -110,55 +102,57 @@ export default Home;
 
 // try{
 //     let Produts:any= await getProductServer()
-    
+
 //     console.log(Produts);
-    
+
 // }catch(err){
 //     console.log(err);
-    
+
 // }
 
 
 // return({
 //     props: {
 //         // ProductsRES:res,
-        // ...(await serverSideTranslations(locale ?? 'az', ['common' ])),
+// ...(await serverSideTranslations(locale ?? 'az', ['common' ])),
 //     },
 // })}
 
- 
 
- 
+
+
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => {
     // Fetch data from external API
     try {
-        const ProductRes = await fetch('/api/products');
+        let baseUrl = 'http://localhost:3000'
+        if(process.env.Vercel_URL) {
+            baseUrl = process.env.Vercel_URL === 'https://foody-web-app-ten.vercel.app/'? 'https://foody-web-app-ten.vercel.app/': process.env.Vercel_URL
+        }
+        const ProductRes = await fetch(`${baseUrl}/api/products`);
         if (!ProductRes.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const RestuarentRES = await fetch('/api/restuarants');
-        if (!RestuarentRES.ok) {
+        const RestaurantRES = await fetch(`${baseUrl}/api/restuarants`);
+        if (!RestaurantRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const OfferRES = await fetch('/api/offer');
+        const OfferRES = await fetch(`${baseUrl}/api/offer`);
         if (!OfferRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
         const newProducts = await ProductRes.json();
-        const newRestuarent = await RestuarentRES.json();
+        const newRestaurant = await RestaurantRES.json();
         const newOffer = await OfferRES.json();
         const repo: any = {
             Products:newProducts.result.data,
-            Restuarent:newRestuarent.result.data,
+            Restaurant:newRestaurant.result.data,
             Offer:newOffer.result.data
-        } // Assuming nested structure
-        // Pass data to the page via props
-        
+        }
+
         return {
             props: {
                 repo,
-                
                 ...(await serverSideTranslations(locale ?? 'az', ['common'])),
             },
         };

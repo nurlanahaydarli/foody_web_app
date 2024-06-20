@@ -491,7 +491,7 @@ function AdminRestaurant() {
     dispatch({ type: 'SET_SELECTED_CATEGORY', payload: category });
   };
 
-  console.log("categorys", categorys);
+  // console.log("categorys", categorys);
 
 
   const renderCategories = () => {
