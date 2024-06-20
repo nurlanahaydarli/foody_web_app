@@ -97,6 +97,7 @@ height: 476px;
   }
   .iconDiv{
     width: 100%;
+    margin-top: 110px;
   }
   .ButtomTitle{
     font-family: Roboto;
@@ -128,6 +129,7 @@ opacity: 0px;
     width: 80%;
     margin-bottom: 24px;
   }
+
 }
 .loading_box{
   display: flex;

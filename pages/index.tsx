@@ -76,6 +76,7 @@ const Home: NextPage = (Props) => {
                         />
                         {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-2/4   -left-28"/>}
                         {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class=" top-14 right-6"/>}
+                        {mobile?<AnimetedBox img={PizzaIcon} title="Pizza Hut " class="  top-3/4 left-2/4"/>:""}
 
                         {mobile?'':<AnimetedBox img={PizzaIcon} title="Pizza Hut " class="  top-3/4 right-16"/>}
                     </div>

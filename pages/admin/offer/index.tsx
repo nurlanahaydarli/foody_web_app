@@ -14,20 +14,24 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import withAuth from "../../../shared/HOC/withAuth";
 import { PostOffer, PutOffer } from "../../../shared/services";
+import Modal from "../../../shared/components/admin/Modal";
+import CustomButton from "../../../shared/components/admin/Button";
  function Offer() {
     const {isOpen, onOpen, onClose} = useModalOpen()
     let [offers, setoffers] = useState([])
     let [Img, setImg] = useState<any>('')
     let [editImg, seteditImg] = useState<any>('')
     let [editID, seteditID] = useState<any>('')
+    let [DeleteID, setDeleteID] = useState<any>('')
 
     let [TitleYup, setTitleYup] = useState('')
     let [loading, setloading] = useState(false)
     let [Titlevalue, setTitlevalue] = useState('')
     let [DescYup, setDescYup] = useState('')
     let [DescValue, setDescValue] = useState('')
-
+    
     let [ResetData, setResetData] = useState(true)
+    let [displayModal, setdisplayModal] = useState(false)
      const toast = useToast()
     
 
@@ -245,7 +249,10 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                 <AdminTable
                     edit={editOffer}
                     data={offers}
-                    removeDocument={deleteOffer}
+                    removeDocument={(id:string)=>{
+                        setDeleteID(id)
+                        setdisplayModal(true)
+                    }}
                     reset={() => setResetData(prev => !prev)}
                 />
             </AdminLayout>
@@ -272,6 +279,35 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                        value={DescValue}/>
                 <div className="  text-red-600 ">{DescYup}</div>
             </Form>
+            <Modal isOpen={displayModal} onClose={()=>{setdisplayModal(false)}}>
+            <div className="flex justify-between items-center">
+              <p className="mx-auto text-3xl font-medium">
+                Are you sure it's deleted?
+              </p>
+            </div>
+
+            <p className=" text-grayText w-2/3 mx-auto text-center my-5">
+              Attention! If you delete this order, it will not come back...
+            </p>
+
+            <div
+                onClick={()=>{setdisplayModal(false)}}
+                className="mx-auto flex items-center justify-center gap-9"
+            >
+              <CustomButton
+                  className=" border-grayText text-grayText py-1 px-8"
+                  innerText="Cancel"
+              />
+              <div onClick={()=>{deleteOffer(DeleteID)}}>
+                <CustomButton
+                    type={'button'}
+                    className="bg-mainRed border-2 text-white py-1 px-8"
+                    innerText="Delete"
+                    color={"1"}
+                />
+              </div>
+            </div>
+          </Modal>
         </>
     );
 }

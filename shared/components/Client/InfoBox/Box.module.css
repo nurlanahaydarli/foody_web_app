@@ -76,17 +76,20 @@ background: #D63626;
         height: auto;
         margin-bottom: 55px;
         margin: 16px;
+        padding: 30px;
     }
     .des{
         width: 100%;
         text-align: center;
         padding: 0 12px;
         height: auto;
+        padding: 30px;
     }
     .IMG{
          position: relative;
          width: 100%;
          height: auto;
          margin-top: 12px;
+         padding: 30px;
     }
     }

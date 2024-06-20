@@ -35,3 +35,8 @@ letter-spacing: 0.01em;
 text-align: left;
 color: #929292;
 }
+@media only screen and (max-width: 800px) {
+    .Profile{
+        height: fit-content;
+    }
+}
