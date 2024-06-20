@@ -19,11 +19,14 @@ import { sortDataByCreated } from "../../../utils/sortData";
 import { shortText } from "../../../utils/shortText";
 
 interface Restaurant {
-  category: string;
   img_url: string;
   name: string;
-  rest_id: string;
+  // rest_id: string;
   id: string;
+  address:string;
+  cuisine:string;
+  delivery_min:number;
+  delivery_price:number;
   category_id: string;
 }
 
@@ -100,10 +103,10 @@ function AdminRestaurant() {
   const [CuisineValue, setCuisineValue] = useState('');
   const [CuisineStroge, setCuisineStroge] = useState('');
 
-  const [DeliveryPriceValue,setDeliveryPriceValue ] = useState('');
+  const [DeliveryPriceValue,setDeliveryPriceValue ] = useState(0);
   const [DeliveryPriceStroge, setDeliveryPriceStroge] = useState('');
 
-  const [DeliveryMinValue, setDeliveryMinValue] = useState('');
+  const [DeliveryMinValue, setDeliveryMinValue] = useState(0);
   const [DeliveryMinStroge, setDeliveryMinStroge] = useState('');
 
   const [AdressValue, setAdressValue] = useState('');
@@ -423,12 +426,16 @@ function AdminRestaurant() {
     }
   }
 
-  function editRestaurant(name: string, category: string, image: string, id: string) {
+  function editRestaurant(name: string, category: string, image: string, id: string,cuisine:string,delivery_min:number,delivery_price:number,address:string) {
     setTitleValue(name);
     setEditImg(image);
     setImg(image);
+    setCuisineValue(cuisine)
+    setDeliveryMinValue(delivery_min)
+    setDeliveryPriceValue(delivery_price)
     setEditID(id);
     setcategorysID(category);
+    setAdressValue(address)
     onOpen();
   }
 
@@ -561,7 +568,7 @@ function AdminRestaurant() {
                 {categorys.find((category) => category.id === restaurant.category_id)?.name}
               </span>
                         </div>
-                        <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id)}>
+                        <button className="absolute top-2 right-2" onClick={() => editRestaurant(restaurant.name, restaurant.category_id, restaurant.img_url, restaurant.id,restaurant.cuisine, restaurant.delivery_min,restaurant.delivery_price,restaurant.address)}>
                           <Image src={TrashIcon} alt="Edit" width={20} height={0} />
                         </button>
                         <button className="absolute bottom-2 right-2" onClick={() => handleDeleteClick(restaurant.id)}>

@@ -58,10 +58,12 @@ export function UserOrderTable() {
                   amount={item.amount}
                   payment={item.payment_method === "1" ? "Cash" : "Delivery"}
                   contact={item.contact}
+                  fetchOrder={fetchOrder}
               />
           ))}
         </tbody>
       </table>
+
     </section>
   );
 };

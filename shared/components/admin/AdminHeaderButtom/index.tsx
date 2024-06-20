@@ -31,7 +31,12 @@ function AdminHedetbuttom(props:PROPS) {
              <div className={styles.div}>
                  {!!haveSelect &&
                      <div className='custom_select'>
-                         <Select onChange={onSelect}  name={"rest_id"} options={selectOption}/>
+                         <select name={"rest_id"} onChange={onSelect} >
+                             <option value=''>All restaurants</option>
+                             {selectOption?.map((option)=>(
+                                 <option value={option.id}>{option.name}</option>
+                             ))}
+                         </select>
                      </div>
 
                  }

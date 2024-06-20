@@ -35,7 +35,7 @@ function Orders() {
                            </div>
                         }
                         <div className="lg:w-3/4 w-full  p-[16px] pe-[0px]">
-                            <main>
+                            {/*<main>*/}
                                 <section className="h-full mx-0 flex justify-center gap-10">
 
 
@@ -74,7 +74,7 @@ function Orders() {
                                 </section>
 
 
-                            </main>
+                            {/*</main>*/}
                         </div>
                     </div>
                 </div>

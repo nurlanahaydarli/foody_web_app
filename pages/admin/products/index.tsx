@@ -104,9 +104,12 @@ function Products() {
   }
   const getRestaurantFilter = (e: any) => {
     let id = e.currentTarget.value
-    let filtered_products = products?.filter((product: IProduct) => {
-      return product.rest_id === id
-    })
+    let filtered_products = products;
+    if(id) {
+      filtered_products = products?.filter((product: IProduct) => {
+        return product.rest_id === id
+      })
+    }
     setFilteredProducts(filtered_products)
   }
   async function updateProduct() {
@@ -149,7 +152,7 @@ function Products() {
       // ));
 
       // await EditProduct(updatedProduct)
-      await updateProductApi({updatedProduct, editID})
+      await updateProductApi(updatedProduct)
       toast({
         title: `Product successfully edited`,
         status: 'success',

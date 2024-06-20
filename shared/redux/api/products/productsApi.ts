@@ -19,20 +19,20 @@ export const productsApi = createApi({
         getProducts: builder.query<ProductPostDataType[], any>({
             query() {
                 return {
-                    url: 'products',
+                    url: '/products',
                 };
             },
             transformResponse: response => {
                 console.log('res',response)
-                const result = response as []
-             return result;
+                const result = response as any;
+             return result.result.data;
             },
             providesTags: ['Product']
         }),
         createProduct: builder.mutation<any, any>({
             query(data:any) {
                 return {
-                    url: 'products',
+                    url: '/products',
                     method: 'POST',
                     body: data,
                 };
@@ -42,19 +42,23 @@ export const productsApi = createApi({
         deleteProduct: builder.mutation<any, any>({
             query(productId:any) {
                 return {
-                    url: `products/${productId}`,
+                    url: `/products/${productId}`,
                     method: 'DELETE'
                 };
             },
             invalidatesTags: ['Product'],
         }),
         editProduct: builder.mutation<any, any>({
-            query({updatedProduct,editID}) {
-                console.log('ddd',updatedProduct,editID)
+            query(data) {
+                console.log(
+                    'daa',data
+                )
+                let id = data.id;
+                delete data.id;
                 return {
-                    url: `products/${editID}`,
+                    url: `/products/${id}`,
                     method: 'PUT',
-                    data:updatedProduct
+                    body:data
                 };
             },
             invalidatesTags: ['Product'],
