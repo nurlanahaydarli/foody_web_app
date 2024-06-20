@@ -86,7 +86,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                             onClick={togglePopup}
                         />
                         {showPopup && (
-                            <div className="fixed right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1 bg_white">
+                            <div className="absolute right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1 bg_white">
                                <button
                                     className="text-[#14ae5c] cursor-pointer  hover:text-[#109850]"
                                    

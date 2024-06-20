@@ -61,7 +61,6 @@ useEffect(()=>{
 },[])
   return (
     <>
-      <ToastContainer />
       {/* //write here toastify!!! */}
         {data?.map((data:any)=>(
             <div className='m-[20px]'>
