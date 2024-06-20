@@ -136,6 +136,7 @@ export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromi
 export const GetProducts = (): AxiosPromise<ApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
 
+
 export async function updateBasketProductCount(data: { user_id: string; basket_id: string; quantity: number }) {
     const response = await fetch('/api/basket/update', {
         method: 'POST',

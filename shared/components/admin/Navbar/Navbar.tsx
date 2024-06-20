@@ -17,8 +17,8 @@ import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
 import {AxiosResponse} from "axios";
 import { useToast } from '@chakra-ui/react';
-// import { useFormik } from 'formik';
-// import * as Yup from 'yup';
+import {useCreateProductMutation} from "../../../redux/api/products/productsApi";
+
 
 export default function Navbar() {
     let { push } = useRouter();
@@ -43,6 +43,11 @@ export default function Navbar() {
     let [restaurants, setRestaurants] = useState<RestaurantPostDataType[]>([])
     let [restaurantID, setRestaurantId] = useState(true)
     const toast = useToast()
+
+
+    const [createProduct] = useCreateProductMutation();
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -85,11 +90,12 @@ export default function Navbar() {
             console.log(newProduct, "newProduct");
 
             setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
-
-            let createdProduct = await PostProduct(newProduct);
-            setProducts(prevProducts => prevProducts.map(product =>
-                product.name === newProduct.name ? createdProduct.data : product
-            ));
+            let res2 = await createProduct(newProduct)
+            console.log('rr',res2);
+            // let createdProduct = await PostProduct(newProduct);
+            // setProducts(prevProducts => prevProducts.map(product =>
+            //     product.name === newProduct.name ? createdProduct.data : product
+            // ));
             toast({
                 title: `Product successfully added`,
                 status: 'success',

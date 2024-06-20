@@ -20,13 +20,12 @@ import { sortDataByCreated } from "../../../shared/utils/sortData";
 import ConfirmModal from '../../../shared/components/admin/confirmModal'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../shared/redux/store";
-import { useSelector } from "react-redux";
-import { fetchProducts } from "../../../shared/redux/featuries/product/productsSlice";
-import { fetchRestaurants } from "../../../shared/redux/featuries/restaurants/restaurantsSlice";
+import {
+  useDeleteProductMutation, useEditProductMutation,
+  useGetProductsQuery
+} from "../../../shared/redux/api/products/productsApi";
 
 const AdminLayout = dynamic(
   () => import("../../../shared/components/admin/Layout/AdminLayout"),
@@ -50,23 +49,8 @@ function Products() {
   const inpDesc = useRef<any>()
   const inpPrice = useRef<any>()
   const { isOpen, onOpen, onClose } = useModalOpen();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleButtonClick = () => {
-    setIsModalOpen(true);
-  };
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  // Type for setProducts
-  type SetProductsType = React.Dispatch<React.SetStateAction<IProduct[]>>;
-
-  // You can now use SetProductsType wherever you need to refer to the type of setProducts
-  const updateProducts: SetProductsType = (newProducts) => {
-    setProducts(newProducts);
-  };
-  // let [products, setProducts] = useState<PostDataType[] >([]);
+  const [isLoading2, setIsLoading] = useState(false);
   let [Img, setImg] = useState<any>('')
   let [editImg, seteditImg] = useState<any>('')
   let [editID, seteditID] = useState<any>('')
@@ -82,21 +66,18 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState<any>()
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<string | null>(null);
-  const dispatch = useDispatch<AppDispatch>();
   const toast = useToast()
 
-  // const products = useSelector((state: RootState) => state.products.products);
-  // const restaurants = useSelector((state: RootState) => state.restaurants.restaurants);
 
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  //   dispatch(fetchRestaurants());
-  // }, [dispatch]);
+  const {data,isLoading,isError} = useGetProductsQuery({},{
+  });
 
-  // useEffect(() => {
-  //   setFilteredProducts(products);
-  // }, [products]);
+  useEffect(()=>{
+    setFilteredProducts(sortDataByCreated(data));
+  },[data])
 
+  const [deleteProduct] = useDeleteProductMutation();
+  const [updateProductApi] = useEditProductMutation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -154,6 +135,7 @@ function Products() {
       price: Price,
       description: Desc,
     };
+    console.log(updatedProduct,'updatedProduct')
     try {
       if (Img instanceof File) {
         let res = await uploadFile({
@@ -166,10 +148,8 @@ function Products() {
       setProducts(prevProducts => prevProducts.map(product =>
         product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
       ));
-
-      updateProducts(prevProducts => [...prevProducts, { ...updatedProduct, id: updatedProduct.id }])
-      // dispatch(EditProduct(updatedProduct));
-      await EditProduct(updatedProduct)
+      // await EditProduct(updatedProduct)
+      await updateProductApi(updatedProduct,editID)
       toast({
         title: `Product successfully edited`,
         status: 'success',
@@ -198,7 +178,8 @@ function Products() {
 
   async function removeProduct(id: string | number) {
     try {
-      await DeleteProduct(id)
+      // await DeleteProduct(id)
+      await deleteProduct(id)
       toast({
         title: `Product successfully deleted`,
         status: 'success',

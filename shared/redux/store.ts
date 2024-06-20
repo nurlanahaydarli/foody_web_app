@@ -2,14 +2,19 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import userReducer from '../redux/featuries/user/userSılice';
 import sidebarReducer from './featuries/sidebar/sidebarSlice';
-import productReducer from './featuries/products/productSlice';
+import {productsApi} from "./api/products/productsApi";
 
 const makeStore = () =>
     configureStore({
         reducer: {
             user: userReducer,
             sidebar: sidebarReducer,
-            products: productReducer,
+            [productsApi.reducerPath]:productsApi.reducer
+        },
+        middleware(getDefaultMiddleware) {
+            return getDefaultMiddleware().concat(
+                productsApi.middleware
+            )
         },
     });
 

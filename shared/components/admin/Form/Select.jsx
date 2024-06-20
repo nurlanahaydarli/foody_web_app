@@ -1,4 +1,4 @@
-export default function Select({ onChange,title, name,value='',options=[]}) {
+export default function Select({ onChange,title='', name,value='',options=[]}) {
     if(value.length>0){
         
     

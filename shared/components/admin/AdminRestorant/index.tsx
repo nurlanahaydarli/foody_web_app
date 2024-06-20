@@ -12,7 +12,7 @@ import { instanceAxios } from "../../../helpers/instanceAxios";
 import { CategoryPostDataType} from '../../../interfaces/index'
 import Select from "../Form/Select";
 import Loading from "../../Loading/Loading";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { useToast } from "@chakra-ui/react";
 import { sortDataByCreated } from "../../../utils/sortData";
 // import adminRestaurantStyle from './adminRestaurant.module.css'
