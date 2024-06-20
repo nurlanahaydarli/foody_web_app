@@ -25,6 +25,10 @@ interface Restaurant {
   resturant: string;
   id: string;
   category_id: string;
+  address: string | number;
+  cuisine: string;
+  delivery_min: number;
+  delivery_price: number
 }
 
 interface State {
@@ -100,13 +104,13 @@ function AdminRestaurant() {
   const [CuisineValue, setCuisineValue] = useState('');
   const [CuisineStroge, setCuisineStroge] = useState('');
 
-  const [DeliveryPriceValue,setDeliveryPriceValue ] = useState('');
+  const [DeliveryPriceValue,setDeliveryPriceValue ] = useState<number|string>(0);
   const [DeliveryPriceStroge, setDeliveryPriceStroge] = useState('');
 
-  const [DeliveryMinValue, setDeliveryMinValue] = useState('');
+  const [DeliveryMinValue, setDeliveryMinValue] = useState<number|string>(0);
   const [DeliveryMinStroge, setDeliveryMinStroge] = useState('');
 
-  const [AdressValue, setAdressValue] = useState('');
+  const [AdressValue, setAdressValue] = useState<string | number>('');
   const [AdressStroge, setAdressStroge] = useState('');
   const [AdressStrogeRegex, setAdressStrogeRegex] = useState('');
 
@@ -414,7 +418,7 @@ function getCategorysById(e:any) {
     }
   }
 
-  function editRestaurant(name: string, category: string, image: string, id: string, cuisine:string, delivery_min:number,delivery_price:number,address:string|number) {
+  function editRestaurant(name: string, category: string, image: string, id: string, cuisine:string, delivery_min:number,delivery_price:number,address:string | number) {
     setTitleValue(name);
     setEditImg(image);
     setImg(image);
