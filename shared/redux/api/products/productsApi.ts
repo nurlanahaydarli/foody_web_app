@@ -3,6 +3,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {ProductPostDataType} from "../../../interfaces";
 import {FetchBaseQueryArgs} from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
 
+interface IResult {
+
+}
+
+
 const url = {
     baseUrl:"/api"
 } as FetchBaseQueryArgs;
@@ -11,19 +16,21 @@ export const productsApi = createApi({
     baseQuery: fetchBaseQuery(url),
     tagTypes: ['Product'],
     endpoints: (builder) => ({
-        getProducts: builder.query<ProductPostDataType, any>({
+        getProducts: builder.query<ProductPostDataType[], any>({
             query() {
                 return {
                     url: 'products',
                 };
             },
             transformResponse: response => {
-                return response?.result?.data||[];
+                console.log('res',response)
+                const result = response as []
+             return result;
             },
             providesTags: ['Product']
         }),
         createProduct: builder.mutation<any, any>({
-            query(data) {
+            query(data:any) {
                 return {
                     url: 'products',
                     method: 'POST',
@@ -33,7 +40,7 @@ export const productsApi = createApi({
             invalidatesTags: ['Product'],
         }),
         deleteProduct: builder.mutation<any, any>({
-            query(productId) {
+            query(productId:any) {
                 return {
                     url: `products/${productId}`,
                     method: 'DELETE'
@@ -42,11 +49,12 @@ export const productsApi = createApi({
             invalidatesTags: ['Product'],
         }),
         editProduct: builder.mutation<any, any>({
-            query(data,productId) {
+            query({updatedProduct,editID}) {
+                console.log('ddd',updatedProduct,editID)
                 return {
-                    url: `products/${productId}`,
+                    url: `products/${editID}`,
                     method: 'PUT',
-                    data
+                    data:updatedProduct
                 };
             },
             invalidatesTags: ['Product'],

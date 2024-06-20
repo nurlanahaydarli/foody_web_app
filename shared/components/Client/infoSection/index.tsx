@@ -34,7 +34,10 @@ function InfoSection(props:Props) {
         DES
     }=props
     const {Title,des,div}=styles
-    let newdata =data.slice(-3)
+    let newdata =[]
+    if(data && data.length){
+        newdata = data.slice(-3)
+    }
     
     return (
         <div className={'flex flex-col  items-center mt-20 gap-2 '+div}>

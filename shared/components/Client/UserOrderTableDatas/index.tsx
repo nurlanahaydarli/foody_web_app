@@ -9,7 +9,6 @@ import {useTranslation} from "next-i18next";
 interface TableDataProps {
     
 customer_id:number | string;
-
     id: number | string;
     time: number | string;
     adress: string;
@@ -85,7 +84,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                             onClick={togglePopup}
                         />
                         {showPopup && (
-                            <div className="fixed right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1">
+                            <div className="fixed right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1 bg_white">
                                <button
                                     className="text-[#14ae5c] cursor-pointer  hover:text-[#109850]"
                                    

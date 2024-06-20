@@ -73,7 +73,7 @@ function Products() {
   });
 
   useEffect(()=>{
-    setFilteredProducts(sortDataByCreated(data));
+    setFilteredProducts(sortDataByCreated<ProductPostDataType>(data));
   },[data])
 
   const [deleteProduct] = useDeleteProductMutation();
@@ -135,21 +135,21 @@ function Products() {
       price: Price,
       description: Desc,
     };
-    console.log(updatedProduct,'updatedProduct')
     try {
       if (Img instanceof File) {
         let res = await uploadFile({
           file: Img,
           collectionId: "products",
           documentId: "products"
-        }) as AxiosResponse<string | null>;
+        }) as string | null;
         updatedProduct.img_url = res;
       }
-      setProducts(prevProducts => prevProducts.map(product =>
-        product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
-      ));
+      // setProducts(prevProducts => prevProducts.map(product =>
+      //   product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
+      // ));
+
       // await EditProduct(updatedProduct)
-      await updateProductApi(updatedProduct,editID)
+      await updateProductApi({updatedProduct, editID})
       toast({
         title: `Product successfully edited`,
         status: 'success',

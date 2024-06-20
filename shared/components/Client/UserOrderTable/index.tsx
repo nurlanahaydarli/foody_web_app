@@ -5,14 +5,14 @@ import { useTranslation } from "next-i18next";
 import formatDate from "../../../../server/helper/convertDateToDAy";
 export function UserOrderTable() {
   const [orderData, setOrderData] = useState([]);
-  const [orderShow, setOrderShow] = useState([]);
+  const [orderShow, setOrderShow] = useState(false);
   const { t } = useTranslation("common");
 
   const fetchOrder = async () => {
     try {
       const res = await getOrderByUser();
-      const result = res?.data.result.data || [];
-      setOrderShow(res);
+      const result = res?.data.result.data as [];
+      setOrderShow(!!result.length);
       setOrderData(result);
     } catch (error) {
       console.error("Error fetching order:", error);

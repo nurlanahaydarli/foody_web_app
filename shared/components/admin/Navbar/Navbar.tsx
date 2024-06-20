@@ -11,7 +11,6 @@ import { openSidebar } from "../../../redux/featuries/sidebar/sidebarSlice";
 import { AppDispatch, RootState } from "../../../redux/store";
 import uploadFile from "../../../utils/uploadFile";
 import { PostProduct, getRestaurants } from "../../../services";
-import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from 'react';
 import {RestaurantPostDataType } from '../../../interfaces';
 import Select from '../Form/Select';
@@ -25,7 +24,7 @@ export default function Navbar() {
     const { isOpen, onOpen, onClose } = useModalOpen()
     let dispatch: AppDispatch = useDispatch()
     function handleOpenSidebar() {
-        dispatch(openSidebar({}))
+        dispatch(openSidebar())
     }
     const inpTitle = useRef<any>()
     const inpDesc = useRef<any>()
@@ -71,7 +70,7 @@ export default function Navbar() {
         let Rest = inpRest?.current?.value
         Title?.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
        
-        let newProduct:{name:any,price:any,rest_id:any| undefined, description:any,img_url?:AxiosResponse<string|null>} = {
+        let newProduct:{name:any,price:any,rest_id:any| undefined, description:any,img_url?:string|null} = {
             name: Title,
             description: Desc,
             price: Price,
@@ -82,7 +81,7 @@ export default function Navbar() {
                 file: Img,
                 collectionId: "products",
                 documentId: "products"
-            }) as AxiosResponse<string|null>;
+            }) as string|null;
             newProduct.img_url = res;
             setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
             await createProduct(newProduct)

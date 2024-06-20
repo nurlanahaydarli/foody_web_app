@@ -82,3 +82,7 @@ a {
   color: #fff;
 background-color: rgba(67, 68, 90, 1) !important;
 }
+.bg_white{
+  background-color: #fff;
+  z-index: 2;
+}

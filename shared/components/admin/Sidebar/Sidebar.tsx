@@ -50,7 +50,7 @@ export default function Sidebar() {
       };
 
     function handleCloseMenu(){
-        dispatch(closeSidebar({}))
+        dispatch(closeSidebar())
     }
     return (
         <>

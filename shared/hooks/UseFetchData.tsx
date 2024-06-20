@@ -3,7 +3,7 @@ import {AxiosPromise, AxiosResponse} from "axios";
 import { useToast } from '@chakra-ui/react'
 
 interface UseEntityHandlerProps {
-    uploadFile: (params: { file: File; collectionId: string; documentId: string }) => Promise<AxiosResponse<string | null>>;
+    uploadFile: (params: { file: File; collectionId: string; documentId: string }) => Promise<string | null>;
     addEntity: (entity: any) => AxiosPromise<any>;
     editEntity: (entity: any, id: string | number) => Promise<any>;
     deleteEntity: (id: string | number) => Promise<any>;

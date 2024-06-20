@@ -117,14 +117,14 @@ export const PostCategory: (newCategory: InitialCategoryState) => AxiosPromise<C
 // =============================== DELETE CATEGORY ===============================
 export const DeleteCategory = (
     categoryId: string | number
-): AxiosPromise<CategoryApiResponse> =>
+): Promise<AxiosPromise<CategoryApiResponse>> =>
     instanceAxios({
         method: "DELETE",
         url: `category/${categoryId}`,
     });
 
 // =============================== EDIT CATEGORY ===============================
-export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromise<CategoryApiResponse> => {
+export const EditCategory = ( editedCategory: CategoryPostDataType ): Promise<AxiosPromise<CategoryApiResponse>> => {
     return instanceAxios({
         method: "PUT",
         url: `category/${editedCategory.id}`,

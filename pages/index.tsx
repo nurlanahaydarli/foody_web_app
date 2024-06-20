@@ -27,9 +27,13 @@ const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainL
 
 
 const Home: NextPage = (Props) => {
-    
+
     let {repo}:any=Props
     console.log(repo);
+    if(!repo) repo = {
+        Restuarent:[],
+        Offer:[]
+    }
     
         let [mobile,setmobile]=useState(false)
         const user = useSelector((state: RootState) => state.user);
@@ -46,8 +50,11 @@ const Home: NextPage = (Props) => {
     let {headerBuutom,ButtomTitle,buttomDesc,Registerbtn,Orderbtn,hamIcon,iconDiv,bgdiv,Textdiv,}=style
     const { t } = useTranslation('common')
     let ruter =useRouter()
-    let Offer=repo.Offer.slice(-3)
-    console.log(Offer);
+    let Offer = []
+    if(repo && repo.Offer){
+        Offer=repo.Offer?.slice(-3)
+    }
+
     
   return (
     <>
@@ -126,15 +133,15 @@ export default Home;
 export const getServerSideProps = async ({ locale }: { locale: string }) => {
     // Fetch data from external API
     try {
-        const ProductRes = await fetch('http://localhost:3000/api/products');
+        const ProductRes = await fetch('/api/products');
         if (!ProductRes.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const RestuarentRES = await fetch('http://localhost:3000/api/restuarants');
+        const RestuarentRES = await fetch('/api/restuarants');
         if (!RestuarentRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const OfferRES = await fetch('http://localhost:3000/api/offer');
+        const OfferRES = await fetch('/api/offer');
         if (!OfferRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }

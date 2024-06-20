@@ -14,7 +14,7 @@ interface PROPS {
     typeButtonFun?: any ;
     addButtonFun?: any ;
     haveSelect?: boolean;
-    selectOption?: any[];
+    selectOption?: any[] | undefined;
     onSelect?: any
 
 }
@@ -31,7 +31,7 @@ function AdminHedetbuttom(props:PROPS) {
              <div className={styles.div}>
                  {!!haveSelect &&
                      <div className='custom_select'>
-                         <Select onChange={onSelect}  name={"rest_id"} options={selectOption} />
+                         <Select onChange={onSelect}  name={"rest_id"} options={selectOption}/>
                      </div>
 
                  }

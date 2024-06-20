@@ -19,7 +19,7 @@ import { useTranslation } from 'next-i18next';
 
 
 
-function index() {
+function History() {
    let [data,setdata]=useState()
    let [display ,setdisplay]=useState(false)
    let [Order ,setOrder]=useState<any>()
@@ -94,7 +94,7 @@ function index() {
     return(<Loading/>)
 }
 
-export default withAuth(index);
+export default withAuth(History);
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     props: {
         ...(await serverSideTranslations(locale as string, ["common"])),

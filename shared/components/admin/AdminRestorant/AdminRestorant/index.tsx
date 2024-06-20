@@ -610,9 +610,7 @@ function getCategorysById(e:any) {
 
 
       <Form
-        {...(state.isAdd ? { loading: Loading } : {})}
-      
-        
+
         isOpen={isOpen}
         title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
         subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}

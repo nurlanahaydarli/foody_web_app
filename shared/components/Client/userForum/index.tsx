@@ -79,7 +79,7 @@ console.log(user);
           file:img,
           collectionId:"users-hash-password",
           documentId:"users-hash-password"
-      }) as AxiosResponse<string|null>;
+      }) as string|null;
      
       // let res =await AccessPut("auth/user",{
       //     ...values,

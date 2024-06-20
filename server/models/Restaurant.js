@@ -26,7 +26,6 @@ export class Restaurant {
       img_url: this.img_url,
       delivery_min: this.delivery_min,
       address: this.address,
-      img_url: this.img_url,
       category_id: this.category_id,
     };
   }

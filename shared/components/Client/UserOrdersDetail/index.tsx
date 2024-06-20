@@ -17,7 +17,7 @@ interface Order {
   products: Product[];
 }
 
-export const UserOrdersDetail = ({ id }: { id: number }) => {
+export const UserOrdersDetail = ({ id }: { id: number|string }) => {
   const [orderShow, setOrderShow] = useState<any>(null);
   const [orderData, setOrderData] = useState<Order[]>([]);
   const [filteredData, setFilteredData] = useState<Order | undefined>();

@@ -36,7 +36,7 @@ import { PostOffer, PutOffer } from "../../../shared/services";
     useEffect(() => {
         (async () => {
             try {
-                let res = await axios.get('http://localhost:3000/api/offer')
+                let res = await axios.get('/api/offer')
                 let newData = await res.data.result.data
                 setoffers(newData)
 
@@ -124,7 +124,7 @@ import { PostOffer, PutOffer } from "../../../shared/services";
         if (Desc.length <= 3 || Title.length <= 3) {
             return
         }
-        let newOffer:{name:string,description:string,img_url?:AxiosResponse<string|null>} = {
+        let newOffer:{name:string,description:string,img_url?:string|null} = {
             "name": Title,
             "description": Desc
         }
@@ -134,7 +134,7 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                 file: Img,
                 collectionId: "offer",
                 documentId: "offer"
-            }) as AxiosResponse<string|null>;
+            }) as string|null;
             newOffer.img_url = res;
            
             await postOffer(newOffer).then(()=>setloading(false))
@@ -172,7 +172,7 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                         file: Img,
                         collectionId: "offer",
                         documentId: "offer"
-                    }) as AxiosResponse<string|null>;
+                    }) as string|null;
                     newOffer.img_url = res;
                 }
             
@@ -194,7 +194,7 @@ import { PostOffer, PutOffer } from "../../../shared/services";
 
     async function deleteOffer(id: string) {
         try {
-            axios.delete(`http://localhost:3000/api/offer/${id}`)
+            axios.delete(`/api/offer/${id}`)
                 .then(response => {
                     console.log(`deleted `);
                     setResetData(prev => !prev)

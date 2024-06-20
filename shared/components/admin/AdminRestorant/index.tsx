@@ -22,7 +22,7 @@ interface Restaurant {
   category: string;
   img_url: string;
   name: string;
-  resturant: string;
+  rest_id: string;
   id: string;
   category_id: string;
 }
@@ -111,7 +111,7 @@ function AdminRestaurant() {
   const [AdressStrogeRegex, setAdressStrogeRegex] = useState('');
 
   let [categorys, setCategorys] = useState<CategoryPostDataType[]>([]);
-  let [categorysID, setcategorysID] = useState(true);
+  let [categorysID, setcategorysID] = useState("");
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [filteredRestaurants,setFilteredRestaurants]=useState<any>()
@@ -606,9 +606,6 @@ function AdminRestaurant() {
 
 
         <Form
-            {...(state.isAdd ? { loading: Loading } : {})}
-
-
             isOpen={isOpen}
             title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
             subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}
