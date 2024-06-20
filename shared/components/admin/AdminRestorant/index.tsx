@@ -9,7 +9,7 @@ import { useModalOpen } from "../../../../shared/hooks/UseModalOpen";
 import uploadFile from "../../../../shared/utils/uploadFile";
 import { EditRestaurant, PostRestaurant, getRestaurants, getCategories } from "../../../services";
 import { instanceAxios } from "../../../helpers/instanceAxios";
-import { CategoryPostDataType} from '../../../interfaces/index'
+import { CategoryPostDataType} from '../../../interfaces/index';
 import Select from "../Form/Select";
 import Loading from "../../Loading/Loading";
 import { useTranslation } from "react-i18next";
