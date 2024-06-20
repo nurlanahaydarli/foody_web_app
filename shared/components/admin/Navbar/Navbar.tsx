@@ -53,7 +53,6 @@ export default function Navbar() {
             try {
                 let restaurants = await getRestaurants()
                 let new_res = await restaurants?.data.result.data
-                console.log(new_res,'new_res')
                 setRestaurants(new_res)
             } catch (err) {
                 console.log(err);
@@ -85,13 +84,8 @@ export default function Navbar() {
                 documentId: "products"
             }) as AxiosResponse<string|null>;
             newProduct.img_url = res;
-            console.log(res, "res");
-
-            console.log(newProduct, "newProduct");
-
             setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
-            let res2 = await createProduct(newProduct)
-            console.log('rr',res2);
+            await createProduct(newProduct)
             // let createdProduct = await PostProduct(newProduct);
             // setProducts(prevProducts => prevProducts.map(product =>
             //     product.name === newProduct.name ? createdProduct.data : product

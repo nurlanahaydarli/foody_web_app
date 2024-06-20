@@ -2,10 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import editicon from '../../../../public/editPen.svg'
 import deliteicon from '../../../../public/delete.svg'
-import pizza from '../../../../public/pizza.svg'
 import styles from '../AdminTable/Admin.module.css'
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import {sortDataByCreated} from "../../../utils/sortData";
 import {shortText} from "../../../utils/shortText";
 interface PROPS {

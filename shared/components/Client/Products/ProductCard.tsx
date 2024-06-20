@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { AddBasket, GetBasket } from '../../../services';
 import { BasketPostDataType } from '../../../interfaces';
-// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PlusSvg from "../svg/PlusSvg";
 import {useToast} from "@chakra-ui/react";
@@ -50,7 +49,7 @@ export default function ProductsCard(product: ProductState) {
                 console.error("Error adding product to the basket:", error);
                 setButtonClicked(false);
                 toast({
-                    title: `Error adding product to the basket`,
+                    title: `Please log in to add products to the basket`,
                     status: 'error',
                     duration: 2000,
                     isClosable: true,
@@ -62,7 +61,7 @@ export default function ProductsCard(product: ProductState) {
     );
 
     const handleAddToBasket = () => {
-        if (!user) {
+        if (!user.fullname.length) {
             toast({
                 title: `Please log in to add products to the basket`,
                 status: 'error',

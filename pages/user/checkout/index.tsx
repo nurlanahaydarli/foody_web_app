@@ -11,10 +11,9 @@ import Loading from '../../../shared/components/Loading/Loading';
 import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
 import { useRouter } from 'next/router';
 import { OrderPostDataType } from '../../../shared/interfaces';
-import { toast } from 'react-toastify';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-
+import { useToast } from '@chakra-ui/react'
 import styles from "../basket/basket.module.css";
 import {useTranslation} from "next-i18next";
 
@@ -99,7 +98,7 @@ const formatPhoneNumber = (value:any) => {
 
 
 function Checkout() {
-  
+    const toast = useToast()
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
@@ -171,15 +170,25 @@ function Checkout() {
    {
     onSuccess: () => {
         queryClient.invalidateQueries('order');
-        toast.success("Product added to the basket successfully!", {
-            autoClose: 1000,
-        });
+        toast({
+            title: `You ordered successfully`,
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+            position:'top-right',
+            variant:'subtle'
+        })
     },
     onError: (error) => {
         console.log("Error add product", error);
-        toast.success("Product deleted successfully!", {
-            autoClose: 1000,
-        });
+        toast({
+            title: `Product deleted successfully!`,
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+            position:'top-right',
+            variant:'subtle'
+        })
       },
    }
 );
@@ -204,7 +213,15 @@ if(user) {
         router.push('/restaurants');
     }, 2000);
 } else {
-    toast.error("User not logged in.");
+    // toast.error("User not logged in.");
+    toast({
+        title: `User not logged in.`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
 }
 
 };

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import style from '../login-register/login_register.module.css'
-import englishIcon from '../../public/english.svg'
 import loginIcon from '../../public/login.svg'
 import registerIcon from '../../public/register.svg'
 import Image from 'next/image';
 import SignInForm from '../../shared/components/Client/login-register/loginForum';
 import RegisterForm from '../../shared/components/Client/login-register/RegisterForum';
-import { ToastContainer } from 'react-toastify';
 import ChangeLanguage from "../../shared/components/Language/ChangeLanguage";
 import {useRouter} from "next/router";
 function Login_register() {

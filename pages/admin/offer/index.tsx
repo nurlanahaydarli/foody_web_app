@@ -7,9 +7,7 @@ import axios, {AxiosResponse} from "axios";
 import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
 import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
-
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useToast } from '@chakra-ui/react'
 import uploadFile from "../../../shared/utils/uploadFile";
 
 import withAuth from "../../../shared/HOC/withAuth";
@@ -28,7 +26,7 @@ import { PostOffer, PutOffer } from "../../../shared/services";
     let [DescValue, setDescValue] = useState('')
 
     let [ResetData, setResetData] = useState(true)
-    console.log("loading",loading);
+     const toast = useToast()
     
 
     const inpTitle = useRef<any>()
@@ -54,10 +52,17 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                 .then(function (response) {
                    
                     setResetData(prev => !prev)
-                    toast.success("Offer added sucsesfuly", {
-                        position: "top-right",
-                    });
-                    
+                    // toast.success("Offer added sucsesfuly", {
+                    //     position: "top-right",
+                    // });
+                    toast({
+                        title: `Offer added successfully`,
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                        position:'top-right',
+                        variant:'subtle'
+                    })
                     
                 })
                 .catch(function (error) {
@@ -87,9 +92,17 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                    
                     console.log(response);
                     setResetData(prev => !prev)
-                    toast.success("Offer update sucsesfuly", {
-                        position: "top-right",
-                    });
+                    // toast.success("Offer update sucsesfuly", {
+                    //     position: "top-right",
+                    // });
+                    toast({
+                        title: `Offer update successfully`,
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                        position:'top-right',
+                        variant:'subtle'
+                    })
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -183,9 +196,17 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                 .then(response => {
                     console.log(`deleted `);
                     setResetData(prev => !prev)
-                    toast.success("Offer deleted sucsesfuly", {
-                        position: "top-right",
-                    });
+                    // toast.success("Offer deleted sucsesfuly", {
+                    //     position: "top-right",
+                    // });
+                    toast({
+                        title: `Offer deleted successfully`,
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                        position:'top-right',
+                        variant:'subtle'
+                    })
                 })
                 .catch(error => {
                     console.error(error);
@@ -249,7 +270,6 @@ import { PostOffer, PutOffer } from "../../../shared/services";
                        value={DescValue}/>
                 <div className="  text-red-600 ">{DescYup}</div>
             </Form>
-            <ToastContainer/>
         </>
     );
 }

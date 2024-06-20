@@ -5,14 +5,12 @@ import OrdersTable from "../../../shared/components/admin/OrdersTable";
 import { useEffect, useState } from "react";
 import Modal from "../../../shared/components/admin/Modal";
 import CustomButton from "../../../shared/components/admin/Button";
-import { DeleteOrder, deleteOrder, getOrder } from "../../../shared/services";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { DeleteOrder, getOrder } from "../../../shared/services";
 import Loading from "../../../shared/components/Loading/Loading";
 import withAuth from "../../../shared/HOC/withAuth";
 import InfoBox from "../../../shared/components/admin/Modal";
 import { UserOrdersDetail } from "../../../shared/components/Client/UserOrdersDetail";
-
+import { useToast } from '@chakra-ui/react'
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
@@ -25,7 +23,8 @@ function Orders() {
     let [refreh ,setrefreh]=useState<any>(true)
 
     const { t } = useTranslation("common");
-    
+    const toast = useToast()
+
     useEffect(()=>{
         (async()=>{
             try{
@@ -41,7 +40,6 @@ function Orders() {
         
     },[refreh])
     function ShowOrder(Order:Object){
-console.log(Order);
         
         setdisplay(true)
         setOrder(Order)
@@ -59,8 +57,6 @@ console.log(Order);
          
      }
     function Delete(){
-        console.log("delete");
-        console.log(id);
         setrefreh((prev:boolean)=>!prev)
         
         if(id){
@@ -75,9 +71,17 @@ console.log(Order);
                     
                 }
             })()
-            toast.success("Order deleted sucsesfuly", {
-                position:"top-right",
-              });
+            // toast.success("Order deleted sucsesfuly", {
+            //     position:"top-right",
+            //   });
+            toast({
+                title: `Order deleted successfully`,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
         }else{
             alert("some thing wrong with id")
         }
@@ -226,7 +230,6 @@ console.log(Order);
               </div>
             </div>
           </Modal>
-          <ToastContainer/>
         </>
     );
 }

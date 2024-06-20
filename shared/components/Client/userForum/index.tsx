@@ -3,17 +3,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Input from '../userInp';
 import style from '../userForum/Forum.module.css'
-import { AccessPut, Put } from '../../../../server/helper/reguests';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import uploadFile from '../../../utils/uploadFile';
 import { PutAuthUser } from '../../../services';
 import Spiner from '../../../components/Client/Spiner'
-import Image from 'next/image';
+import { useToast } from '@chakra-ui/react'
 import {AxiosResponse} from "axios";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 interface FormValues {
   phoneNumber: string;
   username: string;
@@ -44,6 +41,7 @@ interface Props{
   
 }
 const UserForm: any = (props:Props) => {
+    const toast = useToast()
   let {img,}:any=props
   let [logoding,setlogoding]=useState(false)
   const { t } = useTranslation("common");
@@ -60,11 +58,17 @@ console.log(user);
     console.log(img);
     
     if(img==undefined||img===""){
-    
-      
-      toast.info("You have to add image to profile", {
-        position:"top-right",
-      });
+      // toast.info("You have to add image to profile", {
+      //   position:"top-right",
+      // });
+        toast({
+            title: `You have to add image to profile`,
+            status: 'info',
+            duration: 2000,
+            isClosable: true,
+            position:'top-right',
+            variant:'subtle'
+        })
       return
     }
     (async ()=>{
@@ -86,9 +90,17 @@ console.log(user);
           img_url: imgres,
         })
         if(res){
-          toast.success("User Uptodate", {
-            position:"top-right",
-          });
+          // toast.success("User Uptodate", {
+          //   position:"top-right",
+          // });
+            toast({
+                title: `User info is Updated`,
+                status: 'info',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
           setlogoding(false)
         }
       }catch(err){
@@ -132,7 +144,6 @@ console.log(user);
             </div>
         </Form>
       </Formik>
-      <ToastContainer/>
     </div>
   );
 };
