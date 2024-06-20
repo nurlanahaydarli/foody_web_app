@@ -4,9 +4,7 @@ import * as Yup from 'yup';
 import LoginInp from '../loinInp';
 import styles from '../loginForum/forum.module.css'
 import { Post } from '../../../../../server/helper/reguests';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { useToast } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../../../redux/store';
 import { setUser, clearUser, updateUser } from '../../../../redux/featuries/user/userSılice';
@@ -23,6 +21,7 @@ const initialValues: SignInFormValues = {
 };
 
 const SignInForm: React.FC = () => {
+  const toast = useToast()
   let [Loading,setLoaging]=useState(false)
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
@@ -43,9 +42,17 @@ const SignInForm: React.FC = () => {
   
         dispatch(setUser(res.user));
         // // add to local
-        toast.success("singin sucsesfuly", {
-          position:"top-right",
-        });
+        // toast.success("singin sucsesfuly", {
+        //   position:"top-right",
+        // });
+           toast({
+             title: `Signed in successfully!`,
+             status: 'success',
+             duration: 2000,
+             isClosable: true,
+             position:'top-right',
+             variant:'subtle'
+           })
         ruter.push('/user/profile')
         })
         
@@ -53,9 +60,17 @@ const SignInForm: React.FC = () => {
   
        
       }catch(err){
-        toast.error("Email or password is wrong", {
-          position:"top-right",
-        });
+        // toast.error("Email or password is wrong", {
+        //   position:"top-right",
+        // });
+        toast({
+          title: `Email or password is wrong`,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+          position:'top-right',
+          variant:'subtle'
+        })
       }
       
 
@@ -106,7 +121,6 @@ const SignInForm: React.FC = () => {
         </Form>
       )}
     </Formik>
-    <ToastContainer />
   </div>
     
   );

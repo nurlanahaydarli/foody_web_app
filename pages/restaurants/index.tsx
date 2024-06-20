@@ -6,16 +6,16 @@ import RestaurantCard from "../../shared/components/Client/restaurantCard/Restau
 import { getCategories, getRestaurants } from "../../shared/services";
 import FilterSvg from '../../shared/components/Client/svg/FilterSvg';
 import { useTranslation } from "next-i18next";
-import { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CloseSvg from "../../shared/components/admin/svg/CloseSvg";
 import { useModalOpen } from "../../shared/hooks/UseModalOpen";
 import { useResize } from "../../shared/hooks/useResize";
 import Loading from "../../shared/components/Loading/Loading";
 import { sortDataByCreated } from "../../shared/utils/sortData";
-import Axios from "axios";
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
-export default function Restaurants() {
+
+ function Restaurants() {
     const [categories, setCategories] = useState<any[] | undefined>([]);
     const [restaurants, setRestaurants] = useState<any[] | undefined>([]);
     const [chooseCategory, setChooseCategory] = useState<string | null>(null);
@@ -79,7 +79,7 @@ export default function Restaurants() {
                                 {isMobile && (
                                     <button className={styles.mobile_filter} onClick={onOpen}>
                                         <FilterSvg />
-                                        <span>Filters</span>
+                                        <span>{t("Filters")}</span>
                                     </button>
                                 )}
                                 <div className={`${styles.category_list_box} ${isMobile ? (isOpen ? styles.show : styles.hide) : styles.show}`}>
@@ -121,6 +121,9 @@ export default function Restaurants() {
         </MainLayout>
     );
 }
+
+export default Restaurants
+
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     props: {

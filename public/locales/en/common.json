@@ -11,8 +11,10 @@
     "Select": "Select",
     "Image": "Image",
     "Slug": "Slug",
-    "Show": "show",
+    "Show": "Show",
     "Chat": "Chat",
+    "Count":"Count",
+    "Close":"CLOSE",
     "Actions": "Actions",
     "Products": "Products",
     "Customer Id": "Customer Id",
@@ -189,6 +191,7 @@
     "Must be 5 characters or more": "Must be 5 characters or more",
     "Must be 15 characters or less": "Must be 15 characters or less",
     "Online":"Online",
+    "New": "New",
     "FoodyChat":"FoodyChat",
     "Delivery may be extended during sale periods. Please refer to the checkout page for an updated estimate for your location. Kindly note that once you have placed an order, it is no longer possible to modify your order. Taxes and duties are included in all product prices.It is possible to place an order with shipment to a different address than your home or billing address when paying with a credit card. Please note that Klarna payments require that your order is shipped to your registered home address.": "Delivery may be extended during sale periods. Please refer to the checkout page for an updated estimate for your location. Kindly note that once you have placed an order, it is no longer possible to modify your order. Taxes and duties are included in all product prices.It is possible to place an order with shipment to a different address than your home or billing address when paying with a credit card. Please note that Klarna payments require that your order is shipped to your registered home address."
 }

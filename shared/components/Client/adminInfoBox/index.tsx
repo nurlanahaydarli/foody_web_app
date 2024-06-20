@@ -3,6 +3,7 @@ import style from '../adminInfoBox/infoBox.module.css'
 import Image from 'next/image';
 import BoucherIcon from '../../../../public/Boucher.svg'
 import { useRouter } from 'next/router';
+import {shortText} from "../../../utils/shortText";
 
 interface Props{
     img:any,
@@ -24,8 +25,8 @@ let {img,Title,Desc,RestuarantID}=props
             className={icon}
             /> */}
             <img src={img} className={icon} />
-            <h3 className={title}>{Title}</h3>
-            <p className={des}>{Desc}</p>
+            <h3 className={title}>{shortText(Title,15)}</h3>
+            <p className={des}>{shortText(Desc,20)}</p>
         </div>
     );
 }

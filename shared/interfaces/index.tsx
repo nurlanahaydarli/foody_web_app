@@ -130,7 +130,7 @@ export interface OrderPostDataType {
 
 export interface ProductPostDataType{
     id?: string | number | any;
-    img_url?: AxiosResponse<string|null>;
+    img_url?:string|null;
     price?: number;
     name?: string;
     description?: string;

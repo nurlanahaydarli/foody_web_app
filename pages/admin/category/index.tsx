@@ -11,7 +11,10 @@ import {CategoryPostDataType} from "../../../shared/interfaces";
 import withAuth from "../../../shared/HOC/withAuth";
 import {useEntityHandler} from "../../../shared/hooks/UseFetchData";
 import Loading from "../../../shared/components/Loading/Loading";
-
+import ConfirmModal from '../../../shared/components/admin/confirmModal'
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useTranslation} from "next-i18next";
 const AdminLayout = dynamic(() => import("../../../shared/components/admin/Layout/AdminLayout"), {
     ssr: false,
 });
@@ -26,7 +29,10 @@ function Category() {
     let [TitleYup, setTitleYup] = useState('')
     let [Titlevalue, setTitlevalue] = useState('')
     let [ResetData, setResetData] = useState(true)
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
 
+    const { t } = useTranslation('common')
     const {handleEntity, removeEntity, loading} = useEntityHandler({
         uploadFile,
         addEntity: PostCategory,
@@ -46,7 +52,6 @@ function Category() {
             }
         })()
     }, [])
-
     async function addCategory() {
         let Title = inpTitle?.current?.value
         Title.length <= 3 ? setTitleYup('title have to be longer than 3 ') : setTitleYup('')
@@ -66,7 +71,6 @@ function Category() {
         });
 
     }
-
     async function updateCategory() {
         let Title = inpTitle?.current?.value
         if (Title.length <= 3) {
@@ -99,7 +103,17 @@ function Category() {
             onClose
         });
     }
-
+    function confirmDeleteCategory(id: string) {
+        setCategoryToDelete(id);
+        setIsConfirmModalOpen(true);
+    }
+    function handleConfirmDelete() {
+        if (categoryToDelete) {
+            removeEntity(categoryToDelete, setCategories);
+        }
+        setIsConfirmModalOpen(false);
+        setCategoryToDelete(null);
+    }
     function editCategory(name: string, description: string, image: string, id: string) {
         setTitlevalue(name)
         seteditImg(image)
@@ -107,7 +121,6 @@ function Category() {
         seteditID(id)
         onOpen()
     }
-
     return (
         <>
             <AdminLayout>
@@ -115,12 +128,12 @@ function Category() {
 
                 <div>
                     <AdminHedetbuttom typeButton={false} addButton={true} addButtonFun={onOpen}
-                                      addTitle={'ADD CATEGORY '} Title={'CATEGORY '}/>
+                                      addTitle={t('ADD CATEGORY ')} Title={t('Category ')}/>
                     {loading ?
                         <Loading/> :
                         <AdminTable edit={editCategory}
                                     data={categories}
-                                    removeDocument={(id:string)=>removeEntity(id,setCategories)}
+                                    removeDocument={confirmDeleteCategory}
                                     reset={() => setResetData(prev => !prev)}/>
                     }
 
@@ -146,9 +159,21 @@ function Category() {
                         <div className=" text-red-600">{TitleYup}</div>
                     </Form>
                 </div>
+                <ConfirmModal
+                    isOpen={isConfirmModalOpen}
+                    onRequestClose={() => setIsConfirmModalOpen(false)}
+                    onConfirm={handleConfirmDelete}
+                />
+
             </AdminLayout>
         </>
     );
 }
 
 export default withAuth(Category)
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

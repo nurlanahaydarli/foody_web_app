@@ -1,6 +1,8 @@
 import type {NextPage} from "next";
 import dynamic from "next/dynamic";
 import withAuth from "../../shared/HOC/withAuth";
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 
 const AdminLayout = dynamic(() => import("../../shared/components/admin/Layout/AdminLayout"), {
@@ -42,3 +44,9 @@ const AdminDashboard: NextPage = () => {
 };
 
 export default withAuth(AdminDashboard);
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

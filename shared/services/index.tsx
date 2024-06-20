@@ -117,14 +117,14 @@ export const PostCategory: (newCategory: InitialCategoryState) => AxiosPromise<C
 // =============================== DELETE CATEGORY ===============================
 export const DeleteCategory = (
     categoryId: string | number
-): AxiosPromise<CategoryApiResponse> =>
+): Promise<AxiosPromise<CategoryApiResponse>> =>
     instanceAxios({
         method: "DELETE",
         url: `category/${categoryId}`,
     });
 
 // =============================== EDIT CATEGORY ===============================
-export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromise<CategoryApiResponse> => {
+export const EditCategory = ( editedCategory: CategoryPostDataType ): Promise<AxiosPromise<CategoryApiResponse>> => {
     return instanceAxios({
         method: "PUT",
         url: `category/${editedCategory.id}`,
@@ -135,6 +135,7 @@ export const EditCategory = ( editedCategory: CategoryPostDataType ): AxiosPromi
 // =============================== GET PRODUCTS ===============================
 export const GetProducts = (): AxiosPromise<ApiResponse> =>
     instanceAxios({ method: "GET", url: 'products' });
+
 
 export async function updateBasketProductCount(data: { user_id: string; basket_id: string; quantity: number }) {
     const response = await fetch('/api/basket/update', {
@@ -263,15 +264,26 @@ export async function getOrder() {
         console.log("order's error: ", error);
     }
 }
-
+export async function getOrderByUser() {
+    try {
+        const accessToken = localStorage.getItem("access_token");
+        const response = await instanceAxios.get(`/order/user`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response
+    } catch (error) {
+        console.log("order's error: ", error);
+    }
+}
 
 
 // =============================== DELETE ORDERS ===============================
 
 export const deleteOrder = async (id: string | number) => {
     try {
-        let item: any = localStorage.getItem("access_token")
-        let accessToken = JSON.parse(item)
+        let accessToken = localStorage.getItem("access_token")
 
         const response = await instanceAxios.delete(`/order`, {
             data: {
@@ -318,3 +330,22 @@ export const getProductServer = async () => {
 };
 
 
+export async function PostOffer(offer: object) {
+    try {
+        instanceAxios.post("offer",offer)
+        
+    } catch (err) {
+        console.log(err);
+        
+    }
+}
+export async function PutOffer(offer: object,id:string) {
+    try {
+        instanceAxios.put(`offer/${id}`, offer)
+        
+        
+    } catch (err) {
+        console.log(err);
+        
+    }
+}

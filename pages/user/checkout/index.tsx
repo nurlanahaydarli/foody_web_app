@@ -1,8 +1,6 @@
 import React, {useEffect , useReducer, useState } from 'react';
 import Navbar from '../../../shared/components/Client/user-NAV';
 import MainLayout from "../../../shared/components/admin/Layout/MainLayout";
-import paymentIcon from '../../../public/paymentIcon.svg';
-import paymentEmpytIcon from '../../../public/paymentEmpytIcon.svg';
 import confirmationIcon from '../../../public/confirmationIcon.svg';
 import Image from 'next/image';
 import {GetBasket, AddOrder} from '../../../shared/services/index';
@@ -12,13 +10,13 @@ import { RootState } from '../../../shared/redux/store';
 import Loading from '../../../shared/components/Loading/Loading';
 import EmptyBasket from '../../../shared/components/Client/EmptyBasket';
 import { useRouter } from 'next/router';
-import BasketItem from '../../../shared/components/Client/BasketItem/index';
-import { OrderPostDataType, ProductPostDataType } from '../../../shared/interfaces';
-import { toast } from 'react-toastify';
+import { OrderPostDataType } from '../../../shared/interfaces';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import { useTranslation } from 'react-i18next';
-
+import { useToast } from '@chakra-ui/react'
+import styles from "../basket/basket.module.css";
+import {useTranslation} from "next-i18next";
+import withClientAuth from "../../../shared/HOC/withClienAuth";
 
 
 const initialState = {
@@ -101,7 +99,7 @@ const formatPhoneNumber = (value:any) => {
 
 
 function Checkout() {
-  
+    const toast = useToast()
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
     const [isRectVisible2, setIsRectVisible2] = useState(false);
@@ -173,15 +171,25 @@ function Checkout() {
    {
     onSuccess: () => {
         queryClient.invalidateQueries('order');
-        toast.success("Product added to the basket successfully!", {
-            autoClose: 1000,
-        });
+        toast({
+            title: `You ordered successfully`,
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+            position:'top-right',
+            variant:'subtle'
+        })
     },
     onError: (error) => {
         console.log("Error add product", error);
-        toast.success("Product deleted successfully!", {
-            autoClose: 1000,
-        });
+        toast({
+            title: `Product deleted successfully!`,
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+            position:'top-right',
+            variant:'subtle'
+        })
       },
    }
 );
@@ -206,7 +214,15 @@ if(user) {
         router.push('/restaurants');
     }, 2000);
 } else {
-    toast.error("User not logged in.");
+    // toast.error("User not logged in.");
+    toast({
+        title: `User not logged in.`,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position:'top-right',
+        variant:'subtle'
+    })
 }
 
 };
@@ -377,17 +393,19 @@ if(user) {
                         <div className='w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                           <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>{t("Your Order")}</h1>
                           {basketList.items.map((product:any, index: any) => (
-                            <div key={index} className='flex p-2'>
-                              <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
-                              <div className='flex gap-16 ml-2'>
-                                <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                            <div key={index} className='flex p-2 justify-between'>
+                                <div className='flex gap-2'>
+                                    <h1 className='font-bold text-2xl text-grayText'>{product.count}x</h1>
+                                    <span className='text-grayText mt-1 text-lg'>{product.name}</span>
+                                </div>
+                              {/*<div className='flex gap-16 ml-2'>*/}
                                 <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
-                              </div>
+                              {/*</div>*/}
                             </div>
                           ))}
                           <hr className=' mt-8 w-11/12' />
-                          <div className='flex gap-48 mt-4'>
-                            <h1 className='font-bold text-2xl text-grayText ml-9'>{t("Total")}</h1>
+                          <div className='flex gap-48 mt-4 justify-between p-2'>
+                            <h1 className='font-bold text-2xl text-grayText'>{t("Total")}</h1>
                             <h5 className='mt-1 text-xl text-grayText'>${basketList.total_amount}</h5>
                           </div>
                           
@@ -395,7 +413,9 @@ if(user) {
                         </div>
                       </div>
                     ) : (
-                      <EmptyBasket />
+                        <div className={`${styles.user_cabinet_box} ${styles.md}`}>
+                         <EmptyBasket />
+                        </div>
                     )}
                   </>
                 )}
@@ -409,7 +429,7 @@ if(user) {
     );
 }
 
-export default Checkout;
+export default withClientAuth(Checkout);
 
 
 

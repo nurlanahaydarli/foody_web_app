@@ -4,13 +4,11 @@ import * as Yup from 'yup';
 import LoginInp from '../loinInp';
 import styles from '../loginForum/forum.module.css'
 import RegisterInp from '../registerInp';
-import { Post } from '../../../../../server/helper/reguests';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { PostSingUP } from '../../../../services';
 import Spiner from '../../Spiner';
+import { useToast } from '@chakra-ui/react'
 interface RegisterFormValues {
   fullname: string;
   username: string;
@@ -30,6 +28,7 @@ interface Props{
   setsingin:any
 }
 const RegisterForm= (props:Props) => {
+  const toast = useToast()
   const user = useSelector((state: RootState) => state.user);
   let {setsingin}:any=props
   let [Loading,setLoading]=useState(false)
@@ -50,19 +49,43 @@ const RegisterForm= (props:Props) => {
         try{
           setLoading(true)
           PostSingUP(values).then(()=>{
-            toast.success("register sucsesfuly", {
-                position:"top-right",
-              });
-              toast.info("now sing in", {
-                  position:"top-right",
-                });
-                
+            // toast.success("register sucsesfuly", {
+            //     position:"top-right",
+            //   });
+            toast({
+              title: `Register successfully!`,
+              status: 'success',
+              duration: 2000,
+              isClosable: true,
+              position:'top-right',
+              variant:'subtle'
+            })
+            toast({
+              title: `Now you can sing in!`,
+              status: 'info',
+              duration: 2000,
+              isClosable: true,
+              position:'top-right',
+              variant:'subtle'
+            })
+              // toast.info("now sing in", {
+              //     position:"top-right",
+              //   });
+              //
             setLoading(false)
           }).catch((err)=>{
             setLoading(false)
-            toast.info(err.message, {
-              position:"top-right",
-            });
+            // toast.info(err.message, {
+            //   position:"top-right",
+            // });
+            toast({
+              title: err.message,
+              status: 'info',
+              duration: 2000,
+              isClosable: true,
+              position:'top-right',
+              variant:'subtle'
+            })
           })
 
         }catch(err){
@@ -132,7 +155,6 @@ onSubmit={handleSubmit}
         </Form>
       )}
     </Formik>
-      <ToastContainer />
     </div>
     
     

@@ -11,12 +11,15 @@ import axios from "axios";
 import Loading from "../../Loading/Loading";
 import { getRestaurants } from "../../../services";
 import { RestaurantPostDataType } from "../../../interfaces";
+import { isNewFunction } from "../../../utils/isNewCreated";
+import { shortText } from "../../../utils/shortText";
 
 interface PROPS {
   data? : any,
   reset :Function,
   edit :any,
   removeDocument:any
+//   created: number
   // id: string;
   // description: string;
   // price: number;
@@ -31,6 +34,7 @@ function AdminCard(props:PROPS) {
   let {data,reset,edit,removeDocument} =props
   const [restaurants,setRestaurants] = useState<RestaurantPostDataType[]>([])
 let [mobile,setmobile]=useState(false)
+
 useEffect(() =>{
 (async () =>{
 try {
@@ -71,16 +75,17 @@ useEffect(()=>{
                             src={data.img_url}
                             alt=""
                         />
+                         {/* {isNewFunction(data.created) && ( )} */}
                     </div>
                     <div className="m-1 mx-5">
-                        <p className=" text-lg font-medium">{data.name}</p>
+                        <p className=" text-lg font-medium">{shortText (data.name, 15)}</p>
                         <p className=" text-[#8E8E93]">
                             {restaurants.find((restaurant) => restaurant.id === data.rest_id)?.name}
                         </p>
                     </div>
                     <div className=" mx-5 flex justify-between">
                         <p className="text-[#00B2A9;] font-medium">${data.price}</p>
-
+                   
                         <div className="flex mx-3 gap-3">
                             <Image
                                 width="24"

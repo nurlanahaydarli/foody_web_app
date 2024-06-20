@@ -1,11 +1,14 @@
 import React from "react";
 import MainLayout from '../../shared/components/admin/Layout/MainLayout'
 import Image from "next/image";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps } from "next";
+import { useTranslation } from "next-i18next";
 
 
 
 function AboutUs() {
-
+  const { t } = useTranslation("common");
 
   return (
     <>
@@ -17,7 +20,7 @@ function AboutUs() {
               className="max-w-[565px] flex flex-col gap-8 ml-8"
             >
               <p className="font-mukta text-[45px] font-semibold leading-8 tracking-tight ">
-                About Us
+              {t("About Us")}
               </p>
               <p className=" text-[#828282] font-roboto text-[20px] font-medium leading-7 tracking-tight">
                 Lorem ipsum is placeholder text commonly used in the graphic,
@@ -77,7 +80,7 @@ function AboutUs() {
           <div className="">
             <div className=" text-center">
               <p className="font-mukta text-[35px] font-semibold leading-8 tracking-tight ">
-                About Us
+              {t("About Us")}
               </p>
               <p className=" p-5 text-center text-[#828282] font-roboto text-base leading-8 font-medium  tracking-tighter">
                 Lorem ipsum is placeholder text commonly used in the graphic,
@@ -110,3 +113,9 @@ function AboutUs() {
 };
 
 export default AboutUs;
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+  },
+});

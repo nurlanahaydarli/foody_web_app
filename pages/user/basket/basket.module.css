@@ -115,7 +115,9 @@
     height: 96px;
     object-fit: contain;
 }
-
+.m0{
+    margin: 0!important;
+}
 @media (max-width: 767px) {
     .basket_list .basket_box .basket_item {
         flex-direction: column;
@@ -348,4 +350,9 @@
     line-height: 50px;
     letter-spacing: 0.03em;
     color: #BDBDBD;
+}
+@media (max-width: 991px) {
+    .xl.user_cabinet_box {
+        padding: 20px;
+    }
 }

@@ -7,12 +7,13 @@ import axios, {AxiosResponse} from "axios";
 import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
 import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
-
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useToast } from '@chakra-ui/react'
 import uploadFile from "../../../shared/utils/uploadFile";
-import Loading from "../../../shared/components/Loading/Loading";
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 import withAuth from "../../../shared/HOC/withAuth";
+import { PostOffer, PutOffer } from "../../../shared/services";
  function Offer() {
     const {isOpen, onOpen, onClose} = useModalOpen()
     let [offers, setoffers] = useState([])
@@ -21,17 +22,21 @@ import withAuth from "../../../shared/HOC/withAuth";
     let [editID, seteditID] = useState<any>('')
 
     let [TitleYup, setTitleYup] = useState('')
+    let [loading, setloading] = useState(false)
     let [Titlevalue, setTitlevalue] = useState('')
     let [DescYup, setDescYup] = useState('')
     let [DescValue, setDescValue] = useState('')
 
     let [ResetData, setResetData] = useState(true)
+     const toast = useToast()
+    
+
     const inpTitle = useRef<any>()
     const inpDesc = useRef<any>()
     useEffect(() => {
         (async () => {
             try {
-                let res = await axios.get('http://localhost:3000/api/offer')
+                let res = await axios.get('/api/offer')
                 let newData = await res.data.result.data
                 setoffers(newData)
 
@@ -44,40 +49,67 @@ import withAuth from "../../../shared/HOC/withAuth";
 
     async function postOffer(offer: object) {
         try {
-            axios.post('http://localhost:3000/api/offer', offer)
+           
+            PostOffer(offer)
                 .then(function (response) {
-                    console.log(response);
+                   
                     setResetData(prev => !prev)
-                    toast.success("Offer added sucsesfuly", {
-                        position: "top-right",
-                    });
+                    // toast.success("Offer added sucsesfuly", {
+                    //     position: "top-right",
+                    // });
+                    toast({
+                        title: `Offer added successfully`,
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                        position:'top-right',
+                        variant:'subtle'
+                    })
+                    
                 })
                 .catch(function (error) {
                     console.log(error);
+                   
+
+                   
                 });
         } catch (err) {
             console.log(err);
+           
         }
     }
 
     async function upOffer(offer: object, id: string) {
-
+        console.log(loading);
+        
         console.log(offer);
         
 
         try {
+            
+            setloading(true)
 
-
-            axios.put(`http://localhost:3000/api/offer/${id}`, offer)
+            PutOffer(offer,id)
                 .then(function (response) {
+                   
                     console.log(response);
                     setResetData(prev => !prev)
-                    toast.success("Offer update sucsesfuly", {
-                        position: "top-right",
-                    });
+                    // toast.success("Offer update sucsesfuly", {
+                    //     position: "top-right",
+                    // });
+                    toast({
+                        title: `Offer update successfully`,
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                        position:'top-right',
+                        variant:'subtle'
+                    })
                 })
                 .catch(function (error) {
                     console.log(error);
+                   
+
                 });
         } catch (err) {
             console.log(err);
@@ -92,24 +124,27 @@ import withAuth from "../../../shared/HOC/withAuth";
         if (Desc.length <= 3 || Title.length <= 3) {
             return
         }
-        let newOffer:{name:string,description:string,img_url?:AxiosResponse<string|null>} = {
+        let newOffer:{name:string,description:string,img_url?:string|null} = {
             "name": Title,
             "description": Desc
         }
+        setloading(true)
         try {
             let res = await uploadFile({
                 file: Img,
                 collectionId: "offer",
                 documentId: "offer"
-            }) as AxiosResponse<string|null>;
+            }) as string|null;
             newOffer.img_url = res;
-            await postOffer(newOffer)
+           
+            await postOffer(newOffer).then(()=>setloading(false))
 
             inpTitle?.current?.value == ''
             inpDesc?.current?.value == ''
             onClose()
         } catch (err) {
             console.log(err);
+            setloading(false)
         }
 
     }
@@ -127,36 +162,53 @@ import withAuth from "../../../shared/HOC/withAuth";
             id: editID,
             "name": Title,
             "description": Desc,
-            "img_url": Img
+            "img_url": editImg
         }
+        setloading(true)
         try {
-            let res = await uploadFile({
-                file: Img,
-                collectionId: "offer",
-                documentId: "offer"
-            }) as AxiosResponse<string|null>;
-            newOffer.img_url = res;
+            if(Img){
+                
+                    let res = await uploadFile({
+                        file: Img,
+                        collectionId: "offer",
+                        documentId: "offer"
+                    }) as string|null;
+                    newOffer.img_url = res;
+                }
+            
+            
             // newOffer.img_url = res;
-            await upOffer(newOffer, editID)
+            setloading(true)
+            await upOffer(newOffer, editID).finally(()=>setloading(false))
 
             inpTitle?.current?.value == ''
             inpDesc?.current?.value == ''
+            
             onClose()
         } catch (err) {
             console.log(err);
+            setloading(false)
         }
 
     }
 
     async function deleteOffer(id: string) {
         try {
-            axios.delete(`http://localhost:3000/api/offer/${id}`)
+            axios.delete(`/api/offer/${id}`)
                 .then(response => {
                     console.log(`deleted `);
                     setResetData(prev => !prev)
-                    toast.success("Offer deleted sucsesfuly", {
-                        position: "top-right",
-                    });
+                    // toast.success("Offer deleted sucsesfuly", {
+                    //     position: "top-right",
+                    // });
+                    toast({
+                        title: `Offer deleted successfully`,
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                        position:'top-right',
+                        variant:'subtle'
+                    })
                 })
                 .catch(error => {
                     console.error(error);
@@ -172,14 +224,14 @@ import withAuth from "../../../shared/HOC/withAuth";
         setTitlevalue(name)
         setDescValue(description)
         seteditImg(image)
-        setImg([image])
+        
         seteditID(id)
         onOpen()
     }
     // if(offers.length===0){
     //     return(<Loading/>)
     // }
-
+    
     return (
         <>
             <AdminLayout>
@@ -198,6 +250,7 @@ import withAuth from "../../../shared/HOC/withAuth";
                 />
             </AdminLayout>
             <Form
+            loading={loading}
                 isOpen={isOpen}
                 title={editImg ? 'Edit Offer' : 'Add Offer'}
                 subtitle={"Add your Offer Title and Description "}
@@ -219,9 +272,15 @@ import withAuth from "../../../shared/HOC/withAuth";
                        value={DescValue}/>
                 <div className="  text-red-600 ">{DescYup}</div>
             </Form>
-            <ToastContainer/>
         </>
     );
 }
 
 export default withAuth(Offer)
+
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

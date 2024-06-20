@@ -9,18 +9,11 @@ import PizzaIcon from '../public/Main-Pizza.svg'
 import Image from "next/image";
 import AnimetedBox from "../shared/components/Client/MainAnimetedBox";
 import { useRouter } from "next/router";
-import InfoBox from "../shared/components/Client/adminInfoBox";
+
 import InfoSection from "../shared/components/Client/infoSection";
 
-import BoucherIcon from '../public/Boucher.svg'
-import soupIcon from '../public/soup.svg'
-import deliveryIcon from '../public/delivery.svg'
 import INFoBox from "../shared/components/Client/InfoBox";
-import ComboIcon from '../public/combo.svg'
-import PIZZaIcon from '../public/BIGPIZZA.svg'
-import FryIcon from '../public/Fry.svg'
-import MiniBurgerIcon from '../public/MiniBurger.svg'
-import MiniPizzaIcon from '../public/MiniPizza.svg'
+
 import FooterTop from "../shared/components/Client/FooterTop";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -34,9 +27,13 @@ const MainLayout = dynamic(() => import("../shared/components/admin/Layout/MainL
 
 
 const Home: NextPage = (Props) => {
-    
+
     let {repo}:any=Props
     console.log(repo);
+    if(!repo) repo = {
+        Restuarent:[],
+        Offer:[]
+    }
     
         let [mobile,setmobile]=useState(false)
         const user = useSelector((state: RootState) => state.user);
@@ -53,23 +50,26 @@ const Home: NextPage = (Props) => {
     let {headerBuutom,ButtomTitle,buttomDesc,Registerbtn,Orderbtn,hamIcon,iconDiv,bgdiv,Textdiv,}=style
     const { t } = useTranslation('common')
     let ruter =useRouter()
-    let Offer=repo.Offer.slice(-3)
-    console.log(Offer);
+    let Offer = []
+    if(repo && repo.Offer){
+        Offer=repo.Offer?.slice(-3)
+    }
+
     
   return (
     <>
      <MainLayout>
         <div className={headerBuutom}>
             <div className={ Textdiv}>
-                <h1 className={ButtomTitle +' flex flex-wrap'}>Our Food site makes it easy to find local food</h1>
+                <h1 className={ButtomTitle +' flex flex-wrap'}>{t("Our Food site makes it easy to find local food")}</h1>
                 <p className={buttomDesc+ ' w-4/5 flex flex-wrap mt-2'}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
                 <div className={mobile?'flex flex-col mt-10 gap-4 justify-center items-center':"flex flex-row  w-4/5 gap-10 mt-10 mb"}>
-                    <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>Register </button>
+                    <button onClick={()=>ruter.push('login-register')} style={user.id.length>0?{display:"none"}:{display:"block"}} className={Registerbtn}>{t("Register")} </button>
                     <button className={Orderbtn} onClick={()=>{
                         
                         ruter.push('restaurants')
                         
-                    }}>Order now </button>
+                    }}>{t("Order now")} </button>
                 </div>
             </div>
             <div className={" relative flex justify-center items-center p-14 "+iconDiv}>
@@ -90,13 +90,13 @@ const Home: NextPage = (Props) => {
            
             
         </div>
-        <InfoSection data={repo.Restuarent} TITLE="Features" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+        <InfoSection data={repo.Restuarent} TITLE={`${t("Popular")} ${t("Restaurants")}`} DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
         {Offer.map((item:any,i:number)=>(
         <INFoBox row={i%2===1} img={item.img_url} title={item.name} desc={item.description} w={636} h={441}/>
         ))}
        
         
-        <InfoSection data={repo.Products} TITLE="Our Popular Update New Foods" DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
+        <InfoSection data={repo.Products} TITLE={t("Our Popular Update New Foods")} DES="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."/>
         
         <FooterTop/>
      </MainLayout>
@@ -133,15 +133,15 @@ export default Home;
 export const getServerSideProps = async ({ locale }: { locale: string }) => {
     // Fetch data from external API
     try {
-        const ProductRes = await fetch('http://localhost:3000/api/products');
+        const ProductRes = await fetch('/api/products');
         if (!ProductRes.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const RestuarentRES = await fetch('http://localhost:3000/api/restuarants');
+        const RestuarentRES = await fetch('/api/restuarants');
         if (!RestuarentRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const OfferRES = await fetch('http://localhost:3000/api/offer');
+        const OfferRES = await fetch('/api/offer');
         if (!OfferRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }

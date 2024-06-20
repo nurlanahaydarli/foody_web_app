@@ -2,11 +2,9 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import editicon from '../../../../public/editPen.svg'
 import deliteicon from '../../../../public/delete.svg'
-import pizza from '../../../../public/pizza.svg'
 import styles from '../AdminTable/Admin.module.css'
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import {sortDataByCreated} from "../../../utils/sortData";
+import {shortText} from "../../../utils/shortText";
 interface PROPS {
     data? : any,
     reset :Function,
@@ -70,10 +68,10 @@ useEffect(()=>{
 
                     
                     </td>
-                    <td className={styles.tablename}>{item.name}</td>
+                    <td className={styles.tablename}>{shortText(item.name,20)}</td>
                     <td >
                         <div className={styles.tableSlug}>
-                        <p>{item.description}</p>
+                        <p>{shortText(item.description,20)}</p>
                         <div className={styles.icons}>
                         <Image
                         src={editicon}

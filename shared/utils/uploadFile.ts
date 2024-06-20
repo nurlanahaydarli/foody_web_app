@@ -17,7 +17,7 @@ export const uploadFile = async ({
                                      metadata
                                  }:IUploadFile
 
-): AxiosPromise<string | null> => {
+): Promise<string|null> => {
     if (!file) {
         throw new Error('Please select a file');
     }
@@ -32,7 +32,7 @@ export const uploadFile = async ({
     const storageRef = ref(storage, `${collectionId}/${documentId}/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file,metadata);
 
-    return new Promise<AxiosResponse<string | null >>((resolve, reject) => {
+    return new Promise<string|null>((resolve, reject) => {
         uploadTask.on(
             'state_changed',
             (snapshot) => {

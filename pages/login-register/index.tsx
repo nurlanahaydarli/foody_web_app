@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../login-register/login_register.module.css'
-import englishIcon from '../../public/english.svg'
 import loginIcon from '../../public/login.svg'
 import registerIcon from '../../public/register.svg'
 import Image from 'next/image';
 import SignInForm from '../../shared/components/Client/login-register/loginForum';
 import RegisterForm from '../../shared/components/Client/login-register/RegisterForum';
-import { ToastContainer } from 'react-toastify';
 import ChangeLanguage from "../../shared/components/Language/ChangeLanguage";
 import {useRouter} from "next/router";
 function Login_register() {
     let [singin,setsingin]=useState(true)
+    let [mobile,setmobile]=useState(false)
+  
+    useEffect(()=>{
+        if(window.innerWidth<800){
+            setmobile(true)
+        }else{
+            setmobile(false)
+        }
+      
+        
+        
+    },[mobile])
     let {push}=useRouter()
     return (<div>
         <div className={style.Body +' w-full h-full p-7 '}>
@@ -18,8 +28,8 @@ function Login_register() {
                 <h2 className={style.headerText} >Foody.</h2>
                 <ChangeLanguage/>
             </header>
-            <div className=' flex flex-row gap-3 '>
-                <div className={style.blackbg +' w-3/5  flex justify-center items-center mt-5 rounded-md ' }>
+            <div className={mobile?' flex flex-col gap-3 ':' flex flex-row gap-3 '}>
+                <div className={mobile?style.blackbg +' flex justify-center items-center mt-5 rounded-md ':style.blackbg +' flex w-3/5 justify-center items-center mt-5 rounded-md ' }>
                 {singin?<Image
                 src={loginIcon}
                 alt='Image'
@@ -36,7 +46,7 @@ function Login_register() {
                 />}
                 </div>
                 <div
-                className={style.loginbg +' w-2/5 h-full mt-5 rounded-md'}
+                className={mobile?style.loginbg +'  h-full mt-5 rounded-md':style.loginbg +' w-2/5 h-full mt-5 rounded-md'}
                 >
                    <div className='flex flex-row  gap-16 justify-center h-full  mt-20'>
                     <h2 className={singin? style.headerTextActive: style.headerTextDeActive}  onClick={()=>setsingin(true)}>Login</h2>

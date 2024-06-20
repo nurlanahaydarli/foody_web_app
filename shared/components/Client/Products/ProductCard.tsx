@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { AddBasket, GetBasket } from '../../../services';
 import { BasketPostDataType } from '../../../interfaces';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PlusSvg from "../svg/PlusSvg";
+import {useToast} from "@chakra-ui/react";
 
 type ProductState = {
     id: string;
@@ -22,7 +22,7 @@ export default function ProductsCard(product: ProductState) {
     const queryClient = useQueryClient();
     const [buttonClicked, setButtonClicked] = useState(false);
     const user = useSelector((state: RootState) => state.user);
-
+    const toast = useToast()
     const { data: basketData } = useQuery('basket', GetBasket);
 
     useEffect(() => {
@@ -32,34 +32,48 @@ export default function ProductsCard(product: ProductState) {
         }
     }, [basketData, id]);
 
-    const mutation = useMutation(
-        (basketProduct: BasketPostDataType) => AddBasket(basketProduct),
+    const mutation = useMutation((basketProduct: BasketPostDataType) => AddBasket(basketProduct),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('basket');
-                toast.success("Product added to the basket successfully!", {
-                    autoClose: 1000,
-                });
+                toast({
+                    title: `Product added to the basket successfully!`,
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
             onError: (error) => {
                 console.error("Error adding product to the basket:", error);
                 setButtonClicked(false);
-                toast.error("Error adding product to the basket", {
-                    autoClose: 1000,
-                });
+                toast({
+                    title: `Please log in to add products to the basket`,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                    position:'top-right',
+                    variant:'subtle'
+                })
             },
         }
     );
 
     const handleAddToBasket = () => {
-        if (!user) {
-            toast.error("Please log in to add products to the basket", {
-                autoClose: 1000,
-            });
+        if (!user.fullname.length) {
+            toast({
+                title: `Please log in to add products to the basket`,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+                position:'top-right',
+                variant:'subtle'
+            })
             return;
         }
 
-        const basketProduct: BasketPostDataType = {
+        const basketProduct = {
             user_id: user.id,
             product_id: id,
         };
@@ -85,7 +99,6 @@ export default function ProductsCard(product: ProductState) {
                     </button>
                 </div>
             </div>
-            <ToastContainer />
         </>
     );
 }

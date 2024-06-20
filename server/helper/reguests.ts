@@ -3,7 +3,7 @@ import { useState } from "react";
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/api/',
+    baseURL: '/api/',
   
   });
  
@@ -66,7 +66,7 @@ export async function AccessPut(api: string, body: object) {
       
         const response = await axios({
             method: "PUT",
-            url:` http://localhost:3000/api/${api}`,
+            url:`/api/${api}`,
             data: body,
             headers: {
               Authorization: `Bearer ${accessKey}`,
@@ -88,7 +88,7 @@ export async function AccessGet(api: string) {
       
         const response = await axios({
             method: "GET",
-            url:` http://localhost:3000/api/${api}`,
+            url:`/api/${api}`,
             
             headers: {
               Authorization: `Bearer ${accessKey}`,

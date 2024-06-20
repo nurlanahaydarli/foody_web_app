@@ -3,6 +3,7 @@ import styles from '../AdminHeaderButtom/AdminHederButtom.module.css'
 import vector from '../../../../public/pizza.svg'
 import Image from 'next/image';
 import CustomButton from '../Button';
+import Select from "../Form/Select";
 
 interface PROPS {
     Title?:String;
@@ -12,11 +13,14 @@ interface PROPS {
     addButton?: boolean;
     typeButtonFun?: any ;
     addButtonFun?: any ;
+    haveSelect?: boolean;
+    selectOption?: any[] | undefined;
+    onSelect?: any
 
 }
 
 function AdminHedetbuttom(props:PROPS) {
-    let {typeButton,addButton,typeButtonFun,addButtonFun,typeTitle,addTitle ,Title}=props
+    let {typeButton,addButton,typeButtonFun,addButtonFun,typeTitle,addTitle ,Title,haveSelect,selectOption,onSelect}=props
     
     return (
         <div className={'adminHeaderbg '+styles.heder}>
@@ -25,7 +29,12 @@ function AdminHedetbuttom(props:PROPS) {
 
 
              <div className={styles.div}>
+                 {!!haveSelect &&
+                     <div className='custom_select'>
+                         <Select onChange={onSelect}  name={"rest_id"} options={selectOption}/>
+                     </div>
 
+                 }
                 <button 
                 className={ styles.typeButton  }
                  style={typeButton?{display:'flex'}:{display:'none'}}
