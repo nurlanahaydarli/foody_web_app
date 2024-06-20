@@ -12,7 +12,7 @@ import withClientAuth from "../../../shared/HOC/withClienAuth";
 import UploadImage from '../../../shared/components/admin/uploadImage/UploadImage';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 function Profile() {
     let [IMG,setIMG]=useState<any>("")

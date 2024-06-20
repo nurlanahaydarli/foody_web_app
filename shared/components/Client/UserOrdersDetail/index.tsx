@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useGlobalStore } from "../../../services/provider";
 import { UserOrderDetailDatas } from "../UserOrderDetailDatas";
 import { getOrder } from "../../../services";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 // Define types for the order data
 interface Product {

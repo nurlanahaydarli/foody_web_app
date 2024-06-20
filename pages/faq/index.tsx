@@ -7,7 +7,7 @@ import MainLayout from "../../shared/components/admin/Layout/MainLayout";
 import Modal1 from "../../shared/components/Client/tempFaqsModal1/index";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 
 

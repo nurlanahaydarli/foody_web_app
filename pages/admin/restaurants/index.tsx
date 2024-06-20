@@ -4,7 +4,7 @@ import Adminresturant from "../../../shared/components/admin/AdminRestorant"
 import withAuth from "../../../shared/HOC/withAuth";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
  function Restaurants() {
     const { t } = useTranslation("common");

@@ -11,14 +11,11 @@ import Image from 'next/image';
 import CloseIcon from "../../../../public/Close.svg";
 import formatDate from '../../../../server/helper/convertDateToDAy';
 import withAuth from "../../../../shared/HOC/withAuth";
-// import InfoBox from "../../../shared/components/admin/Modal";
 import InfoBox from "../../../../shared/components/admin/Modal";
-import { UserOrdersDetail } from '../../../../shared/components/Client/UserOrdersDetail';
-import INFoBox from '../../../../shared/components/Client/InfoBox';
 import { UserOrderDetailDatas } from '../../../../shared/components/Client/UserOrderDetailDatas';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 
 

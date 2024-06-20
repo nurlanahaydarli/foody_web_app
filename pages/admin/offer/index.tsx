@@ -9,6 +9,8 @@ import Input from "../../../shared/components/admin/Form/Input";
 import {useModalOpen} from "../../../shared/hooks/UseModalOpen";
 import { useToast } from '@chakra-ui/react'
 import uploadFile from "../../../shared/utils/uploadFile";
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import withAuth from "../../../shared/HOC/withAuth";
 import { PostOffer, PutOffer } from "../../../shared/services";
@@ -275,3 +277,10 @@ import { PostOffer, PutOffer } from "../../../shared/services";
 }
 
 export default withAuth(Offer)
+
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

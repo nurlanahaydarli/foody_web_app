@@ -16,6 +16,7 @@ import { GetServerSideProps } from 'next';
 import { useToast } from '@chakra-ui/react'
 import styles from "../basket/basket.module.css";
 import {useTranslation} from "next-i18next";
+import withClientAuth from "../../../shared/HOC/withClienAuth";
 
 
 const initialState = {
@@ -428,7 +429,7 @@ if(user) {
     );
 }
 
-export default Checkout;
+export default withClientAuth(Checkout);
 
 
 

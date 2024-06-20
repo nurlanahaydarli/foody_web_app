@@ -1,20 +1,20 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import CardPencil from '../../../../public/cardpensil.svg';
-import TrashIcon from '../../../../public/trashicon.svg';
+import CardPencil from '../../../../../public/cardpensil.svg';
+import TrashIcon from '../../../../../public/trashicon.svg';
 import Image from "next/image";
-import BtnTypeIcon from '../../../../public/BtnTypeIcon.svg';
-import Form from "../../../../shared/components/admin/Form/Form";
-import Input from "../../../../shared/components/admin/Form/Input";
-import { useModalOpen } from "../../../../shared/hooks/UseModalOpen";
-import uploadFile from "../../../../shared/utils/uploadFile";
-import { EditRestaurant, PostRestaurant, getRestaurants, getCategories } from "../../../services";
-import { instanceAxios } from "../../../helpers/instanceAxios";
-import { CategoryPostDataType} from '../../../interfaces/index'
-import Select from "../Form/Select";
-import Loading from "../../Loading/Loading";
-import { useTranslation } from "react-i18next";
+import BtnTypeIcon from '../../../../../public/BtnTypeIcon.svg';
+import Form from "../../../../../shared/components/admin/Form/Form";
+import Input from "../../../../../shared/components/admin/Form/Input";
+import { useModalOpen } from "../../../../../shared/hooks/UseModalOpen";
+import uploadFile from "../../../../../shared/utils/uploadFile";
+import { EditRestaurant, PostRestaurant, getRestaurants, getCategories } from "../../../../services";
+import { instanceAxios } from "../../../../helpers/instanceAxios";
+import { CategoryPostDataType} from '../../../../interfaces'
+import Select from "../../Form/Select";
+import Loading from "../../../Loading/Loading";
+import { useTranslation } from "next-i18next";
 import { useToast } from "@chakra-ui/react";
-import { sortDataByCreated } from "../../../utils/sortData";
+import { sortDataByCreated } from "../../../../utils/sortData";
 
 interface Restaurant {
   category: string;
