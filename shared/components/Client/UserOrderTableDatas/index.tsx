@@ -8,12 +8,13 @@ import {useTranslation} from "next-i18next";
 
 interface TableDataProps {
     
-customer_id:number | string;
+    customer_id:number | string;
     id: number | string;
     time: number | string;
     adress: string;
     amount: number;
     payment: string;
+    fetchOrder:any;
     contact: number;
 }
 export const UserOrderTableDatas: React.FC<TableDataProps> = ({
@@ -23,7 +24,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     adress,
     amount,
     payment,
-    contact,
+    contact, fetchOrder
 }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,10 +33,11 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     const { t } = useTranslation("common");
     async function inDeleteOrder() {
         const response = await deleteOrder(id);
-
         if (response?.status == 204) {
             let newdata = orderData.filter((item: any) => item.id !== id);
+            console.log('new',newdata);
             setOrderData(newdata);
+            fetchOrder()
             handleModalClose();
         }
     }
@@ -84,7 +86,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                             onClick={togglePopup}
                         />
                         {showPopup && (
-                            <div className="fixed right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1 bg_white">
+                            <div className="absolute right-16 w-max border-whiteLight3 shadow-md rounded-md p-2 flex flex-col items-center justify-center gap-1 bg_white">
                                <button
                                     className="text-[#14ae5c] cursor-pointer  hover:text-[#109850]"
                                    
@@ -134,7 +136,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                 <UserOrdersDetail id={id} />
                 <button
                     className="mt-4 border-solid border-b-2 border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
-                   
+
                     onClick={handleModalClose2}>
                    {t("Close")}
                     </button>

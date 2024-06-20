@@ -49,11 +49,13 @@ function Orders() {
        setdisplayModal(false)
         
     }
-    function Ondelete(item:object){
+    function Ondelete(id:string){
         setdisplayModal(true)
+
+        console.log('ddd',id);
         
-        
-         setOrder(item)
+         setOrder(id)
+            setid(id);
          
      }
     function Delete(){

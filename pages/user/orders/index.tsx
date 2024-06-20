@@ -35,11 +35,11 @@ function Orders() {
                            </div>
                         }
                         <div className="lg:w-3/4 w-full  p-[16px] pe-[0px]">
-                            <main>
+                            {/*<main>*/}
                                 <section className="h-full mx-0 flex justify-center gap-10">
 
 
-                                    <div data-aos="fade-left" className="w-full flex  flex-col justify-start px-8 py-10 flex-wrap gap-x-1 gap-y-8 sm:bg-whiteLight1">
+                                    <div  className="w-full flex  flex-col justify-start px-8 py-10 flex-wrap gap-x-1 gap-y-8 sm:bg-whiteLight1">
                                         <h2 className=" font-semibold text-3xl text-grayText2">
                                         {t("Your Orders")}
                                         </h2>
@@ -61,7 +61,7 @@ function Orders() {
                                                 1
                                             </p>
                                             <p className=" text-grayText1 font-medium">03</p>
-                                            <button className="bg-white rounded-md border-2 border-mainRedLight hover:scale-95">
+                                            <button className="bg-whte rounded-md border-2 border-mainRedLight hover:scale-95">
                                                 <Image
                                                     width={25}
                                                     height={0}
@@ -74,7 +74,7 @@ function Orders() {
                                 </section>
 
 
-                            </main>
+                            {/*</main>*/}
                         </div>
                     </div>
                 </div>
