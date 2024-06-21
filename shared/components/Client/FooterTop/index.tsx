@@ -33,7 +33,7 @@ function FooterTop() {
                 />
                 <div className='flex flex-col justify-center items-center'>
                     <h3 className={title}>{t("Discover Restaurants Near From you")}</h3>
-                    <button className={button} onClick={()=>router.push("restaurants")}>{t("Explore now")}</button>
+                    <button className={button} style={{background:'red'}} onClick={()=>router.push("restaurants")}>{t("Explore now")}</button>
                 </div>
                 <Image
                 src={BurgerIcon}
