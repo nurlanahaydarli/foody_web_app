@@ -24,3 +24,12 @@
   align-items: center;
   justify-content: center;
 }
+@media only screen and (max-width: 800px) {
+    .div{
+        flex-direction: column;
+       
+    }
+    .inpdiv{
+        width: 100%;
+    }
+}
