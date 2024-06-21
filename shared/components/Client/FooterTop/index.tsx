@@ -2,7 +2,8 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import PizzaIcon from '../../../../public/BIGPIZZA.svg'
 import BurgerIcon from '../../../../public/HAMBURGER.svg'
-import style from '../FooterTop/top.module.css'
+// import style from '../FooterTop/top.module.css'
+import style from './top.module.css'
 import { useRouter } from 'next/router';
 import {useTranslation} from "next-i18next";
 function FooterTop() {
