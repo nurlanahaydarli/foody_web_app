@@ -127,6 +127,7 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => {
     // Fetch data from external API
     try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        console.log('ddd',apiUrl);
         const ProductRes = await fetch(`${apiUrl}/products`);
         if (!ProductRes.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
