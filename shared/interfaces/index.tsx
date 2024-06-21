@@ -4,7 +4,7 @@ import {AxiosResponse} from "axios";
 export interface BasketPostDataType {
     id?: string | number | any;
     basket_id?: string | number;
-    user_id: string | number;
+    user_id: string | number|undefined;
     product_id?: string | number;
     img_url?: string | null;
     price?: number;
@@ -98,7 +98,7 @@ export interface ApiResponse {
 export interface BasketPostDataType {
     id?: string | number | any;
     basket_id?: string | number;
-    user_id: string | number;
+    user_id: string | number | undefined;
     product_id?: string | number;
     img_url?: string | null;
     price?: number;
@@ -111,8 +111,8 @@ export interface BasketPostDataType {
 }
 
 export interface OrderPostDataType {
-    id?: string | number | any;
-    user_id: string | number;
+    id?: string | number ;
+    user_id: string | undefined;
     basket_id?: string | number;
     img_url?: string | null;
     price?: number | string;

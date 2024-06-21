@@ -6,12 +6,9 @@ import axios, { AxiosResponse } from "axios";
 import { useModalOpen } from "../../../shared/hooks/UseModalOpen";
 import Form from "../../../shared/components/admin/Form/Form";
 import Input from "../../../shared/components/admin/Form/Input";
-import CustomButton from "../../../shared/components/admin/Button";
-import Modal from "../../../shared/components/admin/Modal";
-import { DeleteProduct, EditProduct, PostProduct, GetProducts, getRestaurants } from "../../../shared/services";
-import { toast } from "react-toastify";
+import {GetProducts, getRestaurants } from "../../../shared/services";
 import uploadFile from "../../../shared/utils/uploadFile";
-import { PostDataType, ProductPostDataType, RestaurantPostDataType } from "../../../shared/interfaces";
+import {ProductPostDataType, RestaurantPostDataType } from "../../../shared/interfaces";
 import Select from "../../../shared/components/admin/Form/Select";
 import withAuth from "../../../shared/HOC/withAuth";
 import Loading from "../../../shared/components/Loading/Loading";
@@ -237,7 +234,7 @@ function Products() {
               />
             </div>
 
-            <div className="w-full sm:w-auto lg:m-5 flex flex-wrap  justify-start">
+            <div className="w-full sm:w-auto lg:m-5 flex flex-wrap  justify-center lg:justify-start">
 
               {/* {data?.map((item:any,i:number)=>{ */}
               <AdminCard data={filteredProducts} edit={editProduct}

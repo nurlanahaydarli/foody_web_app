@@ -1,46 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-.heder{
+
+.heder {
     display: flex;
     flex-direction: row;
     margin-top: 80px;
     height: 73px;
     border-radius: 14px;
-    
+
     justify-content: space-between;
     align-items: center;
-   
+
     margin: 16px 28px 0 28px;
 }
-.title{
-font-family: Roboto;
-font-size: 20px;
-font-weight: 500;
-line-height: 21px;
-letter-spacing: 0.10000000149011612px;
-text-align: left;
-margin-left: 33px;
-color: #F2F2F2DE;
+
+.title {
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: left;
+    margin-left: 33px;
+    color: #F2F2F2DE;
 }
-.typeButton{
+
+.typeButton {
     display: flex;
     flex-direction: row;
-    background-color:  #5A5B70;
+    background-color: #5A5B70;
     font-family: Roboto;
-font-size: 14px;
-min-width: 168px;
+    font-size: 14px;
+    min-width: 168px;
 
-letter-spacing: 0.01em;
-text-align: left;
-color: #f2f2f2;
-align-items: center;
-justify-content: space-around;
-border-radius: 15px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    color: #f2f2f2;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 15px;
 
 
-height: 37px;
-max-width: 200px;
-margin-right: 20px;
-
+    height: 37px;
+    max-width: 200px;
+    margin-right: 20px;
 
 
     font-weight: 700;
@@ -49,18 +51,32 @@ margin-right: 20px;
     text-align: center;
     padding: 8px 12px;
 }
-.vector{
+
+.vector {
     width: 13.13px;
-height: 23.1px;
-top: 20.43px;
-left: 2.45px;
-gap: 0px;
-opacity: 0px;
-/* angle: 90 deg; */
-color: #C7C7C7;
+    height: 23.1px;
+    top: 20.43px;
+    left: 2.45px;
+    gap: 0px;
+    opacity: 0;
+    /* angle: 90 deg; */
+    color: #C7C7C7;
 }
-.div{
+
+.div {
     display: flex;
     flex-direction: row;
     margin: 8px;
+}
+
+@media (max-width: 991px) {
+    .heder {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        align-items: center;
+    }
+    .title{
+        margin-left: 0;
+    }
 }

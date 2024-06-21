@@ -56,6 +56,7 @@ function OrdersTable(props:Props) {
                                 <div className={style.iconDiv}>
                                     <Image
                                     src={ayeIcon}
+                                    className={'cursor-pointer'}
                                     alt='ayeIcon'
                                     width={24}
                                     height={24}
@@ -66,6 +67,7 @@ function OrdersTable(props:Props) {
                                     <Image
                                     style={!cantdelet?{display:"block"}:{display:"none"}}
                                     src={deleteIcon}
+                                    className={'cursor-pointer'}
                                     alt='deleteIcon'
                                     width={14}
                                     height={17}

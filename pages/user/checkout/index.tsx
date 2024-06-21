@@ -17,6 +17,7 @@ import { useToast } from '@chakra-ui/react'
 import styles from "../basket/basket.module.css";
 import {useTranslation} from "next-i18next";
 import withClientAuth from "../../../shared/HOC/withClienAuth";
+import {useResize} from "../../../shared/hooks/useResize";
 
 
 const initialState = {
@@ -99,6 +100,7 @@ const formatPhoneNumber = (value:any) => {
 
 
 function Checkout() {
+    let { isMobile } = useResize();
     const toast = useToast()
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isRectVisible, setIsRectVisible] = useState(false);
@@ -115,9 +117,7 @@ function Checkout() {
    
     const router = useRouter();
     const user = useSelector((state: RootState) => state.user);
-    console.log("user", user);
-    
-
+    // let user =typeof window !== 'undefined' ? window.localStorage.getItem('user_info') : null
     const queryClient = useQueryClient();
     
 
@@ -127,22 +127,12 @@ function Checkout() {
     const { data: basket_List, isLoading: basket_Loading, error: basket_Error, status: basket_Status } = useQuery('basket', GetBasket, {
         enabled: userLoaded,
       });
-    
-
     const basketList = basket_List?.data.result.data;
-    console.log("basketList",basketList);
-    
-   
-    console.log("user",user);
-
-
-
-
     useEffect(() => {
-        if (user.id) {
+        if (user) {
             setUserLoaded(true);
         }
-    }, [user.id]);
+    }, [user]);
     
     
     useEffect(() => {
@@ -160,13 +150,7 @@ function Checkout() {
     useEffect(() => {
         setAddressValid(addressRegex.test(state.address));
     }, [state.address]);
-    
 
-    console.log("basketList",basketList);
-
-
-
-    
    const mutation = useMutation((orderBasket:any) => AddOrder(orderBasket),
    {
     onSuccess: () => {
@@ -197,7 +181,7 @@ function Checkout() {
 
 
 const handleCheckout = () => {const orderBasket: OrderPostDataType = {
-    user_id: user.id,
+    user_id: user?.id,
     basket_id: basketList.id,
     delivery_address: state.address,
     contact: state.phoneNumber,
@@ -290,11 +274,11 @@ if(user) {
             <MainLayout>
                 <div className='px-8 pt-1 pb-[100px]'>
                     <div className='flex flex-row'>
+                        {!isMobile &&
                         <div className="w-1/4">
                             <Navbar active={4} />
-                        </div>
-
-                        <div className="w-3/4">
+                        </div>}
+                        <div className="lg:w-3/4 w-full  lg:p-[16px] pe-[0px]">
                             {checkoutComplete ? (
                                 <div className='w-10/12 ml-5 mt-4 rounded-md bg-cardColor bg-rounded-md shadow-md'>
                                     <div className=' flex justify-center mt-20'>
@@ -311,8 +295,8 @@ if(user) {
                 ) : (
                   <>
                     {basketList?.items?.length > 0 ? (
-                      <div className="flex justify-between">
-                        <div className='w-8/12 mx-5 mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
+                      <div className="flex gap-5 justify-between lg:flex-row flex-col-reverse">
+                        <div className='lg:w-8/12 w-full  mt-5 bg-cardColor p-4 bg-rounded-md shadow-md'>
                           <h1 className='text-grayText2 text-2xl font-bold mt-6 ml-6'>{t("Checkout")}</h1>
 
                           <div className=' mt-6 ml-6'>
@@ -390,7 +374,7 @@ if(user) {
                           </div>
                         </div>
 
-                        <div className='w-4/12 h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
+                        <div className='lg:w-4/12 w-full h-5/6 mt-5 bg-cardColor rounded-md shadow-md'>
                           <h1 className='flex justify-center text-grayText font-bold mt-5 text-xl'>{t("Your Order")}</h1>
                           {basketList.items.map((product:any, index: any) => (
                             <div key={index} className='flex p-2 justify-between'>

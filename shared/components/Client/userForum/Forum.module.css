@@ -1,9 +1,10 @@
-.div{
+.div {
     display: flex;
     flex-direction: row;
     width: 100%;
 }
-.inpdiv{
+
+.inpdiv {
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -11,25 +12,29 @@
     gap: 11px;
 }
 
-.inpdiv input{
+.inpdiv input {
     height: 54px;
     padding: 12px 24px;
 }
-.button{
+
+.button {
     background: #6FCF97;
     text-align: center;
     height: 53px;
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    color: #fff;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 @media only screen and (max-width: 800px) {
-    .div{
+    .div {
         flex-direction: column;
-       
+
     }
-    .inpdiv{
+
+    .inpdiv {
         width: 100%;
     }
 }

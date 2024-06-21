@@ -1,13 +1,14 @@
 import styles from './products.module.css';
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { AddBasket, GetBasket } from '../../../services';
 import { BasketPostDataType } from '../../../interfaces';
-import 'react-toastify/dist/ReactToastify.css';
 import PlusSvg from "../svg/PlusSvg";
+import {AppDispatch} from "../../../redux/store";
 import {useToast} from "@chakra-ui/react";
+import {setUser} from "../../../redux/featuries/user/userSılice";
 
 type ProductState = {
     id: string;
@@ -22,6 +23,7 @@ export default function ProductsCard(product: ProductState) {
     const queryClient = useQueryClient();
     const [buttonClicked, setButtonClicked] = useState(false);
     const user = useSelector((state: RootState) => state.user);
+    // let user =typeof window !== 'undefined' ? window.localStorage.getItem('user_info') : null
     const toast = useToast()
     const { data: basketData } = useQuery('basket', GetBasket);
 
@@ -59,9 +61,8 @@ export default function ProductsCard(product: ProductState) {
             },
         }
     );
-
     const handleAddToBasket = () => {
-        if (!user.fullname.length) {
+        if (!user) {
             toast({
                 title: `Please log in to add products to the basket`,
                 status: 'error',
@@ -74,7 +75,7 @@ export default function ProductsCard(product: ProductState) {
         }
 
         const basketProduct = {
-            user_id: user.id,
+            user_id: user?.id,
             product_id: id,
         };
 

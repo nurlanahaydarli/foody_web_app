@@ -10,7 +10,6 @@ import CategorySvg from "../svg/CategorySvg";
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../../server/configs/firebase';
 import UploadSvg from "../svg/UploadSvg";
-import { ToastContainer, toast } from "react-toastify";
 import LeftSvg from '../svg/LeftSvg'
 import LogoWeb from "../../Client/svg/LogoWeb";
 import {useDispatch, useSelector} from "react-redux";
@@ -54,7 +53,6 @@ export default function Sidebar() {
     }
     return (
         <>
-        <ToastContainer/>
                     <div className={`${styles.sidebar_box} ${isMobile ? (isOpen ? styles.show : styles.hide) : styles.show}`}>
                         <ul>
                             <div className={styles.sidebar_top}>

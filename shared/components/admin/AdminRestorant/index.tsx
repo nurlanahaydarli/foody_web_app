@@ -526,10 +526,10 @@ function AdminRestaurant() {
   return (
       <div className="p-6">
 
-        <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6">
+        <header className="flex h-20 rounded-lg p-8 adminHeaderbg justify-between items-center mb-6 mobile_style">
 
           <h1 className="md:text-2xl font-bold text-customgray">{t("Restaurants")}</h1>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 child">
             <button
                 className="bg-CategoryBtnColor text-white py-2 px-4 rounded-xl flex items-center justify-between bg-categorycolor w-40"
                 onClick={() => dispatch({ type: 'TOGGLE_SHOW_CATEGORIES' })}

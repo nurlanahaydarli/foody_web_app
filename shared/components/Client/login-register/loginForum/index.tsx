@@ -30,7 +30,6 @@ const SignInForm: React.FC = () => {
     let ruter=useRouter()
   const handleSubmit = (values: SignInFormValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     // You can perform your sign-in logic here
-    console.log('Submitting:', values);
     (async()=>{
       try{
         setLoaging(true)
@@ -39,7 +38,8 @@ const SignInForm: React.FC = () => {
         console.log(res);
         // add to local
         localStorage.setItem("access_token",res.user.access_token)
-  
+
+        localStorage.setItem("user_info",JSON.stringify(res.user))
         dispatch(setUser(res.user));
         // // add to local
         // toast.success("singin sucsesfuly", {
@@ -81,7 +81,7 @@ const SignInForm: React.FC = () => {
     //tolkid
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-  // logouth
+  // logout
   const handleLogout = () => {
     dispatch(clearUser());
   };

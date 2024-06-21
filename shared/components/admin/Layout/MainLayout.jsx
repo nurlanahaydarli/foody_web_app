@@ -2,8 +2,19 @@ import Head from "next/head";
 import styles from "./mainLayout.module.css";
 import Header from "../../../components/Client/Header/Header";
 import Footer from "../../../components/Client/Footer/Footer";
-
+import React, { useEffect } from 'react';
+import {setUser} from "../../../redux/featuries/user/userSılice";
+import { useSelector, useDispatch } from 'react-redux';
 const MainLayout = ({children}) => {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        let user = localStorage.getItem("user_info");
+        if(user){
+            user  = JSON.parse(user);
+            if(user) dispatch(setUser(user));
+        }
+    }, []);
     return (
         <div>
             <Head>

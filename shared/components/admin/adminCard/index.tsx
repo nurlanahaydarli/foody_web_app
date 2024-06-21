@@ -1,17 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import Modal from "../Modal";
-import { useModalOpen } from "../../../hooks/UseModalOpen";
-import { ToastContainer, toast } from "react-toastify";
-import CustomButton from "../Button";
-import Form from "../Form/Form";
-
-import Input from "../Form/Input";
-import axios from "axios";
-import Loading from "../../Loading/Loading";
 import { getRestaurants } from "../../../services";
 import { RestaurantPostDataType } from "../../../interfaces";
-import { isNewFunction } from "../../../utils/isNewCreated";
 import { shortText } from "../../../utils/shortText";
 
 interface PROPS {
@@ -19,13 +9,6 @@ interface PROPS {
   reset :Function,
   edit :any,
   removeDocument:any
-//   created: number
-  // id: string;
-  // description: string;
-  // price: number;
-  // rest_id: number;
-  // img_url: string;
-  // name: string;
 }
 
 

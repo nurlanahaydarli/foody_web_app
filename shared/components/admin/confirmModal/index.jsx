@@ -16,7 +16,7 @@ const ConfirmModal = ({isOpen, onRequestClose, onConfirm}) => {
             </p>
 
             <div
-                className="mx-auto flex items-center justify-center gap-9"
+                className="mx-auto flex items-center justify-center gap-9 flex-col sm:flex-row"
             >
                 <button className=" border-grayText text-grayText py-1 px-8 bg_gray" onClick={onRequestClose}>Cancel</button>
                 <div onClick={onConfirm}>

@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
-  id: string;
+  id?: string;
   email: string;
   username: string;
   fullname: string;
-  access_token: string;
-  refresh_token: string;
-  img_url:string;
+  access_token?: string;
+  refresh_token?: string;
+  img_url:string | null;
+  address?:string;
+  phoneNumber:string;
 }
 
 const initialState: UserState = {
@@ -17,7 +19,9 @@ const initialState: UserState = {
   fullname: '',
   access_token: '',
   refresh_token: '',
-  img_url:''
+  img_url:'',
+  phoneNumber:'',
+  address:''
 };
 
 const userSlice = createSlice({

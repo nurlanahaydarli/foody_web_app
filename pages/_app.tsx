@@ -8,8 +8,8 @@ import React, { useEffect } from 'react';
 import { wrapper } from '../shared/redux/store';
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from 'react-redux'; // Correct import for Provider
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from "react-toastify";
+// import 'react-toastify/dist/ReactToastify.css';
 
 type Props = {
     // Add custom props here
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>
                 <ChakraProvider>
-                    <ToastContainer />
+                    {/*<ToastContainer />*/}
                     <Component {...pageProps} />
                 </ChakraProvider>
             </QueryClientProvider>

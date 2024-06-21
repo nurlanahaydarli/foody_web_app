@@ -35,7 +35,6 @@ export const UserOrdersDetail = ({ id }: { id: number|string }) => {
 
   const handleFilter = () => {
     const filteredData = orderShow?.data?.result?.data?.find((item: Order) => {
-      console.log(item?.id, "item?.id");
       return item?.id === id;
     });
     setFilteredData(filteredData);
@@ -49,8 +48,6 @@ export const UserOrdersDetail = ({ id }: { id: number|string }) => {
     handleFilter();
   }, [orderShow, id]);
 
-  console.log(id, "id");
-  console.log(filteredData, "filteredData");
 
   return (
     <table className="min-w-full text-center">

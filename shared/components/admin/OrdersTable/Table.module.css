@@ -115,7 +115,7 @@ padding: 2px 12px 2px 12px;
 }
 
 .DIV{
-    
+    overflow: auto;
 }
 
 
@@ -128,3 +128,8 @@ padding: 2px 12px 2px 12px;
         overflow: scroll;
     }
     }
+@media(max-width: 1200px){
+    .DIV{
+        overflow: auto;
+    }
+}

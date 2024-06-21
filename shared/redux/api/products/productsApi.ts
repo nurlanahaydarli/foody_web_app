@@ -23,7 +23,6 @@ export const productsApi = createApi({
                 };
             },
             transformResponse: response => {
-                console.log('res',response)
                 const result = response as any;
              return result.result.data;
             },

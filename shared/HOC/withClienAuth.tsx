@@ -12,6 +12,7 @@ const withClientAuth = (WrappedComponent: React.ComponentType) => {
     const [loading, setLoading] = useState(false);
     const user = useSelector((state: RootState) => state.user);
     useEffect(() => {
+      if(localStorage.getItem("user_info")) return;
       // const unsubscribe = onAuthStateChanged(auth, (user) => {
       //   console.log(user);
         
@@ -36,7 +37,7 @@ const withClientAuth = (WrappedComponent: React.ComponentType) => {
     
     // email.length>0?console.log('var'):console.log('fonder log ine');
 
-    }, [router]);
+    }, [router,user]);
 
     
     

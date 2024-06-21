@@ -1,13 +1,14 @@
 import {useRouter} from "next/router";
 import ButtonWeb from "../../Client/Button/ButtonWeb";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../redux/store";
+import {useSelector,useDispatch} from "react-redux";
+import {AppDispatch, RootState} from "../../../redux/store";
 import BasketSvg from "../svg/BasketSvg";
 import styles from './auth.module.css'
 import {getNameFirstLetter} from "../../../utils/getNameFirstLetter";
 import {useEffect, useState} from "react";
 import {useResize} from "../../../hooks/useResize";
 import {useTranslation} from "next-i18next";
+import {clearUser} from "../../../redux/featuries/user/userSılice";
 
 export default function Auth() {
     let {push} = useRouter()
@@ -16,6 +17,7 @@ export default function Auth() {
     function goAuth() {
         push('/login-register')
     }
+    const dispatch: AppDispatch = useDispatch();
     let {isMobile} =useResize()
     const { t } = useTranslation('common');
     let user = useSelector((state: RootState) => state.user);
@@ -24,9 +26,9 @@ export default function Auth() {
         setActive(!active)
     }
     useEffect(() => {
-        const token = localStorage.getItem('access_token');
+        const token = localStorage.getItem('user_info');
         setAccessToken(token);
-    }, []);
+    }, [user]);
     return (
         <>
             {accessToken ?
@@ -46,7 +48,9 @@ export default function Auth() {
                                 <li onClick={() => {
                                     push('/')
                                     localStorage.removeItem("access_token")
-                                }}>Logout
+                                    localStorage.removeItem("user_info")
+                                    dispatch(clearUser());
+                                }}>{t("Logout")}
                                 </li>
                             </ul>
                             <div onClick={handleClick} className={styles.shadow}/>
@@ -58,7 +62,6 @@ export default function Auth() {
                 <ButtonWeb addButtonFun={goAuth} typeButton={true} title={t('Sign Up')} btnSize={'sm'} addButton={false}/>
             }
 
-            {/*<button className={`${styles.btn} ${styles.btn_sm} ${styles.main}`} >Sign up</button>*/}
         </>
     )
 }

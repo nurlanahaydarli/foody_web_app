@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useLayoutEffect } from 'react';
 import style from '../login-register/login_register.module.css'
 import loginIcon from '../../public/login.svg'
 import registerIcon from '../../public/register.svg'
@@ -7,21 +7,30 @@ import SignInForm from '../../shared/components/Client/login-register/loginForum
 import RegisterForm from '../../shared/components/Client/login-register/RegisterForum';
 import ChangeLanguage from "../../shared/components/Language/ChangeLanguage";
 import {useRouter} from "next/router";
+import {auth} from "../../server/configs/firebase";
+
 function Login_register() {
     let [singin,setsingin]=useState(true)
     let [mobile,setmobile]=useState(false)
-  
+    let router =useRouter()
     useEffect(()=>{
         if(window.innerWidth<800){
             setmobile(true)
         }else{
             setmobile(false)
         }
-      
-        
-        
+
     },[mobile])
-    let {push}=useRouter()
+    useLayoutEffect(() => {
+            const unsubscribe=()=>{
+                const user = localStorage.getItem('user_info');
+                if (user) {
+                    router.replace('/user/profile');
+                }
+            }
+        return () => unsubscribe();
+    }, [router]);
+
     return (<div>
         <div className={style.Body +' w-full h-full p-7 '}>
             <header  className={style.blackbg + '  h-28 flex items-center justify-between  p-9 rounded-md '}>

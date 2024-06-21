@@ -12,7 +12,7 @@ export default function UploadImage({setImageList,IMG=undefined,uerPage=false}){
             setImages([IMG])
            }
     },[])
-    console.log(images);
+  
    
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit

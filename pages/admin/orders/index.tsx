@@ -216,7 +216,7 @@ function Orders() {
 
             <div
                 onClick={handleModalClose}
-                className="mx-auto flex items-center justify-center gap-9"
+                className="mx-auto flex items-center justify-center gap-9 flex-col sm:flex-row"
             >
               <CustomButton
                   className=" border-grayText text-grayText py-1 px-8"

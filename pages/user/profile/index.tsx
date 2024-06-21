@@ -31,7 +31,7 @@ function Profile() {
     let {Profile, headText, addPhoto} = styles
     const dispatch: AppDispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
-    console.log("user",user);
+
     
     return (
         <>
@@ -44,7 +44,7 @@ function Profile() {
                      <div className="lg:w-3/4 w-full p-[16px] pe-[0px] ">
                      <div className={Profile}>
                          <h2 className={headText}>{t("Your Profile")}</h2>
-                         <div className='w-full flex items-center justify-center'>
+                         <div className='w-full flex items-center justify-center mb-10'>
                              <div className={addPhoto}>
                                 
                                  <UploadImage setImageList={setIMG} IMG={IMG[0]?.data_url?IMG[0]?.data_url:""}  uerPage={true}/>

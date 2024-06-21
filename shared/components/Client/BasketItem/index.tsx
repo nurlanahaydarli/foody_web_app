@@ -1,15 +1,13 @@
 import styles from "../../../../pages/user/basket/basket.module.css";
-import Image from "next/image";
 import RemoveSvg from "../svg/RemoveSvg";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import PlusSvg from '../svg/PlusSvg'
 import MinusSvg from '../svg/MinusSvg'
-import {AddBasket, clearBasket, deleteBasket, updateBasketProductCount} from "../../../services";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {AddBasket, deleteBasket} from "../../../services";
+import {useMutation, useQueryClient} from "react-query";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {BasketPostDataType} from "../../../interfaces";
-import {toast} from "react-toastify";
 import {useToast} from "@chakra-ui/react";
 
 type BasketState = {
@@ -22,9 +20,16 @@ type BasketState = {
     basket_id:string
 }
 
+interface IUser{
+    id:string|number|any;
+
+}
+
 export default function BasketItem(product: BasketState) {
     let {name, id, price,img_url, count,basket_id} = product;
     const user = useSelector((state: RootState) => state.user);
+    console.log(user,"user")
+    // let user:IUser =typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('user_info')):{};
     const queryClient = useQueryClient();
     const toast = useToast()
     const mutationClear = useMutation(
@@ -95,7 +100,7 @@ export default function BasketItem(product: BasketState) {
     );
     const handleAddToBasket = () => {
         const basketProduct: BasketPostDataType = {
-            user_id: user.id,
+            user_id: user?.id,
             product_id: product.id,
         };
         if(user){
@@ -107,7 +112,7 @@ export default function BasketItem(product: BasketState) {
     };
     async function  handleRemove(){
         const basketId: BasketPostDataType = {
-            user_id: user.id,
+            user_id: user?.id,
             basket_id: basket_id,
             product_id: id,
         };

@@ -78,7 +78,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                 <td className="py-2 px-4 border-b ">
                     <div className="realtive z-50 m-auto">
                         <Image
-                            className="cursor-pointer absolute sm:left-0 sm:relative"
+                            className="cursor-pointer  sm:left-0 sm:relative min-w-1"
                             width={5}
                             height={0}
                             src={"/fullstop.svg"}
@@ -119,7 +119,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
                 <p className=" text-grayText w-2/3 mx-auto text-center my-5">
                 {t("Attention! If you delete this product, it will not come back...")}
                 </p>
-                <div className="mx-auto flex items-center justify-center gap-9">
+                <div className="mx-auto flex items-center flex-col sm:flex-row justify-center gap-9">
                 <button
                         className="border-solid border-b-2  border-grayText text-grayText py-1 px-8 rounded-md border-2 shadow-md hover:scale-95 transition-all duration-500"
                         onClick={handleModalClose}>

@@ -130,6 +130,12 @@
     }
     .content_box{
         padding:40px 16px;
+        overflow: auto;
     }
 }
-    
+@media(max-width: 1200px){
+    .content_box{
+        padding:40px 16px;
+        overflow: auto;
+    }
+}

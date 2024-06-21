@@ -1,4 +1,4 @@
-import Input from "../../../shared/components/admin/Form/Input";
+
 import styles from '../../../shared/components/admin/Layout/adminLayout.module.css'
 import type { GetStaticProps } from 'next'
 import { useTranslation, Trans } from 'next-i18next'
@@ -10,8 +10,6 @@ import * as Yup from 'yup';
 import { auth } from '../../../server/configs/firebase';
 import { useRouter } from "next/router";
 import {useLayoutEffect} from "react";
-import 'react-toastify/dist/ReactToastify.css';
-
 import {useToast} from "@chakra-ui/react";
 interface SignInFormValues {
   email: string;

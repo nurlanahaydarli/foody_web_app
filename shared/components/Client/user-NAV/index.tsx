@@ -1,16 +1,20 @@
 import Image from 'next/image';
 import React from 'react';
+import {useSelector,useDispatch} from "react-redux";
 import Activeprofileicon from '../../../../public/Activeprofile.svg'
 import ActiBasketIcon from '../../../../public/activeBasket.svg'
 import defBasketIcon from'../../../../public/defaultBasket.svg'
 import defPRofileIcon from'../../../../public/defProfile.svg'
 import styles from '../user-NAV/Usernav.module.css'
 import { useRouter } from 'next/router';
+import {clearUser} from "../../../redux/featuries/user/userSılice";
+import {AppDispatch} from "../../../redux/store";
 interface PROPs{
     active:number
 }
 function Navbar(props:PROPs) {
     const {push, pathname} =useRouter()
+    const dispatch: AppDispatch = useDispatch();
     let {active} = props
     return (
         <div className={styles.navbar}>
@@ -70,7 +74,9 @@ function Navbar(props:PROPs) {
             className={active===5? styles.icondiv+ ' '+styles.activediv: styles.icondiv }
             onClick={()=>{
                 push('/')
+                localStorage.removeItem("user_info")
                 localStorage.removeItem("access_token")
+                dispatch(clearUser());
             }}
             >
                 <Image
