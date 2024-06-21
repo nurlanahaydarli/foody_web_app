@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "../../admin/Modal";
 import CustomButton from "../../admin/Button";
 import { UserOrdersDetail } from "../UserOrdersDetail";
-import { deleteOrder } from "../../../services";
+import {DeleteOrder, deleteOrder} from "../../../services";
 import {useTranslation} from "next-i18next";
 
 interface TableDataProps {
@@ -32,7 +32,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     const [orderData, setOrderData] = useState([]);
     const { t } = useTranslation("common");
     async function inDeleteOrder() {
-        const response = await deleteOrder(id);
+        const response = await DeleteOrder(id);
         if (response?.status == 204) {
             let newdata = orderData.filter((item: any) => item.id !== id);
             console.log('new',newdata);

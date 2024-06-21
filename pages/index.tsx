@@ -128,15 +128,15 @@ export const getServerSideProps = async ({ locale }: { locale: string }) => {
     try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         console.log('ddd',apiUrl);
-        const ProductRes = await fetch(`https://foody-web-app-ten.vercel.app/api/products`);
+        const ProductRes = await fetch(`${apiUrl}/products`);
         if (!ProductRes.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const RestaurantRES = await fetch(`https://foody-web-app-ten.vercel.app/api/restuarants`);
+        const RestaurantRES = await fetch(`${apiUrl}/restuarants`);
         if (!RestaurantRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
-        const OfferRES = await fetch(`https://foody-web-app-ten.vercel.app/api/offer`);
+        const OfferRES = await fetch(`${apiUrl}/offer`);
         if (!OfferRES.ok) {
             throw new Error(`Failed to fetch products: ${ProductRes.statusText}`);
         }
