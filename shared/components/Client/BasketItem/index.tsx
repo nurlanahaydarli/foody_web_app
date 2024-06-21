@@ -28,8 +28,6 @@ interface IUser{
 export default function BasketItem(product: BasketState) {
     let {name, id, price,img_url, count,basket_id} = product;
     const user = useSelector((state: RootState) => state.user);
-    console.log(user,"user")
-    // let user:IUser =typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('user_info')):{};
     const queryClient = useQueryClient();
     const toast = useToast()
     const mutationClear = useMutation(

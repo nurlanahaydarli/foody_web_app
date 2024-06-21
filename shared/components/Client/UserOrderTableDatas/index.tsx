@@ -43,6 +43,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     }
     const handleButtonClick = () => {
         setIsModalOpen(true);
+        setShowPopup(false);
     };
 
     const handleModalClose = () => {
@@ -52,6 +53,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
 
     const handleButtonClick2 = () => {
         setIsModalOpen2(true);
+        setShowPopup(false);
     };
 
     const handleModalClose2 = () => {

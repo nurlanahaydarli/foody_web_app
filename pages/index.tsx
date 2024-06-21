@@ -124,9 +124,9 @@ export default Home;
 
 
 export const getServerSideProps = async ({ locale }: { locale: string }) => {
-    // Fetch data from external API
+    // Fetch data from external API https://foody-web-app-ten.vercel.app/api
     try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const apiUrl ='https://foody-web-app-ten.vercel.app/api' //process.env.NEXT_PUBLIC_API_URL;
         console.log('ddd',apiUrl);
         const ProductRes = await fetch(`${apiUrl}/products`);
         if (!ProductRes.ok) {
