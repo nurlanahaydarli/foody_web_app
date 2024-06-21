@@ -33,6 +33,7 @@ export const UserOrderTableDatas: React.FC<TableDataProps> = ({
     const { t } = useTranslation("common");
     async function inDeleteOrder() {
         const response = await DeleteOrder(id);
+        location.reload()
         if (response?.status == 204) {
             let newdata = orderData.filter((item: any) => item.id !== id);
             console.log('new',newdata);

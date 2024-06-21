@@ -303,7 +303,7 @@ export const deleteOrder = async (id: string | number) => {
 //
 //     const accessToken = localStorage.getItem("access_token");
 //      return instanceAxios.delete({
-//         url: `order`,
+//         url: `/order`,
 //         data:{
 //             order_id:OrderID
 //         },
@@ -314,6 +314,7 @@ export const deleteOrder = async (id: string | number) => {
 //
 //
 // }
+
 export const DeleteOrder = async (OrderID: string | number) => {
     const accessToken = localStorage.getItem("access_token");
 
@@ -325,10 +326,13 @@ export const DeleteOrder = async (OrderID: string | number) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ 'order_id': OrderID })
+            
         });
 
         if (!res.ok) {
+            location.reload()
             throw new Error(`HTTP error! status: ${res.status}`);
+            
         }
 
         return res
