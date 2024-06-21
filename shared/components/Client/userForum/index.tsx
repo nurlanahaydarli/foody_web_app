@@ -134,13 +134,13 @@ const UserForm: any = (props:Props) => {
         <Form>
             <div className={div}>
                 <div className={inpdiv}>
-                    <Input name='phoneNumber' type='text' placeholder='+994 XX XXX XX XX' value={user.phoneNumber} title={t("Contact Number")}/>
-                    <Input name='username' type='text' value={user.username} title={t("User Name")}/>
-                    <Input name='fullname' type='text' value={user.fullname} title={t("Full Name")}/>
+                    <Input name='phoneNumber' type='text' placeholder={user.phoneNumber? user.phoneNumber: '+994 XX XXX XX XX'} title={t("Contact Number")}/>
+                    <Input name='username' type='text' placeholder={user.username} title={t("User Name")}/>
+                    <Input name='fullname' type='text' placeholder={user.fullname} title={t("Full Name")}/>
                 </div>
                 <div className={inpdiv}>
-                    <Input name='email' type='email' title='Email' value={user.email}/>
-                    <Input name='address' type='text' value={user.address} title={t("Address")}/>
+                    <Input name='email' type='email' title='Email'  value={user.email}/>
+                    <Input name='address' type='text' placeholder={user.address} title={t("Address")}/>
                     <button type="submit" className={button}  style={ logoding?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
                       {logoding?<Spiner />:t("Save")}
                     </button>

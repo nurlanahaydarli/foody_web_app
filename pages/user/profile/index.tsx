@@ -46,9 +46,7 @@ function Profile() {
                          <h2 className={headText}>{t("Your Profile")}</h2>
                          <div className='w-full flex items-center justify-center mb-10'>
                              <div className={addPhoto}>
-                                
                                  <UploadImage setImageList={setIMG} IMG={IMG[0]?.data_url?IMG[0]?.data_url:""}  uerPage={true}/>
-                                 
                              </div>
                          </div>
                          <UserForm img={IMG} />
