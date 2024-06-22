@@ -2,7 +2,7 @@ import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import styles from './card.module.css'
-
+import {useTranslation} from "next-i18next";
 const options: ApexOptions = {
     legend: {
         show: false,
@@ -124,6 +124,7 @@ interface AreaChartState {
 }
 
 const AreaChart: React.FC = () => {
+    const {t} =useTranslation("common")
     const [state, setState] = useState<AreaChartState>({
         series: [
             {
@@ -149,7 +150,7 @@ const AreaChart: React.FC = () => {
         <>
             <div className={styles.card_item}>
                 <div className={styles.card_box}>
-                    <h3 className={styles.card_title}>Total Amount</h3>
+                    <h3 className={styles.card_title}>{t("Total Salary")}</h3>
                     <div>
                         <div id="chartOne" className="-ml-5">
                             <ReactApexChart

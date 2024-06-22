@@ -9,6 +9,8 @@ import { RootState } from '../../../../redux/store';
 import { PostSingUP } from '../../../../services';
 import Spiner from '../../Spiner';
 import { useToast } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next';
+
 interface RegisterFormValues {
   fullname: string;
   username: string;
@@ -29,6 +31,7 @@ interface Props{
 }
 const RegisterForm= (props:Props) => {
   const toast = useToast()
+  const {t} = useTranslation("common")
   const user = useSelector((state: RootState) => state.user);
   let {setsingin}:any=props
   let [Loading,setLoading]=useState(false)
@@ -120,12 +123,12 @@ onSubmit={handleSubmit}
         <Form className={styles.form}>
 
           <RegisterInp
-          title='Full Name'
+          title={t("Full Name")}
           icon={true}
           name='fullname'
           />
           <RegisterInp
-          title='Username'
+          title={t("User Name")}
           icon={true}
           name='username'
           />
@@ -138,18 +141,18 @@ onSubmit={handleSubmit}
           /> */}
           <LoginInp
           name='email'
-          title='Email'
+          title={t("E-mail")}
           icon={true}
           type='email'
           />
           <LoginInp
           name='password'
-          title='Password'
+          title={t("Password")}
           icon={false}
           type='password'
           />
           <button className={styles.button} type="submit" disabled={isSubmitting} style={ Loading?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
-            {Loading?<Spiner/>:"Register"}
+            {Loading?<Spiner/>: `${t("Register")}`}
             
           </button>
         </Form>

@@ -206,7 +206,7 @@ function Orders() {
             <Modal isOpen={displayModal} onClose={handleModalClose}>
             <div className="flex justify-between items-center">
               <p className="mx-auto text-3xl font-medium">
-                Are you sure it's deleted?
+                  {t("Are you sure it's deleted ?")}
               </p>
             </div>
 
@@ -220,13 +220,13 @@ function Orders() {
             >
               <CustomButton
                   className=" border-grayText text-grayText py-1 px-8"
-                  innerText="Cancel"
+                  innerText={`${t("Cancel")}`}
               />
               <div onClick={Delete}>
                 <CustomButton
                     type={'button'}
                     className="bg-mainRed border-2 text-white py-1 px-8"
-                    innerText="Delete"
+                    innerText={`${t("Delete")}`}
                     color={"1"}
                 />
               </div>

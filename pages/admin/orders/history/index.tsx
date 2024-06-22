@@ -95,6 +95,7 @@ function History() {
 }
 
 export default withAuth(History);
+
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     props: {
         ...(await serverSideTranslations(locale as string, ["common"])),

@@ -10,6 +10,8 @@ import { RootState, AppDispatch } from '../../../../redux/store';
 import { setUser, clearUser, updateUser } from '../../../../redux/featuries/user/userSılice';
 import { useRouter } from 'next/router';
 import Spiner from '../../Spiner';
+import { useTranslation } from 'next-i18next';
+
 interface SignInFormValues {
   email: string;
   password: string;
@@ -23,6 +25,7 @@ const initialValues: SignInFormValues = {
 const SignInForm: React.FC = () => {
   const toast = useToast()
   let [Loading,setLoaging]=useState(false)
+  const {t}= useTranslation("common")
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
     password: Yup.string().required('Required'),
@@ -103,20 +106,20 @@ const SignInForm: React.FC = () => {
         <Form className={styles.form}>
           <LoginInp
           name='email'
-          title='Email'
+          title={t("E-mail")}
           icon={true}
           type='email'
           />
           <LoginInp
                     name='password'
 
-          title='Password'
+          title={t("Password")}
           icon={false}
           type='password'
           />
           <button className={styles.button} type="submit" disabled={isSubmitting} style={ Loading?{cursor: "not-allowed"}:{cursor: 'pointer'}}>
             
-            {Loading?<Spiner />:"Sign In"}
+            {Loading?<Spiner />: `${t("Login")}` }
           </button>
         </Form>
       )}

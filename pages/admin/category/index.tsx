@@ -128,7 +128,7 @@ function Category() {
 
                 <div>
                     <AdminHedetbuttom typeButton={false} addButton={true} addButtonFun={onOpen}
-                                      addTitle={t('ADD CATEGORY ')} Title={t('Category ')}/>
+                                      addTitle={t('ADD CATEGORY')} Title={t('Category')}/>
                     {loading ?
                         <Loading/> :
                         <AdminTable edit={editCategory}
@@ -141,8 +141,8 @@ function Category() {
                     <Form
                         isOpen={isOpen}
                         loading={loading}
-                        title={editImg ? 'Edit Category' : 'Add Category'}
-                        subtitle={`${editImg ? 'Edit' : 'Add'} your Category Name `}
+                        title={editImg ? `${t('Edit Category')}` : `${t('ADD CATEGORY')}`}
+                        subtitle={`${t("Add your category description and necesarry information")}`}
                         onClose={() => {
                             onClose()
                             seteditImg('')
@@ -150,11 +150,11 @@ function Category() {
                             
                         }}
                         onAction={editImg ? updateCategory : addCategory}
-                        btnTitle={editImg ? "Edit category" : "Create category"}
+                        btnTitle={editImg ? `${t("Edit Category")}` : `${t("create category")}`}
                         IMG={editImg}
                         setIMG={setImg}
                     >
-                        <Input hasLabel={true} title={'Name'} type={'text'} input_name={'category_title'} Ref={inpTitle}
+                        <Input hasLabel={true} title={t("Name")} type={'text'} input_name={'category_title'} Ref={inpTitle}
                                value={Titlevalue}/>
                         <div className=" text-red-600">{TitleYup}</div>
                     </Form>

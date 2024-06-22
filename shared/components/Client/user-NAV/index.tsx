@@ -9,11 +9,14 @@ import styles from '../user-NAV/Usernav.module.css'
 import { useRouter } from 'next/router';
 import {clearUser} from "../../../redux/featuries/user/userSılice";
 import {AppDispatch} from "../../../redux/store";
+import { useTranslation } from "next-i18next";
+
 interface PROPs{
     active:number
 }
 function Navbar(props:PROPs) {
     const {push, pathname} =useRouter()
+    const {t} = useTranslation("common")
     const dispatch: AppDispatch = useDispatch();
     let {active} = props
     return (
@@ -28,7 +31,7 @@ function Navbar(props:PROPs) {
                 width={24}
                 height={24}
                 />
-                <h3 className={ active===1? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>Profile</h3>
+                <h3 className={ active===1? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>{t("Your Profile")}</h3>
 
             </div>
             <div 
@@ -41,7 +44,7 @@ function Navbar(props:PROPs) {
                 width={24}
                 height={24}
                 />
-                <h3 className={active===2? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>Your Basket</h3>
+                <h3 className={active===2? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>{t("Your Basket")}</h3>
 
             </div>
             <div 
@@ -54,7 +57,7 @@ function Navbar(props:PROPs) {
                 width={24}
                 height={24}
                 />
-                <h3 className={active===3? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>Your Orders </h3>
+                <h3 className={active===3? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>{t("Your Orders")} </h3>
 
             </div>
             <div
@@ -67,7 +70,7 @@ function Navbar(props:PROPs) {
                 width={24}
                 height={24}
                 />
-                <h3 className={active===4? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>Checkout</h3>
+                <h3 className={active===4? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>{t("Checkout")}</h3>
 
             </div>
             <div 
@@ -85,7 +88,7 @@ function Navbar(props:PROPs) {
                 width={24}
                 height={24}
                 />
-                <h3 className={active===5? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>Logout</h3>
+                <h3 className={active===5? styles.icondiv+ ' '+styles.activeText: styles.defaultText }>{t("Logout")}</h3>
 
             </div>
         </div>

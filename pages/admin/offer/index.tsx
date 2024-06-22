@@ -11,7 +11,7 @@ import { useToast } from '@chakra-ui/react'
 import uploadFile from "../../../shared/utils/uploadFile";
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
+import { useTranslation } from "next-i18next";
 import withAuth from "../../../shared/HOC/withAuth";
 import { PostOffer, PutOffer } from "../../../shared/services";
 import Modal from "../../../shared/components/admin/Modal";
@@ -23,7 +23,7 @@ import CustomButton from "../../../shared/components/admin/Button";
     let [editImg, seteditImg] = useState<any>('')
     let [editID, seteditID] = useState<any>('')
     let [DeleteID, setDeleteID] = useState<any>('')
-
+    const {t} = useTranslation("common")
     let [TitleYup, setTitleYup] = useState('')
     let [loading, setloading] = useState(false)
     let [Titlevalue, setTitlevalue] = useState('')
@@ -243,8 +243,8 @@ import CustomButton from "../../../shared/components/admin/Button";
                     typeButton={false}
 
                     addButton={true}
-                    addTitle={"ADD OFFER"}
-                    Title={"Offers"}
+                    addTitle={t("ADD OFFER")}
+                    Title={t("Offers")}
                     addButtonFun={onOpen}/>
                 <AdminTable
                     edit={editOffer}
@@ -259,8 +259,8 @@ import CustomButton from "../../../shared/components/admin/Button";
             <Form
             loading={loading}
                 isOpen={isOpen}
-                title={editImg ? 'Edit Offer' : 'Add Offer'}
-                subtitle={"Add your Offer Title and Description "}
+                title={editImg ? `${t("Edit Offer")}` : `${t("Add Offer")}`}
+                subtitle={t("Add your offer description and necesarry information")}
                 onClose={() => {
                     onClose()
                     seteditImg('')
@@ -268,21 +268,21 @@ import CustomButton from "../../../shared/components/admin/Button";
                     setDescValue('')
                 }}
                 onAction={editImg ? updateOffer : AddOffer}
-                btnTitle={editImg ? "Edit offer" : "Create offer"}
+                btnTitle={editImg ? `${t("Edit Offer")}` : `${t("create offer")}`}
                 IMG={editImg}
                 setIMG={setImg}
             >
-                <Input hasLabel={true} title={'Title'} type={'text'} input_name={'Offer_Title'} Ref={inpTitle}
+                <Input hasLabel={true} title={t("Title")} type={'text'} input_name={'Offer_Title'} Ref={inpTitle}
                        value={Titlevalue}/>
                 <div className=" text-red-600">{TitleYup}</div>
-                <Input hasLabel={true} title={'Name'} type={'text'} input_name={'product_name'} Ref={inpDesc}
+                <Input hasLabel={true} title={t("Name")} type={'text'} input_name={'product_name'} Ref={inpDesc}
                        value={DescValue}/>
                 <div className="  text-red-600 ">{DescYup}</div>
             </Form>
             <Modal isOpen={displayModal} onClose={()=>{setdisplayModal(false)}}>
             <div className="flex justify-between items-center">
               <p className="mx-auto text-3xl font-medium">
-                Are you sure it's deleted?
+                  {t("Are you sure it's deleted ?")}
               </p>
             </div>
 
@@ -296,13 +296,13 @@ import CustomButton from "../../../shared/components/admin/Button";
             >
               <CustomButton
                   className=" border-grayText text-grayText py-1 px-8"
-                  innerText="Cancel"
+                  innerText={t("Cancel")}
               />
               <div onClick={()=>{deleteOffer(DeleteID)}}>
                 <CustomButton
                     type={'button'}
                     className="bg-mainRed border-2 text-white py-1 px-8"
-                    innerText="Delete"
+                    innerText={t("Delete")}
                     color={"1"}
                 />
               </div>

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { AccessGet, Get } from '../../../../server/helper/reguests';formatDate
 import firebaseIdToNumber from '../../../../server/helper/firebaseIdToNumber'
 import formatDate from '../../../../server/helper/convertDateToDAy'
+import { useTranslation } from 'next-i18next';
 interface Props{
     data?:any
     ShowOrder?:any
@@ -14,7 +15,7 @@ interface Props{
 }
 function OrdersTable(props:Props) {
     let {data,ShowOrder,Ondelete,cantdelet}=props
-   
+    const {t}=useTranslation("common")
     
 
 
@@ -25,12 +26,12 @@ function OrdersTable(props:Props) {
                     <thead  >
                             <tr className={style.thead}>
                                 <th className={style.theadId}>ID</th>
-                                <th className={style.theadCID}>Customer ID</th>
-                                <th className={style.theadTime}>Time</th>
-                                <th className={style.theadAd}>Delivery Address</th>
-                                <th className={style.theadAm}>Amount</th>
-                                <th className={style.theadPay}>Payment Method</th>
-                                <th className={style.theadCon}>Contact</th>
+                                <th className={style.theadCID}>{t("Customer Id")}</th>
+                                <th className={style.theadTime}>{t("Time")}</th>
+                                <th className={style.theadAd}>{t("Delivery Address")}</th>
+                                <th className={style.theadAm}>{t("Amount")}</th>
+                                <th className={style.theadPay}>{t("Payment Method")}</th>
+                                <th className={style.theadCon}>{t("Contact")}</th>
 
                             </tr>
                     </thead> 

@@ -43,8 +43,10 @@ export default function Search(){
                     type="text"
                     placeholder={t("Search")}
                     value={query}
-                    onFocus={()=>setFocus(true)}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                        setQuery(e.target.value);
+                        setFocus(true);
+                    }}
                 />
                 {focus &&
                 <div className={styles.search_result}>

@@ -2,7 +2,7 @@ import {ApexOptions} from "apexcharts";
 import React, {useState} from "react";
 import ReactApexChart from "react-apexcharts";
 import styles from './card.module.css'
-
+import {useTranslation} from "next-i18next";
 const options: ApexOptions = {
     colors: ["#3C50E0", "#80CAEE"],
     chart: {
@@ -78,6 +78,7 @@ interface BarChartState {
 }
 
 const BarChart: React.FC = () => {
+    const {t} =useTranslation("common")
     const [state, setState] = useState<BarChartState>({
         series: [
             {
@@ -102,7 +103,7 @@ const BarChart: React.FC = () => {
         <>
             <div className={styles.card_item}>
                 <div className={styles.card_box}>
-                    <h3 className={styles.card_title}>User Count</h3>
+                    <h3 className={styles.card_title}>{t("Users Rate")}</h3>
                     <div>
                         <div id="chartTwo" className="-mb-9 -ml-5">
                             <ReactApexChart

@@ -504,7 +504,7 @@ function AdminRestaurant() {
                 className="px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
                 onClick={handleAllCategoryClick}
             >
-              All Categories
+              {t("all categories")}
             </li>
             {categorys.map((category) => (
                 <li
@@ -543,7 +543,7 @@ function AdminRestaurant() {
 
 
             <button className="bg-custompurple text-white py-2 px-4 rounded-xl " onClick={onOpen}>
-              + ADD RESTAURANT
+              + {t("ADD RESTAURANTS")}
             </button>
           </div>
 
@@ -587,7 +587,7 @@ function AdminRestaurant() {
         {state.showModal && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="w-96 h-48 bg-white rounded-md">
-                <h1 className="flex justify-center mt-6 font-bold text-xl">Are you sure it’s deleted?</h1>
+                <h1 className="flex justify-center mt-6 font-bold text-xl">{t("Are you sure it's deleted ?")}</h1>
                 <h1 className="flex justify-center items-center mt-2">Attention! If you delete this</h1>
                 <h1 className="flex justify-center items-center">product, it will not come back...</h1>
                 <div className="flex justify-center mt-5">
@@ -595,13 +595,13 @@ function AdminRestaurant() {
                       className="border ml-5 border-x-8 border-y-8 bg-whiteLight1 border-black shadow-md text-gray-900 w-20 h-8"
                       onClick={handleCancelClick}
                   >
-                    Cancel
+                    {t("Cancel")}
                   </button>
                   <button
-                      className="border ml-5 border-x-8 border-y-8 bg-mainRed border-black shadow-md text-gray-900 w-20 h-8"
+                      className="border color_fff ml-5 border-x-8 border-y-8 bg-mainRed border-black shadow-md text-gray-900 w-20 h-8"
                       onClick={handleConfirmDelete}
                   >
-                    Delete
+                    {t("Delete")}
                   </button>
                 </div>
               </div>
@@ -614,8 +614,8 @@ function AdminRestaurant() {
 
         <Form
             isOpen={isOpen}
-            title={editImg ? 'Edit Restaurant' : 'Add Restaurant'}
-            subtitle={`${editImg ? 'Edit' : 'Add'} your Restaurant Name`}
+            title={editImg ? `${t("Edit Restaurant")}` : `${t("ADD RESTAURANTS")}`}
+            subtitle={`${t("Add your restuarant description and necesarry information")}`}
             onClose={() => {
               onClose();
               setEditImg('');
@@ -623,24 +623,24 @@ function AdminRestaurant() {
             }}
 
             onAction={editImg ? updateRestaurant : addRestaurant}
-            btnTitle={editImg ? "Edit Restaurant" : "Create Restaurant"}
+            btnTitle={editImg ? `${t("Edit Restaurant")}` : `${t("ADD RESTAURANTS")}`}
             IMG={editImg}
             setIMG={setImg}
         >
 
 
-          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Name'} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={t("Name")} type={'text'} input_name={'restaurant_title'} Ref={inpTitle} value={TitleValue} />
           <div className=" text-mainRed font-bold">{TitleStroge}</div>
 
-          <Select value={categorys} onChange={getCategorysById} title={"Categorys"} name={"cat_id"} options={categorys}  />
+          <Select value={categorys} onChange={getCategorysById} title={t("Categories")} name={"cat_id"} options={categorys}  />
 
-          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Cuisine'} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={t("Cuisine")} type={'text'} input_name={'restaurant_cuisine'} Ref={inpCuisine} value={CuisineValue} />
           <div className="text-mainRed font-bold">{CuisineStroge}</div>
-          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Price $'} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={t("Delivery Price")} type={'number'} input_name={'restaurant_delivery_price '} Ref={inpDeliveryPrice} value={DeliveryPriceValue} />
           <div className="text-mainRed font-bold">{DeliveryPriceStroge}</div>
-          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Min '} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={t("Delivery Min")} type={'number'} input_name={'restaurant_delivery_min'} Ref={inpDeliveryMin} value={DeliveryMinValue} />
           <div className="text-mainRed font-bold">{DeliveryMinStroge}</div>
-          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={'Delivery Adress '} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
+          <Input onChange={()=>console.log('onChange')} hasLabel={true} title={t("Address")} type={'text'} input_name={'restaurant_adress'} Ref={inpAdress} value={AdressValue} />
           <div className="text-mainRed font-bold">{AdressStroge}</div>
           <div className="text-mainRed font-bold">{AdressStrogeRegex}</div>
 

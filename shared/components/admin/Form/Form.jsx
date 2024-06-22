@@ -4,6 +4,7 @@ import CustomButton from "../Button";
 import style_form from "./form.module.css";
 import {useEffect, useState} from "react";
 import UploadSvg from "../svg/UploadSvg";
+import {useTranslation} from "next-i18next";
 
 function Form({
                   onClose, isOpen, children, title, subtitle,
@@ -14,6 +15,7 @@ function Form({
                   IMG = undefined,
               }) {
     const [imgFile,setImgFile]=useState('/imgs/no-photo.avif')
+    const {t} = useTranslation("common");
     function setImgChange(e){
         const file = e.target.files[0];
         if (file) {
@@ -52,7 +54,7 @@ function Form({
                             <h2 className=''>{title}</h2>
                             <div className={style_form.form_items}>
                                 <div className={style_form.left_item}>
-                                    <h4>Upload your image</h4>
+                                    {/*<h4>Upload your image</h4>*/}
                                     <img  className='mt-2' src={imgFile} alt=""/>
                                 </div>
                                 <div className={style_form.right_item}>
@@ -79,7 +81,7 @@ function Form({
                         </div>
 
                         <div className={styles.form_bottom}>
-                            <CustomButton icon={false} title={'Cancel'} onAction={onClose} type='button' size={'lg'} color={'2'}
+                            <CustomButton icon={false} title={t("Cancel")} onAction={onClose} type='button' size={'lg'} color={'2'}
                             />
                             <CustomButton loading={loading}   icon={false} title={btnTitle} type='button' size={'lg'} color={'1'}
                                           onAction={handleAction} />

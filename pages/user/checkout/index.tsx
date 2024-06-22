@@ -383,14 +383,14 @@ if(user) {
                                     <span className='text-grayText mt-1 text-lg'>{product.name}</span>
                                 </div>
                               {/*<div className='flex gap-16 ml-2'>*/}
-                                <h5 className='mt-1.5 text-lg text-grayText'>${product.price}</h5>
+                                <h5 className='mt-1.5 text-lg text-grayText'>{product.price} ₼</h5>
                               {/*</div>*/}
                             </div>
                           ))}
                           <hr className=' mt-8 w-11/12' />
                           <div className='flex gap-48 mt-4 justify-between p-2'>
                             <h1 className='font-bold text-2xl text-grayText'>{t("Total")}</h1>
-                            <h5 className='mt-1 text-xl text-grayText'>${basketList.total_amount}</h5>
+                            <h5 className='mt-1 text-xl text-grayText'>{basketList.total_amount} ₼</h5>
                           </div>
                           
                           <h1 className=' mt-7'></h1>

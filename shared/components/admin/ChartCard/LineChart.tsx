@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ReactApexChart from "react-apexcharts";
 import styles from "./card.module.css";
-
+import {useTranslation} from "next-i18next";
 export default function LineChart() {
 
     const [series] = useState([
@@ -9,7 +9,7 @@ export default function LineChart() {
             name: "Sample Data",
             data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
         }])
-
+    const {t} =useTranslation("common")
     const [options] = useState<ApexCharts.ApexOptions>({
         chart: {
             height: 350,
@@ -38,7 +38,7 @@ export default function LineChart() {
         <>
             <div className={styles.card_item}>
                 <div className={styles.card_box}>
-                    <h3 className={styles.card_title}>Restaurants</h3>
+                    <h3 className={styles.card_title}>{t("Restaurants")}</h3>
                     <ReactApexChart
                         options={options}
                         series={series}

@@ -17,8 +17,8 @@ import { sortDataByCreated } from "../../../shared/utils/sortData";
 import ConfirmModal from '../../../shared/components/admin/confirmModal'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../shared/redux/store";
+import {useTranslation} from "next-i18next";
+
 import {
   useDeleteProductMutation, useEditProductMutation,
   useGetProductsQuery
@@ -53,7 +53,7 @@ function Products() {
   let [editID, seteditID] = useState<any>('')
   let [TitleYup, setTitleYup] = useState('')
   let [Titlevalue, setTitlevalue] = useState('')
-
+  const {t} = useTranslation("common")
   let [DescValue, setDescValue] = useState('');
   let [PriceYup, setPriceYup] = useState('');
   let [PriceValue, setPriceValue] = useState('');
@@ -230,7 +230,7 @@ function Products() {
                 haveSelect={true}
                 onSelect={getRestaurantFilter}
                 selectOption={restaurants}
-                Title={'Products '}
+                Title={t("Products")}
               />
             </div>
 
@@ -247,9 +247,8 @@ function Products() {
           <Form
             isOpen={isOpen}
             loading={isLoading}
-            title={editImg ? 'Edit Product' : 'Add Product'}
-            subtitle={`${editImg ? 'Edit' : 'Add'} 
-          your Product description and necessary information `}
+            title={editImg ? `${t("Edit Product")}` : `${t('Add Product')}`}
+            subtitle={`${t( "Edit your Product description and necessary information")}`}
             onClose={() => {
               onClose()
               seteditImg('')
@@ -257,20 +256,20 @@ function Products() {
             }}
 
             onAction={updateProduct}
-            btnTitle={editImg ? "Edit product" : "Create product"}
+            btnTitle={editImg ? `${t("Edit Product")}` : `${t("create product")}`}
             IMG={editImg}
             setIMG={setImg}
           >
-            <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}
+            <Input hasLabel={true} title={t("Name")} type={"text"} input_name={"name"} Ref={inpTitle}
               value={Titlevalue} />
             <div className="text-mainRed">{TitleYup}</div>
-            <Input hasLabel={true} title={"Description"} type={"text"} input_name={"Description"} Ref={inpDesc}
+            <Input hasLabel={true} title={t("Description")} type={"text"} input_name={"Description"} Ref={inpDesc}
               value={DescValue} />
 
-            <Input hasLabel={true} title={"Price"} type={"number"} input_name={"Price"} Ref={inpPrice}
+            <Input hasLabel={true} title={t("Price")} type={"number"} input_name={"Price"} Ref={inpPrice}
               value={PriceValue} />
             <div className="text-mainRed">{PriceYup}</div>
-            <Select title={"Restaurants"} name={"rest_id"} options={restaurants} onChange={getRestaurantById} />
+            <Select title={t("Restaurants")} name={"rest_id"} options={restaurants} onChange={getRestaurantById} />
           </Form>
           <ConfirmModal
 

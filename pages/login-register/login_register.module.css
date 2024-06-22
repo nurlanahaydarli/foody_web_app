@@ -1,60 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-.Body{
+
+.Body {
     background: #ffffff;
     min-height: 100vh;
- 
+
 }
-.blackbg{
+
+.blackbg {
     background: #EB5757;
 }
-.headerTextActive{
+
+.headerTextActive {
     font-family: Mukta;
-font-size: 36px;
-font-weight: 600;
-line-height: 24px;
-letter-spacing: 0.03em;
-text-align: center;
-color: rgb(255, 255, 255);
-color: #EB5757;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    color: #EB5757;
+    cursor: pointer;
 }
-.headerTextDeActive{
+
+.headerTextDeActive {
     font-family: Mukta;
-font-size: 36px;
-font-weight: 600;
-line-height: 24px;
-letter-spacing: 0.03em;
-text-align: center;
-color: rgb(255, 255, 255);
-color: #828282;
+    cursor: pointer;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    color: #828282;
 }
-.loginIcon{
+
+.loginIcon {
     width: 50%;
     height: auto;
 }
 
-.loginbg{
+.loginbg {
     background: #ffffff;
 }
-.formText{
+
+.formText {
     font-family: Roboto;
-font-size: 30px;
-font-weight: 500;
-line-height: 24px;
-letter-spacing: 0.03em;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.03em;
 
 
 }
-.headerText{
+
+.headerText {
     font-family: Mukta;
-font-size: 36px;
-font-weight: 800;
-line-height: 24px;
-letter-spacing: 0.03em;
-text-align: center;
-color: rgb(255, 255, 255);
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    text-align: center;
+    color: rgb(255, 255, 255);
 
 }
-.imgdiv{
+
+.imgdiv {
     height: 100%;
 }

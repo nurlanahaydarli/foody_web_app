@@ -2,7 +2,7 @@ import {ApexOptions} from "apexcharts";
 import React, {useState} from "react";
 import ReactApexChart from "react-apexcharts";
 import styles from './card.module.css'
-
+import {useTranslation} from "next-i18next";
 interface DonutChartState {
     series: number[];
 }
@@ -51,6 +51,7 @@ const options: ApexOptions = {
 };
 
 const DonutChart: React.FC = () => {
+    const {t} =useTranslation("common")
     const [state, setState] = useState<DonutChartState>({
         series: [65, 34, 12, 56],
     });
@@ -67,7 +68,7 @@ const DonutChart: React.FC = () => {
         <>
             <div className={styles.card_item}>
                 <div className={styles.card_box}>
-                    <h3 className={styles.card_title}>Orders</h3>
+                    <h3 className={styles.card_title}>{t("Orders")}</h3>
                     <div className="mb-2">
                         <div id="chartThree" className="mx-auto flex justify-center">
                             <ReactApexChart

@@ -5,6 +5,7 @@ import deliteicon from '../../../../public/delete.svg'
 import styles from '../AdminTable/Admin.module.css'
 import {sortDataByCreated} from "../../../utils/sortData";
 import {shortText} from "../../../utils/shortText";
+import { useTranslation } from "next-i18next";
 interface PROPS {
     data? : any,
     reset :Function,
@@ -13,7 +14,7 @@ interface PROPS {
 }
 function AdminTable(props:PROPS) {
 let {data,reset,edit,removeDocument} =props
-
+const {t} = useTranslation("common")
 
 let [mobile,setmobile]=useState(false)
 useEffect(()=>{
@@ -33,16 +34,16 @@ useEffect(()=>{
                 <thead>
                     <tr  >
                     <th className={styles.thhead}>
-                        <div className={ styles.theadTitleID  }>id</div>
+                        <div className={ styles.theadTitleID  }>Id</div>
                         </th>
                     <th className='w-1/4 h-16 items-center '>
-                        <div className={styles.theadTitleImg }>Image</div>
+                        <div className={styles.theadTitleImg }>{t("Image")}</div>
                         </th>
                         <th className='w-1/4 h-16 items-center '>
-                        <div className={styles.theadTitleName}>Name</div>
+                        <div className={styles.theadTitleName}>{t("Name")}</div>
                         </th>
                         <th className='w-1/4 h-16 items-center '>
-                        <div className={styles.theadTitleSlug}>Slug</div>
+                        <div className={styles.theadTitleSlug}>{t("Slug")}</div>
                         </th>
                    
                     </tr>

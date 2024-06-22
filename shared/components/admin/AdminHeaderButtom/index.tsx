@@ -4,6 +4,7 @@ import vector from '../../../../public/pizza.svg'
 import Image from 'next/image';
 import CustomButton from '../Button';
 import Select from "../Form/Select";
+import {useTranslation} from "next-i18next";
 
 interface PROPS {
     Title?:String;
@@ -21,7 +22,7 @@ interface PROPS {
 
 function AdminHedetbuttom(props:PROPS) {
     let {typeButton,addButton,typeButtonFun,addButtonFun,typeTitle,addTitle ,Title,haveSelect,selectOption,onSelect}=props
-    
+    const {t} =useTranslation("common")
     return (
         <div className={'adminHeaderbg '+styles.heder}>
             <h2 className={ styles.title}> {Title}</h2>
@@ -32,7 +33,7 @@ function AdminHedetbuttom(props:PROPS) {
                  {!!haveSelect &&
                      <div className='custom_select'>
                          <select name={"rest_id"} onChange={onSelect} >
-                             <option value=''>All restaurants</option>
+                             <option value=''>{t("All restaurants")}</option>
                              {selectOption?.map((option)=>(
                                  <option value={option.id}>{option.name}</option>
                              ))}

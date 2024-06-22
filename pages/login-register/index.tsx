@@ -7,12 +7,16 @@ import SignInForm from '../../shared/components/Client/login-register/loginForum
 import RegisterForm from '../../shared/components/Client/login-register/RegisterForum';
 import ChangeLanguage from "../../shared/components/Language/ChangeLanguage";
 import {useRouter} from "next/router";
-import {auth} from "../../server/configs/firebase";
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+
 
 function Login_register() {
     let [singin,setsingin]=useState(true)
     let [mobile,setmobile]=useState(false)
     let router =useRouter()
+    const {t} = useTranslation("common")
     useEffect(()=>{
         if(window.innerWidth<800){
             setmobile(true)
@@ -34,7 +38,7 @@ function Login_register() {
     return (<div>
         <div className={style.Body +' w-full h-full p-7 '}>
             <header  className={style.blackbg + '  h-28 flex items-center justify-between  p-9 rounded-md '}>
-                <h2 className={style.headerText} >Foody.</h2>
+                <h2 className={style.headerText}  onClick={()=>router.push("/")}>Foody.</h2>
                 <ChangeLanguage/>
             </header>
             <div className={mobile?' flex flex-col gap-3 ':' flex flex-row gap-3 '}>
@@ -58,8 +62,8 @@ function Login_register() {
                 className={mobile?style.loginbg +'  h-full mt-5 rounded-md':style.loginbg +' w-2/5 h-full mt-5 rounded-md'}
                 >
                    <div className='flex flex-row  gap-16 justify-center h-full  mt-20'>
-                    <h2 className={singin? style.headerTextActive: style.headerTextDeActive}  onClick={()=>setsingin(true)}>Login</h2>
-                    <h2 className={!singin? style.headerTextActive: style.headerTextDeActive} onClick={()=>setsingin(false)}>Register</h2>
+                    <h2 className={singin? style.headerTextActive: style.headerTextDeActive}  onClick={()=>setsingin(true)}>{t("Login")}</h2>
+                    <h2 className={!singin? style.headerTextActive: style.headerTextDeActive} onClick={()=>setsingin(false)}>{t("Register")}</h2>
                    </div>
                    {singin?<SignInForm/>:<RegisterForm setsingin={()=>{
                     setsingin(true)
@@ -77,3 +81,9 @@ function Login_register() {
 }
 
 export default Login_register;
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+});

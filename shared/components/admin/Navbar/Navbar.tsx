@@ -17,10 +17,11 @@ import Select from '../Form/Select';
 import {AxiosResponse} from "axios";
 import { useToast } from '@chakra-ui/react';
 import {useCreateProductMutation} from "../../../redux/api/products/productsApi";
-
+import {useTranslation} from "next-i18next";
 
 export default function Navbar() {
     let { push } = useRouter();
+    const {t} = useTranslation("common")
     const { isOpen, onOpen, onClose } = useModalOpen()
     let dispatch: AppDispatch = useDispatch()
     function handleOpenSidebar() {
@@ -132,7 +133,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={styles.navbar_right}>
-                    <CustomButton icon={true} title={'Add product'} size={'sm'} color={'1'} type={'button'} onAction={onOpen}  loading={isLoading}  />
+                    <CustomButton icon={true} title={t('Add Product')} size={'sm'} color={'1'} type={'button'} onAction={onOpen}  loading={isLoading}  />
                     <ChangeLanguage />
                     <div className={styles.admin_box}>
                         <img src="/imgs/avatar.png" alt="" />
@@ -141,20 +142,20 @@ export default function Navbar() {
                 </div>
             </div>
             <Form 
-            isOpen={isOpen} title={'Add Product'} subtitle={"Add your Product description and necessary information"} onClose={onClose}
+            isOpen={isOpen} title={t('Add Product')} subtitle={t("Add your Product description and necessary information")} btnTitle={t("Add Product")} onClose={onClose}
                 onAction={addProduct} setIMG={setImg} loading={isLoading}
             >
-                <Input hasLabel={true} title={"Name"} type={"text"} input_name={"name"} Ref={inpTitle}
+                <Input hasLabel={true} title={t("Name")} type={"text"} input_name={"name"} Ref={inpTitle}
                     value={Titlevalue} />
                 <div className=" text-mainRed">{TitleYup}</div>
-                <Input hasLabel={true} title={"Description"} type={"text"} input_name={"description"} Ref={inpDesc}
+                <Input hasLabel={true} title={t("Description")} type={"text"} input_name={"description"} Ref={inpDesc}
                     value={DescValue} />
               
-                <Input hasLabel={true} title={"Price"} type={"number"} input_name={"price"} Ref={inpPrice}
+                <Input hasLabel={true} title={t("Price")} type={"number"} input_name={"price"} Ref={inpPrice}
                     value={PriceValue} />
                 <div className=" text-mainRed">{PriceYup}</div>
 
-                <Select title={"Restaurants"} name={"rest_id"} options={restaurants}  onChange={getRestaurantById} />
+                <Select title={t("Restaurants")} name={"rest_id"} options={restaurants}  onChange={getRestaurantById} />
             </Form>
         </>
     );

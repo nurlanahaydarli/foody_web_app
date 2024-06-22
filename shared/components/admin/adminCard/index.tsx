@@ -66,7 +66,7 @@ useEffect(()=>{
                         </p>
                     </div>
                     <div className=" mx-5 flex justify-between">
-                        <p className="text-[#00B2A9;] font-medium">${data.price}</p>
+                        <p className="text-[#00B2A9;] font-medium">{data.price} ₼</p>
                    
                         <div className="flex mx-3 gap-3">
                             <Image
