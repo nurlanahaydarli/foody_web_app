@@ -11,12 +11,13 @@ interface IResult {
 const url = {
     baseUrl:"/api"
 } as FetchBaseQueryArgs;
+
 export const productsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery(url),
     tagTypes: ['Product'],
     endpoints: (builder) => ({
-        getProducts: builder.query<ProductPostDataType[], any>({
+        GetProducts: builder.query<ProductPostDataType[], any>({
             query() {
                 return {
                     url: '/products',
