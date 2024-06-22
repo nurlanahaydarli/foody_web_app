@@ -195,7 +195,7 @@ if(user) {
 
 
     setTimeout(() => {
-        router.push('/restaurants');
+        router.push('/user/orders');
     }, 2000);
 } else {
     // toast.error("User not logged in.");
@@ -280,7 +280,7 @@ if(user) {
                         </div>}
                         <div className="lg:w-3/4 w-full  lg:p-[16px] pe-[0px]">
                             {checkoutComplete ? (
-                                <div className='w-10/12 ml-5 mt-4 rounded-md bg-cardColor bg-rounded-md shadow-md'>
+                                <div className='w-10/12 flex justify-center items-center flex-col w-full h-full gap-4 rounded-md bg-cardColor bg-rounded-md shadow-md'>
                                     <div className=' flex justify-center mt-20'>
                                         <Image src={confirmationIcon}alt=''/>
                                     </div>
