@@ -144,11 +144,7 @@ function Products() {
         }) as string | null;
         updatedProduct.img_url = res;
       }
-      // setProducts(prevProducts => prevProducts.map(product =>
-      //   product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
-      // ));
-
-      // await EditProduct(updatedProduct)
+    //////////////////////////////////////////
       await updateProductApi(updatedProduct)
       toast({
         title: `Product successfully edited`,
