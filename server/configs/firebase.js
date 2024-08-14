@@ -16,12 +16,12 @@ import { getAuth } from 'firebase/auth';
 // };
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC68IobQTT7kIpF39ZOAdZFcgv75doxD50",
-    authDomain: "foody-4.firebaseapp.com",
-    projectId: "foody-4",
-    storageBucket: "foody-4.appspot.com",
-    messagingSenderId: "745316669318",
-    appId: "1:745316669318:web:84ab8b0b32d51120717e07"
+    apiKey: "AIzaSyAg8H6t2CjSNH8yeRaHpdsKc5geHYd_nMc",
+  authDomain: "foooody-app.firebaseapp.com",
+  projectId: "foooody-app",
+  storageBucket: "foooody-app.appspot.com",
+  messagingSenderId: "583679006882",
+  appId: "1:583679006882:web:6235e9393880a3d721dffb"
 };
 // const firebaseConfig = {
 //     apiKey: "AIzaSyDlD4lxZIGn7riJ_0mfrIbBITvxlPspcCA",
